@@ -1,0 +1,834 @@
+/**
+* Bootstrap Overrides
+*/
+$nav-border-hover: '#333';
+
+.modal-header {
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .close {
+        order: 2;
+        margin: 0;
+        font-size: 35px;
+        font-weight: 100;
+        text-shadow: none;
+        float: none;
+        margin-left: auto;
+    }
+
+    &.sticky-header {
+        position: sticky;
+        top: 22px;
+        background-color: $light-background-color;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        z-index: 999;
+        &.is-stuck {
+            border-bottom: 1px solid #24262A;
+            margin-bottom: 10px;
+            box-shadow: 0 6px 9px -2px #0000004d;
+        }
+    }
+}
+
+.modal-footer {
+    border-top: none;
+
+    &.sticky-footer {
+        position: sticky;
+        bottom: 0;
+        z-index: 999;
+        background-color: $light-background-color;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        &.is-stuck {
+            border-top: 1px solid #24262A;
+            margin-top: 10px;
+            box-shadow: 0 -6px 9px -2px #0000004d;
+        }
+    }
+}
+
+.effect-footer-sentinel, .fb-scroll-sentinel {
+    width: 100%;
+}
+
+.modal-content {
+    border-radius: 8px;
+    background-color: $light-background-color;
+    position: relative;
+}
+.modal-title {
+    font-weight: 100;
+    font-size: 25px;
+    word-wrap: break-word;
+}
+
+.modal:focus {
+    outline: none;
+}
+
+.modalsidebar{
+    display:flex;
+}
+.modalsidebar > .nav-link-bar{
+    background-color: #9145FF;
+}
+
+.modal-sm {
+    width: 400px;
+}
+
+.margin-auto .modal-dialog {
+    margin: auto;
+}
+
+.modal-emotesize {
+    // width: 400px;
+    // left:240px;
+    // top:auto;
+    // bottom: 55px!important;
+
+    display: flex!important;
+    flex-direction:column-reverse;
+    padding-bottom: 55px;
+}
+
+.modal-emotesize > .modal-dialog{
+    // position: fixed;
+    // left:239px;
+    // bottom:55px;
+    margin-right: 42%;
+    width: 375px;
+}
+
+.modal-emotesize + .modal-backdrop{
+    background-color: transparent;
+
+}
+
+.modal-emotesize.in{
+    background-color: transparent;
+}
+.modal-emotebackdrop{
+    background-color: transparent;
+}
+.modal-popout-box {
+    left: unset;
+    right: 1%;
+    padding-left: 100%;
+}
+.modal-md {
+    width: 500px;
+}
+
+.modal-body {
+    padding-top: 0;
+}
+
+.general-button-settings .input-group {
+    padding-bottom: 0;
+}
+
+.general-button-settings .input-group-addon:first-child {
+    min-width: 150px;
+}
+
+.panel-group {
+    margin-bottom: 0px;
+}
+
+.well {
+    margin-bottom: 0px;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+
+
+/* sub menus */
+.dropdown-submenu {
+	position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+	top: 0;
+	left: 100%;
+	margin-top: -6px;
+	margin-left: -1px;
+	//-webkit-border-radius: 0 6px 6px 6px;
+	//-moz-border-radius: 0 6px 6px 6px;
+	//border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropdown-submenu>a:after {
+	display: block;
+	content: " ";
+	float: right;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 5px 0 5px 5px;
+	border-left-color: #cccccc;
+	margin-top: 5px;
+	margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+	border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+	float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+	left: -100%;
+	margin-left: 10px;
+	//-webkit-border-radius: 6px 0 6px 6px;
+	//-moz-border-radius: 6px 0 6px 6px;
+	//border-radius: 6px 0 6px 6px;
+}
+
+
+/* Tabs */
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: $selected-tab-text-color;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid $nav-border-selected;
+}
+
+.nav-tabs .nav-link {
+    color: $unselected-tab-text-color;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav-tabs>li>a:hover {
+    opacity: 1 !important;
+    color: white !important;
+    border-color: transparent;
+    border-bottom: 1px solid $nav-border-hover;
+}
+
+.nav-tabs .nav-link:hover {
+    color: $nav-border-hover;
+}
+
+// Buttons
+
+.btn {
+    &.btn-lg {
+        height: 42px;
+        font-size: 15px;
+    }
+}
+
+.btn-danger:hover, 
+.btn-default:hover, 
+.btn-primary:hover, 
+.btn-secondary:hover, 
+.btn-success:hover {
+    border-color: transparent;
+}
+.btn-changecolor{
+    background-color: #9145ff;
+    color: #fff !important;
+    &:hover {
+        color: #fff;
+    }
+}
+.btn-changecolor-uibtab{
+    background-color: $default-btn-bg-color;
+    border-color: transparent;
+    // &:hover {
+    //     background-color: #9145ff;
+    // }
+}
+.btn-changecolor-uibtab.active, .btn-changecolor-uibtab:active, .open > .dropdown-toggle.btn-changecolor-uibtab{
+    background-color: #9145ff;
+}
+.nav-tabs > li:first-child {
+    border-radius: 8px 0 0 8px;
+}
+.nav-tabs > li:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.btn-group > .btn {
+    border-radius: 8px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
+    color: white;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+.nav > li > a{
+    height: 36px;
+    position: relative;
+    display: block;
+    padding: 6px 12px;
+}
+.btn-primary {
+    background-color: #9145ff;
+    border-color: transparent;
+    &:hover {
+        background-color: #9145ff;
+    }
+}
+.btn-primary.focus, .btn-primary:focus{
+    color: #fff;
+    background-color: #9145ff;
+    border-color: #122b40;
+}
+
+.btn-default {
+    border: 2px solid $default-btn-border;
+    background-color: $default-btn-bg-color;
+    color: $default-btn-text-color;
+    &:hover {
+        background-color: $default-btn-bg-color;
+        border-color: $highlight-color;
+        color: white;
+    }
+}
+
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+    // color: $default-btn-text-color;
+    color: white;
+    background-color: $default-btn-hover-bg;
+    // border-color: $default-btn-hover-border;
+    border-color: #9145ff;
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: 5px auto lightgray;
+    outline-offset: -2px;
+}
+
+.btn.active, .btn:active {
+    box-shadow: none;
+}
+
+.btn-danger, .btn-primary, .btn-success, .btn-secondary {
+    padding: 7px 12px;
+}
+
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+    color: $default-btn-text-color;
+    background-color: $default-btn-hover-bg;
+    border-color: transparent;
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: none;
+    outline-offset: 0;
+    border-color: transparent;
+}
+
+.btn-link {
+    color: #9145ff;
+}
+
+// Misc 
+
+.table-hover > tbody > tr:hover {
+    background-color: $light-background-color;
+}
+.control-list:hover>td, .command-list:hover>td {
+    color: $content-text-color; 
+}
+
+.popover {
+    border: 2px solid $dropdown-menu-border;
+    background-color: $dropdown-menu-bg; 
+    border-radius: 2px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.popover.top > .arrow {
+    border-top-color: transparent;
+    &:after {
+        border-top-color: $dropdown-menu-border;
+    }
+}
+
+.popover.bottom > .arrow {
+    border-bottom-color: transparent;
+    &:after {
+        border-bottom-color: $dropdown-menu-border;
+    }
+}
+
+.popover.right > .arrow {
+    border-right-color: transparent;
+    &:after {
+        border-right-color: $dropdown-menu-border;
+    }
+}
+
+.popover.left > .arrow {
+    border-left-color: transparent;
+    &:after {
+        border-left-color: $dropdown-menu-border;
+    }
+}
+
+.popover-content {
+    padding: 2px;
+    word-wrap: break-word;
+}
+
+.tooltip-inner {
+    word-wrap: break-word;
+}
+
+.dropdown-menu {
+    border-radius: 2px;
+    border: 2px solid $dropdown-menu-border;
+    background-color: $dropdown-menu-bg;
+    z-index: 2080;
+    min-width: 125px;
+}
+
+.dropdown-menu>li>a {
+    color: $dropdown-menu-text;
+    &:focus, &:hover {
+        color: $dropdown-menu-text;
+        background-color: $dropdown-menu-bg - 15%;
+    }
+}
+
+.dropdown-menu .divider {
+    background-color: $dropdown-menu-divider-color;
+}
+
+.text-muted {
+    color: $muted-text-color;
+}
+
+.ui-select-bootstrap .ui-select-choices-row>span {
+    color: $dropdown-menu-text;
+}
+
+.ui-select-bootstrap .ui-select-choices-row>span:hover, .ui-select-bootstrap .ui-select-choices-row>span:focus {
+    text-decoration: none;
+    color: $dropdown-menu-text;
+    background-color: $dropdown-menu-bg - 15%;
+}
+
+.ui-select-bootstrap > .ui-select-choices, .ui-select-bootstrap > .ui-select-no-choice {
+    max-height: 332px;
+}
+
+.control-type-list.ui-select-bootstrap .ui-select-choices-row > span {
+    padding: 5px 0px;
+    white-space: unset;
+}
+
+
+// Form Control
+//对应修改是messagefilter的button颜色
+.input-group-addon {
+    border: 2px solid $add-on-group-border;
+    border-radius: 5px;
+    box-shadow: none;
+    // background-color: $add-on-group-bg;
+    background-color: rgb(36,38,42);
+    color: $add-on-group-text;
+}
+.input-group-bgcolor{
+    background-color: black!important;
+}
+.form-control {
+    border: 2px solid $form-control-border;
+    border-radius: 5px;
+    height: 36px;
+    box-shadow: none;
+    background-color: $form-control-bg;
+    // background-color: black;
+    color: $form-control-text;
+    &:focus {
+        box-shadow: none;
+        background-color: $form-control-bg - 10%;
+    }
+    &.input-lg {
+        height: 42px;
+        font-size: 16px;
+    }
+}
+
+.input-group .form-control {
+    z-index: 0; 
+    float: none;
+}
+
+.form-group {
+    margin-bottom: 30px;
+    & .form-label {
+        font-size: 15px;
+        font-weight: 500;
+        //text-transform: uppercase;
+        //letter-spacing: 1px;
+        opacity: 0.9;
+    }
+    & .help-block {
+        font-size: 13px;
+        color: #9a9a9a;
+    }
+}
+
+.has-error .form-control {
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+.color-picker-wrapper .input-group .input-group-addon {
+    width: 40px;
+    border: 1px solid #24262A !important;
+    border-radius: 6px;
+    &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.input-group .form-control:focus {
+    z-index: 0;
+}
+
+.form-control:focus {
+    border-color: #9145ff;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: $form-control-bg + 50%;
+    opacity: 1;
+}
+
+label {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+// Alerts
+
+.alert {
+    border-radius: 2px;
+}
+
+.alert-info {
+    color: $alert-info-text-color;
+    background-color: $alert-info-bg;
+    border-color: transparent;
+}
+
+.alert-warning {
+    color: $alert-warning-text-color;
+    background-color: $alert-warning-bg;
+    border-color: transparent;
+}
+
+.alert-danger {
+    color: $alert-danger-text-color;
+    background-color: $alert-danger-bg;
+    border-color: transparent;
+}
+
+// This is for pages that use tabbed navigation. IE: Commands
+.fb-commands-tab-wrapper {
+    height: 55px;
+    background: $fb-tab-wrapper-bg;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-bottom: 1px solid $fb-tab-wrapper-border-color;
+  }
+
+  .fb-center-tabs {
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    .fb-tab {
+        padding: 10px 15px;
+        color: $fb-tab-notactive-text-color;
+        &:hover {
+            color: $fb-tab-hover-text-color;
+            cursor: pointer;
+        }
+        &.active {
+            &:hover{
+                color: $fb-tab-active-text-color;
+                cursor: default;
+            }
+            color: $fb-tab-active-text-color;
+        }
+    }
+    .tab-divider {
+        height: 15px;
+        width: 2px;
+        background: $fb-tab-divider-color;
+        &:first-child {
+            width: 3px;
+        }
+    }
+  }
+  
+  .fb-tabs {
+    margin: 0 10px;
+    border-bottom: 0px solid #eaecec;
+    font-weight: 600;
+    font-size: 12px;
+    & > li.active > a, & > li.active > a:focus, & > li.active > a:hover {
+      color: $fb-tab-hightlight-color;
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-bottom: 3px solid $fb-tab-hightlight-color;
+      &.nounderline {
+        border-bottom: 0;
+        border: 0;
+      }
+    }
+    & > li > a:hover {
+      border-color: transparent;
+      border-bottom: 3px solid $fb-tab-border-bottom-hover;
+      color:  $fb-tab-border-bottom-hover;
+      &.nounderline {
+        border-bottom: 0;
+        border: 0;
+      }
+    }
+    & > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        color: $fb-unselected-text-color;
+    }
+  }
+
+a {
+    color: #9145ff;
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.command-trigger-cell {
+    max-width: 100px;
+    min-width: 100px;
+    & .trigger {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 240px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+// This is for pages that do NOT use tabbed navigation. IE: Live Events
+.fb-notab-header-wrapper{
+    height: 55px;
+    background: $fb-tab-wrapper-bg;
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+    border-bottom: 1px solid $fb-tab-wrapper-border-color;
+
+    .fb-notab-title{
+        margin: 0 10px;
+        padding:10px 15px;
+        border-bottom: 0px solid #eaecec;
+        font-weight: 600;
+        font-size: 12px;
+        color: $fb-tab-title-color;
+        background-color: transparent;
+        border: 1px solid transparent;
+        text-transform: uppercase;
+    }
+
+    .fb-notab-dropdown .noselect{
+        margin: 0 10px;
+        padding:10px 15px;
+        border-bottom: 0px solid #eaecec;
+        font-weight: 600;
+        font-size: 12px;
+        color: gray;
+        background-color: transparent;
+        border: 1px solid transparent;
+        text-transform: uppercase;
+        border-bottom: 3px solid transparent;
+
+        &.project-dropdown-text {
+            color: $project-dropdown-text-color;
+            font-size: 14px;
+            font-family: 'Quicksand';
+            border: 0px;
+            border-bottom: 0px;
+        }
+    }
+}
+
+.modal-title {
+    cursor: default;
+    user-select: none;
+}
+
+
+.glyphicon.glyphicon-chevron-left, .glyphicon.glyphicon-chevron-right {
+    vertical-align: -0%;
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 900;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+.glyphicon-chevron-left:before {
+    content: "\f053";
+}
+
+.glyphicon-chevron-right:before {
+    content: "\f054";
+}
+
+/* pagination */
+.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+    color: #b9b9b9;
+    background-color: #68696C;
+    border-color: #2F3136;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2F3136;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #ffffff;
+    background-color: #68696C;
+    border: 1px solid #2F3136;
+}
+
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+    color: white;
+    background-color: #888888;
+    border-color: #2F3136;
+}
+
+.bgweight{
+    font-size:25px;
+    font-weight: bold;
+}
+
+.bgfontcolor{
+    color:#CAC8C8 ;
+}
+
+.ui-select-bootstrap .ui-select-choices-row.active > span {
+    background-color: #9145ff;
+}
+
+.kol-none-box {
+    border: dashed 1px #808080;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.kol-none-box p {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #87878A;
+}
+
+.ui-select-bootstrap > .ui-select-match >.btn {
+    background: #101111;
+}
+
+.kol-analysis-nav ul.nav{
+    padding-left: 20px;
+}
+
+.kol-chat-notifications .form-control {
+    background-color: #181819;
+}
+
+.kol-chat-notifications .kol-input-append-tag {
+    left: -15%;
+    top: 6px;
+    position: relative;
+    font-size: 16px;
+}
+
+.kol-chat-notifications .kol-input-append-tag i:hover {
+    color: #9145FF;
+}
+
+.kol-warn-tip .form-control {
+    border-color: red;
+}
+
+.fas.fa-plus-circle.purple {
+    margin-left: 3px;
+    color: #9145FF;
+}
+
+.kol-message-tip {
+    color: #CAC8C8;
+    line-height: 15px;
+    height: 15px;
+}
+
+.kol-message-tip > span {
+    background-color: white;
+    color: black;
+    padding: 2px 3px;
+    border-radius: 3px;
+    margin: 3px
+}
+
+#kol-chat-notifications-responseMsgs input span {
+    background-color: white;
+    padding: 2px 3px;
+    border-radius: 3px;
+}
+
+.kol-cooldown-time span {
+    color: #CAC8C8;
+}
+
+.kol-cooldown-time .fb-select {
+    width: 60px;
+    color: black;
+    height: 25px;
+    display: inline;
+    margin-left: 14px;
+    padding: 3px 2px;
+}

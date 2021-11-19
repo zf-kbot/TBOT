@@ -1,0 +1,175 @@
+<div class="modal-header">
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    ng-click="$ctrl.dismiss()"
+  >
+    <span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span>
+  </button>
+  <h4 class="modal-title">
+    <span >Add New Blacklisted Words</span>
+  </h4>
+</div>
+<div class="modal-body">
+  <div>
+    <!-- 文本输入框 -->
+    <div class="form-group" style="padding-bottom: 1em">
+      <div class="settings-title">
+        <i class="fal fa-text" style="margin-right: 5px;"></i> 
+        Phrase
+        <tooltip style="font-size: 14px;" text = "'The text must be between 1 and 500 characters.'"></tooltip>
+      </div>
+      <div class="input-group" style ="width:100%;">
+        <input
+          type="text"
+          class="form-control"
+          aria-describedby="basic-addon3"
+          ng-model="$ctrl.command.trigger"
+          style="border-radius: 5px;"
+          placeholder="Text phrase(* required)"
+        />
+      </div>
+    </div>
+    <!-- 设置按钮 -->
+    <div class="form-group other-settings">
+      <div class="settings-title">
+        <i class="fal fa-cog" style="margin-right: 5px;"></i> 
+        Settings
+      </div>
+      <!-- 屏蔽enable设置 -->
+      <!-- <div class="controls-fb-inline">
+        <label class="control-fb control--checkbox"
+          >Enabled
+          <input
+            type="checkbox"
+            ng-model="$ctrl.command.active"
+            aria-label="..."
+            checked
+          />
+          <div class="control__indicator"></div>
+        </label>
+      </div> -->
+
+      <!-- ignore letter case -->
+      <div class="controls-fb-inline">
+        <label class="control-fb control--checkbox"
+          >Ignore letter case
+          <input
+            type="checkbox"
+            ng-model="$ctrl.command.ignoreLetterCase"
+            aria-label="..."
+            checked
+          />
+          <div class="control__indicator"></div>
+        </label>
+      </div>
+
+      <!-- ignore word boundry -->
+      <div class="controls-fb-inline">
+        <label class="control-fb control--checkbox"
+          >Ignore word boundaries
+          <input
+            type="checkbox"
+            ng-model="$ctrl.command.ignoreWordBoundry"
+            aria-label="..."
+            checked
+          />
+          <div class="control__indicator"></div>
+        </label>
+      </div>
+
+      <!-- checkUserName -->
+      <div class="controls-fb-inline">
+        <label class="control-fb control--checkbox"
+          >Check username
+          <input
+            type="checkbox"
+            ng-model="$ctrl.command.checkUserName"
+            aria-label="..."
+            checked
+          />
+          <div class="control__indicator"></div>
+        </label>
+      </div>
+      <div class="controls-fb-inline" style="margin-top: 10px"></div>
+    </div>
+    
+    <div class="form-group settings-title">
+      <i class="fal fa-alarm-clock" style="margin-right: 5px;"></i>
+      Duration
+      <tooltip style="font-size: 14px;" 
+        text = "'Once Twitchbot detects a blacklisted phrase in a user\'s chat message,it removes their message from chat, and then puts the user in a chat timeout where they cannot send any more messages to Twitch chat until their timeout has expired.'">
+      </tooltip>
+    </div>      
+    <div>
+      <div style="display: flex;flex-wrap: nowrap;">
+        <input
+        style="display: flex;flex:1;"
+        type="text"
+        class="form-control" style="width: 20%;"
+        aria-describeby="image-width-setting-type"
+        ng-model="$ctrl.command.effects.list[0].time"
+        placeholder="{{$ctrl.command.effects.list[0].time}}"/>
+        <div style="line-height: 36px;">seconds</div> 
+      </div>
+    </div>
+
+    <!--
+    <div class="settings-title" style="padding-top: 15px;">
+      <i class="fad fa-spinner-third" style="margin-right: 5px;"></i>
+      Expiration
+      <tooltip style="font-size: 14px;" text = "'For certain temporary unwanted behavior, XXX can remove the blacklisted phrase automatically for you once the blacklisting has peaked, and its relevancy in chat has decreased.'"></tooltip>
+    </div>
+    -->
+    <!-- 测试expire的值的输入框 -->
+    <!-- <input
+    type="number"
+    class="form-control"
+    aria-describeby="image-width-setting-type"
+    ng-model="$ctrl.command.timeExpires"
+    placeholder="{{$ctrl.command.timeExpires}}"/> -->
+
+    <!--
+    <div class="row" style="margin-top: 15px">
+        <div style="color:white;" class="volume-slider-wrapper" v-if="$ctrl.command.timeExpires >0">
+          <rzslider
+            rz-slider-model="$ctrl.command.timeExpires"
+            rz-slider-options="{
+              floor: 0,
+              ceil: 320,
+              step: 1,
+              showTicks: false,
+              showSelectionBar: true, 
+              hidePointerLabels: false, 
+              hideLimitLabels: true}"
+          ></rzslider>
+      </div>
+    </div>
+    -->
+    <!-- 测试expire的值的输入框 -->
+    <!-- <input
+    type="number"
+    class="form-control"
+    aria-describeby="image-width-setting-type"
+    ng-model="$ctrl.command.timeExpires"
+    placeholder="{{$ctrl.command.timeExpires}}"/> -->
+
+
+  </div>
+</div>
+
+<div class="modal-footer sticky-footer edit-command-footer">
+  <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">
+    Cancel
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary add-new-board-save"
+    ng-click="$ctrl.save()"
+  >
+    Save
+  </button>
+</div>
+
+<scroll-sentinel element-class="edit-command-footer"></scroll-sentinel>

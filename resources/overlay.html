@@ -1,0 +1,49 @@
+<!--
+	WRAPPER FOR FIREBOT'S OVERLAY. 
+	IT ENSURES THE OVERLAY LOADS EVEN IF BROADCASTING SOFTWARE IS OPENNED BEFORE FIREBOT.
+	THIS FILE GETS REGENERATED ON EVERY FIREBOT RESTART.
+
+	v1.0.0
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Twitchbot Overlay</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        const params = new URL(location).searchParams;
+        const HOST = params.get("host") || "localhost"
+        const PORT = params.get("port") || "7472";
+        (function waitForOverlay() {
+            fetch(`http://${HOST}:${PORT}/api/v1/status`)
+                .then(response => {
+                    if (response.ok) {
+
+                        const INSTANCE = params.get("instance") || null;
+                        const TEXT_BORDER_COLOR = params.get("borderColor");
+
+                        let QUERY_STRING = INSTANCE ? `?instance=${INSTANCE}&` : '?';
+                        if (TEXT_BORDER_COLOR) {
+                            QUERY_STRING += `borderColor=${TEXT_BORDER_COLOR}`;
+                        }
+
+                        location.href = `http://${HOST}:${PORT}/overlay/${QUERY_STRING}`;
+                        return;
+                    }
+                    setTimeout(waitForOverlay, 1000);
+                })
+                .catch(() => {
+                    setTimeout(waitForOverlay, 1000);
+                });
+        }());
+    </script>
+</body>
+
+</html>

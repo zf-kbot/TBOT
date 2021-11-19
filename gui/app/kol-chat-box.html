@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html ng-controller="StandAloneChatBoxController">
+<head>
+
+    <script src="https://kit.fontawesome.com/1bc4e8dcfe.js" crossorigin="anonymous"></script>
+
+    <link ng-href="{{customFontCssPath}}" rel="stylesheet" type="text/css" />
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:100,300,400,500,700|Roboto+Mono:300|Quicksand:300,400,700"
+        rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="http://csshake.surge.sh/csshake.min.css" />
+
+    <!-- Custom styles for this template -->
+    <link ng-href="../css/{{appTheme()}}.css" href="../css/Obsidian.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../node_modules/ng-toast/dist/ngToast.min.css" />
+
+    <link rel="stylesheet" href="../../node_modules/angularjs-color-picker/dist/angularjs-color-picker.min.css" />
+    <link rel="stylesheet"
+        href="../../node_modules/angularjs-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
+
+    <link rel="stylesheet" href="../../node_modules/codemirror/lib/codemirror.css" />
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/blackboard.css" />
+
+    <script src="../js/plugins/jquery-3.1.1.slim.min.js"></script>
+    <script src="../js/plugins/jquery.min.js"></script>
+    <script src="../js/plugins/tether.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/jquery-ui.min.js"></script>
+    <script src="../js/plugins/jquery-ui-pack.min.js"></script>
+
+    <script src="../../node_modules/codemirror/lib/codemirror.js"></script>
+    <script src="../../node_modules/codemirror/mode/xml/xml.js"></script>
+    <script src="../../node_modules/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../../node_modules/codemirror/mode/css/css.js"></script>
+    <script src="../../node_modules/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+
+    <script src="https://unpkg.com/ag-grid@17.1.1/dist/ag-grid.min.js"></script>
+
+    <script type="text/javascript" src="../../node_modules/countup.js/dist/countUp.min.js"></script>
+
+    <script type="text/javascript" src="./index.js"></script>
+    <script src="./kol-chat-box.js"></script> 
+
+    <!-- include: "type": "js", "files": "controllers/**/*.js" -->
+    <script type="text/javascript" src="./controllers/kol-pop-chat-box.controller.js"></script>
+    <!-- /include -->
+
+    <!-- include: "type": "js", "files": "services/**/*.js" -->
+    <script type="text/javascript" src="./services/account-access.service.js"></script>
+    <script type="text/javascript" src="./services/activity-feed.service.js"></script>
+    <script type="text/javascript" src="./services/backend-communicator.service.js"></script>
+    <script type="text/javascript" src="./services/backup.service.js"></script>
+    <script type="text/javascript" src="./services/channel-rewards.service.js"></script>
+    <script type="text/javascript" src="./services/chat-messages.service.js"></script>
+    <script type="text/javascript" src="./services/chat-moderation.service.js"></script>
+    <script type="text/javascript" src="./services/commands.service.js"></script>
+    <script type="text/javascript" src="./services/connection-manager.service.js"></script>
+    <script type="text/javascript" src="./services/connection.service.js"></script>
+    <script type="text/javascript" src="./services/counters.service.js"></script>
+    <script type="text/javascript" src="./services/currency.service.js"></script>
+    <script type="text/javascript" src="./services/data-access.service.js"></script>
+    <script type="text/javascript" src="./services/effect-helper.service.js"></script>
+    <script type="text/javascript" src="./services/effect-queues.service.js"></script>
+    <script type="text/javascript" src="./services/event-log.service.js"></script>
+    <script type="text/javascript" src="./services/events.service.js"></script>
+    <script type="text/javascript" src="./services/font-manager.service.js"></script>
+    <script type="text/javascript" src="./services/games.service.js"></script>
+    <script type="text/javascript" src="./services/google-analytics.service.js"></script>
+    <script type="text/javascript" src="./services/hot-key.service.js"></script>
+    <script type="text/javascript" src="./services/integration.service.js"></script>
+    <script type="text/javascript" src="./services/key-helper.service.js"></script>
+    <script type="text/javascript" src="./services/kol-analysis.service.js"></script>
+    <script type="text/javascript" src="./services/kol-auto-reply.service.js"></script>
+    <script type="text/javascript" src="./services/kol-blacklisted-words.service.js"></script>
+    <script type="text/javascript" src="./services/kol-fix-analysis.service.js"></script>
+    <script type="text/javascript" src="./services/kol-history.service.js"></script>
+    <script type="text/javascript" src="./services/kol-message-filter.service.js"></script>
+    <script type="text/javascript" src="./services/kol-poll.service.js"></script>
+    <script type="text/javascript" src="./services/kol-timer.service.js"></script>
+    <script type="text/javascript" src="./services/listener.service.js"></script>
+    <script type="text/javascript" src="./services/logger.service.js"></script>
+    <script type="text/javascript" src="./services/notification.service.js"></script>
+    <script type="text/javascript" src="./services/object-copy-helper.service.js"></script>
+    <script type="text/javascript" src="./services/overlay-url-helper.service.js"></script>
+    <script type="text/javascript" src="./services/preset-effect-lists.service.js"></script>
+    <script type="text/javascript" src="./services/profile-manager.service.js"></script>
+    <script type="text/javascript" src="./services/pronouns.service.js"></script>
+    <script type="text/javascript" src="./services/quotes.service.js"></script>
+    <script type="text/javascript" src="./services/settings.service.js"></script>
+    <!-- <script type="text/javascript" src="./services/sidebar-manager.service.js"></script> -->
+    <script type="text/javascript" src="./services/sort-tags.service.js"></script>
+    <script type="text/javascript" src="./services/sound.service.js"></script>
+    <script type="text/javascript" src="./services/startup-scripts.service.js"></script>
+    <script type="text/javascript" src="./services/stream-info.service.js"></script>
+    <script type="text/javascript" src="./services/timer.service.js"></script>
+    <script type="text/javascript" src="./services/tts.service.js"></script>
+    <script type="text/javascript" src="./services/updates.service.js"></script>
+    <script type="text/javascript" src="./services/utility.service.js"></script>
+    <script type="text/javascript" src="./services/viewer-roles.service.js"></script>
+    <script type="text/javascript" src="./services/viewers.service.js"></script>
+    <script type="text/javascript" src="./services/websocket.service.js"></script>
+    <!-- /include -->
+
+    <!-- include: "type": "js", "files": "directives/**/*.js" -->
+    <script type="text/javascript" src="./directives/chat/chat-autocomplete-menu.component.js"></script>
+    <script type="text/javascript" src="./directives/chat/chat-user-category.js"></script>
+    <script type="text/javascript" src="./directives/chat/feed%20items/chat-alert.js"></script>
+    <script type="text/javascript" src="./directives/chat/feed%20items/chat-message.js"></script>
+    <script type="text/javascript" src="./directives/chat/feed%20items/reward-redemption.js"></script>
+    <script type="text/javascript" src="./directives/commands/commandOption.js"></script>
+    <script type="text/javascript" src="./directives/commands/simple-command-options.js"></script>
+    <script type="text/javascript" src="./directives/conditional-effect/conditionDisplay.js"></script>
+    <script type="text/javascript" src="./directives/conditional-effect/conditionList.js"></script>
+    <script type="text/javascript" src="./directives/controls/chatter-select.js"></script>
+    <script type="text/javascript" src="./directives/controls/color-picker-input.js"></script>
+    <script type="text/javascript" src="./directives/controls/currency-select.js"></script>
+    <script type="text/javascript" src="./directives/controls/custom-script-settings.js"></script>
+    <script type="text/javascript" src="./directives/controls/dropdownSelect.js"></script>
+    <script type="text/javascript" src="./directives/controls/editable-list.js"></script>
+    <script type="text/javascript" src="./directives/controls/effectList.js"></script>
+    <script type="text/javascript" src="./directives/controls/fileChooser.js"></script>
+    <script type="text/javascript" src="./directives/controls/firebot-input.js"></script>
+    <script type="text/javascript" src="./directives/controls/kol-effect-list.js"></script>
+    <script type="text/javascript" src="./directives/controls/kol-twitcherbot-input.js"></script>
+    <script type="text/javascript" src="./directives/controls/multiselect.js"></script>
+    <script type="text/javascript" src="./directives/controls/notificationCenter.js"></script>
+    <script type="text/javascript" src="./directives/controls/role-based/role-number.js"></script>
+    <script type="text/javascript" src="./directives/controls/role-based/role-numbers.js"></script>
+    <script type="text/javascript" src="./directives/controls/role-based/role-percentage.js"></script>
+    <script type="text/javascript" src="./directives/controls/role-based/role-percentages.js"></script>
+    <script type="text/javascript" src="./directives/controls/scriptParameterOption.js"></script>
+    <script type="text/javascript" src="./directives/controls/searchableEffectDropdown.js"></script>
+    <script type="text/javascript" src="./directives/controls/searchableEventDropdown.js"></script>
+    <script type="text/javascript" src="./directives/controls/settingContainer.js"></script>
+    <script type="text/javascript" src="./directives/controls/sort-tag-dropdown.component.js"></script>
+    <script type="text/javascript" src="./directives/controls/sort-tag-list.js"></script>
+    <script type="text/javascript" src="./directives/controls/soundPlayer.js"></script>
+    <script type="text/javascript" src="./directives/controls/specialized/discord-channel-webhooks.js"></script>
+    <script type="text/javascript" src="./directives/controls/time-input.js"></script>
+    
+    <script type="text/javascript" src="./directives/effectOptions.js"></script>
+    <script type="text/javascript" src="./directives/filters/filterDisplay.js"></script>
+    <script type="text/javascript" src="./directives/filters/filterList.js"></script>
+    <script type="text/javascript" src="./directives/misc/animationend.js"></script>
+    <script type="text/javascript" src="./directives/misc/bindPolymer.js"></script>
+    <script type="text/javascript" src="./directives/misc/collapsablePanel.js"></script>
+    <script type="text/javascript" src="./directives/misc/collapsableSection.js"></script>
+    <script type="text/javascript" src="./directives/misc/conditionSection.js"></script>
+    <script type="text/javascript" src="./directives/misc/connectionButton.js"></script>
+    <script type="text/javascript" src="./directives/misc/connectionIcon.js"></script>
+    <script type="text/javascript" src="./directives/misc/contentBlock.js"></script>
+    <script type="text/javascript" src="./directives/misc/disableAnimate.js"></script>
+    <script type="text/javascript" src="./directives/misc/draggableModal.js"></script>
+    <script type="text/javascript" src="./directives/misc/dynamicHtml.js"></script>
+    <script type="text/javascript" src="./directives/misc/firebot-item-table/firebot-item-table.js"></script>
+    <script type="text/javascript" src="./directives/misc/hotkeyCapture.js"></script>
+    <script type="text/javascript" src="./directives/misc/hover-class.directive.js"></script>
+    <script type="text/javascript" src="./directives/misc/imageonload.js"></script>
+    <script type="text/javascript" src="./directives/misc/keyCatpure.js"></script>
+    <script type="text/javascript" src="./directives/misc/messageActions.js"></script>
+    <script type="text/javascript" src="./directives/misc/replaceVariableMenu.js"></script>
+    <script type="text/javascript" src="./directives/misc/scrollSentinel.js"></script>
+    <script type="text/javascript" src="./directives/misc/searchbar.js"></script>
+    <script type="text/javascript" src="./directives/misc/sortable-table-cell.js"></script>
+    <script type="text/javascript" src="./directives/misc/sortable-table.js"></script>
+    <script type="text/javascript" src="./directives/misc/status-indicator.component.js"></script>
+    <script type="text/javascript" src="./directives/misc/stream-info.component.js"></script>
+    <script type="text/javascript" src="./directives/misc/subcommandRow.js"></script>
+    <script type="text/javascript" src="./directives/misc/sysCommandRow.js"></script>
+    <script type="text/javascript" src="./directives/misc/toggleButton.js"></script>
+    <script type="text/javascript" src="./directives/misc/tooltip.js"></script>
+    <script type="text/javascript" src="./directives/modals/backups/restoreBackupModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/channel-rewards/add-edit-channel-reward.js"></script>
+    <script type="text/javascript" src="./directives/modals/chat/edit-activity-events-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/conditions/addOrEditConditionModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/counters/editCounter/editCounterModal.js">
+    <script type="text/javascript" src="./directives/modals/filters/addOrEditFilter/addOrEditFilterModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/hotkeys/addOrEditHotkey/addOrEditHotkeyModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/integrations/addOrEditDiscordWebhookModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/integrations/editIntegrationSettingsModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/aboutModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/botLoginModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/chat-settings-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/connectionPanelModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/copyShareCodeModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/dateModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/edit-stream-info-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/editBannedWordsModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/errorDetailModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/fontManagementModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/give-currency-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/idEntryModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/inputModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/kol-pop-chat-emotes-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/kol-pop-chat-settings-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/kol-edit-stream-info-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/manage-sort-tags.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/selectModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/setupWizardModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/stream-preview-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/txtFileWordImportModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/misc/viewerSearchModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/quotes/addOrEditQuoteModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/roles/addOrEditCustomRoleModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/setups/add-edit-setup-question.js"></script>
+    <script type="text/javascript" src="./directives/modals/setups/create-setup-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/setups/firebot-component-list-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/setups/import-setup-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/setups/remove-setup-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/startup-scripts/addOrEditStartupScriptModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/startup-scripts/startupScriptsListModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/viewers/editColumnsModal.js"></script>
+    <script type="text/javascript" src="./directives/modals/viewers/preview-purge-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/viewers/purge-viewers-modal.js"></script>
+    <script type="text/javascript" src="./directives/modals/viewers/viewerDetailsModal.js"></script>
+</head>
+<body>
+    <div ng-view style="width: 100%; height: 100%;opacity: 0.95;"></div>
+</body>
+</html>

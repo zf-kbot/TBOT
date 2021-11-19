@@ -1,0 +1,124 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()" style="font-size: 35px; text-shadow: none">
+        <span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span>
+    </button>
+    <h4 class="modal-title" id="newCooldownGroupLabel">{{$ctrl.isNewTimer ? 'Add New Timer' : 'Edit Timer - ' +
+        $ctrl.timer.name}}</h4>
+</div>
+<div class="modal-body">
+    <div class="general-button-settings">
+        <div class="settings-commandGroup-groupName form-group">
+            <span style="font-size:16px;">
+                <i class="fal fa-pen" style="margin-right: 5px;"></i>
+                Name
+                <tooltip style="font-size: 14px;" text = "'This is your timer name. It has no significance but to remind you what this timer does.'"></tooltip>
+            </span>
+            <input type="text" class="form-control" ng-model="$ctrl.kolTimer.name" placeholder="Set the name on Timer(* required)">
+        </div>
+        <div class="settings-commandGroup-groupName form-group">
+            <span style="font-size:16px;">
+                <i class="fal fa-comment-alt-dots" style="margin-right: 5px;"></i>
+                Message
+                <tooltip style="font-size: 14px;" text = "'This is your timer response. You can use command variables to make dynamic responses.'"></tooltip>
+            </span>
+            <textarea type="text" row="3" class="form-control" ng-model="$ctrl.kolTimer.message" placeholder="Set the content"></textarea>
+        </div>
+
+        <!-- 屏蔽start to end -->
+        <!-- <div class="settings-commandGroup-groupName">
+            <span>Start to end: This is to set the timer start and end times.</span>
+        </div>
+        <div class="settings-commandGroup-groupName">
+            <div class="row">
+                <input type="text" class="form-control col-md-5" style="width: 150px;"
+                    ng-model="$ctrl.kolTimer.start_time">
+                <span class="col-md-2">
+                    :
+                </span>
+                <input type="text" class="form-control col-md-5" style="width: 150px;"
+                    ng-model="$ctrl.kolTimer.end_time">
+            </div>
+        </div> -->
+
+        <!-- 多长时间重复一次 -->
+        <div class="settings-title">
+            <span style="font-size:16px;">
+                <i class="fal fa-alarm-clock" style="margin-right: 5px;"></i>
+                Interval
+                <tooltip style="font-size: 14px;" text = "'This is interval at which the timer repeats. Times are exact per hour (for example: 15 minutes is at 2:00,2:15,2:30,2:45, etc).'"></tooltip>
+            </span>
+        </div>
+        <!-- <div class="input-group settings-commandGroup-timer">
+            <span class="input-group-addon">Interval(secs)</span>
+            <input type="number" class="form-control" ng-model="$ctrl.kolTimer.interval" placeholder="Seconds">
+        </div> -->
+        <div class="volume-slider-wrapper" v-if="$ctrl.command.timeExpires >0">
+            <rzslider
+              rz-slider-model="$ctrl.kolTimer.interval"
+              rz-slider-options="{
+                floor: 0,
+                ceil: 350,
+                step: 1,
+                showTicks: false,
+                showSelectionBar: true, 
+                hidePointerLabels: false, 
+                hideLimitLabels: true}"
+            ></rzslider>
+        </div>
+
+        <!-- 多少条消息触发一次 -->
+        <div class="settings-title" style="padding-top: 15px;">
+            <span style="font-size:16px;">
+                <i class="fal fa-comment-alt-lines" style="margin-right: 5px;"></i>
+                Required Chat Lines
+                <tooltip style="font-size: 14px;" text = "'This is minimum amount of chat lines (measured in lines per  minutes) required to active the timer. If your chat is moving slow, this is useful to pervent Nightbot from spamming your empty channel.'"></tooltip>
+            </span>
+        </div>
+        <!-- <div class="input-group settings-commandGroup-timer">
+            <span class="input-group-addon">Required Chat Lines <tooltip
+                    text="'The minimum number of chat lines since the last interval.'"></tooltip></span>
+            <input type="number" class="form-control" ng-model="$ctrl.kolTimer.requiredChatLines" placeholder="">
+        </div> -->
+        <div class="volume-slider-wrapper" >
+            <rzslider
+              rz-slider-model="$ctrl.kolTimer.requiredChatLines"
+              rz-slider-options="{
+                floor: 0,
+                ceil: 350,
+                step: 1,
+                showTicks: false,
+                showSelectionBar: true, 
+                hidePointerLabels: false, 
+                hideLimitLabels: true}"
+            ></rzslider>
+        </div>
+        <!-- <div class="controls-fb-inline">
+            <label class="control-fb control--checkbox" ng-hide="$ctrl.isNewTimer">Enabled  
+                <input type="checkbox" ng-model="$ctrl.timer.active" aria-label="...">
+                <div class="control__indicator"></div>
+            </label>
+            <label class="control-fb control--checkbox">Only Run When Live <tooltip
+                    text="'Uncheck this if you want this timer to run effects even when you aren\'t live.'"></tooltip>
+                <input type="checkbox" ng-model="$ctrl.timer.onlyWhenLive" aria-label="...">
+                <div class="control__indicator"></div>
+            </label>
+        </div> -->
+    </div>
+
+    <!-- <div class="function-button-settings" style="margin-top: 15px;">
+        <effect-list header="What should this timer do?" effects="$ctrl.timer.effects" trigger="timer"
+            trigger-meta="$ctrl.triggerMeta" update="$ctrl.effectListUpdated(effects)" modalId="{{$ctrl.modalId}}">
+        </effect-list>
+    </div> -->
+    <!-- <p class="muted" style="font-size:11px;margin-top:6px;">
+        <b>ProTip:</b> If you want to have this timer display a single chat message at a time, try the <b>Run Random
+            Effect</b> or <b>Run Sequential Effect</b>
+    </p> -->
+</div>
+
+<div class="modal-footer">
+    <!-- <button ng-hide="$ctrl.isNewTimer" type="button" class="btn btn-danger pull-left"
+        ng-click="$ctrl.delete()">Delete</button> -->
+    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+</div>

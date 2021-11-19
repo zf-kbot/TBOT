@@ -1,0 +1,180 @@
+<div style="
+    min-width: 500px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  ">
+  <!-- <div class="fb-commands-tab-wrapper">
+    <ul class="nav nav-tabs fb-tabs">
+      <li role="presentation" ng-class="{'active' : activeCmdTab === 0}" ng-click="activeCmdTab = 0">
+        <a href>CUSTOM COMMANDS</a>
+      </li>
+    </ul>
+  </div> -->
+
+  <div style="overflow-y: scroll; height: 100%">
+    <div>
+      <div style="margin: 50px 30px 15px;display: flex;flex-direction: row;justify-content: space-between;">
+        <button ng-click="openAddOrEditCustomCommandModal()" class="btn btn-primary hvr-icon-grow">
+          <i class="fas fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
+          New Auto Reply
+        </button>
+      </div>
+      <!-- <scroll-sentinel element-class="custom-cmd-header"></scroll-sentinel>
+      <div class="light-bg sticky-top custom-cmd-header" style="
+          padding: 15px;
+          margin: 50px 30px 15px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        ">
+        <button ng-click="openAddOrEditCustomCommandModal()" class="btn btn-primary hvr-icon-grow">
+          <i class="fas fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
+          New Custom Command
+        </button>
+
+        <div style="display: flex; flex-direction: row; align-items: center"> -->
+          <!-- <sort-tag-dropdown context="commands" style="margin-right: 10px" /> -->
+
+          <!-- <searchbar ng-show="commandsServiceAutoReply.getCustomCommands().length > 0" placeholder-text="Search commands"
+            query="commandsServiceAutoReply.customCommandSearch" style="flex-basis: 250px"></searchbar> -->
+        <!-- </div>
+      </div> -->
+      <div style="padding: 15px">
+        <div ng-if="commandsServiceAutoReply.getCustomCommands().length === 0" class="noselect muted" style="padding-left: 13px">
+          <!-- <span class="hvr-bob"><i class="fas fa-reply">不需要这个小图标</i></span> -->
+          <!-- <span style="margin-left: 8px">No custom commands saved. You should make one! :)
+          </span> -->
+        </div>
+        <div ng-if="commandsServiceAutoReply.getCustomCommands().length > 0 && filteredCommands && filteredCommands.length < 1"
+          class="noselect muted" style="padding-left: 13px">
+          <span style="margin-left: 8px">No custom commands found.</span>
+        </div>
+        <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+            <div class="content-block-body">
+              <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+                <div class="col-md-1">
+                  <span class="hvr-bob"><i class="fal fa-reply" style="font-size: 8em;"></i></span>
+                </div>
+                <div class="toggle-button-container"  style="width: 80%;text-align: left;">
+                  <p style="font-size: 2em;" class = "bgweight">
+                    Auto Reply
+                  </p>
+                  <span class="bgfontcolor">
+                    You can set some keywords and related reply, when audiences trigger the keywords which they settled before in the chat room, the audience will recieve the specific reply.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <table
+          class="fb-table">
+          <thead>
+            <tr style="font-size: 11px">
+              <!-- <th style="width: 5%"></th> -->
+              <th style="padding-left: 15px;">TRIGGER</th>
+              <th>COOLDOWNS</th>
+              <th>PERMISSIONS</th>
+              <!-- <th class="muted"><i class="fas fa-tag"></i> TAGS</th> -->
+              <th>STATUS</th>
+              <th>EDIT</th>
+              <th>DELETE</th>
+            </tr>
+          </thead>
+          <tbody ng-show="commandsServiceAutoReply.getCustomCommands().length > 0 && (filteredCommands == null || filteredCommands.length > 0)" ui-sortable="sortableOptions" ng-model="commandsServiceAutoReply.commandsCache.customCommands">
+            <tr
+              ng-repeat="command in (commandsServiceAutoReply.commandsCache.customCommands | sortTagSearch:sts.getSelectedSortTag('commands') | triggerSearch:commandsServiceAutoReply.customCommandSearch) as filteredCommands track by command.id"
+              context-menu="commandMenuOptions(command)" style="width: 100%">
+              <!-- <td style="text-align: center">
+                <span style="color: #9145ff; font-size: 20px" ng-click="manuallyTriggerCommand(command.id)">
+                  <i class="fas fa-play-circle clickable"></i>
+                </span>
+              </td> -->
+              <td class="command-trigger-cell" style="padding-left: 15px;">
+                <span class="trigger" uib-tooltip="{{command.trigger}}" tooltip-popup-delay="500"
+                  tooltip-append-to-body="true">{{command.trigger}}</span>
+                <tooltip ng-if="command.triggerIsRegex" text="'Description: ' + command.regexDescription"></tooltip>
+                <span class="muted" style="margin-left: 5px; font-size: 11px" ng-show="command.hidden"
+                  uib-tooltip="Hidden from !commands list" tooltip-append-to-body="true">
+                  <i class="fas fa-eye-slash"></i>
+                </span>
+              </td>
+              <td>
+                <span style="min-width: 51px; display: inline-block" uib-tooltip="Global cooldown">
+                  <i class="far fa-globe-americas"></i>
+                  {{command.cooldown.global ? command.cooldown.global + "s" :
+                  "-" }}
+                </span>
+                <!-- <span uib-tooltip="User cooldown">
+                  <i class="far fa-user"></i> {{command.cooldown.user ?
+                  command.cooldown.user + "s" : "-" }}
+                </span> -->
+              </td>
+              <td>
+                <span style="text-transform: capitalize">{{getPermissionType(command)}}</span>
+                <tooltip type="info" text="getPermissionTooltip(command)"></tooltip>
+              </td>
+              <!--
+              <td style="max-width: 135px; min-width: 100px">
+                <div style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 100%;
+                    overflow: auto;
+                    max-height: 45.25px;
+                  ">
+                  <span ng-repeat="tagName in sts.getSortTagNames('commands', command.sortTags)" style="
+                      background: gray;
+                      border-radius: 15px;
+                      padding: 1px 5px;
+                      margin-right: 2px;
+                      margin-bottom: 1px;
+                      font-size: 10px;
+                      line-height: 1.8;
+                    ">
+                    {{tagName}}
+                  </span>
+                </div>
+              </td>
+              -->
+              <td>
+                <input class="tgl tgl-light" id="{{command.id}}" type="checkbox" 
+                    ng-model="command.active" ng-click="toggleCustomCommandActiveState(command)"/>
+                <label class="tgl-btn" for="{{command.id}}" style="top: 2px"></label>
+              </td>
+              <td>
+                <span style="margin-right:20px;" ng-click="openAddOrEditCustomCommandModal(command)"><i class="fas fa-pen"
+                    style="margin-right: 5px;"></i></span>
+                    <!--
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  ">
+                  <span class="dragHandle" ng-click="$event.stopPropagation();"
+                    ng-show="sts.getSelectedSortTag('commands') == null && (commandsServiceAutoReply.customCommandSearch == null || commandsServiceAutoReply.customCommandSearch.length < 1)">
+                    <i class="fal fa-bars" aria-hidden="true"></i>
+                  </span>
+                  <div style="text-align: right; margin-left: auto">
+                    <span class="noselect clickable" style="font-size: 30px" context-menu="commandMenuOptions(command)"
+                      context-menu-on="click"><i class="fal fa-ellipsis-h"></i></span>
+                  </div>
+                -->
+                </div>
+              </td>
+              <td>
+                <span ng-click="deleteCustomCommand(command);"><i class="fas fa-times"
+                    style="margin-right: 5px; padding-left: 12px;"></i></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div ng-if="commandsServiceAutoReply.getCustomCommands().length === 0" class="kol-none-box" style="height: 272px;margin: 0 15px;">
+            <p style="font-size: 28px;">NONE</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

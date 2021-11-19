@@ -1,0 +1,91 @@
+<div style="margin: 50px 30px 15px;display: flex;flex-direction: row;justify-content: space-between;">
+    <button ng-click="openEditKolPollSettingsModal()" class="btn btn-primary"><i class="fas fa-plus-circle"
+            style="margin-right:5px;"></i> New Poll</button>
+    <!-- <searchbar ng-show="kolPollService.getKolPolls().length > 0" placeholder-text="Search kolPolls"
+        query="kolPollSearch" style="flex-basis: 250px;"></searchbar> -->
+</div>
+<div style="padding: 15px;display: flex;flex-wrap: wrap;">
+    <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+        <div class="content-block-body">
+            <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+                <div class="col-md-1">
+                    <span class="hvr-bob"><i class="fal fa-poll" style="font-size: 8em;"></i></span>
+                </div>
+                <div class="toggle-button-container" style="width: 80%;text-align: left;">
+                    <p style="font-size: 2em;"  class = "bgweight">
+                        Poll
+                    </p>
+                    <p>
+                        <span class="bgfontcolor">You can run polls from your Twitchbot to increase engagement in your chat room, and can run mulitple at one time, each with their own unique setting.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="fb-table">
+    <thead>
+        <tr style="font-size: 11px;">
+            <th style="padding-left: 15px;width: 25%">NAME</th>
+            <th>DURATION</th>
+            <th>OPTIONS</th>
+            <th>VIEW</th>
+            <th>ACTION</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="kolPoll in kolPollService.getKolPolls() | filter:kolPollSearch track by kolPoll.id"
+            context-menu="kolPollMenuOptions">
+            <td style="padding-left: 15px;">{{kolPoll.title}}</td>
+            <td>
+                {{kolPoll.duration}} seconds
+            </td>
+            <td>
+                {{getPollOptionsStrings(kolPoll)}}
+            </td>
+            <td>
+                <i class="fas fa-eye" style="font-size: 2em;" ng-click="viewKolPollResult(kolPoll)"></i>
+            </td>
+            <td>
+                <div style="text-align: left;">
+                    <!-- <div class="btn-group" style="margin-right: 20px;">
+                        <label class="btn {{kolPoll.is_active?'btn-success':'btn-default'}}"
+                            ng-click="setPollEnable(kolPoll)" ng-model="kolPoll.is_active" uib-btn-radio="'ON'"
+                            uncheckable>On</label>
+                        <label class="btn {{!kolPoll.is_active?'btn-success':'btn-default'}}"
+                            ng-click="setPollDisable(kolPoll)" ng-model="kolPoll.is_active" uib-btn-radio="'OFF'"
+                            uncheckable>OFF</label>
+                    </div> -->
+                    <div class="toggle-button-container" style="width:auto ;"
+                        ng-if="kolPoll.twitchPoll == null || (kolPoll.twitchPoll && kolPoll.twitchPoll.status == 'ACTIVE')">
+                        <input class="tgl tgl-light" id="{{ kolPoll.id }}" type="checkbox"
+                            ng-model="kolPoll.is_active" 
+                            ng-click="togglePollStatus(kolPoll)"/>
+                        <label class="tgl-btn" for="{{ kolPoll.id }}" style="top: 2px"></label>
+                    </div>
+                    <div class="toggle-button-container" style="width:auto ;"
+                        ng-if="kolPoll.twitchPoll && kolPoll.twitchPoll.status != 'ACTIVE'">
+                        finished
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- <span style="margin-right:20px;"><i class="fas fa-redo"
+                        style="margin-right: 5px;"></i><span>REDO</span></span> -->
+                <span style="margin-right:20px;" ng-click="openEditKolPollSettingsModal(kolPoll)"><i class="fas fa-pen"
+                        style="margin-right: 5px;"></i></span>
+            </td>
+            <td>
+                <span ng-click="delete(kolPoll)"><i class="fas fa-times"
+                        style="margin-right: 5px; padding-left: 12px;"></i></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-if="kolPollService.getKolPolls().length === 0" class="kol-none-box" style="height: 272px;margin: 0 15px;">
+    <p style="font-size: 28px;">NONE</p>
+</div>

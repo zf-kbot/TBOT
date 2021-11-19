@@ -1,0 +1,194 @@
+"use strict";
+
+(function () {
+    angular
+        .module("twitcherbotApp")
+        .factory("sidebarManager", function ($timeout, $rootScope, settingsService) {
+            let service = {};
+
+            service.navExpanded = settingsService.getSidebarExpanded();
+
+            service.toggleNav = function () {
+                service.navExpanded = !service.navExpanded;
+                $rootScope.$broadcast("navToggled");
+                settingsService.setSidebarExpanded(service.navExpanded);
+            };
+
+            service.currentTab = "chat feed";
+            service.currentTabName = "Dashboard";
+
+            service.setTab = function (tabId, name) {
+                service.currentTab = tabId.toLowerCase();
+
+                service.currentTabName = name ? name : tabId;
+
+                //hack that somewhat helps with the autoupdate slider styling issues on first load
+                $timeout(function () {
+                    $rootScope.$broadcast("rzSliderForceRender");
+                }, 50);
+            };
+
+            service.tabIsSelected = function (tabId) {
+                return service.currentTab.toLowerCase() === tabId.toLowerCase();
+            };
+
+            service.currentTabIsFullScreen = function () {
+                return (
+                    service.currentTab.toLowerCase() === "chat feed" ||
+                    service.currentTab.toLowerCase() === "commands" ||
+                    service.currentTab.toLowerCase() === "effects" ||
+                    service.currentTab.toLowerCase() === "events" ||
+                    service.currentTab.toLowerCase() === "channel rewards" ||
+                    service.currentTab.toLowerCase() === "moderation" ||
+                    service.currentTab.toLowerCase() === "buttons" ||
+                    // service.currentTab.toLowerCase() === "polls" ||
+                    service.currentTab.toLowerCase() === "message filter" ||
+                    service.currentTab.toLowerCase() === "auto reply" ||
+                    service.currentTab.toLowerCase() === "blacklisted words" ||
+                    service.currentTab.toLowerCase() === "chat notifications"
+                );
+            };
+
+            service.currentTabShouldntScroll = function () {
+                return (
+                    service.currentTab.toLowerCase() === "chat feed" ||
+                    service.currentTab.toLowerCase() === "buttons" ||
+                    service.currentTab.toLowerCase() === "effects" ||
+                    service.currentTab.toLowerCase() === "channel rewards" ||
+                    service.currentTab.toLowerCase() === "events" ||
+                    service.currentTab.toLowerCase() === "commands"
+                );
+            };
+
+            return service;
+        });
+
+    // routes for tabs
+    angular.module("twitcherbotApp").config([
+        "$routeProvider",
+        "$locationProvider",
+        function ($routeProvider) {
+            $routeProvider
+
+                .when("/viewer-roles", {
+                    templateUrl: "./templates/_viewerroles.html",
+                    controller: "viewerRolesController"
+                })
+
+                .when("/", {
+                    templateUrl: "./templates/chat/_chat-messages.html",
+                    controller: "chatMessagesController"
+                })
+
+                .when("/chat-feed", {
+                    templateUrl: "./templates/chat/_chat-messages.html",
+                    controller: "chatMessagesController"
+                })
+
+                .when("/analysis", {
+                    templateUrl: "./templates/_kol-analysis.html",
+                    controller: "kolAnalysisController"
+                })
+
+                .when("/polls", {
+                    templateUrl: "./templates/interactive-tool/_kol-polls.html",
+                    controller: "kolPollsController"
+                })
+
+                .when("/kol-chat-notifications", {
+                    templateUrl: "./templates/interactive-tool/_kol-chat-notifications.html",
+                    controller: "kolChatNotificationsController"
+                })
+
+                .when("/kol-timers", {
+                    templateUrl: "./templates/commands/_kol-timers.html",
+                    controller: "kolTimersController"
+                })
+
+                .when("/message-filter", {
+                    templateUrl: "./templates/guard/_kol-message-filter.html",
+                    controller: "kolMessageFilterController"
+                })
+
+                .when("/blacklisted-words", {
+                    templateUrl: "./templates/guard/_kol-blacklisted-words.html",
+                    controller: "kolBlacklistedWordsController"
+                })
+
+                .when("/auto-reply", {
+                    templateUrl: "./templates/commands/_kol-auto-reply.html",
+                    controller: "kolAutoReplyController"
+                })
+
+                .when("/commands", {
+                    templateUrl: "./templates/chat/_commands.html",
+                    controller: "commandsController"
+                })
+
+                .when("/effects", {
+                    templateUrl: "./templates/_effects.html",
+                    controller: "effectsController"
+                })
+
+                .when("/channel-rewards", {
+                    templateUrl: "./templates/_channel-rewards.html",
+                    controller: "channelRewardsController"
+                })
+
+                .when("/moderation", {
+                    templateUrl: "./templates/_moderation.html",
+                    controller: "moderationController"
+                })
+
+                .when("/settings", {
+                    templateUrl: "./templates/_settings.html",
+                    controller: "settingsController"
+                })
+
+                .when("/updates", {
+                    templateUrl: "./templates/_updates.html",
+                    controller: "updatesController"
+                })
+
+                .when("/events", {
+                    templateUrl: "./templates/live-events/_events.html",
+                    controller: "eventsController"
+                })
+
+                .when("/hotkeys", {
+                    templateUrl: "./templates/_hotkeys.html",
+                    controller: "hotkeysController"
+                })
+
+                .when("/currency", {
+                    templateUrl: "./templates/_currency.html",
+                    controller: "currencyController"
+                })
+
+                .when("/timers", {
+                    templateUrl: "./templates/_timers.html",
+                    controller: "timersController"
+                })
+
+                .when("/viewers", {
+                    templateUrl: "./templates/viewers/_viewers.html",
+                    controller: "viewersController"
+                })
+
+                .when("/quotes", {
+                    templateUrl: "./templates/_quotes.html",
+                    controller: "quotesController"
+                })
+
+                .when("/counters", {
+                    templateUrl: "./templates/_counters.html",
+                    controller: "countersController"
+                })
+
+                .when("/games", {
+                    templateUrl: "./templates/_games.html",
+                    controller: "gamesController"
+                });
+        }
+    ]);
+}(window.angular));

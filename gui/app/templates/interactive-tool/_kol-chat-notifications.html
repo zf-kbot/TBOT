@@ -1,0 +1,82 @@
+<div class="noselect " style="padding-left: 15px">
+    <div style="padding: 15px;display: flex;flex-wrap: wrap;">
+        <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+            <div class="content-block-body">
+                <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+                    <div class="col-md-1">
+                        <span class="hvr-bob"><i class="fal fa-comment-smile" style="font-size: 8em;"></i></span>
+                    </div>
+                    <div class="toggle-button-container" style="width: 80%;text-align: left;">
+                        <!-- <p style="font-size: 25px;font-weight: bold;"> -->
+                        <p class="bgweight">
+                            Chat Notifications
+                        </p>
+                        <p>
+                            <span class="bgfontcolor" >
+                                Send a notifiaction chat whenever some inportant activities happen
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row kol-chat-notifications">
+        <div style="width: 100%;">
+            <uib-tabset active="active" class="kol-analysis-nav">
+                <uib-tab ng-repeat="tab in tabs" index="$index" heading="{{ tab }}" select="changeTab(tab)" classes="btn-changecolor-uibtab"></uib-tab>
+            </uib-tabset>
+
+            <div style="padding: 30px 15px 15px 15px">
+                <div style="display: flex;align-items: center;">
+                    <div class="toggle-button-container" style="width:auto; display: inline">
+                        <input class="tgl tgl-light" id="{{ tabId }}" type="checkbox"
+                            ng-model="isActive"
+                            ng-click="toggleActive()"/>
+                        <label class="tgl-btn" for="{{ tabId }}" style="top: 2px"></label>
+                    </div>
+                    <span style="color: #CAC8C8; margin: 20px;">{{ description }}</span>
+                </div>
+                <h4><i class="fas fa-comment-alt-dots"></i> Message</h4>
+                <div class="kol-cooldown-time" ng-show="tabId === 'followers'">
+                    <span>Cooldown seconds:</span>
+                    <select
+                        class="fb-select"
+                        style="background-color: white;"
+                        ng-model="cooldownTime"
+                        ng-options="x.value as x.name for x in cooldownTimeOptions"
+                        ng-change="responseMsgChanged = true">
+                    </select>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 10px; align-items: center;">
+                    <kol-message-tip common-text="commonText" arguments="arguments" append-to-input="appendToInput(name)" style="line-height: 36px";/>
+                    <div style="position: relative; left: -15%" ng-show="responseMsgChanged">
+                        <button class="btn btn-primary" style="width: 70px; position: relative; left: -15%" ng-click="save()">save</button>
+                        <i ng-show="saveStatus === SUCCESS" style="color: #04BD0C" class="fas fa-check"></i>
+                    </div>
+                </div>
+                <div id="kol-chat-notifications-responseMsgs" ng-repeat="responseMsg in responseMsgs track by responseMsg.id">
+                    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                        <div style="width: 90%">
+                            <twitcherbot-input 
+                                on-click="clickedInput($index)"
+                                on-input-update="onChangedInput()"
+                                style="width: 90%"
+                                ng-class="{ 'kol-warn-tip': emptyContentIdList.includes(responseMsg.id)}"
+                                input-type="string"
+                                disable-variables="true"
+                                model="responseMsg.data"/>
+                            <span style="color: red;" ng-if="emptyContentIdList.includes(responseMsg.id)">message can't be empty</span>
+                        </div>
+                        <div class="kol-input-append-tag" ng-if="$index === 0 && responseMsgs.length < 5" ng-click="addNewResponseMsg()">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="kol-input-append-tag" ng-if="$index !== 0" ng-click="deleteResponseMsgByIndex($index)">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

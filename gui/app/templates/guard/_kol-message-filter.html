@@ -1,0 +1,216 @@
+<div style="min-width: 500px;">
+  <!-- <div class="fb-commands-tab-wrapper">
+        <ul class="nav nav-tabs fb-tabs">
+            <li role="presentation" ng-class="{'active' : activeTab === 0}" ng-click="activeTab = 0">
+                <a href>Message Filter</a>
+            </li>
+        </ul>
+    </div> -->
+  <div style="padding: 15px;display: flex;flex-wrap: wrap;">
+    <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+      <div class="content-block-body">
+        <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+          <div class="col-md-1">
+            <span class="hvr-bob"><i class="fa-filter fal" style="font-size: 8em;"></i></span>
+          </div>
+          <div class="toggle-button-container" style="width: 80%;text-align:left;">
+            <p style="font-size: 2em;" class = "bgweight">
+              Message Filter
+            </p>
+            <span class="bgfontcolor">
+              Twitchbot can auto-removing spam and undesirable comments in your chat. When your Twitchbot puts a user in a timeout, it only removes them temporarily.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 15px;display: flex;flex-wrap: wrap;">
+    <!-- black list words 黑名单单词功能 -->
+    <!-- <div class="content-block moderation-feature-block">
+      <div class="content-block-body">
+        <div class="title-toggle-button-container">
+          <div class="moderation-feature-title" ng-class="{ muted: !cms.chatModerationData.settings.bannedWordList.enabled }">Banned Word List</div>
+          <div class="toggle-button-container">
+            <toggle-button 
+              toggle-model="cms.chatModerationData.settings.bannedWordList.enabled"
+              auto-update-value="true"
+              on-toggle="cms.saveChatModerationSettings()"
+              font-size="40"
+            />
+          </div> 
+        </div> 
+
+        <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.bannedWordList.enabled">
+          <div id="roles" class="mixplay-header" style="padding: 0 0 4px 0">
+              Words
+          </div>
+          <button ng-click="showEditBannedWordsModal()" class="btn btn-default">Edit Word List</button>
+        </div>         
+      </div>
+    </div> -->
+
+    <div class="content-block moderation-feature-block" style="margin-top: 15px; width:48%; margin-right: 7px; box-shadow: 0px 0px 0px;">
+      <div class="content-block-body">
+        <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+          <!-- <div class="col-md-1" style="width:auto ;">
+            <span class="hvr-bob"><i class="fas fa-ban" style="font-size: 4em;"></i></span>
+          </div> -->
+          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">Repetitions
+            <tooltip text="'Remove messages containing repeated letters, phrases or words,or other disruptive behavior.'"></tooltip>
+          </div>
+        </div>
+
+        <div style="margin-top: 15px; display:flex; flex-wrap: nowrap;" ng-show="true">
+          <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.repetitions.enabled"> -->
+          <twitcherbot-input style="flex: 1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+            disable-variables="true" model="cms.chatModerationData.settings.repetitions.max"
+            on-input-update="saveInputChatModerationSettings('repetitions')" />
+          <div class="toggle-button-container" style="margin: 3px 0 0 5px">
+            <input class="tgl tgl-light" id="repetitions" type="checkbox" 
+              ng-model="cms.chatModerationData.settings.repetitions.enabled"
+              ng-click="cms.chatModerationData.settings.repetitions.enabled = !cms.chatModerationData.settings.repetitions.enabled; saveChatModerationSettings('repetitions')"/>
+            <label class="tgl-btn" for="repetitions" style="top: 2px"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block moderation-feature-block" style="display: flex; width: 48%; box-shadow: 0px 0px 0px;" >
+      <div class="content-block-body" style="display: flex;flex:1;flex-direction: column;">
+        <div class="title-toggle-button-container" style="flex-wrap: nowrap; flex:1;">
+          <div class="moderation-feature-title" style="font-size: 14px; margin-right: auto;padding-left: 14px;">Emotes
+              <tooltip text="'Remove message containing an excessive amount of emotes.'"></tooltip>
+          </div>
+        </div>
+
+        <div style="margin-top: 15px;display: flex;flex-wrap: nowrap;" ng-show="true">
+          <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.emoteLimit.enabled"> -->
+          <twitcherbot-input style="flex:1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+            disable-variables="true" model="cms.chatModerationData.settings.emoteLimit.max"
+            on-input-update="saveInputChatModerationSettings('emotes')" />
+          <div class="toggle-button-container" style="margin: 3px 0 0 5px">
+            <input class="tgl tgl-light" id="emotes" type="checkbox" 
+                ng-model="cms.chatModerationData.settings.emoteLimit.enabled"
+                ng-click="cms.chatModerationData.settings.emoteLimit.enabled = !cms.chatModerationData.settings.emoteLimit.enabled; saveChatModerationSettings('emotes')"/>
+            <label class="tgl-btn" for="emotes" style="top: 2px"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block moderation-feature-block" style="width:48%; margin-right: 7px; box-shadow: 0px 0px 0px;">
+      <div class="content-block-body">
+        <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">Excess Caps
+            <tooltip text="'This filter allows you to timeout users who use excessive capital letters in messages.'"></tooltip>
+          </div>
+        </div>
+
+        <div style="margin-top: 15px;display: flex;flex-wrap: nowrap;" ng-show="true">
+          <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.excessCaps.enabled"> -->
+          <twitcherbot-input style="flex:1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+            disable-variables="true" model="cms.chatModerationData.settings.excessCaps.max"
+            on-input-update="saveInputChatModerationSettings('excess caps')" />
+          <div class="toggle-button-container" style="margin: 3px 0 0 5px">
+            <input class="tgl tgl-light" id="excessCaps" type="checkbox" 
+                ng-model="cms.chatModerationData.settings.excessCaps.enabled"
+                ng-click="cms.chatModerationData.settings.excessCaps.enabled = !cms.chatModerationData.settings.excessCaps.enabled; saveChatModerationSettings('excess caps')"/>
+            <label class="tgl-btn" for="excessCaps" style="top: 2px"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block moderation-feature-block" style="width: 48%; box-shadow: 0px 0px 0px;">
+      <div class="content-block-body">
+        <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">Symbols
+            <tooltip text="'Remove messages containing disruptive or excessive use of symbols.'"></tooltip>
+          </div>
+        </div>
+
+        <div style="margin-top: 15px;display: flex;flex-wrap: nowrap;" ng-show="true">
+          <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.symbols.enabled"> -->
+          <twitcherbot-input style="flex:1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+            disable-variables="true" model="cms.chatModerationData.settings.symbols.max"
+            on-input-update="saveInputChatModerationSettings('symbols')" />
+          <div class="toggle-button-container" style="margin: 3px 0 0 5px">
+            <input class="tgl tgl-light" id="symbols" type="checkbox" 
+                ng-model="cms.chatModerationData.settings.symbols.enabled"
+                ng-click="cms.chatModerationData.settings.symbols.enabled = !cms.chatModerationData.settings.symbols.enabled; saveChatModerationSettings('symbols')"/>
+            <label class="tgl-btn" for="symbols" style="top: 2px"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 过滤url链接 -->
+    <!-- <div class="content-block moderation-feature-block">
+            <div class="content-block-body">
+              <div class="title-toggle-button-container">
+                <div class="moderation-feature-title" ng-class="{ muted: !cms.chatModerationData.settings.urlModeration.enabled }">Url Moderation</div>
+                <div class="toggle-button-container">
+                  <toggle-button
+                    toggle-model="cms.chatModerationData.settings.urlModeration.enabled"
+                    on-toggle="toggleUrlModerationFeature()"
+                    font-size="40"
+                  />
+                </div>
+              </div>
+              <div class="muted" style="margin-bottom: 15px;">
+                A !permit command is automatically added to System Commands.
+              </div>
+
+              <div 
+                style="margin-top: 15px; margin-left: 15px;"
+                class="title-toggle-button-container"
+                ng-show="cms.chatModerationData.settings.urlModeration.enabled"
+              >
+                <div class="moderation-feature-subtitle" ng-class="{ muted: !cms.chatModerationData.settings.urlModeration.viewTime.enabled }">View Time</div>
+                <div class="toggle-button-container">
+                  <toggle-button
+                    toggle-model="cms.chatModerationData.settings.urlModeration.viewTime.enabled"
+                    on-toggle="cms.saveChatModerationSettings()"
+                    auto-update-value="true"
+                    font-size="32"
+                  />
+                </div>
+
+                <div
+                  style="margin-top: 15px; width: 100%;"
+                  ng-show="cms.chatModerationData.settings.urlModeration.enabled && cms.chatModerationData.settings.urlModeration.viewTime.enabled"
+                >
+                  <div class="muted" style="margin-bottom: 10px; margin-left: 15px;">All viewers with a higher view time will be exempt from url moderation.</div>
+                  <twitcherbot-input
+                    input-title="View time in hours"
+                    placeholder-text="Enter amount of hours"
+                    input-type="number"
+                    disable-variables="true"
+                    model="cms.chatModerationData.settings.urlModeration.viewTime.viewTimeInHours"
+                    on-input-update="cms.saveChatModerationSettings()"
+                  />
+                </div>
+              </div>
+
+              <div
+                  style="margin-top: 20px; width: 100%;"
+                  ng-show="cms.chatModerationData.settings.urlModeration.enabled"
+                >
+                <div class="muted">The chat message shown when a message containing a url is moderated (leave empty for no message).</div>
+                  <div class="muted" style="margin-bottom: 10px; font-weight: 800;">
+                    Variables: {userName}<span ng-show="cms.chatModerationData.settings.urlModeration.viewTime.enabled">, {viewTime}</span>
+                  </div>
+                  <twitcherbot-input
+                    input-type="string"
+                    disable-variables="true"
+                    use-text-area="true"
+                    placeholder-text="Enter text"
+                    model="cms.chatModerationData.settings.urlModeration.outputMessage"
+                    on-input-update="cms.saveChatModerationSettings()"
+                  />
+                </div>
+            </div>
+          </div> -->
+  </div>
+</div>

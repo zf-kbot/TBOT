@@ -46,15 +46,15 @@ class KolPollAccess extends EventEmitter {
         if (twitchKolPoll == null || kolPoll == null) return;
 
         kolPoll.twitchPoll = twitchKolPoll;
-
+        kolPoll.is_active = twitchKolPoll.status === "ACTIVE";
         this._kol_polls[kolPoll.id] = kolPoll;
 
         try {
             const kolPollDb = getKolPollsDb();
 
-            kolPollDb.push("/" + kolPollId, kolPoll);
+            kolPollDb.push("/" + kolPoll.id, kolPoll);
 
-            logger.debug(`Updated kolPoll ${kolPollId} to file.`);
+            logger.debug(`Updated kolPoll ${kolPoll.id} to file.`);
 
             if (emitUpdateEventToFrontEnd) {
                 frontendCommunicator.send("kolPollUpdate", kolPoll);
@@ -123,8 +123,8 @@ frontendCommunicator.onAsync("beginKolPoll", async (KolPoll) => {
         kolPollAccess.appendTwitchPollToLocal(kolPoll, response);
         return {
             type: 'success',
-            data: null,
-        }
+            data: null
+        };
     } catch (error) {
         logger.warn('Error begin the poll: ', error);
         return {
@@ -143,8 +143,8 @@ frontendCommunicator.onAsync("endKolPoll", async (KolPoll) => {
         kolPollAccess.appendTwitchPollToLocal(kolPoll, response);
         return {
             type: 'success',
-            data: null,
-        }
+            data: null
+        };
     } catch (error) {
         logger.warn('Error end the poll: ', error);
         return {

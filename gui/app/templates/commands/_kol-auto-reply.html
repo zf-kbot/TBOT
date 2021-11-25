@@ -13,7 +13,7 @@
     </ul>
   </div> -->
 
-  <div style="overflow-y: scroll; height: 100%">
+  <div style="height: 100%">
     <div>
       <div style="margin: 50px 30px 15px;display: flex;flex-direction: row;justify-content: space-between;">
         <button ng-click="openAddOrEditCustomCommandModal()" class="btn btn-primary hvr-icon-grow">
@@ -75,7 +75,7 @@
               <!-- <th style="width: 5%"></th> -->
               <th style="padding-left: 15px;">TRIGGER</th>
               <th>COOLDOWNS</th>
-              <th>PERMISSIONS</th>
+              <!-- <th>PERMISSIONS</th> -->
               <!-- <th class="muted"><i class="fas fa-tag"></i> TAGS</th> -->
               <th>STATUS</th>
               <th>EDIT</th>
@@ -103,7 +103,7 @@
               <td>
                 <span style="min-width: 51px; display: inline-block" uib-tooltip="Global cooldown">
                   <i class="far fa-globe-americas"></i>
-                  {{command.cooldown.global ? command.cooldown.global + "s" :
+                  {{command.cooldown.global ? command.cooldown.global + " seconds" :
                   "-" }}
                 </span>
                 <!-- <span uib-tooltip="User cooldown">
@@ -111,10 +111,11 @@
                   command.cooldown.user + "s" : "-" }}
                 </span> -->
               </td>
-              <td>
+              <!--屏蔽permission显示-->
+              <!-- <td>
                 <span style="text-transform: capitalize">{{getPermissionType(command)}}</span>
                 <tooltip type="info" text="getPermissionTooltip(command)"></tooltip>
-              </td>
+              </td> -->
               <!--
               <td style="max-width: 135px; min-width: 100px">
                 <div style="

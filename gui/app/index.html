@@ -366,7 +366,7 @@
             <!-- 下面是右边头像 -->
             <img ng-if="cs.accounts.streamer.loggedIn != true" class="login-thumbnail noselect" ng-src="{{cs.getAccountAvatar('streamer')}}" ng-click="cs.loginOrLogout('streamer')"/>
             <div ng-if="cs.accounts.streamer.loggedIn == true" uib-dropdown uib-dropdown-toggle aria-label="Login & Profile Management">
-              <img class="login-thumbnail noselect" ng-src="{{cs.getAccountAvatar('streamer')}}" />
+              <img class="login-thumbnail noselect" ng-src="{{cs.getAccountAvatar('streamer')}}" title="{{cs.accounts.streamer.username}}"/>
               <!-- <img class="login-thumbnail noselect" ng-src="{{cs.getAccountAvatar('bot')}}" /> -->
               <!-- <div class="fb-arrow down login-arrow"></div> -->
               <ul class="dropdown-menu accounts-dropdown" uib-dropdown-menu>

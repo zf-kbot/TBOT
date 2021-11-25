@@ -11,7 +11,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function ($scope, utilityService, kolPollService, backendCommunicator) {
+        controller: function ($scope, utilityService, kolPollService, backendCommunicator, logger) {
             let $ctrl = this;
             $ctrl.kolPollService = kolPollService;
 
@@ -32,7 +32,7 @@
             $ctrl.getItemVoteRate = function (choice, viewKolPollResult) {
                 let sum = $ctrl.getVoteTotal(viewKolPollResult);
                 if (sum > 0) {
-                    return (choice.votes / sum).toFixed(2);
+                    return (choice.votes / sum).toFixed(2) * 100;
                 } else {
                     return "-"
                 }
@@ -42,7 +42,11 @@
                 if ($ctrl.resolve.kolPoll == null) {
                     return;
                 } else {
-                    $ctrl.getKolPollResult($ctrl.resolve.kolPoll);
+                    $ctrl.intervalViewResult = setInterval((kolPoll)=> {
+                        logger.info(kolPoll.twitchPoll.id);
+                        $ctrl.getKolPollResult(kolPoll);
+                    }, 1000, $ctrl.resolve.kolPoll);
+                    // $ctrl.getKolPollResult($ctrl.resolve.kolPoll);
                 }
 
                 let modalId = $ctrl.resolve.modalId;
@@ -60,10 +64,13 @@
                 );
 
                 $scope.$on("modal.closing", function () {
+                    clearInterval($ctrl.intervalViewResult);
                     utilityService.removeSlidingModal();
                 });
             };
-
+            // $ctrl.getKolPollResult = setInterval((kolPoll) => {
+            //     $ctrl.kolPollService.getKolPollResult(kolPoll.twitchPoll.id);
+            // }, 1000);
             $ctrl.getKolPollResult = function (kolPoll) {
                 $ctrl.kolPollService.getKolPollResult(kolPoll.twitchPoll.id);
             }

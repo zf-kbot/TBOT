@@ -1,32 +1,19 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"
             ng-click="$ctrl.dismiss()"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
-    <h4 class="modal-title" id="newCooldownGroupLabel">Total Votes</h4>
+    <h3 class="settings-title" ><span>{{$ctrl.resolve.kolPoll.title}}</span></h3>
 </div>
 <div class="modal-body">
-    <div class="general-button-settings">
-        <div class="settings-title">
-            <h3>
-                <span>Name: {{$ctrl.kolPollService.viewKolPollResult.title}}</span>
-            </h3>
-            <h4>
-                <span>Vote total: {{$ctrl.getVoteTotal($ctrl.kolPollService.viewKolPollResult)}}</span>
-            </h4>
-        </div>
-    </div>
     <div ng-repeat="choice in $ctrl.kolPollService.viewKolPollResult.choices track by $index">
-        {{choice.title}} ;vote : {{choice.votes}}
-        <div class="progress">
+        <!-- {{choice.title}} ;vote : {{choice.votes}} -->
+        <div class="progress" style="background-color:rgb(105,200,140) ;">
+            <span style="color:black; position: absolute;font-weight: bold;">{{choice.title}}</span>
             <div class="progress-bar" role="progressbar"
                 aria-valuenow="$ctrl.getItemVoteRate(choice,$ctrl.kolPollService.viewKolPollResult)" aria-valuemin="0"
-                aria-valuemax="100" style="width: 60%;">
-                {{$ctrl.getItemVoteRate(choice,$ctrl.kolPollService.viewKolPollResult)}}%
+                aria-valuemax="100" style="background-color:#00f59c; width:{{$ctrl.getItemVoteRate(choice,$ctrl.kolPollService.viewKolPollResult)}}%;">
+                <!-- {{$ctrl.getItemVoteRate(choice,$ctrl.kolPollService.viewKolPollResult)}}%({{choice.votes}}) -->
             </div>
+            <span style="color:black; position: absolute;right: 20px;font-weight: bold;">{{$ctrl.getItemVoteRate(choice,$ctrl.kolPollService.viewKolPollResult)}}%({{choice.votes}})
         </div>
     </div>
-</div>
-
-<div class="modal-footer">
-    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
 </div>

@@ -116,7 +116,7 @@ async function createKolPoll(title, duration, choices = []) {
         body: postBody
     });
     logger.debug(`create poll success`);
-    return response[0];
+    return response.data[0];
 }
 
 /**
@@ -124,7 +124,7 @@ async function createKolPoll(title, duration, choices = []) {
  */
 async function endKolPoll(id, status = "TERMINATED") {
     const client = twitchApi.getClient();
-    await client.callAPI({
+    let response = await client.callAPI({
         type: TwitchAPICallType.Helix,
         method: "PATCH",
         url: "polls",
@@ -134,6 +134,8 @@ async function endKolPoll(id, status = "TERMINATED") {
             "status": status,
         }
     });
+    logger.debug(`end poll success`);
+    return response.data[0];
 }
 
 exports.getKolPolls = getKolPolls;

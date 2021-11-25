@@ -71,22 +71,22 @@
     </div>
     <div class="text-input-wrapper">
       <div class="text-input" chat-auto-complete-menu ng-model="chatMessage" input-id="chatMessageInput">
-        <div class="dropup">
+        <!-- <div class="dropup"> -->
           <!-- <span class="dropdown-toggle chatter-dropdown" data-toggle="dropdown" uib-tooltip="Chat as"
             tooltip-placement="left" tooltip-append-to-body="true"> -->
-          <span class="dropdown-toggle chatter-dropdown" 
+          <!-- <span class="dropdown-toggle chatter-dropdown" 
             tooltip-placement="left" tooltip-append-to-body="true">
-            <span style="width: 100%; text-align: center">{{chatSender}}</span>
+            <span style="width: 100%; text-align: center">{{chatSender}}</span> -->
             <!-- <span style="margin-left: 10px; width: 100%; text-align: center">{{chatSender}}</span> -->
             <!-- <div class="fb-arrow down" style="margin-left: 10px; margin-right: 10px; margin-bottom: 3px"></div> -->
-          </span>
+          <!-- </span>
           <ul class="dropdown-menu">
             <li ng-click="chatSender = 'Streamer'"><a href>Streamer</a></li>
             <li ng-click="chatSender = 'Bot'" ng-show="botLoggedIn">
               <a href>Bot</a>
             </li>
           </ul>
-        </div>
+        </div> -->
 
         <input id="chatMessageInput" type="text" placeholder="Message the stream" class="text-input-field"
           style="height: 100%;padding-right: 55px;" ng-maxlength="360" ng-model="chatMessage" ng-change="onMessageFieldUpdate()"
@@ -116,7 +116,7 @@
     </div>
   </div>
   <div ng-show="getStreamInfoSetting() || getHistorySetting() || getActivityFeedSetting()" class="view-content" style="margin:10px 10px 10px 10px;height:98%;background:#101111;">
-    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="background: #24262A; height:33.3%;display: flex;flex-direction: column;border-radius: 10px;">
+    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="background: #24262A; height:14%;min-height:131px; display: flex;flex-direction: column;border-radius: 10px;">
       <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
         <div style="display: flex; align-items: center">
             <span style="padding-left: 7px;padding-top:2px;">STREAM INFO</span>
@@ -138,7 +138,7 @@
         <kol-edit-stream-info-modal class="stream-info-setting" style="border-radius: 30%;"></kol-edit-stream-info-modal>
       </div>
     </div>
-    <div ng-show="getHistorySetting()" style="background: #101111;height: 33.3%;display: flex;flex-direction: column-reverse;">
+    <div ng-show="getHistorySetting()" style="background: #101111;height: 42%;display: flex;flex-direction: column-reverse;">
       <div class="activity-feed-column" style="background: #24262A;border-radius: 10px;height:90%">
         <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
           <div style="display: flex; align-items: center">
@@ -173,12 +173,12 @@
             <div style="width: 100%" class="activity-message" ng-bind-html="activity.message"></div>
           </div>
         </div>
-        <div ng-if="khs.historyQueue.length === 0" class="kol-none-box" style="height: 180px;background: #24262A;margin-left:8px;">
+        <div ng-if="khs.historyQueue.length === 0" class="kol-none-box" style="height: 89%;background: #24262A;margin-left:8px;">
           <p style="font-size: 20px;">NONE</p>
         </div>
       </div>
     </div>
-    <div ng-show="getActivityFeedSetting()" style="background: #101111;height:33.3%;display: flex;flex-direction: column-reverse;">
+    <div ng-show="getActivityFeedSetting()" style="background: #101111;height:44%;display: flex;flex-direction: column-reverse;">
       <div class="activity-feed-column" style="background: #24262A; border-radius: 10px;height: 90%;">
         <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
           <div style="display: flex; align-items: center">
@@ -250,7 +250,7 @@
             </div>
           </div>
         </div>
-        <div ng-if="afs.activities.length === 0" class="kol-none-box" style="height: 180px;background: #24262A;margin-left:8px;">
+        <div ng-if="afs.activities.length === 0" class="kol-none-box" style="height: 89%;background: #24262A;margin-left:8px;">
           <p style="font-size: 20px;">NONE</p>
         </div>
       </div>

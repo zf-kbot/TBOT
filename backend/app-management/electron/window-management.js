@@ -7,6 +7,8 @@ const url = require("url");
 const windowStateKeeper = require("electron-window-state");
 const fileOpenHelpers = require("../file-open-helpers");
 const frontendCommunicator = require("../../common/frontend-communicator");
+const { Tray, app} = require('electron');
+let tray = null //用来存放系统托盘
 
 /**
  * Twitchbot's main window
@@ -48,7 +50,69 @@ function createMainWindow() {
             backgroundThrottling: false
         }
     });
+    tray = new Tray(path.join(__dirname, '../../../gui/images/logo_transparent_2.png'));
+    let minMenu = [
+        {
+            label: 'show window',
+            id: 'show-window',
+            isMinimized: !mainWindow.show,
+            click() {
+                mainWindow.show();
+            }
+        },
+        {
+            label: 'quit twitcherbot',
+            click() {
+                minMenu.getMenuItemById('show-window').isMinimized = true;
+                mainWindow.close();
+            }
+        }
+    ];
+        // 构建菜单
+    minMenu = Menu.buildFromTemplate(minMenu);
+    // 给系统托盘设置菜单
+    tray.setContextMenu(minMenu);
+    // 给托盘图标设置气球提示
+    tray.setToolTip('Twitch Bot');
+    // 加载页面文件
+    mainWindow.loadFile('src/index.html');
 
+    // 窗口最小化
+    // mainWindow.on('minimize', ev => {
+    //     // 阻止最小化
+    //     ev.preventDefault();
+    //     // 隐藏窗口
+    //     mainWindow.hide();
+    // });
+    mainWindow.on('close', ev => {
+        if (!minMenu.getMenuItemById('show-window').isMinimized) {
+            ev.preventDefault();
+            mainWindow.hide();
+        }
+        return false;
+    });
+    // 托盘图标被双击
+    tray.on('double-click', () => {
+        // 显示窗口
+        mainWindow.maximize();
+        mainWindow.show();
+    });
+
+    // 窗口隐藏
+    mainWindow.on('hide', () => {
+    // 启用菜单的显示主窗口项
+        minMenu.getMenuItemById('show-window').isMinimized = true;
+        // 重新设置系统托盘菜单
+        tray.setContextMenu(minMenu);
+    });
+
+    // 窗口显示
+    mainWindow.on('show', () => {
+        // 禁用显示主窗口项
+        minMenu.getMenuItemById('show-window').isMinimized = false;
+        // 重新设置系统托盘菜单
+        tray.setContextMenu(minMenu);
+    });
     mainWindow.webContents.on('new-window',
         (event, _url, frameName, _disposition, options) => {
             if (frameName === 'modal') {

@@ -70,7 +70,7 @@
           <thead>
             <tr style="font-size: 11px; color: white;">
               <th style="text-align: left;padding-left: 15px;">PHRASE</th>
-              <th> INTERVEL</th>
+              <th> TIME OUT</th>
               <th> STAUS</th>
               <th> EDIT</th>
               <th> DELETE</th>
@@ -98,7 +98,7 @@
                   uib-tooltip="{{command.trigger}}"
                   tooltip-popup-delay="500"
                   tooltip-append-to-body="true"
-                  >{{command.effects.list[0].time}}</span
+                  >{{command.effects.list[0].time + " seconds"}}</span
                 >
                 <tooltip
                   ng-if="command.triggerIsRegex"

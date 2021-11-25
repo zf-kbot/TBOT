@@ -31,36 +31,36 @@
     </div>
     <div class="text-input-wrapper">
         <div class="text-input" chat-auto-complete-menu ng-model="chatMessage" input-id="chatMessageInput">
-          <div class="dropup">
+          <!-- <div class="dropup"> -->
             <!-- <span class="dropdown-toggle chatter-dropdown" data-toggle="dropdown" uib-tooltip="Chat as"
               tooltip-placement="left" tooltip-append-to-body="true"> -->
-            <span class="dropdown-toggle chatter-dropdown" 
+            <!-- <span class="dropdown-toggle chatter-dropdown" 
               tooltip-placement="left" tooltip-append-to-body="true">
-              <span style="width: 100%; text-align: center">{{chatSender}}</span>
+              <span style="width: 100%; text-align: center">{{chatSender}}</span> -->
               <!-- <span style="margin-left: 10px; width: 100%; text-align: center">{{chatSender}}</span> -->
               <!-- <div class="fb-arrow down" style="margin-left: 10px; margin-right: 10px; margin-bottom: 3px"></div> -->
-            </span>
+            <!-- </span>
             <ul class="dropdown-menu">
               <li ng-click="chatSender = 'Streamer'"><a href>Streamer</a></li>
               <li ng-click="chatSender = 'Bot'" ng-show="botLoggedIn">
                 <a href>Bot</a>
               </li>
             </ul>
-          </div>
+          </div>  -->
   
           <input id="chatMessageInput" type="text" placeholder="Message the stream" class="text-input-field"
             style="height: 100%;padding-right: 55px;" ng-maxlength="360" ng-model="chatMessage" ng-change="onMessageFieldUpdate()"
             ng-keydown="onMessageFieldKeypress($event)" ng-trim="false" ng-disabled="!chatFeedIsEnabled()" />
         </div>
-        <div class="settings-btn-wrapper" style="right:35px;">
+        <div class="settings-btn-wrapper">
             <button class="settings-btn" ng-click="showKolChatEmotesModal()" aria-label="Chat Settings" >
               <i class="fal fa-smile"></i>
             </button>
-          </div>
-        <div class="settings-btn-wrapper">
+        </div>
+        <!-- <div class="settings-btn-wrapper">
           <button class="settings-btn" ng-click="showChatSettingsModal()" aria-label="Chat Settings">
             <i class="fal fa-cog"></i>
           </button>
-        </div>
+        </div> -->
       </div>
 </div>

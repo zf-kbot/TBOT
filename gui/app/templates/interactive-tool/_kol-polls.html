@@ -68,7 +68,11 @@
                     </div>
                     <div class="toggle-button-container" style="width:auto ;"
                         ng-if="kolPoll.twitchPoll && kolPoll.twitchPoll.status != 'ACTIVE'">
-                        finished
+                        <!-- finished -->
+                        <input class="tgl tgl-light" id="{{ kolPoll.id }}" type="checkbox"
+                        ng-model="kolPoll.is_active" 
+                        ng-click="togglePollStatus(kolPoll)"/>
+                    <label class="tgl-btn" for="{{ kolPoll.id }}" style="top: 2px"></label>
                     </div>
                 </div>
             </td>

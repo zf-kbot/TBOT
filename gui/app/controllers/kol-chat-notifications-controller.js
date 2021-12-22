@@ -4,6 +4,7 @@
     angular
         .module("twitcherbotApp")
         .controller("kolChatNotificationsController", function ($scope, logger, profileManager, gaService, kolHistoryService) {
+            gaService.sendEvent('chat notification', 'open');
             $scope.active = 0;
             $scope.tabId = "followers";
             $scope.description = "";

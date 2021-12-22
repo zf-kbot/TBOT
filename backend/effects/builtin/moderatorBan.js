@@ -14,7 +14,7 @@ const model = {
         id: "twitcherbot:modban",
         name: "Ban",
         description: "Ban or unban a user.",
-        icon: "fad fa-ban",
+        icon: "fa fa-ban",
         categories: [EffectCategory.COMMON, EffectCategory.MODERATION],
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(

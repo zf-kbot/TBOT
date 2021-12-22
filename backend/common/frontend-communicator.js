@@ -3,6 +3,7 @@
 const uuidv1 = require("uuid/v1");
 
 const { ipcMain } = require("electron");
+const profileManager = require("../common/profile-manager");
 
 let listeners = {};
 

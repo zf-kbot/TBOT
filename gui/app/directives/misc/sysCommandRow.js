@@ -12,7 +12,7 @@
           <div style="width: 20%">{{$ctrl.command.trigger}}</div>
           <div style="width: 20%">
             <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
-                <i class="far fa-globe-americas"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
+                <i class="fa fa-globe-americas"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
             </span>
             <span uib-tooltip="User cooldown">
                 <i class="far fa-user"></i> {{$ctrl.command.cooldown.user ? $ctrl.command.cooldown.user + "s" : "-" }}
@@ -25,7 +25,7 @@
             </div> 
           </div>
           <div style="flex-basis:30px; flex-shrink: 0;">
-            <i class="fas" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
+            <i class="fa" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
           </div>
         </div>
         <div uib-collapse="hidePanel" class="sys-command-expanded">
@@ -49,7 +49,7 @@
                         <div><span class="muted" style="font-size: 10px;"><i class="fas fa-lock-alt"></i> COOLDOWNS</span></div>
                         <div>
                             <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
-                                <i class="fal fa-globe"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
+                                <i class="fa fa-globe"></i> {{$ctrl.command.cooldown.global ? $ctrl.command.cooldown.global + "s" : "-" }}
                             </span>
                             <span uib-tooltip="User cooldown">
                                 <i class="fal fa-user"></i> {{$ctrl.command.cooldown.user ? $ctrl.command.cooldown.user + "s" : "-" }}
@@ -177,7 +177,7 @@
 
             $ctrl.sysCommandMenuOptions = [
                 {
-                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                    html: `<a href ><i class="fa fa-pencil" style="margin-right: 10px;"></i> Edit</a>`,
                     click: function () {
                         $ctrl.openEditSystemCommandModal();
                     }

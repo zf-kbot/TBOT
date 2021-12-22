@@ -12,7 +12,8 @@
 
   <!--Webfont version of font awesome 5, use these from now on-->
 
-  <script src="https://kit.fontawesome.com/1bc4e8dcfe.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://kit.fontawesome.com/1bc4e8dcfe.js" crossorigin="anonymous"></script> -->
+  <script src="https://use.fontawesome.com/04b572d8fd.js" crossorigin="anonymous"></script>
 
   <link ng-href="{{customFontCssPath}}" rel="stylesheet" type="text/css" />
 
@@ -264,6 +265,7 @@
   <script type="text/javascript" src="./directives/modals/misc/kol-pop-chat-settings-modal.js"></script>
   <script type="text/javascript" src="./directives/modals/misc/manage-sort-tags.js"></script>
   <script type="text/javascript" src="./directives/modals/misc/selectModal.js"></script>
+  <script type="text/javascript" src="./directives/modals/misc/settingModal.js"></script>
   <script type="text/javascript" src="./directives/modals/misc/setupWizardModal.js"></script>
   <script type="text/javascript" src="./directives/modals/misc/stream-preview-modal.js"></script>
   <script type="text/javascript" src="./directives/modals/misc/txtFileWordImportModal.js"></script>
@@ -321,8 +323,8 @@
                 tooltip-placement="bottom" tooltip-append-to-body="true"
                 ng-click="cs.toggleSidebarControlledServices()" tabindex="0"
                 aria-label="{{ cs.sidebarServicesOverallStatus == 'connected' ? 'Disconnect Services' : 'Connect Services' }}">
-                <i class="fad"
-                  ng-class="cs.isConnectingAll ? 'fa-sync fa-spin force-white-text' : 'fa-power-off'"></i>
+                <i class="fa"
+                  ng-class="cs.isConnectingAll ? 'fa-refresh fa-spin force-white-text' : 'fa-power-off'"></i>
               </div>
             </div>
           </div>
@@ -339,7 +341,7 @@
                   ng-click="cs.toggleSidebarControlledServices()" tabindex="0"
                   aria-label="{{ cs.sidebarServicesOverallStatus == 'connected' ? 'Disconnect Services' : 'Connect Services' }}">
                   <i class="fad"
-                    ng-class="cs.isConnectingAll ? 'fa-sync fa-spin force-white-text' : 'fa-power-off'"></i>
+                    ng-class="cs.isConnectingAll ? 'fa-refresh fa-spin force-white-text' : 'fa-power-off'"></i>
                 </div> -->
                 <!-- <div style="cursor:pointer;" ng-click="$ctrl.showConnectionPanelModal()">
                       <div class="interactive-status-text">
@@ -358,7 +360,7 @@
 
                 <!-- <div class="connection-panel-btn" ng-class="{'contracted': !$ctrl.sbm.navExpanded}" uib-tooltip="Open Connection Panel" tooltip-append-to-body="true"
                       ng-click="$ctrl.showConnectionPanelModal()">
-                      <span><i class="fal fa-external-link-alt"></i></span>
+                      <span><i class="fa fa-external-link"></i></span>
                   </div> -->
               <!-- </div>
             </div> -->
@@ -373,7 +375,7 @@
                 <li>
                     <a href ng-click="showFeedbackModal()">
                       <span>
-                        <i class="fal fa-pencil"></i>
+                        <i class="fa fa-pencil"></i>
                       </span>
                       Feedback
                     </a>
@@ -383,7 +385,7 @@
                   <!-- <a href ng-click="showManageLoginsModal()" aria-label="Manage Logins"> -->
                   <a href ng-click="cs.loginOrLogout('streamer')"  aria-label="Manage Logins">
                     <span>
-                      <i class="fal fa-sign-in-alt"></i>
+                      <i class="fa fa-sign-in"></i>
                     </span>
                     {{cs.accounts.streamer.loggedIn == true ? "Log Out" : "Login"}}
                   </a>
@@ -405,7 +407,7 @@
                 <li>
                   <a href ng-click="showNewProfileModal()">
                     <span>
-                      <i class="fal fa-user-plus"></i>
+                      <i class="fa fa-user-plus"></i>
                     </span>
                     Add New Profile
                   </a>
@@ -413,7 +415,7 @@
                 <li>
                   <a href ng-click="showRenameProfileModal()">
                     <span>
-                      <i class="fal fa-pencil" style="width: 17.5px;"></i>
+                      <i class="fa fa-pencil" style="width: 17.5px;"></i>
                     </span>
                     Rename This Profile
                   </a>
@@ -446,7 +448,7 @@
   <!-- Manage Profile Modal -->
   <script type="text/ng-template" id="manageLoginsModal.html">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
         <h4 class="modal-title" aria-label="Manage Logins">{{'MAIN.MANAGE_LOGINS' | translate }}</h4>
       </div>
       <div class="modal-body">
@@ -471,7 +473,7 @@
   <!-- New Profile Modal -->
   <script type="text/ng-template" id="newProfileModal.html">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
         <h4 class="modal-title" id="errorLabel">Create New Profile</h4>
       </div>
       <div class="modal-body">
@@ -495,7 +497,7 @@
   <!-- Rename Profile Modal -->
   <script type="text/ng-template" id="renameProfileModal.html">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
         <h4 class="modal-title">Rename Profile</h4>
       </div>
       <div class="modal-body">
@@ -519,7 +521,7 @@
   <!-- Delete Profile Modal -->
   <script type="text/ng-template" id="deleteProfileModal.html">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
         <h4 class="modal-title">Delete Profile</h4>
       </div>
       <div class="modal-body">
@@ -534,7 +536,7 @@
   <!-- Error Modal -->
   <script type="text/ng-template" id="errorModal.html">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
         <h4 class="modal-title" id="errorLabel">Error</h4>
       </div>
       <div class="modal-body">
@@ -548,7 +550,7 @@
   <!-- Info Modal -->
   <script type="text/ng-template" id="infoModal.html">
       <div class="modal-header">
-        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
         <h4 class="modal-title" id="errorLabel">Info</h4>
       </div>
       <div class="modal-body">
@@ -563,7 +565,7 @@
   <script type="text/ng-template" id="overlayInfoModal.html">
       <div class="modal-header" style="text-align:center;">
         <h2 class="modal-title">Twitchbot Overlay Info</h2>
-        <button type="button" class="close" aria-label="Close" ng-click="dismiss()" style="position: absolute;right: 25px;"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+        <button type="button" class="close" aria-label="Close" ng-click="dismiss()" style="position: absolute;right: 25px;"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
       </div>
       <div class="modal-body" style="text-align:center;display:flex;flex-direction: column;align-items: center;font-weight: 100;">
         <div ng-hide="showingInstance">
@@ -692,13 +694,13 @@
 
                 <div class="flex-row acenter jspacebetween">
                     <div class="test-effects-btn clickable" uib-tooltip="Test Effect" ng-hide="effect == null || effect.type === 'Nothing'">
-                        <i class="far fa-play-circle" style="cursor: pointer;" ng-click="runEffect()"></i>
+                        <i class="fa fa-play-circle" style="cursor: pointer;" ng-click="runEffect()"></i>
                     </div>
                     <div uib-dropdown uib-dropdown-toggle>
-                        <span class="noselect pointer effects-actions-btn" style="font-size: 31px"><i class="fal fa-ellipsis-v"></i></span>
+                        <span class="noselect pointer effects-actions-btn" style="font-size: 31px"><i class="fa fa-ellipsis-v"></i></span>
                         <ul class="dropdown-menu" uib-dropdown-menu>
                             <li>
-                                <a href ng-click="editLabel()"><i class="fal fa-tag" style="margin-right: 10px;" aria-hidden="true"></i>  {{getLabelButtonTextForLabel(effect.effectLabel)}}</a>
+                                <a href ng-click="editLabel()"><i class="fa fa-tag" style="margin-right: 10px;" aria-hidden="true"></i>  {{getLabelButtonTextForLabel(effect.effectLabel)}}</a>
                             </li>
                             <li>
                                 <a href ng-click="copy()"><i class="far fa-copy" style="margin-right: 10px;"></i> Copy</a>
@@ -707,7 +709,7 @@
                                 <a href ng-click="paste()"><i class="far fa-paste" style="margin-right: 10px;"></i> Paste</a>
                             </li>
                             <li>
-                                <a href ng-click="delete()" style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>
+                                <a href ng-click="delete()" style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i> Delete</a>
                             </li>
                         </ul>
                     </div>

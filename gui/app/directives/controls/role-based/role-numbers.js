@@ -12,7 +12,7 @@
             template: `
             <div>
                 <div style="margin: 5px 0 10px 0px;">
-                    <button class="btn btn-default" ng-click="$ctrl.openAddRoleModal()"><i class="far fa-plus-circle"></i> Add Role</button>              
+                    <button class="btn btn-default" ng-click="$ctrl.openAddRoleModal()"><i class="fa fa-plus-circle"></i> Add Role</button>              
                 </div>
 
                 <div ui-sortable="$ctrl.sortableOptions" ng-model="$ctrl.model.roles">
@@ -22,7 +22,7 @@
                         </span> 
                         <role-number model="role.value" role-id="role.roleId" min-value="$ctrl.settings.min" max-value="$ctrl.settings.max" style="width:100%;"></role-number>
                         <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeRole(role.roleId)">
-                            <i class="fad fa-trash-alt" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </span>
                     </div>
                 </div>

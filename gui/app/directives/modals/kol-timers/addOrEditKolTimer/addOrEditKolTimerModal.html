@@ -1,15 +1,15 @@
 <div class="modal-header">
     <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()" style="font-size: 35px; text-shadow: none">
-        <span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span>
+        <span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span>
     </button>
     <h4 class="modal-title" id="newCooldownGroupLabel">{{$ctrl.isNewTimer ? 'Add New Timer' : 'Edit Timer - ' +
-        $ctrl.timer.name}}</h4>
+        $ctrl.kolTimer.name}}</h4>
 </div>
 <div class="modal-body">
     <div class="general-button-settings">
         <div class="settings-commandGroup-groupName form-group">
             <span style="font-size:16px;">
-                <i class="fal fa-pen" style="margin-right: 5px;"></i>
+                <i class="fa fa-pencil" style="margin-right: 5px;"></i>
                 Name
                 <tooltip style="font-size: 14px;" text = "'This is your timer name. It has no significance but to remind you what this timer does.'"></tooltip>
             </span>
@@ -17,7 +17,7 @@
         </div>
         <div class="settings-commandGroup-groupName form-group">
             <span style="font-size:16px;">
-                <i class="fal fa-comment-alt-dots" style="margin-right: 5px;"></i>
+                <i class="fa fa-list-alt" style="margin-right: 5px;"></i>
                 Message
                 <tooltip style="font-size: 14px;" text = "'This is your timer response. You can use command variables to make dynamic responses.'"></tooltip>
             </span>
@@ -43,7 +43,7 @@
         <!-- 多长时间重复一次 -->
         <div class="settings-title">
             <span style="font-size:16px;">
-                <i class="fal fa-alarm-clock" style="margin-right: 5px;"></i>
+                <i class="fa fa-clock-o" style="margin-right: 5px;"></i>
                 Cooldowns
                 <tooltip style="font-size: 14px;" text = "'This is interval at which the timer repeats. Times are exact per hour (for example: 15 minutes is at 2:00,2:15,2:30,2:45, etc).'"></tooltip>
             </span>
@@ -69,7 +69,7 @@
         <!-- 多少条消息触发一次 -->
         <div class="settings-title" style="padding-top: 15px;">
             <span style="font-size:16px;">
-                <i class="fal fa-comment-alt-lines" style="margin-right: 5px;"></i>
+                <i class="fa fa-list-alt" style="margin-right: 5px;"></i>
                 Required Chat Lines
                 <tooltip style="font-size: 14px;" text = "'This is minimum amount of chat lines (measured in lines per  minutes) required to active the timer. If your chat is moving slow, this is useful to pervent Nightbot from spamming your empty channel.'"></tooltip>
             </span>

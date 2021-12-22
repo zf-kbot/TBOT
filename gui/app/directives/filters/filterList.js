@@ -36,12 +36,12 @@
             <button ng-repeat="filter in $ctrl.filterData.filters track by $index" class="filter-bar" ng-click="$ctrl.openAddOrEditFilterModal($index)">
                 <filter-display filter="filter" filter-type="$ctrl.getFilterType(filter.type)"></filter-display>
                 <a class="filter-remove-btn clickable" style="padding-left: 10px;" ng-click="$event.stopPropagation();$ctrl.removeFilterAtIndex($index)" uib-tooltip="Remove filter" tooltip-append-to-body="true">
-                    <i class="far fa-times"></i>
+                    <i class="fa fa-times"></i>
                 </a>
             </button>
 
             <button class="filter-bar" ng-show="$ctrl.hasFiltersAvailable()" ng-click="$ctrl.openAddOrEditFilterModal()" uib-tooltip="Add new filter" tooltip-append-to-body="true">
-                <i class="far fa-plus"></i> 
+                <i class="fa fa-plus"></i> 
             </button> 
 
           </div>

@@ -16,7 +16,7 @@
                     </span>
                     <button ng-click="$ctrl.recordKeys()" class="btn" ng-class="$ctrl.hks.isCapturingHotkey ? 'btn-danger' : 'btn-success'">{{$ctrl.hks.isCapturingHotkey ? 'Stop recording' : 'Record'}}</button>
 
-                    <span class="clickable" style="margin-left: 10px;" uib-tooltip="Clear current hotkey" ng-click="$ctrl.clearHotkey()" ng-show="$ctrl.hotkeyDisplay != null && $ctrl.hotkeyDisplay.length > 0"><i class="far fa-times-circle"></i></span>
+                    <span class="clickable" style="margin-left: 10px;" uib-tooltip="Clear current hotkey" ng-click="$ctrl.clearHotkey()" ng-show="$ctrl.hotkeyDisplay != null && $ctrl.hotkeyDisplay.length > 0"><i class="fa fa-times-circle"></i></span>
                 </div>
             `,
         controller: function(hotkeyService, $rootScope, $scope) {

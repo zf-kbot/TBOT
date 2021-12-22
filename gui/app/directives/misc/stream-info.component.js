@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="stream-info-stat" ng-show="settings.getShowViewerCountStat()" style="margin-left:10px">
-                        <i class="fas fa-user" style="margin-right: 5px; font-size: 12px;" />
+                        <i class="fa fa-user" style="margin-right: 5px; font-size: 12px;" />
                         <span>{{sis.streamInfo.viewers}}</span>
                     </div>
                 </div>

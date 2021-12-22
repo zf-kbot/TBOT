@@ -18,7 +18,7 @@ const model = {
         name: "Conditional Effects",
         description: "Conditionally run effects",
         categories: [EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
-        icon: "fad fa-question-circle",
+        icon: "fa fa-question-circle",
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(
             [ControlKind.BUTTON, ControlKind.TEXTBOX],
@@ -42,13 +42,13 @@ const model = {
                         modalId="{{modalId}}"></effect-list> 
                         
                     <div style="margin-top: 10px">
-                        <button class="btn btn-danger" ng-click="deleteClauseAtIndex($index)"><i class="far fa-trash"></i></button>
+                        <button class="btn btn-danger" ng-click="deleteClauseAtIndex($index)"><i class="fa fa-trash"></i></button>
                     </div>
                 </condition-section>          
             </div>
         </div>
 
-            <button class="btn btn-link" ng-click="addIf()"><i class="fal fa-plus-circle"></i> Add <strong>{{effect.ifs.length === 0 ? 'If' : 'Else If'}}</strong> Clause</button>
+            <button class="btn btn-link" ng-click="addIf()"><i class="fa fa-plus-circle"></i> Add <strong>{{effect.ifs.length === 0 ? 'If' : 'Else If'}}</strong> Clause</button>
 
             <div style="margin-top: 15px;">
 

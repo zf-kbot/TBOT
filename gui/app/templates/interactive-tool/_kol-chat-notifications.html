@@ -4,7 +4,7 @@
             <div class="content-block-body">
                 <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
                     <div class="col-md-1">
-                        <span class="hvr-bob"><i class="fal fa-comment-smile" style="font-size: 8em;"></i></span>
+                        <span class="hvr-bob"><i class="fa fa-commenting-o" style="font-size: 8em;"></i></span>
                     </div>
                     <div class="toggle-button-container" style="width: 80%;text-align: left;">
                         <!-- <p style="font-size: 25px;font-weight: bold;"> -->
@@ -37,7 +37,7 @@
                     </div>
                     <span style="color: #CAC8C8; margin: 20px;">{{ description }}</span>
                 </div>
-                <h4><i class="fas fa-comment-alt-dots"></i> Message</h4>
+                <h4><i class="fa fa-list-alt"></i> Message</h4>
                 <div class="kol-cooldown-time" ng-show="tabId === 'followers'">
                     <span>Cooldown seconds:</span>
                     <select
@@ -52,7 +52,7 @@
                     <kol-message-tip common-text="commonText" arguments="arguments" append-to-input="appendToInput(name)" style="line-height: 36px";/>
                     <div style="position: relative; left: -15%" ng-show="responseMsgChanged">
                         <button class="btn btn-primary" style="width: 70px; position: relative; left: -15%" ng-click="save()">save</button>
-                        <i ng-show="saveStatus === SUCCESS" style="color: #04BD0C" class="fas fa-check"></i>
+                        <i ng-show="saveStatus === SUCCESS" style="color: #04BD0C" class="fa fa-check"></i>
                     </div>
                 </div>
                 <div id="kol-chat-notifications-responseMsgs" ng-repeat="responseMsg in responseMsgs track by responseMsg.id">
@@ -69,10 +69,10 @@
                             <span style="color: red;" ng-if="emptyContentIdList.includes(responseMsg.id)">message can't be empty</span>
                         </div>
                         <div class="kol-input-append-tag" ng-if="$index === 0 && responseMsgs.length < 5" ng-click="addNewResponseMsg()">
-                            <i class="fas fa-plus-circle"></i>
+                            <i class="fa fa-plus-circle"></i>
                         </div>
                         <div class="kol-input-append-tag" ng-if="$index !== 0" ng-click="deleteResponseMsgByIndex($index)">
-                            <i class="far fa-trash-alt"></i>
+                            <i class="fa fa-trash"></i>
                         </div>
                     </div>
                 </div>

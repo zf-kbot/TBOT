@@ -55,7 +55,7 @@
                             uib-tooltip="Add Restriction" 
                             aria-label="Add Restriction"  
                             tooltip-append-to-body="true">
-                                <i class="far fa-plus"></i> 
+                                <i class="fa fa-plus"></i> 
                         </div>
                     </div>
                     <div style="margin-top: 5px;" ng-show="$ctrl.restrictionData.restrictions.length > 0">

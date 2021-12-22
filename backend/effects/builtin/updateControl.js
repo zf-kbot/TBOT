@@ -11,7 +11,7 @@ const model = {
         id: "twitcherbot:updatecontrol",
         name: "Update Control (Deprecated)",
         description: "Change various properties of a MixPlay Control.",
-        icon: "fad fa-bullseye-pointer",
+        icon: "fa fa-bullseye",
         hidden: true,
         categories: [EffectCategory.ADVANCED],
         dependencies: [EffectDependency.INTERACTIVE],

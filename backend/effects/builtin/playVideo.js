@@ -129,9 +129,9 @@ const playVideo = {
 
         <eos-container header="Volume" pad-top="true">
             <div class="volume-slider-wrapper">
-                <i class="fal fa-volume-down volume-low"></i>
+                <i class="fa fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="effect.volume" rz-slider-options="{floor: 1, ceil: 10, hideLimitLabels: true}"></rzslider>
-                <i class="fal fa-volume-up volume-high"></i>
+                <i class="fa fa-volume-up volume-high"></i>
             </div>
         </eos-container>
 
@@ -358,7 +358,7 @@ const playVideo = {
                 let loop = data.loop;
 
                 let token = encodeURIComponent(data.resourceToken);
-                let filepathNew = `http://${window.location.hostname}:7472/resource/${token}`;
+                let filepathNew = `http://${window.location.hostname}:7473/resource/${token}`;
 
 
                 // Get time in milliseconds to use as id

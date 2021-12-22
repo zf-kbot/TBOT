@@ -6,7 +6,7 @@
             template: `
                 <scroll-sentinel element-class="edit-reward-header"></scroll-sentinel>
                 <div class="modal-header sticky-header edit-reward-header">
-                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                     <h4 class="modal-title">Edit Channel Reward</h4>
                 </div>
                 <div class="modal-body" style="padding-top: 15px;">

@@ -27,7 +27,7 @@
                     id: "custom",
                     display: "Custom",
                     description: "Wait the custom amount of time defined for each individual effect list.",
-                    iconClass: "fa-clock"
+                    iconClass: "fa-clock-o"
                 },
                 {
                     id: "auto",
@@ -39,7 +39,7 @@
                     id: "interval",
                     display: "Interval",
                     description: "Runs effect lists on a set interval.",
-                    iconClass: "fa-stopwatch"
+                    iconClass: "fa-clock-o"
                 }
             ];
 

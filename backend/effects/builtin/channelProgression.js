@@ -11,7 +11,7 @@ const model = {
         id: "twitcherbot:channelProgression",
         name: "Give Progression (Deprecated)",
         description: "Give hearts to a user, or take them away.",
-        icon: "fad fa-heart",
+        icon: "fa fa-heart",
         hidden: true,
         categories: [EffectCategory.COMMON, EffectCategory.CHAT_BASED, EffectCategory.MODERATION],
         dependencies: [],

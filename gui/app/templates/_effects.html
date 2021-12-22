@@ -14,7 +14,7 @@
         <div ng-if="activeTab === 0">
             <scroll-sentinel element-class="effect-queue-header"></scroll-sentinel>      
             <div class="light-bg sticky-top effect-queue-header" style="padding: 15px; margin: 15px 0;display: flex;flex-direction: row;justify-content: space-between;">
-                <button ng-click="addOrEditQueue()" class="btn btn-primary hvr-icon-grow"><i class="fas fa-plus-circle hvr-icon" style="margin-right:5px;"></i> New Effect Queue</button>
+                <button ng-click="addOrEditQueue()" class="btn btn-primary hvr-icon-grow"><i class="fa fa-plus-circle hvr-icon" style="margin-right:5px;"></i> New Effect Queue</button>
                 
                 <!--<div style="display: flex; flex-direction: row;align-items: center;">
                     <searchbar ng-show="commandsService.getCustomCommands().length > 0" placeholder-text="Search commands" query="commandSearch" style="flex-basis: 250px;"></searchbar>
@@ -28,9 +28,9 @@
                 <table ng-show="eqs.getEffectQueues().length > 0" class="fb-table">
                     <thead>
                         <tr style="font-size: 11px;">
-                            <th class="muted" style="padding-left: 10px;"><i class="fas fa-tag"></i> NAME</th> 
+                            <th class="muted" style="padding-left: 10px;"><i class="fa fa-tag"></i> NAME</th> 
                             <th class="muted"><i class="fas fa-bring-forward"></i> MODE</th> 
-                            <th class="muted"><i class="fas fa-clock"></i> INTERVAL</th>
+                            <th class="muted"><i class="fa fa-clock-o"></i> INTERVAL</th>
                             <th></th> 
                         </tr> 
                     </thead> 
@@ -68,7 +68,7 @@
         <div ng-if="activeTab === 1">
             <scroll-sentinel element-class="preset-effect-list-header"></scroll-sentinel>      
             <div class="light-bg sticky-top preset-effect-list-header" style="padding: 15px; margin: 15px 0;display: flex;flex-direction: row;justify-content: space-between;">
-                <button ng-click="addOrEditPresetEffectList()" class="btn btn-primary hvr-icon-grow"><i class="fas fa-plus-circle hvr-icon" style="margin-right:5px;"></i> New Preset Effect List</button>
+                <button ng-click="addOrEditPresetEffectList()" class="btn btn-primary hvr-icon-grow"><i class="fa fa-plus-circle hvr-icon" style="margin-right:5px;"></i> New Preset Effect List</button>
             </div>   
             <div style="padding: 15px;">
                 <div ng-if="pels.getPresetEffectLists().length === 0" class="noselect muted" style="padding-left: 13px">
@@ -77,7 +77,7 @@
                 <table ng-show="pels.getPresetEffectLists().length > 0" class="fb-table">
                     <thead>
                         <tr style="font-size: 11px;">
-                            <th class="muted" style="padding-left: 10px;"><i class="fas fa-tag"></i> NAME</th> 
+                            <th class="muted" style="padding-left: 10px;"><i class="fa fa-tag"></i> NAME</th> 
                             <th class="muted"><i class="fas fa-magic"></i> EFFECTS</th>
                             <th></th> 
                         </tr> 

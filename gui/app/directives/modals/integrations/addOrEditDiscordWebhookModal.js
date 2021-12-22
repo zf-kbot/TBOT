@@ -8,7 +8,7 @@
         .component("addOrEditDiscordWebhookModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">Discord Channel</h4>
             </div>
             <div class="modal-body">

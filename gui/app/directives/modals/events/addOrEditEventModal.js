@@ -10,7 +10,7 @@
         template:
         `
         <div class="modal-header">
-            <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+            <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
             <h4 class="modal-title" id="editEventLabel">{{$ctrl.isNewEvent ? "Add Event" : "Edit Event"}}</h4>
         </div>
         <div class="modal-body">

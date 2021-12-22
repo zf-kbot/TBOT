@@ -35,7 +35,7 @@
               <div class="setting-description">
                 Change what output device App Sounds (connect/disconnect sounds)
                 and Play Sound Effects are sent to.
-                <i class="fal fa-question-circle"
+                <i class="fa fa-question-circle"
                   uib-tooltip="Due to technical limitations, this works only for the Play Sound Effect. The Show Video Effect audio still plays through the overlay and therefore your broadcasting software."
                   tooltip-append-to-body="true"></i>
               </div>
@@ -70,7 +70,7 @@
               <div style="padding-top: 10px; padding-left: 10px">
                 <label class="control-fb control--checkbox">
                   Subscribe to beta notifications
-                  <i class="fal fa-question-circle"
+                  <i class="fa fa-question-circle"
                     uib-tooltip="Get notified when a new beta is available. You will be able to review the change log and update from within the app, if you so desire."
                     tooltip-append-to-body="true"></i>
                   <input type="checkbox" ng-click="settings.setNotifyOnBeta(!settings.notifyOnBeta())"
@@ -466,10 +466,10 @@
             <div class="setting col-sm-6">
               <div class="setting-heading">TTS Voice Volume</div>
               <div class="volume-slider-wrapper">
-                <i class="fal fa-volume-down volume-low"></i>
+                <i class="fa fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="ttsVolumeSlider.value" rz-slider-options="ttsVolumeSlider.options">
                 </rzslider>
-                <i class="fal fa-volume-up volume-high"></i>
+                <i class="fa fa-volume-up volume-high"></i>
               </div>
             </div>
             <div class="setting col-sm-6">
@@ -479,9 +479,9 @@
                 fast. 2 is 2x as fast, etc.
               </div>
               <div class="volume-slider-wrapper">
-                <i class="fal fa-volume-down volume-low"></i>
+                <i class="fa fa-volume-down volume-low"></i>
                 <rzslider rz-slider-model="ttsRateSlider.value" rz-slider-options="ttsRateSlider.options"></rzslider>
-                <i class="fal fa-volume-up volume-high"></i>
+                <i class="fa fa-volume-up volume-high"></i>
               </div>
             </div>
           </div>
@@ -833,7 +833,7 @@
           <tr ng-repeat="instanceName in getOverlayInstances()">
             <td>{{instanceName}}</td>
             <td><a href ng-click="showViewUrlModal(instanceName)">View URL</a></td>
-            <td><span class="effect-delete-btn clickable pull-right" ng-click="deleteOverlayInstanceAtIndex($index)"><i class="far fa-trash-alt"></i></span></td>
+            <td><span class="effect-delete-btn clickable pull-right" ng-click="deleteOverlayInstanceAtIndex($index)"><i class="fa fa-trash"></i></span></td>
           </tr>
         </tbody>
       </table>
@@ -882,7 +882,7 @@
         <div style="font-size:17px">
           <span uib-tooltip="Prevent Auto-Deletion" tooltip-append-to-body="true" style="margin-right:15px; color:#4379f9;" ng-class="{'muted clickable-dark': !backup.neverDelete, 'clickable': backup.neverDelete}" ng-click="togglePreventDeletion(backup)"><i ng-class="{'far fa-unlock': !backup.neverDelete, 'fas fa-lock': backup.neverDelete}"></i></span>
           <span uib-tooltip="Restore to this backup" tooltip-append-to-body="true" style="margin-right:15px;" class="clickable" ng-click="restoreBackup(backup)"><i class="fal fa-undo-alt"></i></span>
-          <span uib-tooltip="Delete backup" tooltip-append-to-body="true" class="clickable" style="color:red;" ng-click="deleteBackup($index,backup)"><i class="fal fa-trash-alt"></i></span>
+          <span uib-tooltip="Delete backup" tooltip-append-to-body="true" class="clickable" style="color:red;" ng-click="deleteBackup($index,backup)"><i class="fa fa-trash"></i></span>
         </div>
       </div>
     </div>

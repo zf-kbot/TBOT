@@ -9,7 +9,7 @@
         .component("dateModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">{{$ctrl.label}}</h4>
             </div>
             <div class="modal-body">
@@ -19,7 +19,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" uib-datepicker-popup="{{$ctrl.dateFormat}}" ng-model="$ctrl.model" is-open="$ctrl.datePickerOpen" datepicker-options="$ctrl.dateOptions" ng-required="true" show-button-bar="false" placeholder="{{$ctrl.inputPlaceholder}}" aria-describedby="helpBlock"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="$ctrl.datePickerOpen = true"><i class="fas fa-calendar"></i></button>
+                                    <button type="button" class="btn btn-default" ng-click="$ctrl.datePickerOpen = true"><i class="fa fa-calendar"></i></button>
                                 </span>
                             </div>
                             <span id="helpBlock" class="help-block" ng-show="$ctrl.hasValidationError">{{$ctrl.validationText}}</span>

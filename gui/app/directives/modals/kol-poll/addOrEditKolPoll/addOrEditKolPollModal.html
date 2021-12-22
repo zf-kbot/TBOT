@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"
-            ng-click="$ctrl.dismiss()"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+            ng-click="$ctrl.dismiss()"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
     <h4 class="modal-title" id="newCooldownGroupLabel">{{$ctrl.isNewKolPoll ? 'Add New Poll' : 'Edit Poll - ' +
         $ctrl.timer.name}}</h4>
 </div>
@@ -9,7 +9,7 @@
         <div class="form-group">
             <div class="settings-commandGroup-groupName">
                 <span style="font-size:16px;">
-                    <i class="fal fa-pen" style="margin-right: 5px;"></i>
+                    <i class="fa fa-pencil" style="margin-right: 5px;"></i>
                     Name
                     <tooltip style="font-size: 14px;" text = "'Question displayed for the poll.Maximum: 60 characters.'"></tooltip>
                 </span>
@@ -21,7 +21,7 @@
         <div class="form-group">
             <div class="settings-commandGroup-groupName">
                 <span style="font-size:16px;">
-                    <i class="fal fa-alarm-clock" style="margin-right: 5px;"></i>
+                    <i class="fa fa-clock-o" style="margin-right: 5px;"></i>
                     Duration
                     <tooltip style="font-size: 14px;" text = "'Total duration for the poll (in seconds).Minimum: 15. Maximum: 1800.'"></tooltip>
                 </span>
@@ -34,11 +34,11 @@
         <div>
             <div class="settings-commandGroup-timer" style="margin-top: 10px;">
                 <span>
-                    <i class="fal fa-check-square" style="margin-right: 5px;"></i>
+                    <i class="fa fa-check-square" style="margin-right: 5px;"></i>
                     Options
                     <tooltip style="font-size: 14px;" text = "'Minimum: 2 choices. Maximum: 5 choices.'"></tooltip>
                     <!-- <i style="margin-left: 5px; color: #9145ff"
-                        ng-if="$ctrl.kolPoll.choices.length < 5" class="fas fa-plus-circle" style="margin-right:5px;"
+                        ng-if="$ctrl.kolPoll.choices.length < 5" class="fa fa-plus-circle" style="margin-right:5px;"
                         ng-click="$ctrl.addNewPollOption()"></i></span> -->
                 <!-- <span style="margin-left: 10px;color: red;" ng-if="$ctrl.kolPoll.choices.length == 5">You can only have up
                     to 5 choices</span> -->
@@ -48,10 +48,10 @@
                 <input type="text" class="form-control" ng-model="choice.title"
                     placeholder="choice-{{$index+1}}(* required)">
                 <span class="input-group-addon" ng-if="$index > 1" ng-click="$ctrl.removeOption($index)"><i
-                        class="far fa-trash-alt"></i></span>
+                        class="fa fa-trash"></i></span>
             </div>
             <i style="margin-left: 5px; color: #9145ff"
-            ng-if="$ctrl.kolPoll.choices.length < 5" class="fas fa-plus-circle" style="margin-right:5px;"
+            ng-if="$ctrl.kolPoll.choices.length < 5" class="fa fa-plus-circle" style="margin-right:5px;"
             ng-click="$ctrl.addNewPollOption()"></i></span>
         </div>
     </div>

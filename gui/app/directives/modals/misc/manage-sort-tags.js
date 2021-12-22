@@ -7,7 +7,7 @@
         .component("manageSortTagsModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">Edit Sort Tags</h4>
             </div>
             <div class="modal-body">
@@ -18,13 +18,13 @@
                         </span> 
                         <span>{{tag.name}}</span>
                         <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeTag(tag.id);$event.stopPropagation();">
-                            <i class="fad fa-trash-alt" aria-hidden="true"></i>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </span>
                     </div>
                 </div>
                 <div ng-show="$ctrl.tags.length < 1" class="muted" style="margin: 10px 0;">No tags created yet.</div>
                 <div style="margin: 10px 0 5px 0px;">
-                    <button class="btn btn-default" ng-click="$ctrl.openAddOrEditTagModal()"><i class="far fa-plus-circle"></i> Add Tag</button>              
+                    <button class="btn btn-default" ng-click="$ctrl.openAddOrEditTagModal()"><i class="fa fa-plus-circle"></i> Add Tag</button>              
                 </div>
             </div>
             <div class="modal-footer">

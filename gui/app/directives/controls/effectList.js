@@ -30,7 +30,7 @@
 
                         <div style="margin-right: 17px;" ng-if="$ctrl.getSelectedQueueModeIsCustom()">
                             <div style="font-size: 10px;opacity: 0.8;text-align: right;">EFFECTS DURATION <tooltip text="'The total duration (in secs) the queue should wait after triggering this effect list before running the next one'"></tooltip></div>
-                            <div style="display: flex; justify-content: flex-end; align-items: center;font-size: 12px;" class="clickable" ng-click="$ctrl.openEditQueueDurationModal()"><b>{{$ctrl.effectsData.queueDuration || 0}}</b><span>s</span><span class="muted" style="font-size: 9px; margin-left: 5px;"><i class="fal fa-edit"></i></span></div>
+                            <div style="display: flex; justify-content: flex-end; align-items: center;font-size: 12px;" class="clickable" ng-click="$ctrl.openEditQueueDurationModal()"><b>{{$ctrl.effectsData.queueDuration || 0}}</b><span>s</span><span class="muted" style="font-size: 9px; margin-left: 5px;"><i class="fa fa-edit"></i></span></div>
                         </div>
 
                         <div style="margin-right: 17px;" ng-if="$ctrl.validQueueSelected()">
@@ -88,12 +88,12 @@
                         </div>
 
                         <div class="test-effects-btn clickable" uib-tooltip="Test Effects" aria-label="Test effects">
-                            <i class="far fa-play-circle" style="cursor: pointer;" ng-click="$ctrl.testEffects()" aria-label="Test effects"></i>
+                            <i class="fa fa-play-circle" style="cursor: pointer;" ng-click="$ctrl.testEffects()" aria-label="Test effects"></i>
                         </div>
                         
                         <div uib-dropdown>
                             <a href uib-dropdown-toggle class="pointer effects-actions-btn clickable" uib-tooltip="Open effects menu" tooltip-append-to-body="true" aria-label="Open effects menu">
-                                <i class="fal fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
                             </a>
                             <ul class="dropdown-menu" uib-dropdown-menu>
                                 <li ng-class="{'disabled': !$ctrl.effectsData.list.length > 0}" ng-click="!$ctrl.effectsData.list > 0 ? $event.stopPropagation() : null">
@@ -103,7 +103,7 @@
                                     <a href ng-click="$ctrl.pasteEffects(true)"><i class="far fa-paste" style="margin-right: 10px;" aria-label="Paste effects"></i> Paste effects</a>
                                 </li>
                                 <li ng-class="{'disabled': !$ctrl.effectsData.list.length > 0}" ng-click="!$ctrl.effectsData.list > 0 ? $event.stopPropagation() : null">
-                                    <a href ng-click="$ctrl.removeAllEffects()" style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;" aria-label="Delete all effects"></i> Delete all effects</a>
+                                    <a href ng-click="$ctrl.removeAllEffects()" style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;" aria-label="Delete all effects"></i> Delete all effects</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li ng-class="{'disabled': !$ctrl.effectsData.list.length > 0}" ng-click="!$ctrl.effectsData.list > 0 ? $event.stopPropagation() : null">
@@ -133,14 +133,14 @@
                                             <i class="fal fa-bars"></i>
                                         </span> 
                                         <div class="clickable" style="font-size: 20px;height: 38px;width: 35px;text-align: center;display: flex;align-items: center;justify-content: center;" uib-dropdown uib-dropdown-toggle dropdown-append-to-body="true" ng-click="$event.stopPropagation()">
-                                            <span class="noselect pointer"> <i class="fal fa-ellipsis-v"></i> </span>
+                                            <span class="noselect pointer"> <i class="fa fa-ellipsis-v"></i> </span>
                                             <ul class="dropdown-menu" uib-dropdown-menu style="transform: translateY(-205px);">
-                                                <li><a href ng-click="$ctrl.editLabelForEffectAtIndex($index)"><i class="fal fa-tag" style="margin-right: 10px;"></i>  {{$ctrl.getLabelButtonTextForLabel(effect.effectLabel)}}</a></li>
-                                                <li><a href ng-click="$ctrl.openEditEffectModal(effect, $index, $ctrl.trigger)"><i class="fal fa-edit" style="margin-right: 10px;"></i>  Edit</a></li>
-                                                <li><a href ng-click="$ctrl.duplicateEffectAtIndex($index)"><i class="fal fa-clone" style="margin-right: 10px;"></i>  Duplicate</a></li>
-                                                <li><a href ng-click="$ctrl.copyEffectAtIndex($index)"><i class="fal fa-copy" style="margin-right: 10px;"></i>  Copy</a></li>
-                                                <li ng-class="{'disabled': !$ctrl.hasCopiedEffects()}" ng-click="!$ctrl.hasCopiedEffects() ? $event.stopPropagation() : null"><a href ng-click="$ctrl.pasteEffectsAtIndex($index, false)"><i class="fal fa-paste" style="margin-right: 10px;"></i>  Paste After</a></li>
-                                                <li><a href ng-click="$ctrl.removeEffectAtIndex($index)" style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i>  Delete</a></li>
+                                                <li><a href ng-click="$ctrl.editLabelForEffectAtIndex($index)"><i class="fa fa-tag" style="margin-right: 10px;"></i>  {{$ctrl.getLabelButtonTextForLabel(effect.effectLabel)}}</a></li>
+                                                <li><a href ng-click="$ctrl.openEditEffectModal(effect, $index, $ctrl.trigger)"><i class="fa fa-edit" style="margin-right: 10px;"></i>  Edit</a></li>
+                                                <li><a href ng-click="$ctrl.duplicateEffectAtIndex($index)"><i class="fa fa-clone" style="margin-right: 10px;"></i>  Duplicate</a></li>
+                                                <li><a href ng-click="$ctrl.copyEffectAtIndex($index)"><i class="fa fa-copy" style="margin-right: 10px;"></i>  Copy</a></li>
+                                                <li ng-class="{'disabled': !$ctrl.hasCopiedEffects()}" ng-click="!$ctrl.hasCopiedEffects() ? $event.stopPropagation() : null"><a href ng-click="$ctrl.pasteEffectsAtIndex($index, false)"><i class="fa fa-paste" style="margin-right: 10px;"></i>  Paste After</a></li>
+                                                <li><a href ng-click="$ctrl.removeEffectAtIndex($index)" style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i>  Delete</a></li>
                                             </ul>
                                         </div>
                                     </span> 
@@ -149,7 +149,7 @@
                     </div>
             
                     <div class="add-more-functionality" style="margin-top: 16px;margin-left: 12px;">
-                        <a href class="clickable" ng-click="$ctrl.openNewEffectModal()" aria-label="Add new effect"> <i class="far fa-plus-circle"></i>Add New Effect</a>               
+                        <a href class="clickable" ng-click="$ctrl.openNewEffectModal()" aria-label="Add new effect"> <i class="fa fa-plus-circle"></i>Add New Effect</a>               
                     </div>
                 </div>
                 
@@ -398,14 +398,14 @@
 
                 ctrl.effectMenuOptions = [
                     {
-                        html: `<a href ><i class="far fa-tag" style="margin-right: 10px;"></i> Edit Tag</a>`,
+                        html: `<a href ><i class="fa fa-tag" style="margin-right: 10px;"></i> Edit Tag</a>`,
                         click: function ($itemScope) {
                             const $index = $itemScope.$index;
                             ctrl.editLabelForEffectAtIndex($index);
                         }
                     },
                     {
-                        html: `<a href ><i class="far fa-edit" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="fa fa-edit" style="margin-right: 10px;"></i> Edit</a>`,
                         click: function ($itemScope) {
                             const $index = $itemScope.$index;
                             const effect = $itemScope.effect;
@@ -436,7 +436,7 @@
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i> Delete</a>`,
                         click: function ($itemScope) {
                             const $index = $itemScope.$index;
                             ctrl.removeEffectAtIndex($index);

@@ -15,7 +15,7 @@
                     <h4>{{$ctrl.header}} <span ng-if="$ctrl.description != null && $ctrl.description != ''" class="muted" style="padding-bottom: 4px;padding-left: 2px;font-size: 13px;font-family: 'Quicksand';">({{$ctrl.description}})</span></h4>
                     <div style="display: flex; align-items: center;">
                         <div style="width:30px;">
-                            <i class="fas" ng-class="{'fa-chevron-right': $ctrl.collapsed, 'fa-chevron-down': !$ctrl.collapsed}"></i>
+                            <i class="fa" ng-class="{'fa-chevron-right': $ctrl.collapsed, 'fa-chevron-down': !$ctrl.collapsed}"></i>
                         </div>
                     </div>
                 </div>

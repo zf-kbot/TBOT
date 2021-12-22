@@ -17,7 +17,7 @@
     <div>
       <div style="margin: 50px 30px 15px;display: flex;flex-direction: row;justify-content: space-between;">
         <button ng-click="openAddOrEditCustomCommandModal()" class="btn btn-primary hvr-icon-grow">
-          <i class="fas fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
+          <i class="fa fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
           New Auto Reply
         </button>
       </div>
@@ -30,7 +30,7 @@
           justify-content: space-between;
         ">
         <button ng-click="openAddOrEditCustomCommandModal()" class="btn btn-primary hvr-icon-grow">
-          <i class="fas fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
+          <i class="fa fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
           New Custom Command
         </button>
 
@@ -43,7 +43,7 @@
       </div> -->
       <div style="padding: 15px">
         <div ng-if="commandsServiceAutoReply.getCustomCommands().length === 0" class="noselect muted" style="padding-left: 13px">
-          <!-- <span class="hvr-bob"><i class="fas fa-reply">不需要这个小图标</i></span> -->
+          <!-- <span class="hvr-bob"><i class="fa fa-reply">不需要这个小图标</i></span> -->
           <!-- <span style="margin-left: 8px">No custom commands saved. You should make one! :)
           </span> -->
         </div>
@@ -55,7 +55,7 @@
             <div class="content-block-body">
               <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
                 <div class="col-md-1">
-                  <span class="hvr-bob"><i class="fal fa-reply" style="font-size: 8em;"></i></span>
+                  <span class="hvr-bob"><i class="fa fa-reply" style="font-size: 8em;"></i></span>
                 </div>
                 <div class="toggle-button-container"  style="width: 80%;text-align: left;">
                   <p style="font-size: 2em;" class = "bgweight">
@@ -76,7 +76,7 @@
               <th style="padding-left: 15px;">TRIGGER</th>
               <th>COOLDOWNS</th>
               <!-- <th>PERMISSIONS</th> -->
-              <!-- <th class="muted"><i class="fas fa-tag"></i> TAGS</th> -->
+              <!-- <th class="muted"><i class="fa fa-tag"></i> TAGS</th> -->
               <th>STATUS</th>
               <th>EDIT</th>
               <th>DELETE</th>
@@ -88,7 +88,7 @@
               context-menu="commandMenuOptions(command)" style="width: 100%">
               <!-- <td style="text-align: center">
                 <span style="color: #9145ff; font-size: 20px" ng-click="manuallyTriggerCommand(command.id)">
-                  <i class="fas fa-play-circle clickable"></i>
+                  <i class="fa fa-play-circle clickable"></i>
                 </span>
               </td> -->
               <td class="command-trigger-cell" style="padding-left: 15px;">
@@ -97,12 +97,12 @@
                 <tooltip ng-if="command.triggerIsRegex" text="'Description: ' + command.regexDescription"></tooltip>
                 <span class="muted" style="margin-left: 5px; font-size: 11px" ng-show="command.hidden"
                   uib-tooltip="Hidden from !commands list" tooltip-append-to-body="true">
-                  <i class="fas fa-eye-slash"></i>
+                  <i class="fa fa-eye-slash"></i>
                 </span>
               </td>
               <td>
                 <span style="min-width: 51px; display: inline-block" uib-tooltip="Global cooldown">
-                  <i class="far fa-globe-americas"></i>
+                  <i class="fa fa-globe-americas"></i>
                   {{command.cooldown.global ? command.cooldown.global + " seconds" :
                   "-" }}
                 </span>
@@ -145,7 +145,7 @@
                 <label class="tgl-btn" for="{{command.id}}" style="top: 2px"></label>
               </td>
               <td>
-                <span style="margin-right:20px;" ng-click="openAddOrEditCustomCommandModal(command)"><i class="fas fa-pen"
+                <span style="margin-right:20px;" ng-click="openAddOrEditCustomCommandModal(command)"><i class="fa fa-pencil"
                     style="margin-right: 5px;"></i></span>
                     <!--
                 <div style="
@@ -165,7 +165,7 @@
                 </div>
               </td>
               <td>
-                <span ng-click="deleteCustomCommand(command);"><i class="fas fa-times"
+                <span ng-click="deleteCustomCommand(command);"><i class="fa fa-times"
                     style="margin-right: 5px; padding-left: 12px;"></i></span>
               </td>
             </tr>

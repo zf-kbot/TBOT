@@ -4,7 +4,7 @@
     angular.module("twitcherbotApp").component("startupScriptsListModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">Startup Scripts</h4>
             </div>
             <div class="modal-body">
@@ -19,7 +19,7 @@
                         <div style="font-size:17px">
                             <button class="btn btn-default" style="margin-right: 10px" ng-click="$ctrl.showAddOrEditStartupScriptModal(script)">Edit</button>
                             <span uib-tooltip="Remove Startup Script" tooltip-append-to-body="true" class="clickable" style="color:red;" ng-click="$ctrl.removeStartupScript(script)">
-                                <i class="fas fa-trash-alt"></i>
+                                <i class="fa fa-trash"></i>
                             </span>    
                         </div>
                     </div>

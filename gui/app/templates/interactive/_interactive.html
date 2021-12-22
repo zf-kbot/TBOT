@@ -8,7 +8,7 @@
       <i class="fad fa-gamepad"></i>
       <p>Build controls that appear under your stream which allow your viewers to trigger effects, play sounds, send
         chat messages, and so much more.</p>
-      <button ng-click="showCreateMixplayModal()" class="btn btn-primary"><i class="fas fa-plus-circle"
+      <button ng-click="showCreateMixplayModal()" class="btn btn-primary"><i class="fa fa-plus-circle"
           style="margin-right:5px;"></i> Create First MixPlay Project</button>
     </div>
   </div>
@@ -42,15 +42,15 @@
                 ng-click="mps.setActiveMixplayProjectId(mps.getCurrentProjectId())">Set "{{getSelectedProjectName()}}"
                 as Active <tooltip text="'The active project is the project used when you connect to MixPlay.'">
                 </tooltip></a></li>
-            <li><a href ng-click="renameCurrentProject()"><i class="fal fa-edit"></i> Rename
+            <li><a href ng-click="renameCurrentProject()"><i class="fa fa-edit"></i> Rename
                 "{{getSelectedProjectName()}}"</a></li>
-            <li><a href ng-click="deleteCurrentProject()"><i class="fal fa-trash-alt" style="margin-right: 4px;"></i>
+            <li><a href ng-click="deleteCurrentProject()"><i class="fa fa-trash" style="margin-right: 4px;"></i>
                 Delete "{{getSelectedProjectName()}}"</a></li>
             <li role="separator" class="divider"></li>
             <li><a href ng-click="shareCurrentMixPlayProject()"><i class="far fa-share-alt-square"
                   style="margin-right: 5px;"></i> Share "{{getSelectedProjectName()}}"</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href ng-click="showCreateMixplayModal()"><i class="fas fa-plus-circle"></i> Create New Project</a>
+            <li><a href ng-click="showCreateMixplayModal()"><i class="fa fa-plus-circle"></i> Create New Project</a>
             </li>
           </ul>
         </div>
@@ -72,7 +72,7 @@
     <div ng-show="activeMixPlayTab === 1" style="height: 100%;padding:20px;overflow-y:auto;">
 
       <div style="display: flex;flex-direction: row;justify-content: space-between;">
-        <button ng-click="showAddOrEditCooldownGroupModal()" class="btn btn-primary"><i class="fas fa-plus-circle"
+        <button ng-click="showAddOrEditCooldownGroupModal()" class="btn btn-primary"><i class="fa fa-plus-circle"
             style="margin-right:5px;"></i> New Cooldown Group</button>
         <searchbar ng-hide="getCooldownGroupsForSelectedProject().length < 1" placeholder-text="Search cooldown groups"
           query="cooldownGroupSearch" style="flex-basis: 250px;"></searchbar>
@@ -87,9 +87,9 @@
         <thead>
           <tr style="font-size: 11px;">
             <th style="width:5%"></th>
-            <th class="muted"><i class="fas fa-tag"></i> NAME</th>
-            <th class="muted"><i class="fas fa-clock"></i> DURATION</th>
-            <th class="muted"><i class="fas fa-bullseye"></i> CONTROLS</th>
+            <th class="muted"><i class="fa fa-tag"></i> NAME</th>
+            <th class="muted"><i class="fa fa-clock-o"></i> DURATION</th>
+            <th class="muted"><i class="fa fa-bullseye"></i> CONTROLS</th>
             <th style="width:210px;"></th>
             <th></th>
           </tr>
@@ -138,12 +138,12 @@
             </tooltip></span>
 
           <div class="flex-row-center">
-            <div class="clickable" ng-click="showCreateSceneModal()"><i class="fas fa-plus-circle"></i></div>
+            <div class="clickable" ng-click="showCreateSceneModal()"><i class="fa fa-plus-circle"></i></div>
 
             <div uib-dropdown uib-dropdown-toggle dropdown-append-to-body="true" class="clickable"
               ng-click="$event.stopPropagation()"
               style="font-size: 21px;height: 20px;width: 10px;text-align: center;display: flex;align-items: center;justify-content: center;margin-left: 7px;">
-              <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
+              <span class="noselect pointer"><i class="fa fa-ellipsis-v"></i></span>
               <ul class="dropdown-menu" uib-dropdown-menu>
                 <li ng-class="{'disabled': !hasCopiedScene()}" ng-click="pasteScene()" ng-disabled="!hasCopiedScene()">
                   <a href><i class="far fa-paste" style="margin-right: 10px;"></i> Paste Scene</a>
@@ -168,7 +168,7 @@
               <div uib-dropdown uib-dropdown-toggle dropdown-append-to-body="true" class="clickable"
                 ng-click="$event.stopPropagation()"
                 style="font-size: 21px;height: 20px;width: 36px;text-align: center;display: flex;align-items: center;justify-content: center;">
-                <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
+                <span class="noselect pointer"><i class="fa fa-ellipsis-v"></i></span>
                 <ul class="dropdown-menu" uib-dropdown-menu>
                   <li ng-class="{'disabled': mps.sceneIsDefaultForCurrentProject(scene.id)}">
                     <a href ng-click="mps.setSceneInCurrentProjectAsDefault(scene.id)"><i class="far fa-home"
@@ -177,7 +177,7 @@
                       </tooltip></a>
                   </li>
                   <li ng-click="showRenameSceneModal(scene)">
-                    <a href><i class="far fa-pen" style="margin-right: 10px;"></i> Rename scene</a>
+                    <a href><i class="fa fa-pencil" style="margin-right: 10px;"></i> Rename scene</a>
                   </li>
                   <li ng-click="copyScene(scene, true)">
                     <a href><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate scene</a>
@@ -186,7 +186,7 @@
                     <a href><i class="far fa-copy" style="margin-right: 10px;"></i> Copy scene</a>
                   </li>
                   <li ng-click="deleteScene(scene)">
-                    <a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete
+                    <a href style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i> Delete
                       scene</a>
                   </li>
                 </ul>
@@ -206,18 +206,18 @@
             </tooltip>
             <span class="control-search-toggle clickable-dark" ng-click="toggleSearchCollapse();"
               uib-tooltip="Toggle Control Search" tooltip-append-to-body="true">
-              <i class="fas fa-search"
+              <i class="fa fa-search"
                 ng-class="{ 'fa-search-plus': searchCollapse, 'fa-search-minus': !searchCollapse }"></i>
             </span>
           </span>
           <div class="flex-row-center">
             <div class="clickable" ng-click="showCreateControlModal()" ng-show="mps.hasSceneSelected()"><i
-                class="fas fa-plus-circle"></i></div>
+                class="fa fa-plus-circle"></i></div>
 
             <div uib-dropdown uib-dropdown-toggle dropdown-append-to-body="true" class="clickable"
               ng-click="$event.stopPropagation()"
               style="font-size: 21px;height: 20px;width: 10px;text-align: center;display: flex;align-items: center;justify-content: center;margin-left: 7px;">
-              <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
+              <span class="noselect pointer"><i class="fa fa-ellipsis-v"></i></span>
               <ul class="dropdown-menu" uib-dropdown-menu>
                 <li ng-class="{'disabled': !hasCopiedControl()}" ng-click="pasteControl()"
                   ng-disabled="!hasCopiedControl()">
@@ -225,7 +225,7 @@
                 </li>
 
                 <li ng-click="deleteAllControls()">
-                  <a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete
+                  <a href style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i> Delete
                     all controls</a>
                 </li>
               </ul>
@@ -261,10 +261,10 @@
                 <div uib-dropdown uib-dropdown-toggle dropdown-append-to-body="true" class="clickable"
                   ng-click="$event.stopPropagation()"
                   style="font-size: 21px;height: 20px;width: 36px;text-align: center;display: flex;align-items: center;justify-content: center;">
-                  <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
+                  <span class="noselect pointer"><i class="fa fa-ellipsis-v"></i></span>
                   <ul class="dropdown-menu" uib-dropdown-menu style="transform: translateY(-142px);">
                     <li ng-click="editControl(control)">
-                      <a href><i class="far fa-pen" style="margin-right: 10px;"></i> Edit control</a>
+                      <a href><i class="fa fa-pencil" style="margin-right: 10px;"></i> Edit control</a>
                     </li>
                     <li ng-click="copyControl(control, true)">
                       <a href><i class="far fa-clone" style="margin-right: 10px;"></i> Duplicate control</a>
@@ -273,7 +273,7 @@
                       <a href><i class="far fa-copy" style="margin-right: 10px;"></i> Copy control</a>
                     </li>
                     <li ng-click="deleteControl(control)">
-                      <a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i>
+                      <a href style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i>
                         Delete control</a>
                     </li>
                   </ul>

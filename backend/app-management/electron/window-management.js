@@ -8,7 +8,7 @@ const windowStateKeeper = require("electron-window-state");
 const fileOpenHelpers = require("../file-open-helpers");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { Tray, app} = require('electron');
-let tray = null //用来存放系统托盘
+let tray = null;//用来存放系统托盘
 
 /**
  * Twitchbot's main window
@@ -23,7 +23,14 @@ exports.mainWindow = null;
  *@type {Electron.BrowserWindow}
  */
 let splashscreenWindow;
-
+function getQuitSetting() {
+    try {
+        const profileManager = require("../../common/profile-manager");
+        return profileManager.getJsonDbInProfile("/settings").getData("/quitsetting");
+    } catch {
+        return {};
+    }
+}
 
 function createMainWindow() {
     let mainWindowState = windowStateKeeper({
@@ -61,6 +68,15 @@ function createMainWindow() {
             }
         },
         {
+            label: 'setting',
+            click: () => {
+                mainWindow.show();
+                let isFromQuitSetting = true;
+                const frontendCommunicator = require("../../common/frontend-communicator");
+                frontendCommunicator.send("open-setting-modal", isFromQuitSetting);
+            }
+        },
+        {
             label: 'quit twitcherbot',
             click() {
                 minMenu.getMenuItemById('show-window').isMinimized = true;
@@ -68,28 +84,46 @@ function createMainWindow() {
             }
         }
     ];
-        // 构建菜单
+    // 构建菜单
     minMenu = Menu.buildFromTemplate(minMenu);
-    // 给系统托盘设置菜单
     tray.setContextMenu(minMenu);
-    // 给托盘图标设置气球提示
     tray.setToolTip('Twitch Bot');
-    // 加载页面文件
     mainWindow.loadFile('src/index.html');
 
-    // 窗口最小化
-    // mainWindow.on('minimize', ev => {
-    //     // 阻止最小化
-    //     ev.preventDefault();
-    //     // 隐藏窗口
-    //     mainWindow.hide();
-    // });
+
+    //use quitFlag record whether to quit.In case of infinite loop.
+    let quitFlag = false;
+    const frontendCommunicator = require("../../common/frontend-communicator");
+    frontendCommunicator.on("quit-twitchbot", () => {
+        quitFlag = true;
+        mainWindow.close();
+    });
+    frontendCommunicator.on("minimize-twitchbot", () => {
+        mainWindow.hide();
+    });
     mainWindow.on('close', ev => {
-        if (!minMenu.getMenuItemById('show-window').isMinimized) {
+        let quitSetting = getQuitSetting();
+        //no need ask again next time
+        if ("noNeedAsk" in quitSetting && quitSetting.noNeedAsk) {
+            //if isMinimized is true, minimize to system tray
+            if ("isMinimized" in quitSetting && quitSetting.isMinimized) {
+                if (!minMenu.getMenuItemById('show-window').isMinimized) {
+                    ev.preventDefault();
+                    mainWindow.hide();
+                }
+            } else { //if isMinimized is false, quit twitchbot
+                return false;
+            }
+        } else { //ask again
+            if (quitFlag) {
+                return false;
+            }
+            let isFromQuitSetting = false;
+            const frontendCommunicator = require("../../common/frontend-communicator");
+            frontendCommunicator.send("open-setting-modal", isFromQuitSetting);
             ev.preventDefault();
-            mainWindow.hide();
+            // mainWindow.hide();
         }
-        return false;
     });
     // 托盘图标被双击
     tray.on('double-click', () => {
@@ -138,7 +172,7 @@ function createMainWindow() {
     exports.mainWindow = mainWindow;
     global.renderWindow = mainWindow;
 
-    const frontendCommunicator = require("../../common/frontend-communicator");
+
     const menuTemplate = [
         {
             label: 'Edit',

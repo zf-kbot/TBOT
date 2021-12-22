@@ -55,7 +55,7 @@
 
             $scope.timerMenuOptions = [
                 {
-                    html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                    html: `<a href ><i class="fa fa-pencil" style="margin-right: 10px;"></i> Edit</a>`,
                     click: function ($itemScope) {
                         let timer = $itemScope.timer;
                         $scope.openAddOrEditTimerModal(timer);
@@ -76,7 +76,7 @@
                     }
                 },
                 {
-                    html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                    html: `<a href style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i> Delete</a>`,
                     click: function ($itemScope) {
                         let timer = $itemScope.timer;
                         $scope.deleteTimer(timer);

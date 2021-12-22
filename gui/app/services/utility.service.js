@@ -310,7 +310,7 @@
 
                             let params = {};
                             if ($scope.selectedBroadcastingSoftware !== "Direct Link/2 PC Setup") {
-                                if (port !== 7472 && !isNaN(port)) {
+                                if (port !== 7473 && !isNaN(port)) {
                                     params["port"] = settingsService.getWebServerPort();
                                 }
                             }

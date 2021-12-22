@@ -20,7 +20,7 @@ const model = {
         id: "twitcherbot:runcommand",
         name: "Run Command",
         description: "Runs effects saved for the selected custom command.",
-        icon: "fad fa-exclamation-square",
+        icon: "fa fa-exclamation-square",
         categories: [EffectCategory.ADVANCED],
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(

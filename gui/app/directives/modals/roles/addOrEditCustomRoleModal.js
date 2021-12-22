@@ -7,7 +7,7 @@
     angular.module("twitcherbotApp").component("addOrEditCustomRoleModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()"><span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title" id="editGroupLabel">{{$ctrl.isNewRole ? "Add Custom Role" : "Edit Custom Role"}}</h4>
             </div>
             <div class="modal-body">
@@ -20,12 +20,12 @@
                         <div class="settings-title" style="margin-bottom: 4px;display: flex;justify-content: space-between;">
                             <div style="display:flex; align-items: center;">
                                 <div style="display:inline-block;font-size: 14px;font-weight: 500;opacity: 0.7;margin:0;padding:0;text-transform: uppercase;margin-bottom: 1px;margin-left: 10px;">Viewers</div>
-                                <div class="clickable" ng-click="$ctrl.addViewer()" style="margin-left:6px;font-size: 14px;"><i class="fas fa-plus-circle"></i></div>
+                                <div class="clickable" ng-click="$ctrl.addViewer()" style="margin-left:6px;font-size: 14px;"><i class="fa fa-plus-circle"></i></div>
                             </div>
 
                             <div style="display:inline-block; width:50%;position: relative;" ng-show="$ctrl.role.viewers.length > 5 || searchText.length > 0">
                                 <input type="text" class="form-control" placeholder="Search viewers" ng-model="searchText" style="height: 30px;padding-left:27px;">
-                                <span class="searchbar-icon" style="top:5px;"><i class="far fa-search"></i></span>
+                                <span class="searchbar-icon" style="top:5px;"><i class="fa fa-search"></i></span>
                             </div>      
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             <div style="display:flex;height: 45px; align-items: center; justify-content: space-between;padding: 0 15px;">
                                 <div style="font-weight: 100;font-size: 16px;">{{viewer}}</div>
                                 <span class="delete-button" ng-click="$ctrl.deleteViewer(viewer)">
-                                    <i class="far fa-trash-alt"></i>
+                                    <i class="fa fa-trash"></i>
                                 </span>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button ng-if="!$ctrl.isNewRole" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" uib-tooltip="Delete Role"><i class="fal fa-trash-alt"></i></button>
+                <button ng-if="!$ctrl.isNewRole" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()" uib-tooltip="Delete Role"><i class="fa fa-trash"></i></button>
                 <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
                 <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
             </div>

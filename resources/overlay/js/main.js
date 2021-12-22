@@ -2,7 +2,7 @@ twitcherbotOverlay = new EventEmitter();
 
 let params = new URL(location).searchParams;
 
-OVERLAY_PORT = 7472;
+OVERLAY_PORT = 7473;
 
 startedVidCache = { test: true };
 

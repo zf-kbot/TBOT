@@ -277,7 +277,7 @@ const showImage = {
                 } else {
                     let token = encodeURIComponent(data.resourceToken);
                     filepathNew = `http://${window.location.hostname
-                        }:7472/resource/${token}`;
+                        }:7473/resource/${token}`;
                 }
 
                 // NEW WAY EXAMPLE:

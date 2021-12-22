@@ -12,14 +12,14 @@
                             <div class="nav-link-bar" ng-if="$ctrl.clickName == 'Regular'" ></div>
                             <div class="nav-link-bar" style="background-color:#101111;" ng-if="$ctrl.clickName != 'Regular'" ></div>
                             <button class="settings-btn" ng-click="$ctrl.clickFrequentlyUsed()" aria-label="Chat Settings" style="height:35px;">
-                                <i class="fal fa-clock" title = "Regular"></i>
+                                <i class="fa fa-clock-o" title = "Regular"></i>
                             </button>
                         </div>
                         <div class="modalsidebar">
                             <div class="nav-link-bar" ng-if="$ctrl.clickName == 'Global'"></div>
                             <div class="nav-link-bar" style="background-color:#101111;" ng-if="$ctrl.clickName != 'Global'" ></div>
                             <button class="settings-btn" ng-click="$ctrl.clickGlobal()" aria-label="Chat Settings" style="height:35px;">
-                                <i class="fal fa-globe" title = "Global"></i>
+                                <i class="fa fa-globe" title = "Global"></i>
                             </button>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div style="height:35px;">
                             <span style= "display:inline-block;margin-top:5px;padding-left:10px;font-size:18px;">{{$ctrl.clickName}}</span>
                             <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()" >
-                                <span aria-hidden="true"><i style="font-size:22px;font-weight:200;margin-right:10px;margin-top:5px;" class="fas fa-times"></i></span>
+                                <span aria-hidden="true"><i style="font-size:22px;font-weight:200;margin-right:10px;margin-top:5px;" class="fa fa-times"></i></span>
                             </button>
                         </div>
                         <span ng-if="!chatFeedIsEnabled" style="display:inline-block; color: white; font-size: 1.2em; text-align: center; padding-left:5px;margin-top:30%;" class="ng-binding" >

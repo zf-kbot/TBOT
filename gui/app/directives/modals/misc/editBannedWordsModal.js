@@ -10,7 +10,7 @@
         .component("editBannedWordsModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">Edit Banned Words</h4>
             </div>
             <div class="modal-body">
@@ -19,12 +19,12 @@
 
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="add-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="dropdown-text"><i class="far fa-plus-circle"></i> Add Word(s)</span>
+                            <span class="dropdown-text"><i class="fa fa-plus-circle"></i> Add Word(s)</span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="add-options">
-                            <li role="menuitem" ng-click="$ctrl.addWord()"><a href style="padding-left: 10px;"><i class="fad fa-plus-circle" style="margin-right: 5px;"></i> Add single word</a></li>
-                            <li role="menuitem" ng-click="$ctrl.showImportModal()"><a href style="padding-left: 10px;"><i class="fad fa-file-import" style="margin-right: 5px;"></i> Import from .txt file <tooltip text="'Import a list of words/phrases from a txt file'"></tooltip></a></li>
+                            <li role="menuitem" ng-click="$ctrl.addWord()"><a href style="padding-left: 10px;"><i class="fa fa-plus-circle" style="margin-right: 5px;"></i> Add single word</a></li>
+                            <li role="menuitem" ng-click="$ctrl.showImportModal()"><a href style="padding-left: 10px;"><i class="fa fa-file-o" style="margin-right: 5px;"></i> Import from .txt file <tooltip text="'Import a list of words/phrases from a txt file'"></tooltip></a></li>
                         </ul>
                     </div>
 
@@ -93,7 +93,7 @@
                             'width': '15px'
                         },
                         sortable: false,
-                        cellTemplate: `<i class="fal fa-trash-alt clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="Delete" tooltip-append-to-body="true"></i>`,
+                        cellTemplate: `<i class="fa fa-trash clickable" style="color:#ff3737;" ng-click="clicked()" uib-tooltip="Delete" tooltip-append-to-body="true"></i>`,
                         cellController: ($scope, chatModerationService) => {
                             $scope.clicked = () => {
                                 chatModerationService.removeBannedWordByText($scope.data.text);

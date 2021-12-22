@@ -8,7 +8,7 @@
       tooltip-placement="right"
       aria-label="Edit Stream Info"
     >
-      <i class="far fa-pencil"></i>
+      <i class="fa fa-pencil"></i>
     </button>
 
     <button
@@ -32,14 +32,14 @@
       ng-click="popoutStreamPreview()"
       aria-label="Open Stream Preview"
     >
-      <i class="far fa-tv-alt"></i>
+      <i class="fa fa-tv-alt"></i>
     </button>
   </div> -->
 
 
   <div class="chat-window-column" style="margin:10px 10px 10px 10px;height:98%;">
     <div class="chat-window-wrapper" style="background: #24262A;">
-      <i uib-tooltip="Popout" tooltip-append-to-body="true" ng-hide="!chatFeedIsEnabled()" class="fas fa-external-link-alt" ng-hide="chatBoxIsPopped" ng-click="popChatBox()" aria-hidden="true" style="/* text-align: right; */display: flex;position: absolute;right: 10px;top: 10px;cursor: pointer;z-index: 1050;"></i>
+      <i uib-tooltip="Popout" tooltip-append-to-body="true" ng-hide="!chatFeedIsEnabled()" class="fa fa-external-link" ng-hide="chatBoxIsPopped" ng-click="popChatBox()" aria-hidden="true" style="/* text-align: right; */display: flex;position: absolute;right: 10px;top: 10px;cursor: pointer;z-index: 1050;"></i>
       <div ng-hide="chatFeedIsEnabled()" class="chatfeed-disabled-overlay" style="background: #24262A;">
         <span style="color: white; font-size: 1.2em; text-align: center">{{disabledMessage}}</span>
       </div>
@@ -94,12 +94,12 @@
       </div>
       <div class="settings-btn-wrapper" style="right:35px;">
         <button class="settings-btn" ng-click="showKolChatEmotesModal()" aria-label="Chat Settings" >
-          <i class="fal fa-smile"></i>
+          <i class="fa fa-smile-o"></i>
         </button>
       </div>
       <div class="settings-btn-wrapper">
         <button class="settings-btn" ng-click="showChatSettingsModal()" aria-label="Chat Settings">
-          <i class="fal fa-cog"></i>
+          <i class="fa fa-cog"></i>
         </button>
       </div>
     </div>
@@ -116,7 +116,7 @@
     </div>
   </div>
   <div ng-show="getStreamInfoSetting() || getHistorySetting() || getActivityFeedSetting()" class="view-content" style="margin:10px 10px 10px 10px;height:98%;background:#101111;">
-    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="background: #24262A; height:14%;min-height:131px; display: flex;flex-direction: column;border-radius: 10px;">
+    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="background: #24262A; height:20%;min-height:181px; display: flex;flex-direction: column;border-radius: 10px; overflow-y:visible; z-index: 10000;">
       <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
         <div style="display: flex; align-items: center">
             <span style="padding-left: 7px;padding-top:2px;">STREAM INFO</span>
@@ -124,11 +124,11 @@
         <div uib-dropdown>
             <a href uib-dropdown-toggle class="clickable" style="color: white; font-size: 20px; line-height: 1"
               aria-label="Activity feed options">
-              <i class="far fa-ellipsis-v"></i>
+              <i class="fa fa-ellipsis-v"></i>
             </a>
             <ul class="dropdown-menu right-justified-dropdown" uib-dropdown-menu>
               <li>
-                <a href ng-click="refreshStreamInfo()"><i class="fas fa-redo" style="margin-right: 10px;"></i>
+                <a href ng-click="refreshStreamInfo()"><i class="fa fa-repeat" style="margin-right: 10px;"></i>
                   refresh stream info</a>
               </li>
             </ul>
@@ -138,7 +138,7 @@
         <kol-edit-stream-info-modal class="stream-info-setting" style="border-radius: 30%;"></kol-edit-stream-info-modal>
       </div>
     </div>
-    <div ng-show="getHistorySetting()" style="background: #101111;height: 42%;display: flex;flex-direction: column-reverse;">
+    <div ng-show="getHistorySetting()" style="background: #101111;height: 40%;display: flex;flex-direction: column-reverse;">
       <div class="activity-feed-column" style="background: #24262A;border-radius: 10px;height:90%">
         <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
           <div style="display: flex; align-items: center">
@@ -178,7 +178,7 @@
         </div>
       </div>
     </div>
-    <div ng-show="getActivityFeedSetting()" style="background: #101111;height:44%;display: flex;flex-direction: column-reverse;">
+    <div ng-show="getActivityFeedSetting()" style="background: #101111;height:40%;display: flex;flex-direction: column-reverse;">
       <div class="activity-feed-column" style="background: #24262A; border-radius: 10px;height: 90%;">
         <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
           <div style="display: flex; align-items: center">
@@ -200,17 +200,17 @@
           <div uib-dropdown>
             <a href uib-dropdown-toggle class="clickable" style="color: white; font-size: 20px; line-height: 1"
               aria-label="Activity feed options">
-              <i class="far fa-ellipsis-v"></i>
+              <i class="fa fa-ellipsis-v"></i>
             </a>
             <ul class="dropdown-menu right-justified-dropdown" uib-dropdown-menu>
               <li ng-class="{'disabled': afs.activities.length < 1}">
-                <a href ng-click="afs.toggleMarkAllAcknowledged()"><i class="far fa-check-square"
+                <a href ng-click="afs.toggleMarkAllAcknowledged()"><i class="fa fa-check-square"
                     style="margin-right: 10px" aria-label="Mark all events as acknowledged"></i>
                   Mark all as {{afs.allAcknowledged() ? 'Unacknowledged' :
                   'Acknowledged'}}</a>
               </li>
               <li>
-                <a href ng-click="afs.showEditActivityFeedEventsModal()"><i class="fas fa-sliders-h"
+                <a href ng-click="afs.showEditActivityFeedEventsModal()"><i class="fa fa-sliders"
                     style="margin-right: 10px" aria-label="Edit events"></i>
                   Filters</a>
               </li>
@@ -239,11 +239,13 @@
                 display: flex;
                 align-items: center;
               ">
-              <i class="clickable far fa-redo" style="margin-right: 10px" ng-click="afs.retriggerEvent(activity.id)"
+              <!-- 暂时屏蔽掉retrigger按钮,该功能与firebot相对应的events匹配-->
+              <!--
+              <i class="clickable fa fa-repeat" style="margin-right: 10px" ng-click="afs.retriggerEvent(activity.id)"
                 uib-tooltip="Retrigger event" tooltip-placement="top-right" tooltip-append-to-body="true"
                 aria-label="Retrigger {{activity.event.name}}"></i>
-
-              <i class="clickable far" ng-class="activity.acknowledged ? 'fa-check-square' : 'fa-square'"
+              -->
+              <i class="clickable fa" ng-class="activity.acknowledged ? 'fa-check-square' : 'fa-square'"
                 ng-click="activity.acknowledged = !activity.acknowledged"
                 uib-tooltip="{{activity.acknowledged ? 'Acknowledged' : 'Acknowledge'}}" tooltip-placement="top-right"
                 tooltip-append-to-body="true" aria-label="Acknowledge {{activity.event.name}}"></i>

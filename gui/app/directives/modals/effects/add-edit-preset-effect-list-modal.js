@@ -7,7 +7,7 @@
     angular.module("twitcherbotApp").component("addOrEditPresetEffectListModal", {
         template: `
             <div class="modal-header">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">
                     {{$ctrl.isNewPresetList ? 'Add Preset Effect List' : 'Edit Preset Effect List' }}
                 </h4>
@@ -25,11 +25,11 @@
                     <div class="role-bar" ng-repeat="arg in $ctrl.presetList.args track by $index">
                         <span uib-tooltip="Access via $presetListArg[{{arg.name}}]" tooltip-append-to-body="true">{{arg.name}}</span>
                         <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.deletePresetListArg($index)" uib-tooltip="Remove arg" tooltip-append-to-body="true">
-                            <i class="far fa-times"></i>
+                            <i class="fa fa-times"></i>
                         </span>
                     </div>
                     <div class="role-bar clickable" ng-click="$ctrl.addPresetListArg()" uib-tooltip="Add arg" tooltip-append-to-body="true">
-                        <i class="far fa-plus"></i>
+                        <i class="fa fa-plus"></i>
                     </div>
                 </div>
                 
@@ -42,7 +42,7 @@
                         <p>Steps:</p>
                         <ol>
                             <li>Add "Website" Action to a StreamDeck button</li>
-                            <li>Set URL to <b>http://localhost:7472/api/v1/effects/preset/{{$ctrl.presetList.id}}</b></li>
+                            <li>Set URL to <b>http://localhost:7473/api/v1/effects/preset/{{$ctrl.presetList.id}}</b></li>
                             <li>Check "Access in background"</li>
                         </ol>
                     </collapsable-panel>

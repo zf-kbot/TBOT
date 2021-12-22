@@ -22,7 +22,7 @@
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="script-type">{{effect.scriptName ? effect.scriptName : 'Pick one'}}</span> <span class="caret"></span>
                     </button>
-                    <a ng-click="getNewScripts()" id="refreshScriptList" style="padding-left:5px;height:100%;cursor:pointer;"><i class="far fa-sync" id="refreshIcon" style="margin-top:10px;" aria-hidden="true"></i></a>
+                    <a ng-click="getNewScripts()" id="refreshScriptList" style="padding-left:5px;height:100%;cursor:pointer;"><i class="fa fa-refresh" id="refreshIcon" style="margin-top:10px;" aria-hidden="true"></i></a>
                     <ul class="dropdown-menu script-dropdown">
                         <li ng-show="scriptArray.length == 0" class="muted">
                             <a href>No scripts found.</a>

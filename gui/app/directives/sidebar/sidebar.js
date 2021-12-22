@@ -9,22 +9,22 @@
                     <img class="nav-header-icon" ng-class="{'contracted': !$ctrl.sbm.navExpanded}" src="../images/logo_transparent.png">
                     <span class="nav-header-title" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">Twitchbot</span>
                     <span class="nav-expand-button" ng-class="{'contracted': !$ctrl.sbm.navExpanded}" ng-click="$ctrl.sbm.toggleNav()" aria-label="{{$ctrl.sbm.navExpanded ? 'Contract Sidebar' : 'Expand Sidebar'}}">
-                        <i class="fal" ng-class="$ctrl.sbm.navExpanded ? 'fa-angle-left' : 'fa-angle-right'"></i>
+                        <i class="fa" ng-class="$ctrl.sbm.navExpanded ? 'fa-angle-left' : 'fa-angle-right'"></i>
                     </span>
                 </div>
                 <div class="nav-body-wrapper">
                     <div class="nav-links-wrapper" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">
 
-                        <nav-link page="Chat Feed" name="{{'SIDEBAR.CHAT.CHAT_FEED' | translate }}" icon="fa-signal-stream"></nav-link>
+                        <nav-link page="Chat Feed" name="{{'SIDEBAR.CHAT.CHAT_FEED' | translate }}" icon="fa-tachometer"></nav-link>
                         <nav-category page="Data" name="{{'SIDEBAR.DATA.DATA' | translate }}" pad-top="true"></nav-category>
-                        <nav-link page="Analysis" name="{{'SIDEBAR.DATA.ANALYSIS' | translate }}" icon="fa-chart-area"></nav-link>
+                        <nav-link page="Analysis" name="{{'SIDEBAR.DATA.ANALYSIS' | translate }}" icon="fa-area-chart"></nav-link>
 
                         <nav-category name="{{'SIDEBAR.INTERACTIVETOOL.CATEGORY' | translate }}" pad-top="true"></nav-category>
-                        <nav-link page="Polls" name="{{'SIDEBAR.INTERACTIVETOOL.POLL' | translate }}" icon="fa-poll"></nav-link>
-                        <nav-link page="Kol Chat Notifications" name="{{'SIDEBAR.INTERACTIVETOOL.CHAT_NOTIFICATIONS' | translate }}" icon="fa-comment-smile"></nav-link>
+                        <nav-link page="Polls" name="{{'SIDEBAR.INTERACTIVETOOL.POLL' | translate }}" icon="fa-bar-chart"></nav-link>
+                        <nav-link page="Kol Chat Notifications" name="{{'SIDEBAR.INTERACTIVETOOL.CHAT_NOTIFICATIONS' | translate }}" icon="fa-commenting-o"></nav-link>
 
                         <nav-category name="{{'SIDEBAR.COMMAND.TITLE' | translate }}" pad-top="true"></nav-category>
-                        <nav-link page="Kol-Timers" name="{{'SIDEBAR.COMMAND.TIMERS' | translate }}" icon="fa-stopwatch"></nav-link>
+                        <nav-link page="Kol-Timers" name="{{'SIDEBAR.COMMAND.TIMERS' | translate }}" icon="fa-clock-o"></nav-link>
                         <nav-link page="Auto Reply" name="{{'SIDEBAR.COMMAND.AUTOREPLY' | translate }}" icon="fa-reply"></nav-link>
 
                         <nav-category name="{{'SIDEBAR.GUARD.GUARD' | translate }}" pad-top="true"></nav-category>
@@ -45,7 +45,7 @@
 
                         <nav-category name="{{'SIDEBAR.OTHER' | translate }}" pad-top="true"></nav-category>
                         <nav-link page="Events" name="{{'SIDEBAR.OTHER.EVENTS' | translate }}" icon="fa-list"></nav-link>
-                        <nav-link page="Timers" name="{{'SIDEBAR.OTHER.TIMERS' | translate }}" icon="fa-stopwatch"></nav-link>
+                        <nav-link page="Timers" name="{{'SIDEBAR.OTHER.TIMERS' | translate }}" icon="fa-clock-o"></nav-link>
                         <nav-link page="Channel Rewards" name="{{'SIDEBAR.OTHER.CHANNELREWARDS' | translate }}" icon="fa-gifts"></nav-link>
                         <nav-link page="Effects" name="Effects" icon="fa-magic"></nav-link>
                         <nav-link page="Hotkeys" name="{{'SIDEBAR.OTHER.HOTKEYS' | translate }}" icon="fa-keyboard"></nav-link>
@@ -75,7 +75,7 @@
                                     ng-click="$ctrl.cs.toggleSidebarControlledServices()"
                                     tabindex="0"
                                     aria-label="{{ $ctrl.cs.sidebarServicesOverallStatus == 'connected' ? 'Disconnect Services' : 'Connect Services' }}">
-                                    <i class="fad" ng-class="$ctrl.cs.isConnectingAll ? 'fa-sync fa-spin force-white-text' : 'fa-power-off'"></i>
+                                    <i class="fa" ng-class="$ctrl.cs.isConnectingAll ? 'fa-refresh fa-spin force-white-text' : 'fa-power-off'"></i>
                                 </div>
                                 <div style="cursor:pointer;" ng-click="$ctrl.showConnectionPanelModal()">
                                     <div class="interactive-status-text">
@@ -94,7 +94,7 @@
                             
                                 <div class="connection-panel-btn" ng-class="{'contracted': !$ctrl.sbm.navExpanded}" uib-tooltip="Open Connection Panel" tooltip-append-to-body="true"
                                     ng-click="$ctrl.showConnectionPanelModal()">
-                                    <span><i class="fal fa-external-link-alt"></i></span>
+                                    <span><i class="fa fa-external-link"></i></span>
                                 </div>
                             </div>
                         </div>

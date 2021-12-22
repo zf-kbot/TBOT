@@ -127,7 +127,7 @@
                     'width': '15px'
                 },
                 sortable: false,
-                cellTemplate: `<i class="fal fa-chevron-right"></i>`,
+                cellTemplate: `<i class="fa fa-chevron-right"></i>`,
                 cellController: () => {}
             });
         });

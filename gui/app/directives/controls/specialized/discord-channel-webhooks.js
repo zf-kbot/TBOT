@@ -14,14 +14,14 @@
                             <div style="display: flex;align-items: center;justify-content: center;">
                                 <button class="filter-bar" ng-click="$ctrl.editChannel($index)" style="margin: 0; margin-right: 13px;" aria-label="Add channel">Edit</button> 
                                 <span class="delete-button" ng-click="$ctrl.removeChannel($index)">
-                                    <i class="far fa-trash-alt"></i>
+                                    <i class="fa fa-trash"></i>
                                 </span>
                             </div>     
                         </div>
                     </div>
                     <div>
                         <button class="filter-bar" ng-click="$ctrl.addChannel()" uib-tooltip="Add Channel" tooltip-append-to-body="true" aria-label="Add channel">
-                            <i class="far fa-plus"></i> 
+                            <i class="fa fa-plus"></i> 
                         </button> 
                     </div>
                 </div>

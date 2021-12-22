@@ -36,12 +36,12 @@
                         <button ng-repeat="condition in $ctrl.conditionData.conditions track by $index" class="filter-bar" style="max-width: 100%;" ng-click="$ctrl.openAddOrEditConditionModal($index)">
                             <condition-display condition="condition" condition-type="$ctrl.getConditionType(condition.type)" style="width: 94%"></condition-display>
                             <a class="filter-remove-btn clickable" style="margin-left: 10px; flex-shrink: 0;" ng-click="$event.stopPropagation();$ctrl.removeConditionAtIndex($index)" uib-tooltip="Remove condition" tooltip-append-to-body="true">
-                                <i class="far fa-times"></i>
+                                <i class="fa fa-times"></i>
                             </a>
                         </button>
 
                         <button class="filter-bar" ng-show="$ctrl.hasConditionsAvailable()" ng-click="$ctrl.openAddOrEditConditionModal()" uib-tooltip="Add new condition" tooltip-append-to-body="true">
-                            <i class="far fa-plus"></i> 
+                            <i class="fa fa-plus"></i> 
                         </button> 
                     </div>   
                     <div ng-if="!$ctrl.hasConditionsAvailable()" class="muted">There are no conditions available for this trigger.</div>   

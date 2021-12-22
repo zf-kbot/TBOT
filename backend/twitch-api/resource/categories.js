@@ -3,6 +3,7 @@
 const logger = require("../../logwrapper");
 const twitchApi = require("../client");
 const { TwitchAPICallType } = require("twitch/lib");
+const profileManager = require("../../common/profile-manager");
 
 function mapTwitchGame(game, size) {
     if (game.box_art_url) {
@@ -21,6 +22,18 @@ async function getCategoryById(gameId, size = "285x380") {
         logger.error("Failed to get twitch game", error);
         return null;
     }
+}
+
+async function getSearchTags(query) {
+    let tags = profileManager.getJsonDbInProfile("/streamtags").getData("/stream");
+    let reg = new RegExp(query, 'i');
+    let tagsArr = [];
+    for (let i = 0; i < tags.length; i++) {
+        if (reg.test(tags[i].name)) {
+            tagsArr.push(tags[i]);
+        }
+    }
+    return tagsArr;
 }
 
 async function searchCategories(query) {
@@ -46,3 +59,4 @@ async function searchCategories(query) {
 
 exports.getCategoryById = getCategoryById;
 exports.searchCategories = searchCategories;
+exports.getSearchTags = getSearchTags;

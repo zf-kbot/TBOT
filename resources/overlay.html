@@ -20,7 +20,7 @@
     <script>
         const params = new URL(location).searchParams;
         const HOST = params.get("host") || "localhost"
-        const PORT = params.get("port") || "7472";
+        const PORT = params.get("port") || "7473";
         (function waitForOverlay() {
             fetch(`http://${HOST}:${PORT}/api/v1/status`)
                 .then(response => {

@@ -5,7 +5,7 @@
         .component("editActivityEventsModal", {
             template: `
             <div class="modal-header" style="text-align: center; margin-bottom: 15px;">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">Filters</h4>
             </div>
             <div class="modal-body" style="padding: 0 35px">

@@ -15,6 +15,7 @@
             let $ctrl = this;
             $ctrl.kolPollService = kolPollService;
 
+            $ctrl.loading = false;
             // $ctrl.viewKolPollResult = {};
 
             // backendCommunicator.on("get-twitch-poll-result", (data) => {
@@ -41,13 +42,17 @@
             $ctrl.$onInit = function () {
                 if ($ctrl.resolve.kolPoll == null) {
                     return;
-                } else {
-                    $ctrl.intervalViewResult = setInterval((kolPoll)=> {
-                        logger.info(kolPoll.twitchPoll.id);
-                        $ctrl.getKolPollResult(kolPoll);
-                    }, 1000, $ctrl.resolve.kolPoll);
-                    // $ctrl.getKolPollResult($ctrl.resolve.kolPoll);
                 }
+
+                $ctrl.intervalViewResult = setInterval((kolPoll)=> {
+                    logger.info(kolPoll.twitchPoll.id);
+                    $ctrl.getKolPollResult(kolPoll);
+                    if ($ctrl.kolPollService.viewKolPollResult.status === "COMPLETED" || $ctrl.kolPollService.viewKolPollResult.status === "ARCHIVED" || $ctrl.kolPollService.viewKolPollResult.status === "TERMINATED") {
+                        clearInterval($ctrl.intervalViewResult);
+                    }
+                    $ctrl.loading = true;
+                }, 1000, $ctrl.resolve.kolPoll);
+                // $ctrl.getKolPollResult($ctrl.resolve.kolPoll);
 
                 let modalId = $ctrl.resolve.modalId;
                 $ctrl.modalId = modalId;

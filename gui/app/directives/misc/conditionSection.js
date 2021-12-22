@@ -22,14 +22,14 @@
                                 <h3 style="margin: 0px;font-weight: bold;padding-left: 15px;">{{$ctrl.header}}</h3>
                                 <span ng-show="$ctrl.label != null && $ctrl.label != ''" class="muted" style="margin-left:10px;font-size:15px;">({{$ctrl.label}})</span>
                                 <div class="clickable conditionTag" uib-tooltip="Edit clause label" tooltip-append-to-body="true" ng-click="$event.stopPropagation();$ctrl.showEditLabelModal();" ng-class="{'hiddenBtn': !hovering}">
-                                    <i class="fas fa-tag"></i>
+                                    <i class="fa fa-tag"></i>
                                 </div>
                             </div>         
 
                             <div style="display: flex; align-items: center;">
                                 <div style="margin-right: 10px; cursor: move;" class="dragHandle" ng-class="{'hiddenHandle': !hovering || !hidePanel || !$ctrl.draggable}"><i class="fas fa-bars"></i></div>
                                 <div style="width:30px;">
-                                    <i class="fas" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
+                                    <i class="fa" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
                                 </div>
                             </div>
                     </div>

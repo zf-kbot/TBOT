@@ -21,7 +21,7 @@ const delay = {
         id: "twitcherbot:clear-effects",
         name: "Clear Effects",
         description: "Remove overlay effects, stop sounds, or clear effect queues",
-        icon: "fad fa-minus-circle",
+        icon: "fa fa-minus-circle",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY],
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(

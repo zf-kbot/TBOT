@@ -39,7 +39,7 @@
                         <div class="connection-tile">
                             <span class="connection-title">Overlay</span>
                             <div class="overlay-button" ng-class="{ 'connected': $ctrl.getOverlayStatusId() == 1, 'warning': $ctrl.getOverlayStatusId() == 0,'disconnected': $ctrl.getOverlayStatusId() == -1  }">
-                                <i class="fal fa-tv-retro"></i>
+                                <i class="fa fa-tv"></i>
                             </div>
                             <div style="text-align: center; font-size: 11px;" class="muted">{{ $ctrl.overlayConnectionMessage()}}</div>
                         </div>
@@ -48,7 +48,7 @@
                 </div>
                 <div ng-if="$ctrl.is.oneIntegrationIsLinked()">
                     <div style="text-align: center;font-size: 18px;color: gray;font-weight: 100;padding-bottom: 15px; padding-top: 30px;">
-                        <i class="fas fa-globe"></i> INTEGRATIONS
+                        <i class="fa fa-globe"></i> INTEGRATIONS
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: space-around; width: 100%;">
                         <div class="connection-tile" style="margin-right: 10px;" ng-repeat="integration in $ctrl.is.getLinkedIntegrations()">

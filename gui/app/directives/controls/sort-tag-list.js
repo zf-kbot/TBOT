@@ -12,11 +12,11 @@
                     <div class="role-bar" ng-repeat="tagId in $ctrl.currentTagIds track by $index">
                         <span>{{$ctrl.getTagName(tagId)}}</span>
                         <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeTag(tagId)" uib-tooltip="Remove tag" tooltip-append-to-body="true">
-                            <i class="far fa-times"></i>
+                            <i class="fa fa-times"></i>
                         </span>
                     </div>
                     <div class="role-bar clickable" ng-if="$ctrl.hasTagsAvailable" ng-click="$ctrl.addTag()" uib-tooltip="Add tag" tooltip-append-to-body="true">
-                        <i class="far fa-plus"></i> 
+                        <i class="fa fa-plus"></i> 
                     </div>
                 </div>
             `,

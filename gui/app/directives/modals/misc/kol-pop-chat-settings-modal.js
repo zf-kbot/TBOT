@@ -5,7 +5,7 @@
         .component("kolPopChatSettingsModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                     <h4 class="modal-title">Chat Settings</h4>
                 </div>
                 <div class="modal-body">
@@ -24,16 +24,16 @@
                                 </ul>
                             </span>
                             <span class="clickable" ng-click="playNotification()" style="color: #9145ff; font-size: 18px; padding-left: 5px;">
-                                <i class="fas fa-play-circle"></i>
+                                <i class="fa fa-play-circle"></i>
                             </span>
                             <file-chooser ng-show="selectedNotificationSound.name === 'Custom'"
                                 model="selectedNotificationSound.path"
                                 options="{title: 'Select Sound File', filters: [{name: 'Audio', extensions: ['mp3', 'ogg', 'wav', 'flac']}]}"
                                 on-update="setCustomNotiPath(filepath)"></file-chooser>
                             <div class="volume-slider-wrapper" ng-hide="selectedNotificationSound.name === 'None'">
-                                <i class="fal fa-volume-down volume-low" style="font-size:25px; padding-bottom:5px"></i>
+                                <i class="fa fa-volume-down volume-low" style="font-size:25px; padding-bottom:5px"></i>
                                 <rzslider rz-slider-model="notificationVolume" rz-slider-options="sliderOptions"></rzslider>
-                                <i class="fal fa-volume-up volume-high" style="font-size:25px; padding-bottom:5px"></i>
+                                <i class="fa fa-volume-up volume-high" style="font-size:25px; padding-bottom:5px"></i>
                             </div>
                         </div>
                         <div>
@@ -99,7 +99,7 @@
                         </div>
 
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Show Pronouns <a href="https://pronouns.alejo.io/" target="_blank" style="font-size:10px;"><i class="fas fa-external-link"></i></a></span>
+                            <span style="font-weight: 900;">Show Pronouns <a href="https://pronouns.alejo.io/" target="_blank" style="font-size:10px;"><i class="fa fa-external-link"></i></a></span>
                             <span>
                                 <input class="tgl tgl-light" id="cb14" type="checkbox"
                                     ng-checked="settings.getShowPronouns()"

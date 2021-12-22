@@ -49,7 +49,7 @@
             $scope.rewardMenuOptions = (item) => {
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> ${item.manageable ? "Edit" : "Edit Effects"}</a>`,
+                        html: `<a href ><i class="fa fa-pencil" style="margin-right: 10px;"></i> ${item.manageable ? "Edit" : "Edit Effects"}</a>`,
                         click: function () {
                             channelRewardsService.showAddOrEditRewardModal(item);
                         }
@@ -71,7 +71,7 @@
                         enabled: channelRewardsService.channelRewards.length < 50
                     },
                     {
-                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="This reward was created outside of Twitchbot, it cannot be deleted from here." tooltip-enable="${!item.manageable}"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="${item.manageable ? 'color: #fb7373;' : ''}" uib-tooltip="This reward was created outside of Twitchbot, it cannot be deleted from here." tooltip-enable="${!item.manageable}"><i class="fa fa-trash" style="margin-right: 10px;"></i> Delete</a>`,
                         click: function () {
                             utilityService
                                 .showConfirmationModal({

@@ -10,7 +10,7 @@
         .component("importSetupModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                     <h4 class="modal-title">Import Setup</h4>
                 </div>
                 <div class="modal-body">
@@ -38,7 +38,7 @@
                                     <div style="display: flex;align-items: center;">
                                         <span style="padding: 2px 7px;font-size: 13px;background: #242529;border-radius: 3px;">{{name}}</span>
                                         <span style="margin-left: 5px;font-size: 20px;font-weight: 500;">{{component.trigger || component.name}}</span>
-                                        <span ng-show="$ctrl.currentIds[component.id]" style="color:red;margin-left: 4px;"><i class="far fa-exclamation-triangle" uib-tooltip="This {{name}} already exists for you. If you import this Setup, the {{name}} will be replaced by the version in this setup."></i></span>
+                                        <span ng-show="$ctrl.currentIds[component.id]" style="color:red;margin-left: 4px;"><i class="fa fa-exclamation-triangle" uib-tooltip="This {{name}} already exists for you. If you import this Setup, the {{name}} will be replaced by the version in this setup."></i></span>
                                     </div>
                                 </div>
                             </div>

@@ -16,7 +16,7 @@ module.exports = {
                 viewerCount: 5
             },
             activityFeed: {
-                icon: "fad fa-house-user",
+                icon: "fa fa-home",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** hosted with **${eventData.viewerCount}** viewer(s)`;
                 }
@@ -33,7 +33,7 @@ module.exports = {
                 viewerCount: 5
             },
             activityFeed: {
-                icon: "fad fa-siren-on",
+                icon: "fa fa-bell-o",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** raided with **${eventData.viewerCount}** viewer(s)`;
                 }
@@ -50,7 +50,7 @@ module.exports = {
                 userId: 0
             },
             activityFeed: {
-                icon: "fas fa-heart",
+                icon: "fa fa-heart",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** followed`;
                 }
@@ -70,7 +70,7 @@ module.exports = {
                 isResub: false
             },
             activityFeed: {
-                icon: "fas fa-star",
+                icon: "fa fa-star",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** ${eventData.isResub ? 'resubscribed' : 'subscribed'} for **${eventData.totalMonths} month(s)** ${eventData.subPlan === 'Prime' ?
                         "with **Twitch Prime**" : "at **Tier " + eventData.subPlan.replace("000", "") + "**"}`;
@@ -90,7 +90,7 @@ module.exports = {
                 subPlan: "1000"
             },
             activityFeed: {
-                icon: "fad fa-gift",
+                icon: "fa fa-gift",
                 getMessage: (eventData) => {
                     return `**${eventData.gifterUsername}** gifted a ${eventData.giftSubMonths > 1 ? ` **${eventData.giftSubMonths} month** ` : ''} **${eventData.subPlan === 'Prime' ?
                         "Twitch Prime" : "Tier " + eventData.subPlan.replace("000", "")}** sub to **${eventData.gifteeUsername}**`;
@@ -109,7 +109,7 @@ module.exports = {
                 subPlan: "1000"
             },
             activityFeed: {
-                icon: "fad fa-gifts",
+                icon: "fa fa-archive",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** gifted **${eventData.subCount} Tier ${eventData.subPlan.replace("000", "")}** sub${eventData.subCount > 1 ? 's' : ''} to the community`;
                 }
@@ -127,7 +127,7 @@ module.exports = {
                 totalBits: 1200
             },
             activityFeed: {
-                icon: "fad fa-diamond",
+                icon: "fa fa-diamond",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** cheered **${eventData.bits}** bits. A total of **${eventData.totalBits}** were cheered by **${eventData.username}** in the channel.`;
                 }
@@ -143,7 +143,7 @@ module.exports = {
                 username: "Twitchbot"
             },
             activityFeed: {
-                icon: "fad fa-house-return",
+                icon: "fa fa-male",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** arrived`;
                 }
@@ -170,7 +170,7 @@ module.exports = {
                 username: "Twitchbot"
             },
             activityFeed: {
-                icon: "fad fa-gavel",
+                icon: "fa fa-gavel",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** was banned`;
                 }
@@ -187,7 +187,7 @@ module.exports = {
                 timeoutDuration: "1"
             },
             activityFeed: {
-                icon: "fad fa-stopwatch",
+                icon: "fa fa-clock-o",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** was timed out for **${eventData.timeoutDuration} sec(s)**`;
                 }
@@ -209,7 +209,7 @@ module.exports = {
                 messageText: "Test message"
             },
             activityFeed: {
-                icon: "fad fa-circle",
+                icon: "fa fa-circle",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** redeemed **${eventData.rewardName}**${eventData.messageText && !!eventData.messageText.length ? `: *${eventData.messageText}*` : ''}`;
                 }
@@ -225,7 +225,7 @@ module.exports = {
                 message: "Test whisper"
             },
             activityFeed: {
-                icon: "fad fa-comment-alt",
+                icon: "fa fa-comments-o",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** sent you the following whisper: ${eventData.message}`;
                 }

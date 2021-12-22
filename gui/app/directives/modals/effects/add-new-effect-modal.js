@@ -6,7 +6,7 @@ const { EffectCategory } = require("../../shared/effect-constants");
     angular.module("twitcherbotApp").component("addNewEffectModal", {
         template: `
             <div class="modal-header" style="background: #43454A;border-bottom: 2px solid #373C3E;">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">Select New Effect</h4>
             </div>
             <div class="modal-body">

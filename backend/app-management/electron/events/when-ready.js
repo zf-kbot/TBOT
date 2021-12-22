@@ -175,6 +175,10 @@ exports.whenReady = async () => {
     const streamInfoPoll = require("../../../twitch-api/stream-info-poll");
     streamInfoPoll.startStreamInfoPoll();
 
+    const streamTags = require("../../../twitch-api/stream-tags");
+    const streamTagsSource = require("../../../app-management/electron/startup-resource/streamtags.json");
+    streamTags.loadStreamTags(streamTagsSource.stream);
+
     const eventSubClient = require("../../../twitch-api/eventsub/eventsub-client");
     eventSubClient.startListening();
 

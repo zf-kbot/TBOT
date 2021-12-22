@@ -78,7 +78,7 @@
                                 </div>
 
                                 <div style="margin-top: 10px;">
-                                    <button class="btn btn-default" ng-click="$ctrl.startImport()" ng-disabled="!$ctrl.canStartImport()"><i class="fad fa-file-import"></i> Import</button>
+                                    <button class="btn btn-default" ng-click="$ctrl.startImport()" ng-disabled="!$ctrl.canStartImport()"><i class="fa fa-file-o"></i> Import</button>
                                 </div>
                                 
                             </div>
@@ -213,7 +213,7 @@
                             <div class="connection-tile">
                                 <span class="connection-title">Overlay Status</span>
                                 <div class="overlay-button" ng-class="{ 'connected': $ctrl.getOverlayStatusId() == 1, 'warning': $ctrl.getOverlayStatusId() == 0,'disconnected': $ctrl.getOverlayStatusId() == -1  }">
-                                    <i class="fal fa-tv-retro"></i>
+                                    <i class="fa fa-tv"></i>
                                 </div>
                                 <div style="text-align: center; font-size: 11px;" class="muted">{{ $ctrl.overlayConnectionMessage()}}</div>
                             </div>

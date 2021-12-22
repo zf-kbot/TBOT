@@ -30,9 +30,9 @@
                 <span class="noti-text">{{notification.title}}</span>
               </div>
               <div class="noti-action" uib-dropdown uib-dropdown-toggle ng-click="$event.stopPropagation();" dropdown-append-to-body="true">
-                <span class="noselect pointer"><i class="fal fa-ellipsis-v"></i></span>
+                <span class="noselect pointer"><i class="fa fa-ellipsis-v"></i></span>
                 <ul class="dropdown-menu" uib-dropdown-menu>
-                  <li><a href ng-click="deleteNotification(notification)" style="color:red;"><i class="far fa-trash-alt"></i> Delete notification</a></li>
+                  <li><a href ng-click="deleteNotification(notification)" style="color:red;"><i class="fa fa-trash"></i> Delete notification</a></li>
                 </ul>
               </div>
             </div>

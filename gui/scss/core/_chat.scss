@@ -675,7 +675,8 @@
     display: flex;
     flex-direction: column;
     @media only screen and (max-width: 779px) {
-        border-left: 1px solid $chatBorder;
+        // border-left: 1px solid $chatBorder;
+        border-left: 1px solid #24262A;
     }
     &::-webkit-scrollbar-track {
         background-color: transparent;

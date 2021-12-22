@@ -1,5 +1,5 @@
 <div style="margin: 0 0 15px;display: flex;flex-direction: row;justify-content: space-between;">
-    <button ng-click="openAddOrEditTimerModal()" class="btn btn-primary"><i class="fas fa-plus-circle" style="margin-right:5px;"></i> New Timer</button>
+    <button ng-click="openAddOrEditTimerModal()" class="btn btn-primary"><i class="fa fa-plus-circle" style="margin-right:5px;"></i> New Timer</button>
     <searchbar ng-show="timerService.getTimers().length > 0" placeholder-text="Search timers" query="timerSearch" style="flex-basis: 250px;"></searchbar>
 </div>
 <div ng-if="timerService.getTimers().length === 0" class="noselect muted" style="padding-left: 13px">
@@ -8,9 +8,9 @@
 <table ng-show="timerService.getTimers().length > 0" class="fb-table">
     <thead>
         <tr style="font-size: 11px;">
-            <th class="muted" style="padding-left: 15px;width: 25%"><i class="fas fa-tag"></i> NAME</th> 
-            <th class="muted"><i class="fas fa-stopwatch"></i> INTERVAL</th> 
-            <th class="muted"><i class="fas fa-magic"></i> EFFECTS</th>
+            <th class="muted" style="padding-left: 15px;width: 25%"><i class="fa fa-tag"></i> NAME</th> 
+            <th class="muted"><i class="fa fa-clock-o"></i> INTERVAL</th> 
+            <th class="muted"><i class="fa fa-magic"></i> EFFECTS</th>
             <th></th> 
             <th></th> 
         </tr> 

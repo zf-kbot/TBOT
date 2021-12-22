@@ -22,7 +22,7 @@
 
                             <div style="display: flex; align-items: center;">
                                 <div style="width:30px;">
-                                    <i class="fas" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
+                                    <i class="fa" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
                                 </div>
                             </div>
                     </div>

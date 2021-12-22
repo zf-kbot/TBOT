@@ -347,7 +347,7 @@
 
                 const options = [
                     {
-                        html: `<a href ><i class="far fa-pen" style="margin-right: 10px;"></i> Edit</a>`,
+                        html: `<a href ><i class="fa fa-pencil" style="margin-right: 10px;"></i> Edit</a>`,
                         click: function ($itemScope) {
                             const event = $itemScope.event;
                             $scope.showAddOrEditEventModal(event.id);
@@ -375,7 +375,7 @@
                         }
                     },
                     {
-                        html: `<a href style="color: #fb7373;"><i class="far fa-trash-alt" style="margin-right: 10px;"></i> Delete</a>`,
+                        html: `<a href style="color: #fb7373;"><i class="fa fa-trash" style="margin-right: 10px;"></i> Delete</a>`,
                         click: function ($itemScope) {
                             const event = $itemScope.event;
                             $scope.showDeleteEventModal(event.id, event.name ? event.name : 'Unnamed');

@@ -4,7 +4,7 @@
     angular.module("twitcherbotApp").component("aboutModal", {
         template: `
             <div class="modal-header" style="text-align: center;">
-                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                 <h4 class="modal-title">About Twitchbot</h4>
             </div>
             <div class="modal-body" style="text-align: center;">

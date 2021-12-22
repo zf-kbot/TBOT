@@ -21,7 +21,7 @@ const showText = {
         id: "twitcherbot:showtext",
         name: "Show Text",
         description: "Shows specified text in the overlay.",
-        icon: "fad fa-text",
+        icon: "fa fa-text-width",
         categories: [EffectCategory.COMMON, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.OVERLAY],
         triggers: effectModels.buildEffectTriggersObject(

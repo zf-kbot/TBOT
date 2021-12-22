@@ -149,7 +149,7 @@
 
                     actions.push({
                         name: "Delete",
-                        icon: "fa-trash-alt"
+                        icon: "fa-trash"
                     });
 
                     actions.push({
@@ -177,7 +177,7 @@
 
                         actions.push({
                             name: "Shoutout",
-                            icon: "fa-megaphone"
+                            icon: "fa-bullhorn"
                         });
 
                         if (message.roles.includes("mod")) {
@@ -194,7 +194,7 @@
 
                         actions.push({
                             name: "Timeout",
-                            icon: "fa-clock"
+                            icon: "fa-clock-o"
                         });
 
                         actions.push({
@@ -214,7 +214,7 @@
                         ...actions.map(a => ({
                             html: `
                                 <div class="message-action">
-                                    <span class="action-icon"><i class="fad ${a.icon}"></i></span>
+                                    <span class="action-icon"><i class="fa ${a.icon}"></i></span>
                                     <span class="action-name">${a.name}</span>                               
                                 </div>
                             `,

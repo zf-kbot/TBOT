@@ -11,7 +11,7 @@ const model = {
         id: "twitcherbot:delay",
         name: "Delay",
         description: "Pause between effects",
-        icon: "fad fa-stopwatch",
+        icon: "fa fa-clock-o",
         categories: [EffectCategory.COMMON, EffectCategory.ADVANCED, EffectCategory.SCRIPTING],
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(

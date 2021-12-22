@@ -7,7 +7,7 @@
         .component("createSetupModal", {
             template: `
                 <div class="modal-header">
-                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                    <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
                     <h4 class="modal-title">Create New Setup</h4>
                 </div>
                 <div class="modal-body">
@@ -56,12 +56,12 @@
                                     <div ng-show="question.defaultAnswer"><b>Default Answer:</b> {{question.defaultAnswer}}</div>
                                 </div>
                                 <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeImportQuestion(question.id);$event.stopPropagation();" aria-label="Remove item">
-                                    <i class="fad fa-trash-alt" aria-hidden="true"></i>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
                         <button class="filter-bar" ng-click="$ctrl.addImportQuestion()" uib-tooltip="Add Import Question" tooltip-append-to-body="true">
-                            <i class="far fa-plus"></i> 
+                            <i class="fa fa-plus"></i> 
                         </button>  
                     </div>
 

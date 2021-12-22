@@ -18,7 +18,7 @@ const fileWriter = {
         id: "twitcherbot:filewriter",
         name: "Write To File",
         description: "Write or delete some text in a file.",
-        icon: "fad fa-file-edit",
+        icon: "fa fa-file-o",
         categories: [EffectCategory.ADVANCED],
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(

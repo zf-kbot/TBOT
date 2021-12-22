@@ -10106,7 +10106,7 @@ table.fb-table-alt {
   flex-direction: column; }
   @media only screen and (max-width: 779px) {
     .chat-window {
-      border-left: 1px solid #cecece; } }
+      border-left: 1px solid #24262A; } }
   .chat-window::-webkit-scrollbar-track {
     background-color: transparent; }
   .chat-window::-webkit-scrollbar-thumb {
@@ -11707,7 +11707,11 @@ a {
 .kol-warn-tip .form-control {
   border-color: red; }
 
-.fas.fa-plus-circle.purple {
+.fa.fa-plus-circle.purple {
+  margin-left: 3px;
+  color: #9145FF; }
+
+.fa.fa-times-circle.purple {
   margin-left: 3px;
   color: #9145FF; }
 

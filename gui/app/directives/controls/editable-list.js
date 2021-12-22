@@ -20,14 +20,14 @@ const deepmerge = require("deepmerge");
                             </span> 
                             <div uib-tooltip="Click to edit"  style="font-weight: 400;" aria-label="{{item + ' (Click to edit)'}}">{{item}}</div>
                             <span class="clickable" style="color: #fb7373;" ng-click="$ctrl.removeItem($index);$event.stopPropagation();" aria-label="Remove item">
-                                <i class="fad fa-trash-alt" aria-hidden="true"></i>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </span>
                         </div>
                         <p class="muted" ng-show="$ctrl.model.length < 1">{{$ctrl.settings.noneAddedText}}</p>
                     </div>
                     <div style="margin: 5px 0 10px 0px;">
                         <button class="filter-bar" ng-click="$ctrl.addItem()" uib-tooltip="{{$ctrl.settings.addLabel}}" tooltip-append-to-body="true" aria-label="{{$ctrl.settings.addLabel}}">
-                            <i class="far fa-plus"></i> 
+                            <i class="fa fa-plus"></i> 
                         </button>               
                     </div>         
                 </div>

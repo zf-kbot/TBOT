@@ -10,7 +10,7 @@
         .component("viewerDetailsModal", {
             template: `
             <div class="modal-header">
-                <button type="button" class="close" style="font-size: 45px;font-weight: 100;position: absolute;top: 2px;right: 10px;z-index: 100000;" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fas fa-times-circle"></i></span></button>
+                <button type="button" class="close" style="font-size: 45px;font-weight: 100;position: absolute;top: 2px;right: 10px;z-index: 100000;" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
             </div>
             <div class="modal-body">              
                 <div ng-show="$ctrl.loading" style="height: 464px;display: flex;align-items: center;justify-content: center;">
@@ -34,11 +34,11 @@
                                 uib-tooltip="View Twitch Profile"
                                 aria-label="View Twitch Profile"
                                 tooltip-append-to-body="true">
-                                    <i class="fab fa-twitch" style="transform: translateY(2px);" />
+                                    <i class="fa fa-twitch" style="transform: translateY(2px);" />
                             </a>
                         </div>
                         <div ng-show="$ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData" style="display:flex;margin-top:7px;">              
-                            <div style="margin-right: 11px;" uib-tooltip="Twitch Age"><i class="fas fa-user-circle"></i> {{$ctrl.getAccountAge($ctrl.viewerDetails.twitchData.creationDate)}}</div>                       
+                            <div style="margin-right: 11px;" uib-tooltip="Twitch Age"><i class="fa fa-user-circle"></i> {{$ctrl.getAccountAge($ctrl.viewerDetails.twitchData.creationDate)}}</div>                       
                         </div>
                         <div ng-show="$ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData" style="display:flex;margin-top:10px;">
                             <div ng-repeat="role in $ctrl.roles | orderBy : 'rank'" uib-tooltip="{{role.tooltip}}" ng-style="role.style" style="margin-right: 10px;font-size: 13px;text-transform: uppercase;font-weight: bold;font-family: "Roboto";">{{role.name}}</div>
@@ -52,15 +52,15 @@
                     <div style="margin-top: 45px;margin-left: 10px;">
                         <div style="display:flex;margin-bottom:5px;">
                             <div style="font-size:13px;font-weight: bold;opacity:0.9;">Twitchbot Data</div>
-                            <span ng-show="$ctrl.hasTwitchbotData" ng-click="$ctrl.removeViewer()" style="color:#f96f6f;margin-left: 10px;font-size:12px;" class="clickable" uib-tooltip="Remove this viewer's Twitchbot data" aria-label="Remove viewer's twitchbotdata"><i class="far fa-trash-alt"></i></span>
+                            <span ng-show="$ctrl.hasTwitchbotData" ng-click="$ctrl.removeViewer()" style="color:#f96f6f;margin-left: 10px;font-size:12px;" class="clickable" uib-tooltip="Remove this viewer's Twitchbot data" aria-label="Remove viewer's twitchbotdata"><i class="fa fa-trash"></i></span>
                         </div>
                         
                         <div class="viewer-detail-data" ng-show="$ctrl.hasTwitchbotData" style="margin-top: 10px;">
                             <div class="detail-data clickable" ng-repeat="dataPoint in $ctrl.dataPoints" ng-click="dataPoint.onClick()" aria-label="Edit {{dataPoint.name}}">
                                 <div class="data-title">
-                                    <i class="far" ng-class="dataPoint.icon"></i> {{dataPoint.name}}
+                                    <i class="fa" ng-class="dataPoint.icon"></i> {{dataPoint.name}}
                                 </div>
-                                <div class="data-point">{{dataPoint.display}}<span class="edit-data-btn muted"><i class="fas fa-edit"></i></span></div>
+                                <div class="data-point">{{dataPoint.display}}<span class="edit-data-btn muted"><i class="fa fa-edit"></i></span></div>
                             </div>
                         </div>
 
@@ -88,11 +88,11 @@
                         <div class="role-bar" ng-repeat="customRole in $ctrl.customRoles track by customRole.id">
                             <span>{{customRole.name}}</span>
                             <span class="clickable" style="padding-left: 10px;" ng-click="$ctrl.removeUserFromRole(customRole.id)" uib-tooltip="Remove role" tooltip-append-to-body="true">
-                                <i class="far fa-times"></i>
+                                <i class="fa fa-times"></i>
                             </span>
                         </div>
                         <div class="role-bar clickable" ng-if="$ctrl.hasCustomRolesAvailable" ng-click="$ctrl.openAddCustomRoleModal()" uib-tooltip="Add role" tooltip-append-to-body="true">
-                            <i class="far fa-plus"></i> 
+                            <i class="fa fa-plus"></i> 
                         </div>
                     </div>
                 </div>
@@ -271,7 +271,7 @@
                             return follows ? "Unfollow" : "Follow";
                         },
                         follows => {
-                            return follows ? "fas fa-heart" : "fal fa-heart";
+                            return follows ? "fa fa-heart" : "fa fa-heart";
                         },
                         follows => {
                             let shouldFollow = !follows;
@@ -290,7 +290,7 @@
                                 return mod ? "Unmod" : "Mod";
                             },
                             mod => {
-                                return mod ? "fas fa-user-minus" : "fal fa-user-plus";
+                                return mod ? "fa fa-user-minus" : "fa fa-user-plus";
                             },
                             mod => {
                                 let newMod = !mod;
@@ -314,7 +314,7 @@
                                 return banned ? "Unban" : "Ban";
                             },
                             banned => {
-                                return banned ? "fas fa-ban" : "fal fa-ban";
+                                return banned ? "fa fa-ban" : "fa fa-ban";
                             },
                             banned => {
                                 let newBanned = !banned;

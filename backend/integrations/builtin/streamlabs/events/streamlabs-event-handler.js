@@ -47,7 +47,7 @@ const eventSourceDefinition = {
             cacheMetaKey: "username",
             cached: true,
             activityFeed: {
-                icon: "fas fa-heart",
+                icon: "fa fa-heart",
                 getMessage: (eventData) => {
                     return `**${eventData.username}** followed`;
                 }

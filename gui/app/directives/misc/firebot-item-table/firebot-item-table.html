@@ -20,7 +20,7 @@
           style="margin-right: 10px"
           ng-disabled="$ctrl.addNewButtonDisabled"
         >
-          <i class="fas fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
+          <i class="fa fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
           {{$ctrl.addNewButtonText}}
         </button>
 
@@ -73,7 +73,7 @@
                 <span style="display: inline-block"
                   ><i
                     ng-show="header.icon"
-                    class="fas"
+                    class="fa"
                     ng-class="header.icon"
                   ></i
                 ></span>
@@ -86,7 +86,7 @@
             </th>
 
             <th ng-if="$ctrl.sortTagContext != null" class="muted">
-              <i class="fas fa-tag"></i> TAGS
+              <i class="fa fa-tag"></i> TAGS
             </th>
 
             <th ng-if="$ctrl.showStatusIndicator"></th>
@@ -105,7 +105,7 @@
                 style="color: #2aa1c0; font-size: 20px"
                 ng-click="$ctrl.onTestButtonClicked({ itemId: item.id })"
               >
-                <i class="fas fa-play-circle clickable"></i>
+                <i class="fa fa-play-circle clickable"></i>
               </span>
             </td>
 

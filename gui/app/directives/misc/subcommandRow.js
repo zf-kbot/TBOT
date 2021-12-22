@@ -23,10 +23,10 @@
 
           <div style="width: 25%">
             <span style="min-width: 51px; display: inline-block;" uib-tooltip="Global cooldown">
-                <i class="fal fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "s" : "-" }}
+                <i class="fa fa-globe"></i> {{$ctrl.subcommand.cooldown.global ? $ctrl.subcommand.cooldown.global + "s" : "-" }}
             </span>
             <span uib-tooltip="User cooldown">
-                <i class="fal fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "s" : "-" }}
+                <i class="fa fa-user"></i> {{$ctrl.subcommand.cooldown.user ? $ctrl.subcommand.cooldown.user + "s" : "-" }}
             </span>
           </div>
 
@@ -39,7 +39,7 @@
           </div>
 
           <div style="flex-basis:30px; flex-shrink: 0;">
-            <i class="fas" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
+            <i class="fa" ng-class="{'fa-chevron-right': hidePanel, 'fa-chevron-down': !hidePanel}"></i>
           </div>
         </div>
 
@@ -119,10 +119,10 @@
                 
                 <div style="margin-top: 20px">
                     <button class="btn btn-danger" ng-click="$ctrl.delete()" aria-label="Delete subcommand">
-                        <i class="far fa-trash"></i>
+                        <i class="fa fa-trash"></i>
                     </button>
                     <button ng-hide="$ctrl.subcommand.fallback" class="btn btn-default" style="margin-left: 5px;" ng-click="$ctrl.edit()" aria-label="Edit subcommand">
-                        <i class="far fa-edit"></i> Edit Trigger
+                        <i class="fa fa-edit"></i> Edit Trigger
                     </button>
                 </div>
             </div>

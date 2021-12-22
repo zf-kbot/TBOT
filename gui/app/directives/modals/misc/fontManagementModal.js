@@ -18,7 +18,7 @@
                         </div>
                         <div style="font-size:17px">
                             <span uib-tooltip="Remove Font" tooltip-append-to-body="true" class="clickable" style="color:red;" ng-click="$ctrl.removeFont(font.name)">
-                                <i class="fas fa-trash-alt"></i>
+                                <i class="fa fa-trash"></i>
                             </span>    
                         </div>
                     </div>

@@ -38,6 +38,30 @@
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
+
+                            <div class="form-group" style="margin-bottom:4px;">
+                                <ui-select ng-model="$ctrl.selectedTags" required input-id="tag" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.tagSelected($item)" ng-disabled="!$ctrl.dataLoaded">
+                                    <ui-select-match placeholder="Search for tag...">
+                                        <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
+                                            <div style="font-weight: 100;font-size: 17px;background:#101111;">{{$select.selected.name}}</div>
+                                        </div>
+                                    </ui-select-match>
+                                    <ui-select-choices minimum-input-length="1" repeat="tag in $ctrl.localTags | filter: $select.search" refresh="$ctrl.searchTags($select.search)" refresh-delay="200" style="position:relative;">
+                                        <div style="height: 35px; display:flex; flex-direction: row; align-items: center;">
+                                            <div style="font-weight: 100;font-size: 17px;">{{tag.name}}</div>
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <div >
+                                    <span class="kol-message-tip" style="line-height:25px;">
+                                        <span ng-repeat="tag in $ctrl.tags " ng-click="$ctrl.delete({ name: tag })" class="ng-binding ng-scope" role="button" style="background-color:black;color:#CAC8C8;padding-top:1px;padding-left:0px;margin-left:0px;">
+                                            {{tag.name}}<i class="fa fa-times-circle purple" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+
+                                    <!-- <button type="button" class="btn btn-primary" ng-click="$ctrl.saveTags()" style="padding:1px 5px;">Save</button> -->
+                                </div>
+                            </div>
                             <!--
                             <div class="form-group" ng-class="{'has-error': $ctrl.formFieldHasError('title')}" style="margin-bottom:0px;">
                                 <textarea 
@@ -66,20 +90,24 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function ($scope, $rootScope, ngToast, backendCommunicator, kolHistoryService, logger) {
+            controller: function ($scope, $rootScope, ngToast, backendCommunicator, kolHistoryService, logger, profileManager) {
                 const $ctrl = this;
 
                 $ctrl.dataLoaded = false;
 
                 $ctrl.games = [];
+                $ctrl.tags = [];
+                $ctrl.localTags = [];
 
                 $ctrl.streamInfo = {
                     title: "",
                     gameId: 0,
+                    tagsId: [],
                     chart_standard: ""
                 };
 
                 $ctrl.selectedGame = null;
+                $ctrl.selectedTags = null;
 
                 $ctrl.formFieldHasError = (fieldName) => {
                     return ($scope.streamInfo.$submitted || $scope.streamInfo[fieldName].$touched)
@@ -97,6 +125,15 @@
                                         if (game != null) {
                                             $ctrl.selectedGame = game;
                                         }
+                                    });
+                                $ctrl.localTags = profileManager.getJsonDbInProfile("/streamtags").getData("/stream");
+                                //set tags=[] before update or refresh infomation
+                                $ctrl.tags = [];
+                                backendCommunicator.fireEventAsync("get-twitch-tags", $ctrl.streamInfo)
+                                    .then(value => {
+                                        value.map(c => {
+                                            $ctrl.tags.push(c);
+                                        });
                                     });
                             }
                         });
@@ -119,6 +156,22 @@
                         });
                 };
 
+                $ctrl.searchTags = function (tagQuery) {
+                    $ctrl.localTags = backendCommunicator.fireEventAsync("search-twitch-tags", tagQuery);
+                    $ctrl.localTags.then(function (tagsArr) {
+                        //求tagsArr与$ctrl.tags的差集，在只让用户选择非重复的tag
+                        let difference = tagsArr.filter(v => {
+                            for (let i = 0; i < $ctrl.tags.length; i++) {
+                                if (v.id === $ctrl.tags[i].id) {
+                                    return;
+                                }
+                            }
+                            return v;
+                        });
+                        $ctrl.localTags = difference;
+                    });
+                };
+
                 $ctrl.gameSelected = function (game) {
                     if (game != null) {
                         $ctrl.streamInfo.gameId = game.id;
@@ -126,6 +179,24 @@
                     }
                 };
 
+                $ctrl.tagSelected = function (tag) {
+                    if (tag != null) {
+                        //最多只能选择5个tag
+                        if ($ctrl.tags.length < 5) {
+                            for (let i = 0; i < $ctrl.tags.length; i++) {
+                                if (tag.id === $ctrl.tags[i].id) {
+                                    ngToast.create($ctrl.tags[i].name + "is already exist");
+                                    return;
+                                }
+                            }
+                            $ctrl.tags.push(tag);
+                            $ctrl.saveTags();
+                            $ctrl.selectedTags = null;
+                        } else {
+                            ngToast.create("you can only select up to 5 tags at the same time.");
+                        }
+                    }
+                };
 
                 $ctrl.save = kolDebounce(() => {
                     backendCommunicator.fireEventAsync("set-channel-info", $ctrl.streamInfo);
@@ -137,10 +208,35 @@
                     $ctrl.dismiss();
                 }, 1000);
 
+                $ctrl.saveTags = () => {
+                    let tagsId = [];
+                    $ctrl.tags.map(e => {
+                        tagsId.push(e.id);
+                    });
+                    backendCommunicator.fireEventAsync("set-channel-tags", tagsId);
+                    ngToast.create({
+                        className: 'success',
+                        content: "Updated stream tags!"
+                    });
+                    kolHistoryService.pushHistoryMsg('Changed channel tags');
+                };
+
+                $ctrl.delete = (tag) => {
+                    for (let i = 0; i < $ctrl.tags.length; i++) {
+                        if ($ctrl.tags[i].id === tag.name.id) {
+                            $ctrl.tags.splice(i, 1);
+                            i--;
+                            $ctrl.saveTags();
+                            return;
+                        }
+                    }
+                };
+
                 let clearStreamerRoomInfo = () => {
                     $ctrl.streamInfo = {
                         title: "",
                         gameId: 0,
+                        tagsId: [],
                         chart_standard: ""
                     };
                     $ctrl.selectedGame = null;

@@ -79,6 +79,31 @@ async function updateChannelInformation(title = undefined, gameId = undefined) {
     });
 }
 
+async function getTags() {
+    const client = twitchApi.getClient();
+    let tags = await client.helix.streams.getStreamTags(accountAccess.getAccounts().streamer.userId);
+    let res = [];
+    tags.forEach(t => {
+        if (!t.isAuto) {
+            let tag = {};
+            tag.id = t._data.tag_id;
+            tag.name = t._data.localization_names["en-us"];
+            tag.description = t._data.localization_descriptions["en-us"];
+            res.push(tag);
+        }
+    });
+    return res;
+}
+
+/**
+ * set channel tags  for the broadcast.
+ * @param {array} tagsId The ids of the tags to set channel tag for.
+ */
+async function updateChannelInformationTags(tagsId = undefined) {
+    const client = twitchApi.getClient();
+    await client.helix.streams.replaceStreamTags(accountAccess.getAccounts().streamer.userId, tagsId);
+}
+
 /**
  * Get channel info (game, title, etc) for the given username
  * @param {string} username The id of the broadcaster to get channel info for.
@@ -127,5 +152,7 @@ async function triggerAdBreak(adLength) {
 exports.getChannelInformation = getChannelInformation;
 exports.getChannelInformationByUsername = getChannelInformationByUsername;
 exports.updateChannelInformation = updateChannelInformation;
+exports.updateChannelInformationTags = updateChannelInformationTags;
+exports.getTags = getTags;
 exports.triggerAdBreak = triggerAdBreak;
 exports.getOnlineStatus = getOnlineStatus;

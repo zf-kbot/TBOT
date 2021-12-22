@@ -62,7 +62,7 @@
           ng-click="openAddOrEditCustomCommandModal()"
           class="btn btn-primary hvr-icon-grow"
         >
-          <i class="fas fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
+          <i class="fa fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
           New Custom Command
         </button>
 
@@ -102,10 +102,10 @@
           <thead>
             <tr style="font-size: 11px">
               <th style="width: 5%"></th>
-              <th class="muted"><i class="fas fa-exclamation"></i> TRIGGER</th>
-              <th class="muted"><i class="fas fa-clock"></i> COOLDOWNS</th>
-              <th class="muted"><i class="fas fa-lock-alt"></i> PERMISSIONS</th>
-              <th class="muted"><i class="fas fa-tag"></i> TAGS</th>
+              <th class="muted"><i class="fa fa-exclamation"></i> TRIGGER</th>
+              <th class="muted"><i class="fa fa-clock-o"></i> COOLDOWNS</th>
+              <th class="muted"><i class="fa fa-lock-alt"></i> PERMISSIONS</th>
+              <th class="muted"><i class="fa fa-tag"></i> TAGS</th>
               <th></th>
               <th></th>
             </tr>
@@ -124,7 +124,7 @@
                   style="color: #2aa1c0; font-size: 20px"
                   ng-click="manuallyTriggerCommand(command.id)"
                 >
-                  <i class="fas fa-play-circle clickable"></i>
+                  <i class="fa fa-play-circle clickable"></i>
                 </span>
               </td>
               <td class="command-trigger-cell">
@@ -146,7 +146,7 @@
                   uib-tooltip="Hidden from !commands list"
                   tooltip-append-to-body="true"
                 >
-                  <i class="fas fa-eye-slash"></i>
+                  <i class="fa fa-eye-slash"></i>
                 </span>
               </td>
               <td>
@@ -154,7 +154,7 @@
                   style="min-width: 51px; display: inline-block"
                   uib-tooltip="Global cooldown"
                 >
-                  <i class="far fa-globe-americas"></i>
+                  <i class="fa fa-globe-americas"></i>
                   {{command.cooldown.global ? command.cooldown.global + "s" :
                   "-" }}
                 </span>
@@ -274,16 +274,16 @@
           "
         >
           <div class="muted" style="flex-basis: 25%; padding-left: 20px">
-            <i class="fas fa-tag"></i> NAME
+            <i class="fa fa-tag"></i> NAME
           </div>
           <div class="muted" style="width: 20%">
-            <i class="fas fa-exclamation"></i> TRIGGER
+            <i class="fa fa-exclamation"></i> TRIGGER
           </div>
           <div class="muted" style="width: 20%">
-            <i class="fas fa-clock"></i> COOLDOWNS
+            <i class="fa fa-clock-o"></i> COOLDOWNS
           </div>
           <div class="muted" style="width: 20%">
-            <i class="fas fa-lock-alt"></i> PERMISSIONS
+            <i class="fa fa-lock-alt"></i> PERMISSIONS
           </div>
           <div class="muted" style="width: 20%"></div>
           <div

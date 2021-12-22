@@ -636,7 +636,7 @@
 
             service.getWebServerPort = function() {
                 let serverPort = getDataFromFile("/settings/webServerPort");
-                return serverPort != null ? serverPort : 7472;
+                return serverPort != null ? serverPort : 7473;
             };
 
             service.setWebServerPort = function(port) {

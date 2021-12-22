@@ -443,6 +443,32 @@
                 backdrop: true
             });
         });
+        backendCommunicator.on("open-setting-modal", (isFromQuitSetting) => {
+            if (!isFromQuitSetting) {
+                utilityService.showModal({
+                    component: "settingModal",
+                    size: "sm",
+                    backdrop: true,
+                    closeCallback: resp => {
+                        let action = resp.action;
+                        switch (action) {
+                        case "quit":
+                            backendCommunicator.send("quit-twitchbot");
+                            break;
+                        case "minimize":
+                            backendCommunicator.send("minimize-twitchbot");
+                            break;
+                        }
+                    }
+                });
+            } else {
+                utilityService.showModal({
+                    component: "settingModal",
+                    size: "sm",
+                    backdrop: true
+                });
+            }
+        });
 
         backendCommunicator.on("setup-opened", (path) => {
             utilityService.showModal({

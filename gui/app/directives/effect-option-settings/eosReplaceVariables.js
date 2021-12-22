@@ -7,7 +7,7 @@
                 <div>
                     <div class="searchbar-wrapper">
                         <input type="text" class="form-control" placeholder="Search variables" ng-model="variableSearch" style="padding-left: 27px;">
-                        <span class="searchbar-icon"><i class="far fa-search"></i></span>
+                        <span class="searchbar-icon"><i class="fa fa-search"></i></span>
                     </div>
 
                     <dl>

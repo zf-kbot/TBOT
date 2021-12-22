@@ -102,7 +102,7 @@ class EventManager extends EventEmitter {
                 }
                 //替换dataMsg.data中的参数为具体信息
                 dataMsg = dataMsg.data.replace(/\{streamername\}/g, meta.username);
-                dataMsg = dataMsg.replace(/\{game\}/g, meta.game);
+                dataMsg = dataMsg.replace(/\{game\}/g, meta.gamename);
                 dataMsg = dataMsg.replace(/\{title\}/g, meta.title);
                 twitchChat.sendChatMessage(dataMsg);
             }

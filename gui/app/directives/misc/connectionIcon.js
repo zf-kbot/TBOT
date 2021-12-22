@@ -41,9 +41,9 @@
             };
 
             const ConnectionIcon = {
-                CHAT: "fab fa-twitch",
-                OVERLAY: "fas fa-tv-retro",
-                INTEGRATIONS: "fas fa-globe"
+                CHAT: "fa fa-twitch",
+                OVERLAY: "fa fa-tv",
+                INTEGRATIONS: "fa fa-globe"
             };
 
             const BubbleIcon = {

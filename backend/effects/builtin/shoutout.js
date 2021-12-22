@@ -105,7 +105,7 @@ const effect = {
         id: "twitcherbot:shoutout",
         name: "Show Shoutout",
         description: "Shows an shoutout graphic for a user in the overlay.",
-        icon: "fad fa-megaphone",
+        icon: "fa fa-bullhorn",
         categories: [EffectCategory.COMMON, EffectCategory.FUN, EffectCategory.OVERLAY],
         dependencies: [EffectDependency.OVERLAY]
     },

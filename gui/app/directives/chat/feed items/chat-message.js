@@ -113,7 +113,7 @@
                     </div>
                 </div>
             `,
-            controller: function(chatMessagesService, utilityService, connectionService, pronounsService) {
+            controller: function($translate, chatMessagesService, utilityService, connectionService, pronounsService) {
 
                 const $ctrl = this;
 
@@ -144,17 +144,20 @@
 
                     actions.push({
                         name: "Details",
-                        icon: "fa-info-circle"
+                        icon: "fa-info-circle",
+                        translationKey: "DASHBOARD.CHATUSERS.MENU.Details"
                     });
 
                     actions.push({
                         name: "Delete",
-                        icon: "fa-trash"
+                        icon: "fa-trash",
+                        translationKey: "DASHBOARD.CHATUSERS.MENU.Delete"
                     });
 
                     actions.push({
                         name: "Mention",
-                        icon: "fa-at"
+                        icon: "fa-at",
+                        translationKey: "DASHBOARD.CHATUSERS.MENU.Mention"
                     });
 
                     if (message.username !== connectionService.accounts.streamer.username &&
@@ -162,47 +165,67 @@
 
                         actions.push({
                             name: "Whisper",
-                            icon: "fa-envelope"
+                            icon: "fa-envelope",
+                            translationKey: "DASHBOARD.CHATUSERS.MENU.Whisper",
+                            translation: ""
                         });
 
                         actions.push({
                             name: "Quote This Message",
-                            icon: "fa-quote-right"
+                            icon: "fa-quote-right",
+                            translationKey: "DASHBOARD.CHATUSERS.MENU.QUOTE_THIS_MESSAGE",
+                            translation: ""
                         });
 
                         actions.push({
                             name: "Highlight This Message",
-                            icon: "fa-eye"
+                            icon: "fa-eye",
+                            translationKey: "DASHBOARD.CHATUSERS.MENU.HIGHLIGHT_THIS_MESSAGE",
+                            translation: ""
                         });
 
                         actions.push({
                             name: "Shoutout",
-                            icon: "fa-bullhorn"
+                            icon: "fa-bullhorn",
+                            translationKey: "DASHBOARD.CHATUSERS.MENU.Shoutout",
+                            translation: ""
                         });
 
                         if (message.roles.includes("mod")) {
                             actions.push({
                                 name: "Unmod",
-                                icon: "fa-user-times"
+                                icon: "fa-user-times",
+                                translationKey: "DASHBOARD.CHATUSERS.MENU.Unmod",
+                                translation: ""
                             });
                         } else {
                             actions.push({
                                 name: "Mod",
-                                icon: "fa-user-plus"
+                                icon: "fa-user-plus",
+                                translationKey: "DASHBOARD.CHATUSERS.MENU.Mod",
+                                translation: ""
                             });
                         }
 
                         actions.push({
                             name: "Timeout",
-                            icon: "fa-clock-o"
+                            icon: "fa-clock-o",
+                            translationKey: "DASHBOARD.CHATUSERS.MENU.Timeout",
+                            translation: ""
                         });
 
                         actions.push({
                             name: "Ban",
-                            icon: "fa-ban"
+                            icon: "fa-ban",
+                            translationKey: "DASHBOARD.CHATUSERS.MENU.Ban",
+                            translation: ""
                         });
                     }
 
+                    const translationsRes = $translate.instant(actions.map(v => v.translationKey));
+                    actions.forEach(v => {
+                        v.translation = translationsRes[v.translationKey];
+                    });
                     return [
                         {
                             html: `<div class="name-wrapper">
@@ -215,7 +238,7 @@
                             html: `
                                 <div class="message-action">
                                     <span class="action-icon"><i class="fa ${a.icon}"></i></span>
-                                    <span class="action-name">${a.name}</span>                               
+                                    <span class="action-name">${a.translation}</span>                               
                                 </div>
                             `,
                             click: () => {

@@ -3,7 +3,7 @@
 (function () {
     angular
         .module("twitcherbotApp")
-        .factory("sidebarManager", function ($timeout, $rootScope, settingsService) {
+        .factory("sidebarManager", function ($timeout, $rootScope, settingsService, $translate, logger) {
             let service = {};
 
             service.navExpanded = settingsService.getSidebarExpanded();
@@ -16,11 +16,16 @@
 
             service.currentTab = "chat feed";
             service.currentTabName = "Dashboard";
+            service.currentTabId = "Chat Feed";
 
-            service.setTab = function (tabId, name) {
+            service.setTab = function (tabId) {
+                service.currentTabId = tabId;
                 service.currentTab = tabId.toLowerCase();
 
-                service.currentTabName = name ? name : tabId;
+                $translate("TABID." + tabId.replace(/ |-/g, "_").toUpperCase()).then((ret) => {
+                    service.currentTabName = ret;
+                    logger.info(ret);
+                });
 
                 //hack that somewhat helps with the autoupdate slider styling issues on first load
                 $timeout(function () {
@@ -45,7 +50,8 @@
                     service.currentTab.toLowerCase() === "message filter" ||
                     service.currentTab.toLowerCase() === "auto reply" ||
                     service.currentTab.toLowerCase() === "blacklisted words" ||
-                    service.currentTab.toLowerCase() === "chat notifications"
+                    service.currentTab.toLowerCase() === "chat notifications" ||
+                    service.currentTab.toLowerCase() === "top chart"
                 );
             };
 
@@ -59,6 +65,9 @@
                     service.currentTab.toLowerCase() === "commands"
                 );
             };
+            $rootScope.$on("langChanged", () => {
+                service.setTab(service.currentTabId);
+            });
 
             return service;
         });
@@ -85,9 +94,14 @@
                     controller: "chatMessagesController"
                 })
 
-                .when("/analysis", {
-                    templateUrl: "./templates/_kol-analysis.html",
-                    controller: "kolAnalysisController"
+                .when("/achievement", {
+                    templateUrl: "./templates/_kol-achievement.html",
+                    controller: "kolAchievementController"
+                })
+
+                .when("/top-chart", {
+                    templateUrl: "./templates/data/_kol-top-chart.html",
+                    controller: "kolTopChartController"
                 })
 
                 .when("/polls", {

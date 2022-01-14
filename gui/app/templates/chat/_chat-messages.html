@@ -41,7 +41,7 @@
     <div class="chat-window-wrapper" style="background: #24262A;">
       <i uib-tooltip="Popout" tooltip-append-to-body="true" ng-hide="!chatFeedIsEnabled()" class="fa fa-external-link" ng-hide="chatBoxIsPopped" ng-click="popChatBox()" aria-hidden="true" style="/* text-align: right; */display: flex;position: absolute;right: 10px;top: 10px;cursor: pointer;z-index: 1050;"></i>
       <div ng-hide="chatFeedIsEnabled()" class="chatfeed-disabled-overlay" style="background: #24262A;">
-        <span style="color: white; font-size: 1.2em; text-align: center">{{disabledMessage}}</span>
+        <span style="color: white; font-size: 1.2em; text-align: center">{{disabledMessage | translate}}</span>
       </div>
       <button ng-hide="scrollGlued" ng-click="scrollGlued = true" class="btn-sm clickable" style="
           position: absolute;
@@ -56,7 +56,7 @@
         ">
         Chat Paused Due to Scroll
       </button>
-      <div class="chat-window" ng-init="scrollGlued = true" scroll-glue="scrollGlued" style="{{customFontSizeStyle}}">
+      <div class="chat-window" ng-init="scrollGlued = true" scroll-glue="scrollGlued" style = " {{customFontSizeStyle}} ">
         <div ng-repeat="chatItem in cms.chatQueue | limitTo:messageDisplayLimit track by chatItem.id" class="chat-item"
           ng-class="{ alternate: alternateBackgrounds}" scroll-glue-anchor>
           <chat-message ng-if="chatItem.type === 'message'" message="chatItem.data" compact-display="compactDisplay"
@@ -88,7 +88,7 @@
           </ul>
         </div> -->
 
-        <input id="chatMessageInput" type="text" placeholder="Message the stream" class="text-input-field"
+        <input id="chatMessageInput" type="text" placeholder="{{ 'DASHBOARD.CHATFEED.MESSAGETHESTREAM' | translate }}" class="text-input-field"
           style="height: 100%;padding-right: 55px;" ng-maxlength="360" ng-model="chatMessage" ng-change="onMessageFieldUpdate()"
           ng-keydown="onMessageFieldKeypress($event)" ng-trim="false" ng-disabled="!chatFeedIsEnabled()" />
       </div>
@@ -106,20 +106,21 @@
   </div>
   <div class="viewer-list-column" ng-show="getChatViewerListSetting()" style="margin:10px 10px 10px 10px;height:98%;background:#24262A;border: 0;">
     <div class="viewer-list-header" style="background: #24262A;">
-      <span> CHAT USERS </span>
+      <span>{{ 'DASHBOARD.CHATUSERS.CHATUSERS' | translate }}</span>
     </div>
     <div class="chat-users" style="margin-top: 5px">
       <chat-user-category category="Moderators" role-key="mod" />
+      <chat-user-category category="Bots" role-key="bot" />
       <chat-user-category category="VIPs" role-key="vip" />
       <chat-user-category category="Viewers" role-key="viewer" />
       <chat-user-category category="Broadcaster" role-key="broadcaster" />
     </div>
   </div>
   <div ng-show="getStreamInfoSetting() || getHistorySetting() || getActivityFeedSetting()" class="view-content" style="margin:10px 10px 10px 10px;height:98%;background:#101111;">
-    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="background: #24262A; height:20%;min-height:181px; display: flex;flex-direction: column;border-radius: 10px; overflow-y:visible; z-index: 10000;">
-      <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
+    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="background: #24262A; height:unset; min-height:unset; display: flex;flex-direction: column;border-top-left-radius: 10px;border-top-right-radius: 10px;overflow-y:visible; z-index: 10000;">
+      <div class="activity-feed-header" style=" padding: 5px;background: #24262A;border-top-left-radius: 10px;border-top-right-radius: 10px;">
         <div style="display: flex; align-items: center">
-            <span style="padding-left: 7px;padding-top:2px;">STREAM INFO</span>
+            <span style="padding-left: 7px;padding-top:2px;">{{ 'DASHBOARD.STREAMINFO.NAME' | translate }}</span>
         </div>
         <div uib-dropdown>
             <a href uib-dropdown-toggle class="clickable" style="color: white; font-size: 20px; line-height: 1"
@@ -129,7 +130,7 @@
             <ul class="dropdown-menu right-justified-dropdown" uib-dropdown-menu>
               <li>
                 <a href ng-click="refreshStreamInfo()"><i class="fa fa-repeat" style="margin-right: 10px;"></i>
-                  refresh stream info</a>
+                    {{ 'DASHBOARD.STREAMINFO.SETTING.REFRESH_STREAM_INFO' | translate }}</a>
               </li>
             </ul>
           </div>
@@ -142,7 +143,7 @@
       <div class="activity-feed-column" style="background: #24262A;border-radius: 10px;height:90%">
         <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
           <div style="display: flex; align-items: center">
-            <span style="padding-left: 7px;padding-top:2px;">HISTORY</span>
+            <span style="padding-left: 7px;padding-top:2px;">{{ 'DASHBOARD.HISTORY.NAME' | translate }}</span>
             <span ng-show="khs.historyQueue.length > 0" uib-tooltip=""
               tooltip-append-to-body="true" style="
                 background: rgb(119, 121, 121);
@@ -170,10 +171,10 @@
                 ">
                 <span style="font-size: 10px" class="muted" uib-tooltip="{{activity.date}}">{{activity.timestamp}}</span>
             </div>
-            <div style="width: 100%" class="activity-message" ng-bind-html="activity.message"></div>
+            <div style="width: 100%" class="activity-message" ng-bind-html="activity.messageDisplay"></div>
           </div>
         </div>
-        <div ng-if="khs.historyQueue.length === 0" class="kol-none-box" style="height: 89%;background: #24262A;margin-left:8px;">
+        <div ng-if="khs.historyQueue.length === 0" class="kol-none-box" style="height: 89%;background: #24262A;margin:0 8px;">
           <p style="font-size: 20px;">NONE</p>
         </div>
       </div>
@@ -182,10 +183,10 @@
       <div class="activity-feed-column" style="background: #24262A; border-radius: 10px;height: 90%;">
         <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
           <div style="display: flex; align-items: center">
-            <span style="padding-left: 7px;padding-top:2px;">ACTIVITY FEED</span>
-            <span ng-show="afs.unacknowledgedCount() > 0" uib-tooltip="Unacknowledged events"
+            <span style="padding-left: 7px;padding-top:2px;">{{ 'DASHBOARD.ACTIVITY_FEED.NAME' | translate }}</span>
+            <span ng-show="afs.unacknowledgedCount() > 0" uib-tooltip="{{UNACKNOWLEDGED_EVENTS}}"
               tooltip-append-to-body="true" style="
-                background: #101111;
+                background: rgb(119, 121, 121);
                 border-radius: 30%;
                 padding: 1px 5px;
                 color: white;
@@ -206,13 +207,12 @@
               <li ng-class="{'disabled': afs.activities.length < 1}">
                 <a href ng-click="afs.toggleMarkAllAcknowledged()"><i class="fa fa-check-square"
                     style="margin-right: 10px" aria-label="Mark all events as acknowledged"></i>
-                  Mark all as {{afs.allAcknowledged() ? 'Unacknowledged' :
-                  'Acknowledged'}}</a>
+                    {{ MARK_ALL_AS + ACKNOWLEDGED_OR_UNACKNOWLEDGED }}</a>
               </li>
               <li>
                 <a href ng-click="afs.showEditActivityFeedEventsModal()"><i class="fa fa-sliders"
                     style="margin-right: 10px" aria-label="Edit events"></i>
-                  Filters</a>
+                  {{ 'DASHBOARD.ACTIVITY_FEED.SETTING.FILTERS' | translate }}</a>
               </li>
               <!-- <li class="divider"></li> -->
             </ul>
@@ -232,7 +232,7 @@
                 style="font-size: 15px"></i>
               <span style="font-size: 10px" class="muted">{{activity.timestamp}}</span>
             </div>
-            <div style="width: 100%" class="activity-message" ng-bind-html="activity.message"></div>
+            <div style="width: 100%" class="activity-message" ng-bind-html="activity.messageDisplay"></div>
             <div style="
                 margin-left: 10px;
                 font-size: 15px;
@@ -252,7 +252,7 @@
             </div>
           </div>
         </div>
-        <div ng-if="afs.activities.length === 0" class="kol-none-box" style="height: 89%;background: #24262A;margin-left:8px;">
+        <div ng-if="afs.activities.length === 0" class="kol-none-box" style="height: 89%;background: #24262A;margin:0 8px;">
           <p style="font-size: 20px;">NONE</p>
         </div>
       </div>

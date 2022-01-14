@@ -149,6 +149,22 @@ async function triggerAdBreak(adLength) {
     }
 }
 
+async function isTwitchPartner(userId) {
+    const client = twitchApi.getClient();
+    let userInfo = await client.helix.users.getUserById(userId);
+    return userInfo._data.broadcaster_type === "affiliate" || userInfo._data.broadcaster_type === "partner";
+}
+
+async function getTotalFollows() {
+    let username = accountAccess.getAccounts().streamer.username;
+
+    const user = await twitchApi.getClient().helix.users.getUserByName(username);
+    const response = await twitchApi.getClient().helix.users.getFollows({
+        followedUser: user.id
+    });
+    return response ? response.total : 0;
+}
+
 exports.getChannelInformation = getChannelInformation;
 exports.getChannelInformationByUsername = getChannelInformationByUsername;
 exports.updateChannelInformation = updateChannelInformation;
@@ -156,3 +172,5 @@ exports.updateChannelInformationTags = updateChannelInformationTags;
 exports.getTags = getTags;
 exports.triggerAdBreak = triggerAdBreak;
 exports.getOnlineStatus = getOnlineStatus;
+exports.isTwitchPartner = isTwitchPartner;
+exports.getTotalFollows = getTotalFollows;

@@ -36,7 +36,7 @@
         class="btn btn-primary hvr-icon-grow"
         >
         <i class="fa fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
-        New Blacklisted Words
+        {{'NEW' | translate}} {{'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate}}
       </button>
     </div>
       <div style="padding: 15px">
@@ -49,10 +49,10 @@
                 </div>
                 <div class="toggle-button-container"  style="width: 80%;text-align: left;">
                   <p style="font-size: 2em;" class = "bgweight">
-                    Blacklisted Words
+                    {{'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate }}
                   </p>
                   <span class="bgfontcolor">
-                    By blacklisting certain words and phrases, you can remove specific unwanted behavior from your chat.
+                    {{'BLACKLISTEDWORDS.DESC' | translate}}
                   </span>
                 </div>
               </div>         
@@ -69,11 +69,11 @@
         > -->
           <thead>
             <tr style="font-size: 11px; color: white;">
-              <th style="text-align: left;padding-left: 15px;">PHRASE</th>
-              <th> TIME OUT</th>
-              <th> STAUS</th>
-              <th> EDIT</th>
-              <th> DELETE</th>
+              <th style="text-align: left;padding-left: 15px;">{{ 'BLACKLISTEDWORDS.TABLE.HEADER.PHRASE' | translate }}</th>
+              <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.TIME_OUT' | translate }}</th>
+              <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.STATUS' | translate }}</th>
+              <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.EDIT' | translate }}</th>
+              <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.DELETE' | translate}}</th>
             </tr>
           </thead>
           <tbody
@@ -98,7 +98,7 @@
                   uib-tooltip="{{command.trigger}}"
                   tooltip-popup-delay="500"
                   tooltip-append-to-body="true"
-                  >{{command.effects.list[0].time + " seconds"}}</span
+                  >{{command.effects.list[0].time}} {{ 'BLACKLISTEDWORDS.TABLE.BODY.SEC' | translate}}</span
                 >
                 <tooltip
                   ng-if="command.triggerIsRegex"
@@ -143,7 +143,7 @@
           </tbody>
         </table>
         <div ng-if="commandsService.commandsCache.customCommands.length === 0" class="kol-none-box" style="height: 272px;margin: 0 15px;">
-            <p style="font-size: 28px;">NONE</p>
+            <p style="font-size: 28px;">{{ 'NONE' | translate}}</p>
         </div>
       </div>
     </div>

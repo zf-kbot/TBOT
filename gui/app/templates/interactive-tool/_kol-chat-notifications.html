@@ -9,11 +9,11 @@
                     <div class="toggle-button-container" style="width: 80%;text-align: left;">
                         <!-- <p style="font-size: 25px;font-weight: bold;"> -->
                         <p class="bgweight">
-                            Chat Notifications
+                            {{ 'SIDEBAR.INTERACTIVETOOL.CHAT_NOTIFICATIONS' | translate }}
                         </p>
                         <p>
                             <span class="bgfontcolor" >
-                                Send a notifiaction chat whenever some inportant activities happen
+                                {{ 'CHAT_NOTIFICATIONS.DESC' | translate }}
                             </span>
                         </p>
                     </div>
@@ -24,7 +24,7 @@
     <div class="row kol-chat-notifications">
         <div style="width: 100%;">
             <uib-tabset active="active" class="kol-analysis-nav">
-                <uib-tab ng-repeat="tab in tabs" index="$index" heading="{{ tab }}" select="changeTab(tab)" classes="btn-changecolor-uibtab"></uib-tab>
+                <uib-tab ng-repeat="tab in tabs track by $index" index="$index" heading="{{ tabsTranslations[toTranslationsTabKey(tab)] }}" select="changeTab(tab)" classes="btn-changecolor-uibtab"></uib-tab>
             </uib-tabset>
 
             <div style="padding: 30px 15px 15px 15px">
@@ -37,9 +37,9 @@
                     </div>
                     <span style="color: #CAC8C8; margin: 20px;">{{ description }}</span>
                 </div>
-                <h4><i class="fa fa-list-alt"></i> Message</h4>
+                <h4><i class="fa fa-list-alt"></i> {{ 'CHAT_NOTIFICATIONS.MESSAGE' | translate }}</h4>
                 <div class="kol-cooldown-time" ng-show="tabId === 'followers'">
-                    <span>Cooldown seconds:</span>
+                    <span>{{ 'CHAT_NOTIFICATIONS.COOLDOWN_SECS' | translate }}:</span>
                     <select
                         class="fb-select"
                         style="background-color: white;"
@@ -51,7 +51,7 @@
                 <div style="display: flex; justify-content: space-between; margin-top: 10px; align-items: center;">
                     <kol-message-tip common-text="commonText" arguments="arguments" append-to-input="appendToInput(name)" style="line-height: 36px";/>
                     <div style="position: relative; left: -15%" ng-show="responseMsgChanged">
-                        <button class="btn btn-primary" style="width: 70px; position: relative; left: -15%" ng-click="save()">save</button>
+                        <button class="btn btn-primary" style="width: 70px; position: relative; left: -15%" ng-click="save()">{{ 'SAVE' | translate}}</button>
                         <i ng-show="saveStatus === SUCCESS" style="color: #04BD0C" class="fa fa-check"></i>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                                 input-type="string"
                                 disable-variables="true"
                                 model="responseMsg.data"/>
-                            <span style="color: red;" ng-if="emptyContentIdList.includes(responseMsg.id)">message can't be empty</span>
+                            <span style="color: red;" ng-if="emptyContentIdList.includes(responseMsg.id)">{{ "CHAT_NOTIFICATIONS.MESSAGE_CANT_BE_EMPTY" | translate}}</span>
                         </div>
                         <div class="kol-input-append-tag" ng-if="$index === 0 && responseMsgs.length < 5" ng-click="addNewResponseMsg()">
                             <i class="fa fa-plus-circle"></i>

@@ -3,7 +3,7 @@
 (function () {
     angular
         .module("twitcherbotApp")
-        .controller("kolChatNotificationsController", function ($scope, logger, profileManager, gaService, kolHistoryService) {
+        .controller("kolChatNotificationsController", function ($scope, $translate, logger, profileManager, gaService, kolHistoryService) {
             gaService.sendEvent('chat notification', 'open');
             $scope.active = 0;
             $scope.tabId = "followers";
@@ -73,6 +73,9 @@
             };
 
             $scope.tabs = ["Followers", "Subscriber", "Gift Subscription", "Cheer", "Host", "Raid", "Annoucement"];
+            $scope.tabsTranslations = $translate.instant($scope.tabs.map(v => ("chat notifications.tabs." + v).replace(/ /g, '_').toUpperCase()));
+            $scope.toTranslationsTabKey = tab => ('chat notifications.tabs.' + tab).replace(/ /g, '_').toUpperCase();
+
             // 将变量名添加到输入框
             $scope.selectedInputIdx = -1;
             $scope.appendToInput = (name) => {
@@ -100,50 +103,50 @@
             const tabInfoMapper = {
                 followers: {
                     id: 'followers',
-                    description: 'A randomly thank message will be send for your new followers.',
-                    commonText: 'Available arguement: ',
+                    description: $translate.instant("CHAT_NOTIFICATIONS.ACTIVE_DESC.FOLLOWERS"),
+                    commonText: $translate.instant("CHAT_NOTIFICATIONS.AVAILABLE_ARGUEMENT") + ': ',
                     arguments: ["username"],
                     placeholderText: 'Thanks for your following @{username}!'
                 },
                 subscriber: {
                     id: 'subscriber',
-                    description: 'Post an randomly message in chat whenever someone subscribes to the channel.',
-                    commonText: 'Available arguement: ',
+                    description: $translate.instant("CHAT_NOTIFICATIONS.ACTIVE_DESC.SUBSCRIBER"),
+                    commonText: $translate.instant("CHAT_NOTIFICATIONS.AVAILABLE_ARGUEMENT") + ': ',
                     arguments: ["username"],
                     placeholderText: 'Thank you for @{username} new subscribing!'
                 },
                 giftSubscription: {
                     id: 'giftSubscription',
-                    description: 'Post an message in chat whenever someone gift subscription.',
-                    commonText: 'Available arguement: ',
+                    description: $translate.instant("CHAT_NOTIFICATIONS.ACTIVE_DESC.GIFT_SUBSCRIPTION"),
+                    commonText: $translate.instant("CHAT_NOTIFICATIONS.AVAILABLE_ARGUEMENT") + ': ',
                     arguments: ["username", "amount"],
                     placeholderText: '@{username} was gifted {amount} subscription! Thanks!'
                 },
                 cheer: {
                     id: 'cheer',
-                    description: 'Post a message in chat whenever someone cheers.',
-                    commonText: 'Available arguement: ',
+                    description: $translate.instant("CHAT_NOTIFICATIONS.ACTIVE_DESC.CHEER"),
+                    commonText: $translate.instant("CHAT_NOTIFICATIONS.AVAILABLE_ARGUEMENT") + ': ',
                     arguments: ["username", "amount"],
                     placeholderText: '@{username} just cheered {amount} bits! Thanks!'
                 },
                 host: {
                     id: 'host',
-                    description: 'Post a message in chat when someone host your channel',
-                    commonText: 'Available arguement: ',
+                    description: $translate.instant("CHAT_NOTIFICATIONS.ACTIVE_DESC.HOST"),
+                    commonText: $translate.instant("CHAT_NOTIFICATIONS.AVAILABLE_ARGUEMENT") + ': ',
                     arguments: ["username", "amount"],
                     placeholderText: '@{username} is hosting for {amount} viewers!'
                 },
                 raid: {
                     id: 'raid',
-                    description: 'Post a message in chat when someone raids this channel.',
-                    commonText: 'Available arguement: ',
+                    description: $translate.instant("CHAT_NOTIFICATIONS.ACTIVE_DESC.RAID"),
+                    commonText: $translate.instant("CHAT_NOTIFICATIONS.AVAILABLE_ARGUEMENT") + ': ',
                     arguments: ["username", "amount"],
                     placeholderText: '@{username} is raiding this channel for {amount} viewers!'
                 },
                 annoucement: {
                     id: 'annoucement',
-                    description: 'Make an announcement in the channel when you start to live.',
-                    commonText: 'Available arguement: ',
+                    description: $translate.instant("CHAT_NOTIFICATIONS.ACTIVE_DESC.ANNOUCEMENT"),
+                    commonText: $translate.instant("CHAT_NOTIFICATIONS.AVAILABLE_ARGUEMENT") + ': ',
                     arguments: ["streamername", "game", "title"],
                     placeholderText: '@{streamername} is now live! Streaming {game}: {title}'
                 }

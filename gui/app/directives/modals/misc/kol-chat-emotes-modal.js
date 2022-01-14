@@ -25,20 +25,20 @@
                     </div>
                     <div style="width:100%;height:335px;">
                         <div style="height:35px;">
-                            <span style= "display:inline-block;margin-top:5px;padding-left:10px;font-size:18px;">{{$ctrl.clickName}}</span>
+                            <span style= "display:inline-block;margin-top:5px;padding-left:10px;font-size:18px;">{{$ctrl.clickNameTabsTranslations[$ctrl.toTranslationsTabKey($ctrl.clickName)]}}</span>
                             <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()" >
-                                <span aria-hidden="true"><i style="font-size: 22px;font-weight:200;margin-right:10px;margin-top:5px;" class="fa fa-times"></i></span>
+                                <span aria-hidden="true"><i style="font-size: 22px;font-weight:200;margin-right:10px;margin-top:5px;" class="fa fa-times-circle"></i></span>
                             </button>
                         </div>
                         <span ng-if="$ctrl.cs.sidebarServicesOverallStatus == 'disconnected'" style="display:inline-block; color: white; font-size: 1.2em; text-align: center; padding-left:5px;margin-top:30%;" class="ng-binding" >
-                            The Emote will accessable when Twitchbot is connected.
+                            {{$ctrl.translations['EMOTE.DESC_NO_CONNECT']}}
                         </span>
                         <div ng-show="$ctrl.cs.sidebarServicesOverallStatus == 'connected'" style="width:100%;height:300px;overflow:auto;padding-left:5px;">
                             <span ng-repeat="chatEmote in $ctrl.chatMessageAllemotes track by $index" style="display:inline-block;width:40px;height:40px" ng-if= "$ctrl.chatMessageAllemotes.length != 0">
                                 <img class="button" src={{chatEmote.url}} ng-click = "$ctrl.addChatMessage(chatEmote)" title = "{{chatEmote.code}}">
                             </span>
                             <span ng-if= "$ctrl.chatMessageAllemotes.length == 0 && $ctrl.clickName == 'Global'" style="display:inline-block; color: white; font-size: 1.2em; text-align: center; padding-left:5px;width:100%;margin-top:30%;">
-                                emote is loading... 
+                                {{$ctrl.translations['EMOTE.DESC_WAIT_LOADING']}}
                             </span>
                             <div ng-if= "$ctrl.chatMessageAllemotes.length == 0 && $ctrl.clickName == 'Regular'" class="kol-none-box" style="width:300px;height: 280px;background: #24262A;margin-left:8px;">
                                 <p style="font-size: 20px;">NONE</p>
@@ -53,11 +53,27 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($scope, $rootScope, $timeout, settingsService, chatMessagesService, connectionService, profileManager, logger) {
+            controller: function($scope, $rootScope, $timeout, settingsService, chatMessagesService, connectionService, profileManager, logger, $translate) {
                 const $ctrl = this;
                 $ctrl.cs = connectionService;
                 $ctrl.cms = chatMessagesService;
                 $ctrl.clickName = "Global";
+                $ctrl.clickNameTabs = ["Global", "Regular"];
+                $ctrl.clickNameTabsTranslations = $translate.instant($ctrl.clickNameTabs.map(v => ("EMOTE." + v).toUpperCase()));
+                $ctrl.toTranslationsTabKey = clickName => ("EMOTE." + clickName).toUpperCase();
+
+                $ctrl.translations = {
+                    "EMOTE.REGULAR": "",
+                    "EMOTE.GLOBAL": "",
+                    "EMOTE.DESC_NO_CONNECT": "",
+                    "EMOTE.DESC_WAIT_LOADING": ""
+                };
+                const translationsRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in translationsRes) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationsRes[key];
+                    }
+                }
 
                 $ctrl.chatMessageAllemotes = chatMessagesService.allEmotes;
 
@@ -135,11 +151,11 @@
                     $ctrl.chatMessageAllemotes = chatMessagesService.allEmotes;
                     $ctrl.clickName = "Global";
                 };
-                //显示常用表情，只展示前24个表情图片
+                //显示常用表情，只展示前25个表情图片
                 $ctrl.clickFrequentlyUsed = function () {
                     $ctrl.frequentlyUsed = $ctrl.getEmoteMsgs("/emote");
-                    if ($ctrl.frequentlyUsed.length > 24) {
-                        $ctrl.frequentlyUsed = $ctrl.frequentlyUsed.slice(0, 24);
+                    if ($ctrl.frequentlyUsed.length > 25) {
+                        $ctrl.frequentlyUsed = $ctrl.frequentlyUsed.slice(0, 25);
                     }
                     $ctrl.chatMessageAllemotes = $ctrl.frequentlyUsed;
                     $ctrl.clickName = "Regular";

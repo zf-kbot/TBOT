@@ -43,7 +43,28 @@ function kolSendFollowMsg(userId) {
         }, dataMsg.cooldownTime * 1000);
     }
 }
+function getDataFile(filePath) {
+    return profileManager.getJsonDbInProfile(filePath);
+}
 
+function pushDataToFile(filePath, path, data) {
+    try {
+        getDataFile(filePath).push(path, data, true);
+    } catch (err) { }//eslint-disable-line no-empty
+}
+
+function saveDataMsgs(filePath, path, msg) {
+    pushDataToFile(filePath, path, msg);
+}
+//如果没有就返回数值，不是返回数组
+function getDataMsgs(filePath, path) {
+    try {
+        let data = getDataFile(filePath).getData(path);
+        return data ? data : 0;
+    } catch (err) {
+        return 0;
+    }
+}
 
 function getTotalFollowDataFile() {
     return profileManager.getJsonDbInProfile('/totalfollowdata');
@@ -59,27 +80,6 @@ function pushTotalFollowDataToFile(path, data) {
 function saveTotalFollowDataMsg(path, msg) {
     pushTotalFollowDataToFile(path, msg);
 }
-
-// 保存到本地
-function getTotalFollowDataMsgs(path) {
-    try {
-        let data = getTotalFollowDataFile().getData(path);
-        return data ? data : [];
-    } catch (err) {
-        return 0;
-    }
-}
-
-// function pushViewerDataMsg(message) {
-//     let currentDate = new Date();
-//     let path = `${currentDate.getDate()} ${currentDate.getMonth()}, ${currentDate.getFullYear()}`
-//     saveTotalFollowDataMsg('/' + path, msg);
-// };
-
-function loadTotalFollowDataMsgs() {
-    historyQueue = getTotalFollowDataMsgs('/msgs');
-};
-
 
 //每日新增关注
 function getNewFollowDataFile() {
@@ -107,48 +107,6 @@ function getNewFollowDataMsgs(path) {
     }
 }
 
-// function pushViewerDataMsg(message) {
-//     let currentDate = new Date();
-//     let path = `${currentDate.getDate()} ${currentDate.getMonth()}, ${currentDate.getFullYear()}`
-//     saveNewFollowDataMsg('/' + path, msg);
-// };
-
-
-
-
-//每日新增取关
-function getNewUnfollowDataFile() {
-    return profileManager.getJsonDbInProfile('/newunfollowdata');
-}
-
-function pushNewUnfollowDataToFile(path, data) {
-    try {
-        getNewUnfollowDataFile().push(path, data, true);
-    } catch (err) { } //eslint-disable-line no-empty
-}
-
-// 保存到本地
-function saveNewUnfollowDataMsg(path, msg) {
-    pushNewUnfollowDataToFile(path, msg);
-}
-
-// 保存到本地
-function getNewUnfollowDataMsgs(path) {
-    try {
-        let data = getNewUnfollowDataFile().getData(path);
-        return data ? data : [];
-    } catch (err) {
-        return 0;
-    }
-}
-
-// function pushViewerDataMsg(message) {
-//     let currentDate = new Date();
-//     let path = `${currentDate.getDate()} ${currentDate.getMonth()}, ${currentDate.getFullYear()}`
-//     saveNewUnfollowDataMsg('/' + path, msg);
-// };
-
-
 function clearPollInterval() {
     if (followPollIntervalId != null) {
         clearTimeout(followPollIntervalId);
@@ -161,7 +119,6 @@ exports.startFollowPoll = () => {
     followPollIntervalId = setInterval(async () => {
         const streamer = accountAccess.getAccounts().streamer;
         const client = twitchApi.getClient();
-        logger.debug("There are ??? follow user");
         if (client == null || !streamer.loggedIn) return;
 
         const followRequest = client.helix.users.getFollowsPaginated({
@@ -169,16 +126,17 @@ exports.startFollowPoll = () => {
         });
 
         const follows = await followRequest.getNext();
-        // let currentDate = new Date();
-        let newUnfollow = 0;
-        let path = `${new Date().getFullYear()} ${new Date().getMonth()+1} ${new Date().getDate()}`;
-        let oldMax = getTotalFollowDataMsgs('/'+path);
-        //获取当前取关变化数量
-        newUnfollow = follows.length - oldMax;
-        saveTotalFollowDataMsg('/'+path, follows.length);
+        const totalFollowers = await followRequest.getTotalCount();
+        let path = `${new Date().getFullYear()} ${new Date().getMonth() + 1} ${new Date().getDate()}`;
+        saveDataMsgs('/data/achievement/follower', '/' + path, totalFollowers);
         if (follows == null || follows.length < 1) return;
 
         if (lastUserId == null) {
+            //程序刚启动，将follow的数据全部写入一次
+            const userDatabase = require("../database/userDatabase");
+            for (const follow of follows) {
+                userDatabase.setChatUserFollowed(follow.userId);
+            }
             lastUserId = follows[0].userId;
         } else {
             for (const follow of follows) {
@@ -188,12 +146,23 @@ exports.startFollowPoll = () => {
                 }
 
                 if (follow.userId !== lastUserId) {
-                    // let currentDate = new Date();
-                    const followsAll = await followRequest.getAll();
-                    let path = `${new Date().getFullYear()} ${new Date().getMonth()+1} ${new Date().getDate()}`;
-                    let oldMax = getNewFollowDataMsgs('/'+path);
-                    logger.debug(`There are ${follow.userDisplayName}---${follow.userId}`);
-                    saveNewFollowDataMsg('/'+path, oldMax+1);
+                    //有可能有用户关注后取消，然后再关注，不使用用户id为_id进行存储
+                    let followMsg = {
+                        followedDate: follow._data.followed_at,
+                        from_id: follow._data.from_id,
+                        from_name: follow._data.from_name,
+                        to_id: follow._data.to_id,
+                        to_name: follow._data.to_name
+                    };
+                    //插入数据
+                    const newFollowDatabase = require("../database/newfollowDatabase");
+                    newFollowDatabase.addNewFollow(followMsg);
+                    const userDatabase = require("../database/userDatabase");
+                    userDatabase.setChatUserFollowed(follow.userId);
+                    let path = `${new Date().getFullYear()} ${new Date().getMonth() + 1} ${new Date().getDate()}`;
+                    //getDataMsgs如果不存在返回的是0
+                    let oldMax = getDataMsgs('/data/achievement/newfollower', '/' + path);
+                    saveDataMsgs('/data/achievement/newfollower', '/' + path, oldMax + 1);
                     kolUserNameList = kolUserNameList + follow.userDisplayName + " ";
                     if (kolCanSend) {
                         kolSendFollowMsg(follow.userId);
@@ -201,13 +170,10 @@ exports.startFollowPoll = () => {
                 } else {
                     break;
                 }
-
             }
             lastUserId = follows[0].userId;
-            pollStartTime = Date.now();            
+            pollStartTime = Date.now();
         }
-        let newfollow= getNewFollowDataMsgs('/'+path);
-        saveNewUnfollowDataMsg('/'+path, newfollow - newUnfollow);
     }, 10000);
 };
 

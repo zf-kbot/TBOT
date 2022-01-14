@@ -99,6 +99,7 @@
     ]);
 
     app.run(function initializeApplication(
+        $translate,
         logger,
         chatMessagesService,
         activityFeedService,
@@ -126,6 +127,8 @@
         kolHistoryService,
         kolFixAnalysisServie
     ) {
+        $translate.use(settingsService.getLang());
+
         // 'chatMessagesService' is included so its instantiated on app start
 
         connectionService.loadProfiles();
@@ -167,6 +170,7 @@
         kolHistoryService.loadHistoryMsgs();
 
         kolFixAnalysisServie.loadModifyAnalysisDataFile();
+        kolFixAnalysisServie.loadMigratingAchievementDataFile();
 
         //start notification check
         $timeout(() => {
@@ -188,7 +192,7 @@
         });
     });
 
-    app.controller("MainController", function ($scope, $rootScope, $timeout, connectionService, utilityService,
+    app.controller("MainController", function ($scope, $rootScope, $timeout, $translate, connectionService, utilityService,
         settingsService, sidebarManager, logger, backendCommunicator, gaService) {
         $rootScope.showSpinner = true;
 
@@ -256,6 +260,27 @@
         /*
         * MANAGE LOGINS MODAL
         */
+        $scope.changeLanguage = function (langKey) {
+            $translate.use(langKey).then(() => {
+                settingsService.setLang(langKey);
+            });
+            gaService.sendEvent('lang', 'change', langKey);
+        };
+        $scope.getStartAtLogin = function () {
+            return settingsService.getStartAtLogin();
+        };
+        $scope.startAtLogin = $scope.getStartAtLogin();
+        $scope.startAtLoginIconClass = function () {
+            return $scope.startAtLogin ? 'clickable fa fa-check-square' : 'clickable fa fa-square';
+        };
+        $scope.toggleStartAtLogin = function () {
+            let enabled = $scope.startAtLogin;
+            gaService.sendEvent('start at login', 'click', !enabled ? "true" : "false");
+            settingsService.setStartAtLogin(!enabled);
+            $scope.startAtLogin = !enabled;
+            electron.remote.app.setLoginItemSettings({openAtLogin: !enabled});
+        };
+
         $scope.showManageLoginsModal = function () {
             let showManageLoginsModal = {
                 templateUrl: "manageLoginsModal.html",
@@ -480,6 +505,9 @@
             });
         });
 
+        $scope.profileLangIsOpen = false;
+        $scope.ss = settingsService;
+
         //show puzzle
         /*utilityService.showModal({
             component: "puzzleModal",
@@ -530,11 +558,14 @@
                 } else if (role === "viewer") {
                     return !u.roles.includes("broadcaster")
                         && !u.roles.includes("mod")
-                        && !u.roles.includes("vip");
+                        && !u.roles.includes("vip")
+                        && !u.roles.includes("bot");
                 } else if (role === "mod") {
                     return u.roles.includes("mod");
                 } else if (role === "vip") {
                     return u.roles.includes("vip");
+                } else if (role === "bot") {
+                    return u.roles.includes("bot");
                 }
                 return true;
             }

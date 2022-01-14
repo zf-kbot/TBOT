@@ -59,4 +59,11 @@ exports.setupListeners = () => {
         return rewards || [];
     });
 
+    frontendCommunicator.onAsync("check-partner", async (userId) => {
+        return await channels.isTwitchPartner(userId);
+    });
+
+    frontendCommunicator.onAsync("getStreamerFollowers", async () => {
+        return await channels.getTotalFollows();
+    });
 };

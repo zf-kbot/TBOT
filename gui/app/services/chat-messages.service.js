@@ -1,4 +1,7 @@
 "use strict";
+
+const e = require('cors');
+
 (function() {
     const moment = require('moment');
 
@@ -17,6 +20,12 @@
 
             // Chat User List
             service.chatUsers = [];
+            //Chat Viewer List;
+            service.viewers = [];
+            //Chat Viewer followers List
+            service.viewerFollowers = [];
+            //Chat Viewer Unfollowers List
+            service.viewerUnfollowers = [];
 
             // Tells us if we should process in app chat or not.
             service.getChatFeed = function() {
@@ -60,10 +69,30 @@
                 }
                 return userList;
             };
+            service.getChatViewers = function() {
+                // Sort list so we are in alphabetical order
+                let userList = service.chatUsers;
+                let viewersList = userList.filter(u =>
+                    !u.roles.includes("broadcaster") && !u.roles.includes("mod") && !u.roles.includes("vip") && !u.roles.includes("bot")
+                );
+                if (viewersList.length > 0) {
+                    viewersList.sort(function(a, b) {
+                        return a.username.localeCompare(b.username);
+                    });
+                }
+                return viewersList;
+            };
 
             // Clear User List
             service.clearUserList = function() {
                 service.chatUsers = [];
+            };
+            service.clearViewerList = function() {
+                service.viewers = [];
+            };
+            service.clearViewerFollowAndUnfollowList = function() {
+                service.viewerFollowers = [];
+                service.viewerUnfollowers = [];
             };
 
             // Full Chat User Refresh
@@ -74,6 +103,36 @@
                     return u;
                 });
                 service.chatUsers = users;
+                service.chatViewerRefresh(service.chatUsers);
+                service.viewerFollowerAndUnfollowerRefresh(service.viewers);
+            };
+            service.chatViewerRefresh = function(chatUsers) {
+                service.viewers = chatUsers.filter(u =>
+                    !u.roles.includes("broadcaster") && !u.roles.includes("mod") && !u.roles.includes("vip") && !u.roles.includes("bot")
+                );
+            };
+            service.viewerFollowerAndUnfollowerRefresh = (viewers) => {
+                let test = $q.when(backendCommunicator.fireEventAsync("getFollowedUsers", viewers));
+                test
+                    .then(followData => {
+                        let followResult = [];
+                        let unfollowResult = [];
+                        for (let j = 0; j < viewers.length; j++) {
+                            let viewerFollowed = false;
+                            for (let i = 0; i < followData.length; i++) {
+                                if (viewers[j].id === followData[i]._id) {
+                                    followResult.push(viewers[j]);
+                                    viewerFollowed = true;
+                                    break;
+                                }
+                            }
+                            if (!viewerFollowed) {
+                                unfollowResult.push(viewers[j]);
+                            }
+                        }
+                        service.viewerFollowers = followResult;
+                        service.viewerUnfollowers = unfollowResult;
+                    });
             };
 
             // User joined the channel.
@@ -81,6 +140,8 @@
                 if (!service.chatUsers.some(u => u.id === data.id)) {
                     service.chatUsers.push(data);
                 }
+                service.chatViewerRefresh(service.chatUsers);
+                service.viewerFollowerAndUnfollowerRefresh(service.viewers);
             };
 
             // User left the channel.
@@ -90,6 +151,9 @@
                     userList = arr.filter(x => x.id !== userId);
 
                 service.chatUsers = userList;
+                service.chatViewerRefresh(service.chatUsers);
+                service.viewerFollowerAndUnfollowerRefresh(service.viewers);
+
             };
 
             // Purge Chat Message
@@ -283,7 +347,19 @@
                 markMessageAsDeleted(messageId);
                 backendCommunicator.send("delete-message", messageId);
             };
-
+            service.groupby = function (list, keyGetter) {
+                const map = new Map();
+                list.forEach((item) => {
+                    const key = keyGetter(item);
+                    const collection = map.get(key);
+                    if (!collection) {
+                        map.set(key, [item]);
+                    } else {
+                        collection.push(item);
+                    }
+                });
+                return map;
+            };
             backendCommunicator.on("twitch:chat:message:deleted", markMessageAsDeleted);
 
             service.changeModStatus = (username, shouldBeMod) => {
@@ -395,6 +471,41 @@
                     }
 
                     service.chatQueue.push(messageItem);
+                    //add emoteData to emoteDb
+                    let emoteMessage = messageItem.data.parts.filter(item => item.type === 'emote');
+                    if (emoteMessage.length > 0) {
+                        let emoteData = {
+                            userId: messageItem.data.userId,
+                            userName: messageItem.data.username,
+                            emoteItem: emoteMessage,
+                            createdAt: new Date(messageItem.data.timestamp._d).getTime()
+                        };
+                        $q.when(backendCommunicator.fireEventAsync("addEmoteMessageData", emoteData))
+                            .then(addresult => {
+                                console.log("insert successful");
+                            });
+                    }
+
+                    //add messageItem to chatmessageDb
+                    let inputChatMessage = {
+                        chatMessageId : messageItem.data.id,
+                        userId : messageItem.data.userId,
+                        username: messageItem.data.username,
+                        timestamp: messageItem.data.timestamp._d,
+                        sourceMessage: messageItem.data.rawText,
+                        splitMessageArray: messageItem.data.parts
+                    };
+                    //写入chatMessage到数据库
+                    backendCommunicator.fireEventAsync("addChatMessage", messageItem);
+
+                    //select message by username 后面可能会需要点击查看排行榜上的用户信息
+                    // service.userChatMessage = [];
+                    // let userId = messageItem.data.userId;
+                    // $q.when(backendCommunicator.fireEventAsync("selectMessagesByUsername", userId))
+                    //     .then(selectMessages => {
+                    //         service.userChatMessage = selectMessages;
+                    //     });
+
                     // sync to popup
                     profileManager.getJsonDbInProfile("/chat/chatQueue").push("/msgs[]", messageItem);
                     backendCommunicator.send("sync-ipc-chat-queue");

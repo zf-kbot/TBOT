@@ -6,13 +6,13 @@
             template: `
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
-                    <h4 class="modal-title">Chat Settings</h4>
+                    <h4 class="modal-title">{{$ctrl.translations['DASHBOARD.SETTING.CHAT_SETTINGS']}}</h4>
                 </div>
                 <div class="modal-body">
-                    <h4 >UI Settings</h4>
+                    <h4 >{{$ctrl.translations['DASHBOARD.SETTING.UI_SETTINGS']}}</h4>
                     <div style="padding: 0 10px">
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Chat User List</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.CHAT_USER_LIST']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="cb5" type="checkbox"
                                     ng-checked="settings.getShowChatViewerList()"
@@ -21,7 +21,7 @@
                             </span>
                         </div>
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Stream Info</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.STREAM_INFO']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="streamInfo" type="checkbox"
                                     ng-checked="settings.showStreamInfo()"
@@ -30,7 +30,7 @@
                             </span>
                         </div>
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">History</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.HISTORY']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="history" type="checkbox"
                                     ng-checked="settings.showHistory()"
@@ -39,7 +39,7 @@
                             </span>
                         </div>
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Activity Feed</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.ACTIVITY_FEED']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="activityfeed" type="checkbox"
                                     ng-checked="settings.showActivityFeed()"
@@ -48,10 +48,10 @@
                             </span>
                         </div>
                     </div>
-                    <h4 >Display Details Settings</h4>
+                    <h4 >{{$ctrl.translations['DASHBOARD.SETTING.DISPLAY_DETAILS_SETTINGS']}}</h4>
                     <div style="padding: 0 10px">
                         <div>
-                            <div style="font-weight: 900;">Tag Notification Sound</div>
+                            <div style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.TAG_NOTIFICATION_SOUND']}}</div>
                             <span class="btn-group" uib-dropdown style="margin-bottom: 5px;">
                                 <button type="button" class="btn btn-primary" uib-dropdown-toggle>
                                     {{selectedNotificationSound.name}} <span class="caret"></span>
@@ -76,13 +76,13 @@
                             </div>
                         </div>
                         <div>
-                            <div style="font-weight: 900;">Display Style</div>
+                            <div style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.DISPLAY_STYLE']}}</div>
                             <div class="permission-type controls-fb-inline">
-                                <label class="control-fb control--radio">Modern
+                                <label class="control-fb control--radio">{{$ctrl.translations['DASHBOARD.SETTING.MODERN']}}
                                 <input type="radio" ng-model="compactMode" ng-value="false" ng-click="toggleCompactMode()"/>
                                 <div class="control__indicator"></div>
                                 </label>
-                                <label class="control-fb control--radio">Compact
+                                <label class="control-fb control--radio">{{$ctrl.translations['DASHBOARD.SETTING.COMPACT']}}
                                     <input type="radio" ng-model="compactMode" ng-value="true" ng-click="toggleCompactMode()"/>
                                     <div class="control__indicator"></div>
                                 </label>
@@ -98,7 +98,7 @@
                             </span>
                         </div>
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Hide Deleted Messages <tooltip text="'Turning this on will cover deleted messages with a blackbox. Hovering over the message will reveal it. Great for letting your mods hide spoilers!'"></tooltip></span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.HIDE_DELETED_MESSAGES']}} <tooltip text= "$ctrl.translations['DASHBOARD.SETTING.HIDE_DELETED_MESSAGES_DESC']"></tooltip></span>
                             <span>
                                 <input class="tgl tgl-light" id="cb10" type="checkbox"
                                     ng-checked="settings.chatHideDeletedMessages()"
@@ -108,7 +108,7 @@
                         </div>
 
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Show Avatars</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.SHOW_AVATARS']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="cb11" type="checkbox"
                                     ng-checked="settings.getShowAvatars()"
@@ -118,7 +118,7 @@
                         </div>
 
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Show Timestamps</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.SHOW_TIMESTAMPS']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="cb12" type="checkbox"
                                     ng-checked="settings.getShowTimestamps()"
@@ -128,7 +128,7 @@
                         </div>
 
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">BTTV/FFZ Emotes</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.BTTV_FFZ_EMOTES']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="cb13" type="checkbox"
                                     ng-checked="settings.getShowThirdPartyEmotes()"
@@ -138,7 +138,7 @@
                         </div>
 
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Show Pronouns <a href="https://pronouns.alejo.io/" target="_blank" style="font-size:10px;"><i class="fa fa-external-link"></i></a></span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.SHOW_PRONOUNS']}} <a href="https://pronouns.alejo.io/" target="_blank" style="font-size:10px;"><i class="fa fa-external-link"></i></a></span>
                             <span>
                                 <input class="tgl tgl-light" id="cb14" type="checkbox"
                                     ng-checked="settings.getShowPronouns()"
@@ -148,7 +148,7 @@
                         </div>
 
                         <div style="display: flex;align-items: center;justify-content: space-between;">
-                            <span style="font-weight: 900;">Custom Font Size</span>
+                            <span style="font-weight: 900;">{{$ctrl.translations['DASHBOARD.SETTING.CUSTOM_FONT_SIZE']}}</span>
                             <span>
                                 <input class="tgl tgl-light" id="cb15" type="checkbox"
                                     ng-checked="settings.getChatCustomFontSizeEnabled()"
@@ -170,9 +170,36 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($scope, $rootScope, $timeout, settingsService, soundService) {
+            controller: function($scope, $rootScope, $timeout, settingsService, soundService, $translate) {
                 const $ctrl = this;
+                $ctrl.translations = {
+                    "DASHBOARD.SETTING.CHAT_SETTINGS": "",
+                    "DASHBOARD.SETTING.UI_SETTINGS": "",
+                    "DASHBOARD.SETTING.CHAT_USER_LIST": "",
+                    "DASHBOARD.SETTING.STREAM_INFO": "",
+                    "DASHBOARD.SETTING.HISTORY": "",
+                    "DASHBOARD.SETTING.ACTIVITY_FEED": "",
+                    "DASHBOARD.SETTING.DISPLAY_DETAILS_SETTINGS": "",
+                    "DASHBOARD.SETTING.TAG_NOTIFICATION_SOUND": "",
+                    "DASHBOARD.SETTING.DISPLAY_STYLE": "",
+                    "DASHBOARD.SETTING.MODERN": "",
+                    "DASHBOARD.SETTING.COMPACT": "",
+                    "DASHBOARD.SETTING.ALTERNATE_BACKGROUNDS": "",
+                    "DASHBOARD.SETTING.HIDE_DELETED_MESSAGES": "",
+                    "DASHBOARD.SETTING.HIDE_DELETED_MESSAGES_DESC": "",
+                    "DASHBOARD.SETTING.SHOW_AVATARS": "",
+                    "DASHBOARD.SETTING.SHOW_TIMESTAMPS": "",
+                    "DASHBOARD.SETTING.BTTV_FFZ_EMOTES": "",
+                    "DASHBOARD.SETTING.SHOW_PRONOUNS": "",
+                    "DASHBOARD.SETTING.CUSTOM_FONT_SIZE": ""
 
+                };
+                const translationsRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in translationsRes) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationsRes[key];
+                    }
+                }
                 $scope.settings = settingsService;
 
                 $scope.compactMode = settingsService.isChatCompactMode();

@@ -3,10 +3,21 @@
 (function () {
     angular
         .module("twitcherbotApp")
-        .controller("kolTimersController", function ($scope, kolTimerService, utilityService, gaService, kolHistoryService, logger) {
+        .controller("kolTimersController", function ($scope, kolTimerService, utilityService, gaService, kolHistoryService, logger, $translate) {
             gaService.sendEvent('timers', 'open');
             $scope.kolTimerService = kolTimerService;
-
+            $scope.translations = {
+                "TIMERS.CONFIRMMODAL.TITLE": "",
+                "TIMERS.CONFIRMMODAL.QUESTION": "",
+                "TIMERS.CONFIRMMODAL.CONFIRMlABEL_DELETE": "",
+                "TIMERS.CONFIRMMODAL.CONFIRMlABEL_CANCEL": ""
+            };
+            const translationRes = $translate.instant(Object.keys($scope.translations));
+            for (let key in $scope.translations) {
+                if ({}.hasOwnProperty.call($scope.translations, key)) {
+                    $scope.translations[key] = translationRes[key];
+                }
+            }
             console.info($scope.kolTimerService);
 
             $scope.toggleTimerStatus = function (kolTimer) {
@@ -51,14 +62,15 @@
                 if (kolTimer == null) return;
                 utilityService
                     .showConfirmationModal({
-                        title: "DELETE TIME",
-                        question: "Do you want to delete this timer?",
-                        confirmLabel: "DELETE",
+                        title: $scope.translations['TIMERS.CONFIRMMODAL.TITLE'],
+                        question: $scope.translations['TIMERS.CONFIRMMODAL.QUESTION'],
+                        confirmLabel: $scope.translations['TIMERS.CONFIRMMODAL.CONFIRMlABEL_DELETE'],
+                        cancelLabel: $scope.translations['TIMERS.CONFIRMMODAL.CONFIRMlABEL_CANCEL'],
                         confirmBtnType: "btn-info"
                     })
                     .then(confirmed => {
                         if (confirmed) {
-                            kolHistoryService.pushHistoryMsg(`deleted a new timer: ${kolTimer.name}`);
+                            kolHistoryService.pushHistoryMsg(`Deleted a new timer: ${kolTimer.name}`);
                             kolTimerService.deleteKolTimer(kolTimer);
                         }
                     });

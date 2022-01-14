@@ -11,7 +11,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function ($scope, utilityService, ngToast, $timeout) {
+        controller: function ($scope, utilityService, logger, ngToast, $timeout, $translate) {
             let $ctrl = this;
 
             //如果要创建对应的计时器，需要先创建对应的效果，并设置对应的队列，才可正常运行;
@@ -39,6 +39,22 @@
                 } else {
                     $ctrl.kolTimer = JSON.parse(JSON.stringify($ctrl.resolve.kolTimer));
                 }
+                $ctrl.timerTitle = $ctrl.isNewTimer ? $translate.instant('TIMERS.MODAL.TITLE.ADD_NEW_TIMER') : $translate.instant('TIMERS.MODAL.TITLE.EDIT_TIMER') + ' - ';
+                $ctrl.translations = {
+                    "TIMERS.MODAL.BODY.NAME_PLACEHOLDER": "",
+                    "TIMERS.MODAL.BODY.NAME_TOOLTIP": "",
+                    "TIMERS.MODAL.BODY.MESSAGE_PLACEHOLDER": "",
+                    "TIMERS.MODAL.BODY.MESSAGE_TOOLTIP": "",
+                    "TIMERS.MODAL.BODY.COOLDOWNS_TOOLTIP": "",
+                    "TIMERS.MODAL.BODY.REQUIRED_CHAT_LINES_TOOLTIP": ""
+                };
+                const translationRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in $ctrl.translations) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationRes[key];
+                    }
+                }
+
                 $ctrl.refreshSlider();
 
                 let modalId = $ctrl.resolve.modalId;

@@ -4,7 +4,7 @@
 
     angular
         .module("twitcherbotApp")
-        .factory("accountAccess", function(logger, backendCommunicator) {
+        .factory("accountAccess", function(logger, backendCommunicator, $route) {
             let service = {};
 
             service.accounts = {
@@ -29,6 +29,8 @@
 
             backendCommunicator.on("accountUpdate", accounts => {
                 service.accounts = accounts;
+                //账户登陆登出，例如achievement 与top chart等数据需要刷新
+                $route.reload();
             });
 
             return service;

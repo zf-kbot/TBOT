@@ -1,0 +1,113 @@
+<div class="noselect " style="padding-left: 15px">
+    <div style="padding: 15px;display: flex;flex-wrap: wrap;">
+        <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+            <div class="content-block-body">
+                <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+                    <div class="col-md-1">
+                        <span class="hvr-bob"><i class="fa fa-trophy" style="font-size: 8em;"></i></span>
+                    </div>
+                    <div class="toggle-button-container" style="width: 80%;text-align: left;">
+                        <!-- <p style="font-size: 25px;font-weight: bold;"> -->
+                        <p class="bgweight">
+                            {{ 'SIDEBAR.DATA.TOP_CHART' | translate }}
+                        </p>
+                        <p>
+                            <span class="bgfontcolor" >
+                                {{ 'TOP_CHART.DESC' | translate }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=row>
+        <div class="pull-right" style="margin-right: 15px;">
+            <div class="btn-group" role="group" aria-label="...">
+                <button uib-tooltip="{{ 'TOP_CHART.TABS.LAST_SECTION_HOVER' | translate }}" tooltip-append-to-body="true" type="button" class="btn {{activeLayout == 'Session'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('Session');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_SECTION" | translate }}</button>
+                <button type="button" class="btn {{activeLayout == 'Week'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('Week');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_WEEK" | translate }}</button>
+                <button type="button" class="btn {{activeLayout == 'Month'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('Month');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_MONTH" | translate }}</button>
+            </div>
+        </div>
+
+        <uib-tabset ng-if="loading" active="active" class="kol-analysis-nav">
+            <uib-tab ng-repeat= "tab in tabs track by $index" index= "$index" heading= {{tabsTranslations[toTranslationsTabKey(tab)]}} select= "changeTab(tab)" classes="btn-changecolor-uibtab"></uib-tab>
+                    <!-- <div ng-if="active_layout === 'Session' " style="width: 100%;"> -->
+        </uib-tabset>
+        <div class="kol-top-chart-table">
+            <div  ng-if="active == 0">
+                <table class="kol-fb-table">
+                    <thead>
+                        <tr style="font-size:11px">
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.RANK' | translate }}</th>
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.USERNAME' | translate }}</th>
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.VIEW_TIME' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if= "connectedStatus">
+                        <tr ng-repeat="viewtimes in ktcs.kolViewTimes" ng-click=showUserDetailsModal(viewtimes.userId)>
+                            <td><span>{{viewtimes.rankId}}</span></td>
+                            <td><img class="topchart-avatar" src={{viewtimes.profilePicUrl}}>{{viewtimes.userName}}</td>
+                            <td>{{viewtimes.viewTimes}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div ng-if="active == 1">
+                <table class="kol-fb-table">
+                    <thead>
+                        <tr style="font-size:11px">
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.RANK' | translate }}</th>
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.USERNAME' | translate }}</th>
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.CHAT_MESSAGES' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if= "connectedStatus">
+                        <tr ng-repeat="chatters in ktcs.kolChatters" ng-click=showUserDetailsModal(chatters.userId)>
+                            <td><span>{{chatters.rankId}}</span></td>
+                            <td><img class="topchart-avatar" src={{chatters.profilePicUrl}}>{{chatters.username}}</td>
+                            <td>{{chatters.chatmessages}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div ng-if="active == 2">
+
+                <table class="kol-fb-table">
+                    <thead>
+                        <tr style="font-size:11px">
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.RANK' | translate }}</th>
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.EMOTES' | translate }}</th>
+                            <th>{{ 'TOP_CHART.TABLE.HEADER.UNIQUE_USERS' | translate }}</th>
+                            <th
+                                uib-tooltip="{{ 'TOP_CHART.TABLE.HEADER.TIMES.HOVER' | translate }}"
+                                tooltip-append-to-body="true"
+                            >{{ 'TOP_CHART.TABLE.HEADER.TIMES.NAME' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if= "connectedStatus">
+                        <tr ng-repeat="emotes in ktcs.kolEmotes">
+                            <td><span>{{emotes.rankId}}</span></td>
+                            <td><span
+                                class="chatEmoticon"
+                                uib-tooltip="{{emotes.origin}}: {{emotes.emote}}"
+                                tooltip-append-to-body="true"
+                            ><img ng-src="{{emotes.url}}" style="height: 80%;">
+                            </span></td>
+                            <td>{{emotes.uniqueUsers}}</td>
+                            <td>{{emotes.times}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="connectedStatus && ((active == 0 &&!ktcs.kolViewTimes.length) || (active == 1 &&!ktcs.kolChatters.length) || (active == 2 &&!ktcs.kolEmotes.length))" class="kol-none-box" style="height: 272px; width: 600px ;margin: 15px 15px; position: relative; top: -465px">
+                <p style="font-size: 28px;">{{ 'NONE' | translate}}</p>
+            </div>
+        </div>
+        <div ng-if="!connectedStatus || (active == 0 &&!ktcs.kolViewTimes.length) || (active == 1 &&!ktcs.kolChatters.length) || (active == 2 &&!ktcs.kolEmotes.length)" class="kol-none-box" style="height: 272px; width: 600px ;margin: 15px 15px; position: relative; top: -30px">
+            <p style="font-size: 28px;">{{ 'NONE' | translate}}</p>
+        </div>
+    </div>
+</div>

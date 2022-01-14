@@ -7,11 +7,34 @@
     angular
         .module("twitcherbotApp")
         .controller("kolMessageFilterController", function($scope, eventLogService, chatModerationService, utilityService,
-            viewerRolesService, settingsService, gaService, kolHistoryService, backendCommunicator) {
+            viewerRolesService, settingsService, gaService, kolHistoryService, backendCommunicator, $translate) {
             gaService.sendEvent('message_filter', 'open');
 
             $scope.activeTab = 0;
-
+            $scope.translations = {
+                'MESSAGEFILTER.REPETITIONS.REPETITIONS': "",
+                'MESSAGEFILTER.REPETITIONS.TOOLTIP': "",
+                'MESSAGEFILTER.REPETITIONS.INPUT_TITLE': "",
+                'MESSAGEFILTER.REPETITIONS.PLACEHOLDER_TEXT': "",
+                'MESSAGEFILTER.EMOTES.EMOTES': "",
+                'MESSAGEFILTER.EMOTES.TOOLTIP': "",
+                'MESSAGEFILTER.EMOTES.INPUT_TITLE': "",
+                'MESSAGEFILTER.EMOTES.PLACEHOLDER_TEXT': "",
+                'MESSAGEFILTER.EXCESS_CAPS.EXCESS_CAPS': "",
+                'MESSAGEFILTER.EXCESS_CAPS.TOOLTIP': "",
+                'MESSAGEFILTER.EXCESS_CAPS.INPUT_TITLE': "",
+                'MESSAGEFILTER.EXCESS_CAPS.PLACEHOLDER_TEXT': "",
+                'MESSAGEFILTER.SYMBOLS.SYMBOLS': "",
+                'MESSAGEFILTER.SYMBOLS.TOOLTIP': "",
+                'MESSAGEFILTER.SYMBOLS.INPUT_TITLE': "",
+                'MESSAGEFILTER.SYMBOLS.PLACEHOLDER_TEXT': ""
+            };
+            const translationRes = $translate.instant(Object.keys($scope.translations));
+            for (let key in translationRes) {
+                if ({}.hasOwnProperty.call($scope.translations, key)) {
+                    $scope.translations[key] = translationRes[key];
+                }
+            }
             $scope.eventLogService = eventLogService;
 
             $scope.settingsService = settingsService;

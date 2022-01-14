@@ -13,6 +13,7 @@
 
             service.viewKolPollResult = {};
 
+            service.isPartner = false;
             service.loadKolPolls = function () {
                 service.kolPolls = [];
                 $q.when(backendCommunicator.fireEventAsync("getKolPolls"))
@@ -23,6 +24,18 @@
                     });
             };
 
+            //检测是否是twitch partner
+            service.checkPartner = () => {
+                backendCommunicator.fireEventAsync("check-partner", connectionService.accounts.streamer.userId)
+                    .then(result => {
+                        if (result) {
+                            service.isPartner = true;
+                        } else {
+                            service.isPartner = false;
+                        }
+                    });
+            };
+            service.checkPartner();
             service.beginKolPoll = function (kolPoll) {
                 return $q.when(backendCommunicator.fireEventAsync("beginKolPoll", kolPoll));
             };
@@ -31,9 +44,15 @@
                 return $q.when(backendCommunicator.fireEventAsync("endKolPoll", kolPoll));
             };
 
-            backendCommunicator.on("kolPollUpdate", kolPoll => {
+            backendCommunicator.on("kolPollUpdate", (kolPoll) => {
                 if (kolPoll == null || kolPoll.id == null) return;
                 service.saveKolPoll(kolPoll, false);
+            });
+
+            backendCommunicator.on("kolPollSync", () => {
+                logger.debug("KolPollSync received.");
+                // 后台有最新数据加载
+                service.loadKolPolls();
             });
 
             service.getKolPolls = () => service.kolPolls;

@@ -32,7 +32,29 @@ class KolPollAccess extends EventEmitter {
             const KolPollData = KolPollsDb.getData("/");
 
             if (KolPollData) {
-                this._kol_polls = KolPollData;
+                twitchApi.kolPolls.getKolPolls().then((runningPolls) => {
+                    // 第一次打开时清空是否激活的状态
+                    for (let id in KolPollData) {
+                        if (KolPollData.hasOwnProperty(id)) {
+                            KolPollData[id].is_active = false;
+                        }
+                    }
+                    if (runningPolls) {
+                        runningPolls.forEach((poll) => {
+                            let pollId = poll.id;
+                            for (let id in KolPollData) {
+                                if (KolPollData[id].hasOwnProperty("twitchPoll") && KolPollData[id].twitchPoll.id === pollId && poll.status === 'ACTIVE') {
+                                    KolPollData[id].is_active = true;
+                                    KolPollData[id].twitchPoll.status = 'ACTIVE';
+                                    KolPollData[id].started_at = poll.started_at;
+                                }
+                            }
+                        });
+                        this._kol_polls = KolPollData;
+                        frontendCommunicator.send("kolPollSync");
+                    }
+                    this._kol_polls = KolPollData;
+                });
             }
 
             logger.debug(`Loaded KolPolls.`);

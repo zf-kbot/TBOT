@@ -234,5 +234,6 @@ exports.clearAllActiveUsers = () => {
 onlineUsers.on("expired", userId => {
     const userDatabase = require("../../database/userDatabase");
     userDatabase.setChatUserOffline(userId);
+    userDatabase.setChatUserOldViewer(userId);
     frontendCommunicator.send("twitch:chat:user-left", userId);
 });

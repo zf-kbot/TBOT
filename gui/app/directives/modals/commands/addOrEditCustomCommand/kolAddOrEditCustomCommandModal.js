@@ -16,11 +16,20 @@
             // //添加
             // command:"="
         },
-        controller: function ($scope, utilityService, commandsService, ngToast, settingsService,
+        controller: function ($scope, utilityService, commandsService, ngToast, settingsService, $translate,
             $timeout
         ) {
             let $ctrl = this;
-
+            $ctrl.translations = {
+                'BLACKLISTEDWORDS.PHRASE_TOOLTIP': "",
+                'BLACKLISTEDWORDS.TIME_OUT_TOOLTIP': ""
+            };
+            const translationRes = $translate.instant(Object.keys($ctrl.translations));
+            for (let key in $ctrl.translations) {
+                if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                    $ctrl.translations[key] = translationRes[key];
+                }
+            }
             //原始的commandmodal.js
             $ctrl.command = {
                 active: true,

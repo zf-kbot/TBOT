@@ -18,7 +18,7 @@
       <div style="margin: 50px 30px 15px;display: flex;flex-direction: row;justify-content: space-between;">
         <button ng-click="openAddOrEditCustomCommandModal()" class="btn btn-primary hvr-icon-grow">
           <i class="fa fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
-          New Auto Reply
+          {{ 'NEW' | translate}} {{ 'SIDEBAR.COMMAND.AUTOREPLY' | translate }}
         </button>
       </div>
       <!-- <scroll-sentinel element-class="custom-cmd-header"></scroll-sentinel>
@@ -59,10 +59,10 @@
                 </div>
                 <div class="toggle-button-container"  style="width: 80%;text-align: left;">
                   <p style="font-size: 2em;" class = "bgweight">
-                    Auto Reply
+                    {{ 'SIDEBAR.COMMAND.AUTOREPLY' | translate }}
                   </p>
                   <span class="bgfontcolor">
-                    You can set some keywords and related reply, when audiences trigger the keywords which they settled before in the chat room, the audience will recieve the specific reply.
+                    {{ 'AUTOREPLY.DESC' | translate }}
                   </span>
                 </div>
               </div>
@@ -73,13 +73,13 @@
           <thead>
             <tr style="font-size: 11px">
               <!-- <th style="width: 5%"></th> -->
-              <th style="padding-left: 15px;">TRIGGER</th>
-              <th>COOLDOWNS</th>
+              <th style="padding-left: 15px;">{{ 'AUTOREPLY.TABLE.HEADER.NAME' | translate }}</th>
+              <th>{{ 'AUTOREPLY.TABLE.HEADER.COOLDOWNS' | translate }}</th>
               <!-- <th>PERMISSIONS</th> -->
               <!-- <th class="muted"><i class="fa fa-tag"></i> TAGS</th> -->
-              <th>STATUS</th>
-              <th>EDIT</th>
-              <th>DELETE</th>
+              <th>{{ 'AUTOREPLY.TABLE.HEADER.STATUS' | translate }}</th>
+              <th>{{ 'AUTOREPLY.TABLE.HEADER.EDIT' | translate }}</th>
+              <th>{{ 'AUTOREPLY.TABLE.HEADER.DELETE' | translate }}</th>
             </tr>
           </thead>
           <tbody ng-show="commandsServiceAutoReply.getCustomCommands().length > 0 && (filteredCommands == null || filteredCommands.length > 0)" ui-sortable="sortableOptions" ng-model="commandsServiceAutoReply.commandsCache.customCommands">
@@ -102,9 +102,7 @@
               </td>
               <td>
                 <span style="min-width: 51px; display: inline-block" uib-tooltip="Global cooldown">
-                  <i class="fa fa-globe-americas"></i>
-                  {{command.cooldown.global ? command.cooldown.global + " seconds" :
-                  "-" }}
+                  {{ command.cooldown.global }} {{ 'AUTOREPLY.TABLE.BODY.SEC' | translate }}
                 </span>
                 <!-- <span uib-tooltip="User cooldown">
                   <i class="far fa-user"></i> {{command.cooldown.user ?
@@ -173,7 +171,7 @@
         </table>
 
         <div ng-if="commandsServiceAutoReply.getCustomCommands().length === 0" class="kol-none-box" style="height: 272px;margin: 0 15px;">
-            <p style="font-size: 28px;">NONE</p>
+            <p style="font-size: 28px;">{{ 'NONE' | translate}}</p>
         </div>
       </div>
     </div>

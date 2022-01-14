@@ -20,7 +20,7 @@
                 } catch (err) { } //eslint-disable-line no-empty
             }
 
-            function saveDataMsg(filepath, path, datamsg){
+            function saveDataMsg(filepath, path, datamsg) {
                 pushDataToFile(filepath, path, datamsg);
             }
 
@@ -33,13 +33,65 @@
                 }
             }
 
-            function modifyJosnKey(json,oddkey,newkey){
-                let val=json[oddkey];
+            function modifyJosnKey(json, oddkey, newkey) {
+                let val = json[oddkey];
                 delete json[oddkey];
-                json[newkey]=val;
+                json[newkey] = val;
+            }
+            function getFixAnalysisDataFile() {
+                return profileManager.getJsonDbInProfile('/fixanalysisdata');
+            }
+            function getFixAnanlysisDataMsgs(path) {
+                try {
+                    let data = getFixAnalysisDataFile().getData(path);
+                    return data ? data : 0;
+                } catch (err) {
+                    return 0;
+                }
+            }
+            function getFixAchievementDataMsgs(path) {
+                try {
+                    let data = getFixAnalysisDataFile().getData(path);
+                    return data ? data : 0;
+                } catch (err) {
+                    return 0;
+                }
             }
 
-            function modifyDataFile(filepath, path){
+            function migratingAchievementFollowerAndNewFollowerData(oldFilePath, newFilePath, path) {
+                try {
+                    let jsonData = getDataMsgs(oldFilePath, path);
+                    for (let key in jsonData) {
+                        //直接复制内容过去
+                        saveDataMsg(newFilePath, '/' + key, jsonData[key]);
+                    }
+                }catch(err) {
+                    return {};
+                }
+            }
+
+            function migratingAchievementMaxViewerData(filePath, path) {
+                try {
+                    let jsonData = getDataMsgs(filePath, path);
+                    let date = '';
+                    for(let key in jsonData) {
+                        //key为 2021 9 12（年月日）
+                        let old_key_array= key.split(' ');
+                        let time = old_key_array[0] + '-' + old_key_array[1] +'-' +old_key_array[2];
+                        //设置年月日0点时间戳
+                        let atTime = new Date(new Date(time).setHours(0, 0, 0, 0)).getTime();
+                        let message = {
+                            "atTime": atTime,
+                            'newViewerNumber': 0,
+                            'oldViewerNumber': jsonData[key]
+                        }
+                        saveDataMsg('/data/achievement/maxviewers', '/' + key, message);
+                    }
+                } catch(err) {
+                    return {};
+                }
+            }
+            function modifyDataFile(filepath, path) {
                 try{
                     let jsonData = getDataMsgs(filepath, path);
                     for(let key in jsonData){
@@ -56,45 +108,41 @@
                     }
                     saveDataMsg(filepath, path, jsonData);
                     logger.info(jsonData);
-                }catch(err){
+                } catch(err) {
                     return [];
                 }
             }
             /*loadModifyAnalysisDataFile用于修复2021年9月17日之前的月份数据，修复原因是因为存储月份比实际月份少1，*/
-            service.loadModifyAnalysisDataFile = (init = true) =>{
-                if(!getFixAnanlysisDataMsgs('/version 1.0.3/fixstatus')){
+            service.loadModifyAnalysisDataFile = (init = true) => {
+                if (!getFixAnanlysisDataMsgs('/version 1.0.3/fixstatus')) {
                     modifyDataFile('/viewdata', '/');
                     modifyDataFile('/totalfollowdata', '/');
                     modifyDataFile('/newfollowdata', '/');
                     modifyDataFile('/newunfollowdata', '/');
                     getFixAnalysisDataFile().push('/version 1.0.3/fixstatus', true, true);
                 }
-            }
 
-            function getFixAnalysisDataFile(){
-                return profileManager.getJsonDbInProfile('/fixanalysisdata');
-            }
-
-            function getFixAnanlysisDataMsgs(path) {
-                try {
-                    let data = getFixAnalysisDataFile().getData(path);
-                    return data ? data : 0;
-                } catch (err) {
-                    return 0;
+            };
+            service.loadMigratingAchievementDataFile = (init = true) => {
+                if (!getFixAchievementDataMsgs('/version 1.2.0/fixMigratingData')) {
+                    migratingAchievementMaxViewerData('/viewdata', '/');
+                    migratingAchievementFollowerAndNewFollowerData('/totalfollowdata', '/data/achievement/follower', '/');
+                    migratingAchievementFollowerAndNewFollowerData('/newfollowdata', '/data/achievement/newfollower', '/');
+                    getFixAnalysisDataFile().push('/version 1.2.0/fixMigratingData', true, true);
                 }
-            }
+            };
 
             function pushFixAnalysisDataToFile(path, data) {
                 try {
                     getFixAnalysisDataFile().push(path, data, true);
                 } catch (err) { } //eslint-disable-line no-empty
             }
-            
+
             // 保存到本地
             function saveFixAnanlysisDataMsg(path, msg) {
                 pushFixAnalysisDataToFile(path, msg);
             }
-            
+
             return service;
 
         });

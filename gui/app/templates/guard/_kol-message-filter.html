@@ -15,10 +15,10 @@
           </div>
           <div class="toggle-button-container" style="width: 80%;text-align:left;">
             <p style="font-size: 2em;" class = "bgweight">
-              Message Filter
+              {{ 'SIDEBAR.GUARD.MESSAGEFILTER' | translate}}
             </p>
             <span class="bgfontcolor">
-              Twitchbot can auto-removing spam and undesirable comments in your chat. When your Twitchbot puts a user in a timeout, it only removes them temporarily.
+              {{ 'MESSAGEFILTER.DESC' | translate}}
             </span>
           </div>
         </div>
@@ -56,14 +56,14 @@
           <!-- <div class="col-md-1" style="width:auto ;">
             <span class="hvr-bob"><i class="fa fa-ban" style="font-size: 4em;"></i></span>
           </div> -->
-          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">Repetitions
-            <tooltip text="'Remove messages containing repeated letters, phrases or words,or other disruptive behavior.'"></tooltip>
+          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">{{ 'MESSAGEFILTER.REPETITIONS.REPETITIONS' | translate}}
+            <tooltip text="translations['MESSAGEFILTER.REPETITIONS.TOOLTIP']"></tooltip>
           </div>
         </div>
 
         <div style="margin-top: 15px; display:flex; flex-wrap: nowrap;" ng-show="true">
           <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.repetitions.enabled"> -->
-          <twitcherbot-input style="flex: 1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+          <twitcherbot-input style="flex: 1;" input-title="{{ translations['MESSAGEFILTER.REPETITIONS.INPUT_TITLE']}}" placeholder-text="{{translations['MESSAGEFILTER.REPETITIONS.PLACEHOLDER_TEXT']}}" input-type="number"
             disable-variables="true" model="cms.chatModerationData.settings.repetitions.max"
             on-input-update="saveInputChatModerationSettings('repetitions')" />
           <div class="toggle-button-container" style="margin: 3px 0 0 5px">
@@ -79,14 +79,14 @@
     <div class="content-block moderation-feature-block" style="display: flex; width: 48%; box-shadow: 0px 0px 0px;" >
       <div class="content-block-body" style="display: flex;flex:1;flex-direction: column;">
         <div class="title-toggle-button-container" style="flex-wrap: nowrap; flex:1;">
-          <div class="moderation-feature-title" style="font-size: 14px; margin-right: auto;padding-left: 14px;">Emotes
-              <tooltip text="'Remove message containing an excessive amount of emotes.'"></tooltip>
+          <div class="moderation-feature-title" style="font-size: 14px; margin-right: auto;padding-left: 14px;">{{ 'MESSAGEFILTER.EMOTES.EMOTES' | translate}}
+              <tooltip text="translations['MESSAGEFILTER.EMOTES.TOOLTIP']"></tooltip>
           </div>
         </div>
 
         <div style="margin-top: 15px;display: flex;flex-wrap: nowrap;" ng-show="true">
           <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.emoteLimit.enabled"> -->
-          <twitcherbot-input style="flex:1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+          <twitcherbot-input style="flex:1;" input-title="{{translations['MESSAGEFILTER.EMOTES.INPUT_TITLE']}}" placeholder-text="{{translations['MESSAGEFILTER.EMOTES.PLACEHOLDER_TEXT']}}" input-type="number"
             disable-variables="true" model="cms.chatModerationData.settings.emoteLimit.max"
             on-input-update="saveInputChatModerationSettings('emotes')" />
           <div class="toggle-button-container" style="margin: 3px 0 0 5px">
@@ -102,14 +102,14 @@
     <div class="content-block moderation-feature-block" style="width:48%; margin-right: 7px; box-shadow: 0px 0px 0px;">
       <div class="content-block-body">
         <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
-          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">Excess Caps
-            <tooltip text="'This filter allows you to timeout users who use excessive capital letters in messages.'"></tooltip>
+          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">{{ 'MESSAGEFILTER.EXCESS_CAPS.EXCESS_CAPS' | translate}}
+            <tooltip text="translations['MESSAGEFILTER.EXCESS_CAPS.TOOLTIP']"></tooltip>
           </div>
         </div>
 
         <div style="margin-top: 15px;display: flex;flex-wrap: nowrap;" ng-show="true">
           <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.excessCaps.enabled"> -->
-          <twitcherbot-input style="flex:1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+          <twitcherbot-input style="flex:1;" input-title="{{translations['MESSAGEFILTER.EXCESS_CAPS.INPUT_TITLE']}}" placeholder-text="{{translations['MESSAGEFILTER.EXCESS_CAPS.PLACEHOLDER_TEXT']}}" input-type="number"
             disable-variables="true" model="cms.chatModerationData.settings.excessCaps.max"
             on-input-update="saveInputChatModerationSettings('excess caps')" />
           <div class="toggle-button-container" style="margin: 3px 0 0 5px">
@@ -125,14 +125,14 @@
     <div class="content-block moderation-feature-block" style="width: 48%; box-shadow: 0px 0px 0px;">
       <div class="content-block-body">
         <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
-          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">Symbols
-            <tooltip text="'Remove messages containing disruptive or excessive use of symbols.'"></tooltip>
+          <div class="moderation-feature-title" style="font-size: 14px;padding-left: 14px;">{{'MESSAGEFILTER.SYMBOLS.SYMBOLS' | translate}}
+            <tooltip text="translations['MESSAGEFILTER.SYMBOLS.TOOLTIP']"></tooltip>
           </div>
         </div>
 
         <div style="margin-top: 15px;display: flex;flex-wrap: nowrap;" ng-show="true">
           <!-- <div style="margin-top: 15px" ng-show="cms.chatModerationData.settings.symbols.enabled"> -->
-          <twitcherbot-input style="flex:1;" input-title="Max Per Message" placeholder-text="Enter number" input-type="number"
+          <twitcherbot-input style="flex:1;" input-title="{{translations['MESSAGEFILTER.SYMBOLS.INPUT_TITLE']}}" placeholder-text="{{translations['MESSAGEFILTER.SYMBOLS.PLACEHOLDER_TEXT']}}" input-type="number"
             disable-variables="true" model="cms.chatModerationData.settings.symbols.max"
             on-input-update="saveInputChatModerationSettings('symbols')" />
           <div class="toggle-button-container" style="margin: 3px 0 0 5px">

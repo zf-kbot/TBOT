@@ -14,16 +14,23 @@
                 
                     <div ng-switch-when="0" class="wave">
                         <div class="welcome-wrapper">
-                            <h3 class="animated fadeIn">Welcome to</h3>
+                            <h3 class="animated fadeIn">{{ $ctrl.translations['SETUP_WIZARD.WELCOME_TO'] }}</h3>
                             <img style="animation-delay: 0.5s" class="animated rollIn" src="../images/logo_transparent.png">      
                         <span style="animation-delay: 1.3s" class="animated bounceIn">Twitchbot</span>
                         </div>
                         <div style="animation-delay: 2.0s" class="animated fadeIn welcome-subtitle">
-                            <span>A chat bot, free your hands make your streams simply</span>
+                            <span>{{ $ctrl.translations['SETUP_WIZARD.DESC'] }}</span>
                         </div>
                         <div style="animation-delay: 3.2s" class="animated fadeInUp">
                             
-                            <a class="btn btn-info hvr-icon-forward" ng-click="$ctrl.handleStart()" style="width:200px;"> <img style="animation-delay: 0.5s;width:16%; height:16%;" src="../images/logo_twitch.png"> Connect with Twitch</a>
+                            <a class="btn btn-info hvr-icon-forward" ng-click="$ctrl.handleStart()" style="width:200px;"> <img style="animation-delay: 0.5s;width:16%; height:16%;" src="../images/logo_twitch.png"> {{ $ctrl.translations['SETUP_WIZARD.CONNECT_WITH_TWITCH'] }}</a>
+                            <br>
+                            <label for="langSelect" style="margin-top: 2%">{{ $ctrl.translations['SETUP_WIZARD.SELECT_LANG'] }}</label>
+                            <br>
+                            <select size="2" name="langSelect" style="overflow: overlay;width: 25%;color: black;">
+                              <option ng-click="$ctrl.changeLanguage('en')">English</option>
+                              <option ng-click="$ctrl.changeLanguage('es')">Español</option>
+                            </select>
                         </div>
                     </div>
 
@@ -275,8 +282,8 @@
             close: "&",
             dismiss: "&"
         },
-        controller: function ($rootScope, connectionService, connectionManager,
-            overlayUrlHelper, ngToast, backendCommunicator, backupService) {
+        controller: function ($rootScope, $translate, settingsService, connectionService, connectionManager,
+            overlayUrlHelper, ngToast, backendCommunicator, backupService, gaService) {
             let $ctrl = this;
 
             $ctrl.step = 0;
@@ -490,6 +497,32 @@
                 // When the compontent is initialized
                 // This is where you can start to access bindings, such as variables stored in 'resolve'
                 // IE $ctrl.resolve.shouldDelete or whatever
+                $ctrl.translations = {
+                    "SETUP_WIZARD.CONNECT_WITH_TWITCH": "",
+                    "SETUP_WIZARD.WELCOME_TO": "",
+                    "SETUP_WIZARD.DESC": "",
+                    "SETUP_WIZARD.SELECT_LANG": ""
+                };
+                $translate(Object.keys($ctrl.translations)).then((translationRes) => {
+                    for (let key in $ctrl.translations) {
+                        if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                            $ctrl.translations[key] = translationRes[key];
+                        }
+                    }
+                });
+            };
+            $ctrl.changeLanguage = function (langKey) {
+                $translate.use(langKey).then(() => {
+                    $translate(Object.keys($ctrl.translations)).then((translationRes) => {
+                        for (let key in $ctrl.translations) {
+                            if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                                $ctrl.translations[key] = translationRes[key];
+                            }
+                        }
+                        settingsService.setLang(langKey);
+                        gaService.sendEvent("language", "change", langKey);
+                    });
+                });
             };
         }
     });

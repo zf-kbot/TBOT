@@ -15,6 +15,7 @@
             gaService,
             kolHistoryService,
             logger,
+            $translate
         ) {
             gaService.sendEvent('blacklisted_words', 'open');
             // Cache commands on app load.
@@ -24,7 +25,18 @@
 
             $scope.commandsService = commandsService;
             $scope.sts = sortTagsService;
-
+            $scope.translations = {
+                "BLACKLISTEDWORDS.CONFIRMMODAL.TITLE": "",
+                "BLACKLISTEDWORDS.CONFIRMMODAL.QUESTION": "",
+                "BLACKLISTEDWORDS.CONFIRMMODAL.CONFIRMlABEL_DELETE": "",
+                "BLACKLISTEDWORDS.CONFIRMMODAL.CONFIRMlABEL_CANCEL": ""
+            };
+            const translationRes = $translate.instant(Object.keys($scope.translations));
+            for (let key in translationRes) {
+                if ({}.hasOwnProperty.call($scope.translations, key)) {
+                    $scope.translations[key] = translationRes[key];
+                }
+            }
             function filterCommands() {
                 return triggerSearchFilter(sortTagSearchFilter(commandsService.getCustomCommands(), sortTagsService.getSelectedSortTag("commands")), commandsService.customCommandSearch);
             }
@@ -101,9 +113,10 @@
 
             $scope.deleteCustomCommand = command => {
                 utilityService.showConfirmationModal({
-                    title: "Delete Command",
-                    question: `Are you sure you want to delete the command '${command.trigger}'?`,
-                    confirmLabel: "Delete",
+                    title: $scope.translations['BLACKLISTEDWORDS.CONFIRMMODAL.TITLE'],
+                    question: $scope.translations['BLACKLISTEDWORDS.CONFIRMMODAL.QUESTION'] + command.trigger + ' ?',
+                    confirmLabel: $scope.translations['BLACKLISTEDWORDS.CONFIRMMODAL.CONFIRMlABEL_DELETE'],
+                    cancelLabel: $scope.translations['BLACKLISTEDWORDS.CONFIRMMODAL.CONFIRMlABEL_CANCEL'],
                     confirmBtnType: "btn-danger"
                 }).then(confirmed => {
                     if (confirmed) {

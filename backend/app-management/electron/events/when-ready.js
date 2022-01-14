@@ -28,9 +28,6 @@ exports.whenReady = async () => {
     const connectionManager = require("../../../common/connection-manager");
     connectionManager.startOnlineCheckInterval();
 
-    const kolPollAccess = require("../../../kol-polls/kol-poll-access");
-    kolPollAccess.loadKolPolls();
-
     const timerAccess = require("../../../timers/timer-access");
     timerAccess.loadTimers();
 
@@ -131,12 +128,16 @@ exports.whenReady = async () => {
     const currencyManager = require("../../../currency/currencyManager");
     currencyManager.startTimer();
 
+    const kolPollAccess = require("../../../kol-polls/kol-poll-access");
+    kolPollAccess.loadKolPolls();
+
     // Connect to DBs.
     logger.info("Creating or connecting user database");
     const userdb = require("../../../database/userDatabase");
     userdb.connectUserDatabase();
     // Set users in user db to offline if for some reason they are still set to online. (app crash or something)
     userdb.setAllUsersOffline();
+    userdb.setAllUsersOldViewer();
 
     logger.info("Creating or connecting stats database");
     const statsdb = require("../../../database/statsDatabase");
@@ -145,6 +146,22 @@ exports.whenReady = async () => {
     logger.info("Creating or connecting quotes database");
     const quotesdb = require("../../../quotes/quotes-manager");
     quotesdb.loadQuoteDatabase();
+
+    logger.info("Creating or connecting chatMessage database");
+    const chatmessagedb = require("../../../database/chatMessageDatabase");
+    chatmessagedb.loadChatMessageDatabase();
+
+    logger.info("Creating or connecting emote database");
+    const emotedb = require("../../../database/emoteDatabase");
+    emotedb.loadEmoteDatabase();
+
+    logger.info("Creating or connecting viewTime database");
+    const viewtimedb = require("../../../database/viewtimeDatabase");
+    viewtimedb.loadViewTimeDatabase();
+
+    logger.info("Creating or connecting newFollow database");
+    const newfollowdb = require("../../../database/newfollowDatabase");
+    newfollowdb.loadNewFollowDatabase();
 
     // These are defined globally for Custom Scripts.
     // We will probably wnat to handle these differently but we shouldn't

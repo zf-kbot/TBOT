@@ -8,16 +8,16 @@
         template: `
         <div style="padding:10px;">
             <div class="form-group">
-                <label for="trigger" class="form-label"><i class="fa fa-exclamation"></i> Trigger <tooltip styles="opacity:0.7;font-size:11px;" text="'The text at the beginning of a chat message that should trigger this command. Usually starts with a special character such as !'"/></label>
-                <input type="text" class="form-control input-lg" id="trigger" placeholder="Text(* required)" ng-model="$ctrl.command.trigger" />
+                <label for="trigger" class="form-label"><i class="fa fa-exclamation"></i> {{ $ctrl.translations['AUTOREPLY.MODAL.BODY.TRIGGER'] }} <tooltip styles="opacity:0.7;font-size:11px;" text="$ctrl.translations['AUTOREPLY.MODAL.BODY.TRIGGER_TOOLTIP']"/></label>
+                <input type="text" class="form-control input-lg" id="trigger" placeholder="{{ $ctrl.translations['AUTOREPLY.MODAL.BODY.TRIGGER_PLACEHOLDER'] }}" ng-model="$ctrl.command.trigger" />
             </div>
 
             <div class="form-group">
-                <label class="form-label"><i class="fa fa-clock-o"></i> Cooldowns <tooltip styles="opacity:0.7;font-size:11px;" text="'Cooldowns prevent your commands from being spammed. You can apply a cooldown globally and even per user.'"/></label>
+                <label class="form-label"><i class="fa fa-clock-o"></i> {{ $ctrl.translations['AUTOREPLY.MODAL.BODY.COOLDOWNS'] }} <tooltip styles="opacity:0.7;font-size:11px;" text="$ctrl.translations['AUTOREPLY.MODAL.BODY.COOLDOWNS_TOOLTIP']"/></label>
                 <!-- <div class="input-group"> -->
                 <div>
                     <!-- <span class="input-group-addon" style="min-width: 100px;width:100px">Global</span> -->
-                    <input style="display:flex; flex:1;" class="form-control input-lg" type="number" min="0" placeholder="secs" 
+                    <input style="display:flex; flex:1;" class="form-control input-lg" type="number" min="0" placeholder="{{ $ctrl.translations['AUTOREPLY.MODAL.BODY.COOLDOWNS_PLACEHOLDER'] }}"
                             ng-model="$ctrl.command.cooldown.global" />
                     <!-- <span class="input-group-addon" style="min-width: 100px;width:100px">User</span>
                     <input class="form-control input-lg" type="number" min="0" placeholder="secs"
@@ -39,13 +39,13 @@
             </div>
             -->
             <div>
-                <label class="form-label"><i class="fa fa-reply"></i> Response Text <tooltip styles="opacity:0.7;font-size:11px;" text="'This is what Twitchbot should say in response when this command is triggered.'" /></label>
-                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="Enter message(* required)" rows="4" cols="40" replace-variables></textarea>
+                <label class="form-label"><i class="fa fa-reply"></i> {{ $ctrl.translations['AUTOREPLY.MODAL.BODY.RESPONSE_TEXT']}} <tooltip styles="opacity:0.7;font-size:11px;" text="$ctrl.translations['AUTOREPLY.MODAL.BODY.RESPONSE_TEXT_TOOLTIP']" /></label>
+                <textarea ng-model="$ctrl.chatEffect.message" class="form-control" style="font-size: 17px;" name="text" placeholder="{{$ctrl.translations['AUTOREPLY.MODAL.BODY.RESPONSE_TEXT_PLACEHOLDER']}}" rows="4" cols="40" replace-variables></textarea>
             <!--    <p class="help-block">Want to do more than respond with a message? Switch to <b>Advanced Mode</b> to take full advantage of Twitchbot's Effect system!</p>    -->
             </div>
         </div>
        `,
-        controller: function () {
+        controller: function ($translate) {
             const $ctrl = this;
 
             $ctrl.selectedPermissionType = "everyone";
@@ -124,6 +124,26 @@
                     };
                 }
                 $ctrl.command.effects.list = [$ctrl.chatEffect];
+
+                $ctrl.translations = {
+                    "AUTOREPLY.MODAL.TITLE.ADD_NEW_AUTOREPLY": "",
+                    "AUTOREPLY.MODAL.TITLE.EDIT_AUTOREPLY": "",
+                    "AUTOREPLY.MODAL.BODY.TRIGGER": "",
+                    "AUTOREPLY.MODAL.BODY.TRIGGER_PLACEHOLDER": "",
+                    "AUTOREPLY.MODAL.BODY.TRIGGER_TOOLTIP": "",
+                    "AUTOREPLY.MODAL.BODY.COOLDOWNS": "",
+                    "AUTOREPLY.MODAL.BODY.COOLDOWNS_TOOLTIP": "",
+                    "AUTOREPLY.MODAL.BODY.COOLDOWNS_PLACEHOLDER": "",
+                    "AUTOREPLY.MODAL.BODY.RESPONSE_TEXT": "",
+                    "AUTOREPLY.MODAL.BODY.RESPONSE_TEXT_PLACEHOLDER": "",
+                    "AUTOREPLY.MODAL.BODY.RESPONSE_TEXT_TOOLTIP": ""
+                };
+                const translationRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in $ctrl.translations) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationRes[key];
+                    }
+                }
             };
         }
     });

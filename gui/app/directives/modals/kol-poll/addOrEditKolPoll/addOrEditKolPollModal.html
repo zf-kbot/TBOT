@@ -1,8 +1,8 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"
             ng-click="$ctrl.dismiss()"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
-    <h4 class="modal-title" id="newCooldownGroupLabel">{{$ctrl.isNewKolPoll ? 'Add New Poll' : 'Edit Poll - ' +
-        $ctrl.timer.name}}</h4>
+    <h4 class="modal-title" id="newCooldownGroupLabel" ng-if="!$ctrl.isNewKolPoll">{{ 'POLL.MODAL.TITLE.EDIT_POLL' | translate }} - {{ $ctrl.kolPoll.title }}</h4>
+    <h4 class="modal-title" id="newCooldownGroupLabel" ng-if="$ctrl.isNewKolPoll">{{ 'POLL.MODAL.TITLE.ADD_NEW_POLL' | translate }}</h4>
 </div>
 <div class="modal-body">
     <div class="general-button-settings">
@@ -10,24 +10,24 @@
             <div class="settings-commandGroup-groupName">
                 <span style="font-size:16px;">
                     <i class="fa fa-pencil" style="margin-right: 5px;"></i>
-                    Name
-                    <tooltip style="font-size: 14px;" text = "'Question displayed for the poll.Maximum: 60 characters.'"></tooltip>
+                    {{ 'POLL.MODAL.BODY.NAME' | translate}}
+                    <tooltip style="font-size: 14px;" text = "$ctrl.translations['POLL.MODAL.BODY.NAME_TOOLTIP']"></tooltip>
                 </span>
             </div>
             <div class="settings-commandGroup-groupName">
-                <input type="text" class="form-control" ng-model="$ctrl.kolPoll.title" placeholder="Set the name on poll(* required)">
+                <input type="text" class="form-control" ng-model="$ctrl.kolPoll.title" placeholder="{{$ctrl.translations['POLL.MODAL.BODY.NAME_TOOLTIP']}}">
             </div>
         </div>
         <div class="form-group">
             <div class="settings-commandGroup-groupName">
                 <span style="font-size:16px;">
                     <i class="fa fa-clock-o" style="margin-right: 5px;"></i>
-                    Duration
-                    <tooltip style="font-size: 14px;" text = "'Total duration for the poll (in seconds).Minimum: 15. Maximum: 1800.'"></tooltip>
+                    {{ 'POLL.MODAL.BODY.DURATION' | translate}}
+                    <tooltip style="font-size: 14px;" text = "$ctrl.translations['POLL.MODAL.BODY.DURATION_TOOLTIP']"></tooltip>
                 </span>
             </div>
             <div class="input-group settings-commandGroup-timer" style="display:flex;flex:1;">
-                <input type="number" class="form-control" ng-model="$ctrl.kolPoll.duration" placeholder="Secs" >
+                <input type="number" class="form-control" ng-model="$ctrl.kolPoll.duration" placeholder="{{$ctrl.translations['POLL.MODAL.BODY.DURATION_PLACEHOLDER']}}" >
                 <!-- <span class="input-group-addon">secs</span> -->
             </div>
         </div>
@@ -35,8 +35,8 @@
             <div class="settings-commandGroup-timer" style="margin-top: 10px;">
                 <span>
                     <i class="fa fa-check-square" style="margin-right: 5px;"></i>
-                    Options
-                    <tooltip style="font-size: 14px;" text = "'Minimum: 2 choices. Maximum: 5 choices.'"></tooltip>
+                    {{ 'POLL.MODAL.BODY.OPTIONS' | translate}}
+                    <tooltip style="font-size: 14px;" text = "$ctrl.translations['POLL.MODAL.BODY.OPTIONS_TOOLTIP']"></tooltip>
                     <!-- <i style="margin-left: 5px; color: #9145ff"
                         ng-if="$ctrl.kolPoll.choices.length < 5" class="fa fa-plus-circle" style="margin-right:5px;"
                         ng-click="$ctrl.addNewPollOption()"></i></span> -->
@@ -46,7 +46,7 @@
             <div class="{{$index > 1?'input-group':''}} settings-commandGroup-timer" style="margin: 5px 0 5px;"
                 ng-repeat="choice in $ctrl.kolPoll.choices track by $index">
                 <input type="text" class="form-control" ng-model="choice.title"
-                    placeholder="choice-{{$index+1}}(* required)">
+                    placeholder="{{ 'POLL.MODAL.BODY.OPTIONS_PLACEHOLDER_PREFIX' | translate}}-{{$index+1}}{{ 'POLL.MODAL.BODY.OPTIONS_PLACEHOLDER_SUFFIX' | translate}}">
                 <span class="input-group-addon" ng-if="$index > 1" ng-click="$ctrl.removeOption($index)"><i
                         class="fa fa-trash"></i></span>
             </div>
@@ -58,7 +58,7 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">{{ 'CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{ 'SAVE' | translate}}</button>
 </div>
 

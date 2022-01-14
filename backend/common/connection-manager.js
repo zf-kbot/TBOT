@@ -20,10 +20,34 @@ let onlineCheckIntervalId;
  * @type ConnectionManager
  */
 let manager;
+let topChartDb = profileManager.getJsonDbInProfile('/data/kolTopChart');
 
 function updateOnlineStatus(online) {
     if (online !== isOnline) {
         isOnline = online === true;
+        // 更新开播与下播时间到本地
+        let data = topChartDb.getData("/") ? topChartDb.getData("/") : null;
+        let now = new Date().getTime();
+        let dataIsEmpty = data === null || data === undefined || Object.keys(data).length === 0;
+        if (!dataIsEmpty && data.last_section && !data.last_section.ended_at
+              || data.last_section && data.last_section.ended_at < data.last_section.started_at) { // 上次未在使用kbot时关闭直播间
+            topChartDb.push('/last_section/ended_at', now);
+        }
+        if (isOnline) {
+            if (!dataIsEmpty && data.latest && data.latest.started_at) {
+                topChartDb.push('/last_section/started_at', topChartDb.getData("/latest/started_at"));
+            } else {
+                topChartDb.push('/last_section/started_at', now);
+            }
+            topChartDb.push('/latest/started_at', now);
+        } else {
+            if (!dataIsEmpty && data.latest && data.latest.ended_at) {
+                topChartDb.push('/last_section/ended_at', topChartDb.getData("/latest/ended_at"));
+            } else {
+                topChartDb.push('/last_section/ended_at', now);
+            }
+            topChartDb.push('/latest/ended_at', now);
+        }
         manager.emit("streamerOnlineChange", isOnline);
     }
 }

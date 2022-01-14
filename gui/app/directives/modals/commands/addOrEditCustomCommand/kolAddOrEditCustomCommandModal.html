@@ -8,7 +8,8 @@
     <span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span>
   </button>
   <h4 class="modal-title">
-    <span >Add New Blacklisted Words</span>
+    <span ng-if="$ctrl.isNewCommand">{{ 'ADD' | translate}} {{ 'NEW' | translate}} {{ 'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate}}</span>
+    <span ng-if="!$ctrl.isNewCommand">{{ 'EDIT' | translate}} {{ 'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate}} - {{ $ctrl.command.trigger }}</span>
   </h4>
 </div>
 <div class="modal-body">
@@ -17,8 +18,8 @@
     <div class="form-group" style="padding-bottom: 1em">
       <div class="settings-title">
         <i class="fa fa-text-width" style="margin-right: 5px;"></i> 
-        Phrase
-        <tooltip style="font-size: 14px;" text = "'The text must be between 1 and 500 characters.'"></tooltip>
+        {{ 'BLACKLISTEDWORDS.TABLE.HEADER.PHRASE' | translate}}
+        <tooltip style="font-size: 14px;" text = "$ctrl.translations['BLACKLISTEDWORDS.PHRASE_TOOLTIP']"></tooltip>
       </div>
       <div class="input-group" style ="width:100%;">
         <input
@@ -27,7 +28,7 @@
           aria-describedby="basic-addon3"
           ng-model="$ctrl.command.trigger"
           style="border-radius: 5px;"
-          placeholder="Text phrase(* required)"
+          placeholder="{{'BLACKLISTEDWORDS.PHRASE_PLACEHOLDER' | translate}}"
         />
       </div>
     </div>
@@ -35,7 +36,7 @@
     <div class="form-group other-settings">
       <div class="settings-title">
         <i class="fa fa-cog" style="margin-right: 5px;"></i> 
-        Settings
+        {{ 'BLACKLISTEDWORDS.SETTINGS' | translate}}
       </div>
       <!-- 屏蔽enable设置 -->
       <!-- <div class="controls-fb-inline">
@@ -54,7 +55,7 @@
       <!-- ignore letter case -->
       <div class="controls-fb-inline">
         <label class="control-fb control--checkbox"
-          >Ignore letter case
+          >{{ 'BLACKLISTEDWORDS.IGNORE_LETTER_CASE' | translate}}
           <input
             type="checkbox"
             ng-model="$ctrl.command.ignoreLetterCase"
@@ -68,7 +69,7 @@
       <!-- ignore word boundry -->
       <div class="controls-fb-inline">
         <label class="control-fb control--checkbox"
-          >Ignore word boundaries
+          >{{ 'BLACKLISTEDWORDS.IGNORE_WORD_BOUNDRIES' | translate}}
           <input
             type="checkbox"
             ng-model="$ctrl.command.ignoreWordBoundry"
@@ -82,7 +83,7 @@
       <!-- checkUserName -->
       <div class="controls-fb-inline">
         <label class="control-fb control--checkbox"
-          >Check username
+          >{{ 'BLACKLISTEDWORDS.CHECK_USERNAME' | translate}}
           <input
             type="checkbox"
             ng-model="$ctrl.command.checkUserName"
@@ -97,9 +98,9 @@
     
     <div class="form-group settings-title">
       <i class="fa fa-clock-o" style="margin-right: 5px;"></i>
-      TIME OUT
+      {{ 'BLACKLISTEDWORDS.TIME_OUT' | translate}}
       <tooltip style="font-size: 14px;" 
-        text = "'Once Twitchbot detects a blacklisted phrase in a user\'s chat message,it removes their message from chat, and then puts the user in a chat timeout where they cannot send any more messages to Twitch chat until their timeout has expired.'">
+        text = "$ctrl.translations['BLACKLISTEDWORDS.TIME_OUT_TOOLTIP']">
       </tooltip>
     </div>      
     <div>
@@ -111,7 +112,7 @@
         aria-describeby="image-width-setting-type"
         ng-model="$ctrl.command.effects.list[0].time"
         placeholder="{{$ctrl.command.effects.list[0].time}}"/>
-        <div style="line-height: 36px;">seconds</div> 
+        <div style="line-height: 36px;">{{ 'BLACKLISTEDWORDS.SECONDS' | translate}}</div> 
       </div>
     </div>
 
@@ -161,14 +162,14 @@
 
 <div class="modal-footer sticky-footer edit-command-footer">
   <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">
-    Cancel
+    {{ 'CANCEL' | translate}}
   </button>
   <button
     type="button"
     class="btn btn-primary add-new-board-save"
     ng-click="$ctrl.save()"
   >
-    Save
+    {{ 'SAVE' | translate}}
   </button>
 </div>
 

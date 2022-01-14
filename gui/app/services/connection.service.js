@@ -8,7 +8,7 @@
     angular
         .module("twitcherbotApp")
         .factory("connectionService", function(listenerService, soundService, $rootScope, backendCommunicator,
-            logger, accountAccess, settingsService, utilityService, integrationService, gaService, profileManager) {
+            logger, accountAccess, settingsService, utilityService, integrationService, gaService, profileManager, $q) {
             let service = {};
 
             backendCommunicator.on("accountUpdate", accounts => {
@@ -20,6 +20,14 @@
             service.getAccounts();
 
             let defaultPhotoUrl = "../images/placeholders/login.png";
+            service.totalFollowers = 0;
+            service.getStreamerFollowers = () => {
+                $q.when(backendCommunicator.fireEventAsync("getStreamerFollowers"))
+                    .then(result => {
+                        service.totalFollowers = result;
+                    });
+            };
+            service.getStreamerFollowers();
 
             /**
              * Login Stuff
@@ -284,7 +292,7 @@
                             });
                         }
                         if (connectedMins > threshold.gaSendMinMins) {
-                            gaService.sendEvent('user', `connected_time/min`, username + ' : ' + Math.floor(connectedMins));
+                            gaService.sendEvent('user', `connected_time/min`, username + ' : ' + Math.floor(connectedMins) + ',' + ' total followers:' + service.totalFollowers);
                         }
                     }
                 }

@@ -9,11 +9,13 @@
                     <div class="toggle-button-container" style="width: 80%;text-align: left;">
                         <!-- <p style="font-size: 25px;font-weight: bold;"> -->
                         <p class="bgweight">
-                            Analysis
+                            {{ "SIDEBAR.DATA.ACHIEVEMENT" | translate }} 
                         </p>
                         <p>
-                            <span class="bgfontcolor" >
-                                Analysis can check last 8 weeks of data, click to view detailed data and user information by category.
+                            <span class="bgfontcolor" sty>
+                                {{ 'ACHIEVEMENT.DESC1' | translate }}
+                                <br>
+                                {{ 'ACHIEVEMENT.DESC2' | translate }}
                             </span>
                         </p>
                     </div>
@@ -22,52 +24,51 @@
         </div>
     </div>
     <div class=row>
-        <div class="pull-right" style="margin-right: 15px;">
+        <!--暂时屏蔽右侧analysis和viewers的按钮-->
+        <!-- <div class="pull-right" style="margin-right: 15px;">
             <div class="btn-group" role="group" aria-label="...">
                 <button type="button" class="btn {{active_layout == 'analysis'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('analysis');" style="border: 1px solid transparent">analysis</button>
                 <button type="button" class="btn {{active_layout == 'viewers'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('viewers');" style="border: 1px solid transparent">viewers</button>
             </div>
-        </div>
+        </div> -->
+
         <div ng-if="active_layout == 'analysis'" style="width: 100%;">
-            <uib-tabset active="active" class="kol-analysis-nav">
-                <uib-tab index="0" heading="Views" select="showViews()" classes="btn-changecolor-uibtab">
-
-                </uib-tab>
-                <uib-tab index="1" heading="Total Followers" select="showTotalFollowers()" classes="btn-changecolor-uibtab">
-
-                </uib-tab>
-                <uib-tab index="2" heading="New Followed" select="showNewFollowers()" classes="btn-changecolor-uibtab">
-
-                </uib-tab>
-                <uib-tab index="3" heading="New UnFollowed" select="showNewUnFollowers()" classes="btn-changecolor-uibtab">
-
-                </uib-tab>
+            <uib-tabset ng-if="loading" active="active" class="kol-analysis-nav">
+                <uib-tab ng-repeat= "tab in tabs track by $index" index= "$index" heading= {{tabsTranslations[toTranslationsTabKey(tab)]}} select= "changeTab(tab)" classes="btn-changecolor-uibtab"></uib-tab>
             </uib-tabset>
-            <div ng-show="active == 0"  style="width: 100%">
-                <div id="kol-analysis-views" style="width:600px; height:400px;">
-
+            <div ng-if="!connectedStatus" class="kol-none-box" style="height: 272px;margin: 15px 15px;">
+                <p style="font-size: 28px;">{{ 'NONE' | translate}}</p>
+            </div>
+            <div ng-show="active == 0 && connectedStatus"  style="width: 100%">
+                <div id="kol-analysis-views" style="width: 500px;height: 500px;">
                 </div>
             </div>
-            <div ng-show="active == 1" style="width: 100%">
+
+            <div ng-show="active == 1 && connectedStatus" style="width: 100%">
                 <div id="kol-analysis-total-followers" style="width: 600px;height:400px;">
-
                 </div>
             </div>
-            <div ng-show="active == 2" style="width: 100%">
+
+            <div ng-show="active == 2 && connectedStatus" style="width: 100%">
                 <div id="kol-analysis-new-followed" style="width: 600px;height:400px;">
-
                 </div>
             </div>
-            <div ng-show="active == 3" style="width: 100%">
-                <div id="kol-analysis-new-unfollowed" style="width: 600px;height:400px;">
 
+            <div ng-show="active == 3 && connectedStatus" style="width: 100%">
+                <div id="kol-analysis-subscriptions" style="width: 600px;height:400px;">
+                </div>
+            </div>
+
+            <div ng-show="active == 4 && connectedStatus" style="width: 100%;">
+                <div id="kol-analysis-bits" style="width: 600px;height: 400px;">
                 </div>
             </div>
         </div>
-        <div ng-if="active_layout == 'viewers'">
+        <!--暂时屏蔽掉-->
+        <!-- <div ng-if="active_layout == 'viewers'">
             <div ng-controller="viewersController">
                 <ng-include src="'./templates/viewers/_viewers.html'"></ng-include>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

@@ -9,6 +9,7 @@ const NodeCache = require("node-cache");
 
 const userRoleCache = new NodeCache({ stdTTL: 30, checkperiod: 5 });
 
+const profileManager = require("../../../backend/common/profile-manager");
 async function getUserChatInfo(userId) {
     const client = twitchApi.getClient();
 
@@ -76,7 +77,24 @@ async function getUserSubscriberRole(userIdOrName) {
 
     return role;
 }
-
+function getDataFile(filePath) {
+    return profileManager.getJsonDbInProfile(filePath);
+}
+function getDataMsgs(filePath, path) {
+    try {
+        let data = getDataFile(filePath).getData(path);
+        return data ? data : {};
+    } catch (err) {
+        return {};
+    }
+}
+function isBot(userId) {
+    let twitchInsightBot = getDataMsgs('/data/twitchinsightbot', '/twitchbot');
+    if (twitchInsightBot.hasOwnProperty(userId)) {
+        return true;
+    }
+    return false;
+}
 async function getUsersChatRoles(userIdOrName = "") {
 
     userIdOrName = userIdOrName.toLowerCase();
@@ -118,7 +136,12 @@ async function getUsersChatRoles(userIdOrName = "") {
     if (subscriberRole != null) {
         roles.push(subscriberRole);
     }
-
+    //添加bot栏目
+    if (isBot(userChatInfo._id)) {
+        const userDatabase = require("../../database/userDatabase");
+        await userDatabase.setChatUserBot(userChatInfo._id);
+        roles.push("bot");
+    }
     userRoleCache.set(userChatInfo._id, roles);
     userRoleCache.set(userChatInfo.login, roles);
 

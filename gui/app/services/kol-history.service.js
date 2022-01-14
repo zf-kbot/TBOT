@@ -4,7 +4,7 @@
     angular
         .module("twitcherbotApp")
         .factory("kolHistoryService", function(
-            profileManager, backendCommunicator, logger
+            $rootScope, $translate, profileManager, settingsService, backendCommunicator, logger
         ) {
             let service = {};
             service.historyQueue = [];
@@ -47,6 +47,7 @@
                     message: message
                 };
                 service.historyQueue.unshift(msg);
+                service.freshTranslate();
                 saveHistoryMsg(`/msgs/${service.accounts.streamer.username}[]`, msg);
             };
 
@@ -57,6 +58,9 @@
                 if (service.accounts && service.accounts.hasOwnProperty('streamer') && service.accounts.streamer.hasOwnProperty('username')) {
                     service.historyQueue = getHistoryMsgs(`/msgs/${service.accounts.streamer.username}`);
                     service.historyQueue = service.historyQueue.slice(-100).reverse();
+                    $translate.use(settingsService.getLang()).then(() => {
+                        service.freshTranslate(true);
+                    });
                 } else {
                     service.historyQueue = [];
                 }
@@ -70,6 +74,24 @@
 
             service.getAccounts = () => {
                 service.accounts = backendCommunicator.fireEventSync("getAccounts");
+            };
+
+            $rootScope.$on("langChanged", () => {
+                service.freshTranslate(true);
+            });
+
+            service.freshTranslate = (freshAll = false) => {
+                service.historyQueue.forEach((hisotry) => {
+                    if (!freshAll && hisotry.messageDisplay) { // 有翻译结果无需处理
+                        return;
+                    }
+                    hisotry.message = hisotry.message.split(": ")[0];
+                    $translate(`DASHBOARD.HISTORY.MESSAGE.${hisotry.message}`.replace(/ /g, '_')).then((ret) => {
+                        hisotry.messageDisplay = ret;
+                    }).catch((e) => {
+                        hisotry.messageDisplay = hisotry.message;
+                    });
+                });
             };
 
             return service;

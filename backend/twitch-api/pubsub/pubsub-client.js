@@ -13,6 +13,28 @@ function pushDataToFile(path, data) {
         getSubOrGiftsubOrEventFile().push(path, data);
     } catch (err) {} //eslint-disable-line no-empty
 }
+function getDataFile(filePath) {
+    return profileManager.getJsonDbInProfile(filePath);
+}
+
+function pushDataToFile(filePath, path, data) {
+    try {
+        getDataFile(filePath).push(path, data, true);
+    } catch (err) { }//eslint-disable-line no-empty
+}
+
+function saveDataMsgs(filePath, path, msg) {
+    pushDataToFile(filePath, path, msg);
+}
+
+function getDataMsgs(filePath, path) {
+    try {
+        let data = getDataFile(filePath).getData(path);
+        return data ? data : {};
+    } catch (err) {
+        return {};
+    }
+}
 
 /**@type {PubSubClient} */
 let pubSubClient;
@@ -106,6 +128,27 @@ async function createClient() {
         const bitsListener = await pubSubClient.onBits(streamer.userId, (event) => {
             logger.info("bits", event);
             pushDataToFile("/bits", event);
+            let date = new Date(event._data.data.time);
+            let path = `${date.getFullYear()} ${date.getMonth() + 1} ${date.getDate()}`;
+            let bitsMessage = getDataMsgs("/data/achievement/bits", "/" + path);
+            if ("bits" in bitsMessage && "userSubInfo" in bitsMessage) {
+                bitsMessage.bits.push(event.bits);
+                bitsMessage.userSubInfo.push({
+                    userId: event.userId,
+                    userName: event.userName,
+                    bits: event.bits
+                });
+                saveDataMsgs("/data/achievement/bits", "/" + path, bitsMessage);
+            } else {
+                saveDataMsgs("/data/achievement/bits", "/" + path, {
+                    "bits": [event.bits],
+                    "userSubInfo": [{
+                        userId: event.userId,
+                        userName: event.userName,
+                        bits: event.bits
+                    }]
+                });
+            }
             twitchEventsHandler.cheer.triggerCheer(event.userName, event.isAnonymous, event.bits, event.totalBits, event.message);
         });
         listeners.push(bitsListener);
@@ -114,10 +157,54 @@ async function createClient() {
             if (!subInfo.isGift) {
                 logger.info("sub", subInfo);
                 pushDataToFile("/sub", subInfo);
+                let date = new Date(subInfo.time);
+                let path = `${date.getFullYear()} ${date.getMonth() + 1} ${date.getDate()}`;
+                let subsMessage = getDataMsgs("/data/achievement/subandgiftsub", "/" + path);
+                const streak = subInfo.streakMonths || 1;
+                if ("subscriptions" in subsMessage && "userSubInfo" in subsMessage) {
+                    subsMessage.subscriptions.push(streak);
+                    subsMessage.userSubInfo.push({
+                        userId: subInfo.userId,
+                        userName: subInfo.userName,
+                        subscriptions: streak
+                    });
+                    saveDataMsgs("/data/achievement/subandgiftsub", "/" + path, subsMessage);
+                } else {
+                    saveDataMsgs("/data/achievement/subandgiftsub", "/" + path, {
+                        "subscriptions": [streak],
+                        "userSubInfo": [{
+                            userId: subInfo.userId,
+                            userName: subInfo.userName,
+                            subscriptions: streak
+                        }]
+                    });
+                }
                 twitchEventsHandler.sub.triggerSub(subInfo);
             } else {
                 logger.info("giftsub", subInfo);
                 pushDataToFile("/giftsub", subInfo);
+                let date = new Date(subInfo.time);
+                let path = `${date.getFullYear()} ${date.getMonth() + 1} ${date.getDate()}`;
+                let subsMessage = getDataMsgs("/data/achievement/subandgiftsub", "/" + path);
+                const streak = subInfo.giftDuration || 1;
+                if ("giftSubscriptions" in subsMessage && "userGiftSubInfo" in subsMessage) {
+                    subsMessage.giftSubscriptions.push(streak);
+                    subsMessage.userGiftSubInfo.push({
+                        userId: subInfo.userId,
+                        userName: subInfo.userName,
+                        giftSubscriptions: streak
+                    });
+                    saveDataMsgs("/data/achievement/subandgiftsub", "/" + path, subsMessage);
+                } else {
+                    saveDataMsgs("/data/achievement/subandgiftsub", "/" + path, {
+                        "giftSubscriptions": [streak],
+                        "userGiftSubInfo": [{
+                            userId: subInfo.userId,
+                            userName: subInfo.userName,
+                            giftSubscriptions: streak
+                        }]
+                    });
+                }
                 twitchEventsHandler.giftSub.triggerSubGift(subInfo);
             }
         });

@@ -11,9 +11,19 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function ($scope, utilityService, kolPollService, backendCommunicator, logger) {
+        controller: function ($scope, utilityService, kolPollService, backendCommunicator, logger, $translate) {
             let $ctrl = this;
             $ctrl.kolPollService = kolPollService;
+            $ctrl.translations = {
+                "POLL.RESULTMODAL.STATUS": "",
+                "POLL.RESULTMODAL.END": ""
+            };
+            const translationsRes = $translate.instant(Object.keys($ctrl.translations));
+            for (let key in translationsRes) {
+                if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                    $ctrl.translations[key] = translationsRes[key];
+                }
+            }
 
             $ctrl.loading = false;
             // $ctrl.viewKolPollResult = {};
@@ -28,16 +38,15 @@
                     sum += item.votes;
                 });
                 return sum;
-            }
+            };
 
             $ctrl.getItemVoteRate = function (choice, viewKolPollResult) {
                 let sum = $ctrl.getVoteTotal(viewKolPollResult);
                 if (sum > 0) {
                     return (choice.votes / sum).toFixed(2) * 100;
-                } else {
-                    return "-"
                 }
-            }
+                return "-";
+            };
 
             $ctrl.$onInit = function () {
                 if ($ctrl.resolve.kolPoll == null) {
@@ -78,7 +87,7 @@
             // }, 1000);
             $ctrl.getKolPollResult = function (kolPoll) {
                 $ctrl.kolPollService.getKolPollResult(kolPoll.twitchPoll.id);
-            }
+            };
         }
     });
 }());

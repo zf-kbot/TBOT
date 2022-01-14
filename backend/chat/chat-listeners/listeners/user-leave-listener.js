@@ -8,6 +8,7 @@ module.exports = {
 
         const userdb = require("../../../database/userDatabase");
         userdb.setChatUserOffline(data.id);
+        userdb.setChatUserOldViewer(data.id);
 
         data.fbEvent = "UserLeave";
         renderWindow.webContents.send("chatUpdate", data);

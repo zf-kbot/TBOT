@@ -14,6 +14,7 @@ const accountAccess = require("../common/account-access");
 const util = require("../utility");
 
 const jsonDataHelpers = require("../common/json-data-helpers");
+const viewtimeDb = require("../database/viewtimeDatabase");
 
 /**
  * @typedef TwitchbotUser
@@ -42,6 +43,36 @@ let db;
 let updateTimeIntervalId;
 let updateLastSeenIntervalId;
 let dbCompactionInterval = 30000;
+let viewtimedb;
+function UpdateUserViewTime(user) {
+    //正式查询插入
+    let stamp1 = new Date().setHours(0, 0, 0, 0);
+    let stamp2 = moment(stamp1).add(1, "d") - 1;
+    viewtimedb.find({$and: [{userId: user._id}, {createdAt: {$gt: stamp1}}, {createdAt: {$lt: stamp2}}]}, function(err, doc) {
+        if (!err) {
+            if (doc.length) {
+                viewtimedb.update({_id: doc[0]._id}, {$set: {viewTime: doc[0].viewTime + 1}}, {}, function() {});
+            } else {
+                viewtimedb.insert({userId: user._id, userName: user.username, profilePicUrl: user.profilePicUrl, viewTime: 1, createdAt: user.lastSeen }, function (err, doc) {
+                });
+            }
+        }
+    });
+}
+function insertOrUpdateAllUserViewTime() {
+    const connectionManager = require("../common/connection-manager");
+    if (connectionManager.streamerIsOnline()) {
+        db.find({ online: true }, (err, docs) => {
+            if (!err) {
+                viewtimedb = viewtimeDb.getViewTimeDb();
+                docs.forEach((user) => {
+                    UpdateUserViewTime(user);
+                });
+            }
+        });
+    }
+}
+
 
 function getUserDb() {
     return db;
@@ -66,6 +97,7 @@ function setLastSeenDateTime() {
             logger.debug(`ViewerDB: Setting last seen date for ${num} users`);
         }
     });
+    insertOrUpdateAllUserViewTime();
 }
 
 /**
@@ -280,9 +312,9 @@ function getUserOnlineMinutes(username) {
                 user.online ? user.minutesInChannel + (Date.now() - user.onlineAt) / 60000 : user.minutesInChannel
             );
         },
-            err => {
-                reject(err);
-            });
+        err => {
+            reject(err);
+        });
     });
 }
 
@@ -355,6 +387,26 @@ function calcAllUsersOnlineMinutes() {
     }
 }
 
+function calOldViewer() {
+    return new Promise (resolve => {
+        db.find({$and: [{online: true }, {isNewViewer: false}]}, (err, docs) => {
+            if (!err) {
+                return resolve(docs);
+            }
+        });
+    });
+}
+
+function calNewViewer() {
+    return new Promise (resolve => {
+        db.find({$and: [{online: true }, {isNewViewer: true}]}, (err, docs) => {
+            if (!err) {
+                return resolve(docs);
+            }
+        });
+    });
+}
+
 function removeUser(userId) {
     return new Promise(resolve => {
         if (userId == null) {
@@ -401,7 +453,10 @@ function createNewUser(userId, username, displayName, profilePicUrl, twitchRoles
             disableAutoStatAccrual: disableAutoStatAccrual,
             disableActiveUserList: false,
             metadata: {},
-            currency: {}
+            currency: {},
+            isNewViewer: true,
+            isBot: false,
+            isFollowed: false
         };
 
         // THIS IS WHERE YOU ADD IN ANY DYNAMIC FIELDS THAT ALL USERS SHOULD HAVE.
@@ -561,7 +616,105 @@ async function setChatUsersOnline() {
         setChatUserOnline(viewerPacket);
     }
 }
+//set user to followed
+function setChatUserFollowed(id) {
+    return new Promise((resolve, reject) => {
+        if (!isViewerDBOn()) {
+            return resolve();
+        }
+        // Find the user by id to set their isFollowed true.
+        db.find({ _id: id }, (err, user) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            if (user == null || user.length < 1) {
+                return;
+            }
+            //返回结果是数组，且只有1条数据
+            db.update({ _id: user[0]._id }, { $set: { isFollowed: true } }, {}, function (err) {
+                if (err) {
+                    logger.error("ViewerDB: Error setting user to isFollowed.", err);
+                } else {
+                    logger.debug("ViewerDB: Set " + user[0].username + "(" + user[0]._id + ") to isFollowed.");
+                }
+                return resolve();
+            });
+        }); // End find
+    });
+}
+// set user to bot
+function setChatUserBot(id) {
+    return new Promise((resolve, reject) => {
+        if (!isViewerDBOn()) {
+            return resolve();
+        }
+        // Find the user by id to set their isNewViewer false.
+        db.find({ _id: id }, (err, user) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            if (user == null || user.length < 1) {
+                return;
+            }
+            db.update({ _id: user[0]._id }, { $set: { isBot: true } }, {}, function (err) {
+                if (err) {
+                    logger.error("ViewerDB: Error setting user to bot.", err);
+                } else {
+                    logger.debug("ViewerDB: Set " + user[0].username + "(" + user[0]._id + ") to bot.");
+                }
+                return resolve();
+            });
+        }); // End find
+    });
+}
 
+//set user to oldviewer,
+function setChatUserOldViewer(id) {
+    return new Promise((resolve, reject) => {
+        if (!isViewerDBOn()) {
+            return resolve();
+        }
+        // Find the user by id to set their isNewViewer false.
+        db.find({ _id: id }, (err, user) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            if (user == null || user.length < 1) {
+                return;
+            }
+            db.update({ _id: user[0]._id }, { $set: { isNewViewer: false } }, {}, function (err) {
+                if (err) {
+                    logger.error("ViewerDB: Error setting user to oldViewer.", err);
+                } else {
+                    logger.debug("ViewerDB: Set " + user[0].username + "(" + user[0]._id + ") to oldViewer.");
+                }
+                return resolve();
+            });
+        }); // End find
+    });
+}
+//set all user to oldviewer
+function setAllUsersOldViewer() {
+    return new Promise(resolve => {
+        if (!isViewerDBOn() || db == null) {
+            return resolve();
+        }
+
+        logger.debug('ViewerDB: Trying to set all users to offline.');
+
+        db.update({ isNewViewer: true }, { $set: { isNewViewer: false } }, { multi: true }, function (err, numReplaced) {
+            if (numReplaced > 0) {
+                logger.debug('ViewerDB: Set ' + numReplaced + ' users to oldViewer.');
+            } else {
+                logger.debug('ViewerDB: No users were set to oldViewer.');
+            }
+            resolve();
+        });
+    });
+}
 //set user offline, update time spent records
 function setChatUserOffline(id) {
     return new Promise((resolve, reject) => {
@@ -691,16 +844,16 @@ async function sanitizeDbInput(changePacket) {
         return;
     }
     switch (changePacket.field) {
-        case "lastSeen":
-        case "joinDate":
-            changePacket.value = moment(changePacket.value).valueOf();
-            break;
-        case "minutesInChannel":
-        case "mixPlayInteractions":
-        case "chatMessages":
-            changePacket.value = parseInt(changePacket.value);
-            break;
-        default:
+    case "lastSeen":
+    case "joinDate":
+        changePacket.value = moment(changePacket.value).valueOf();
+        break;
+    case "minutesInChannel":
+    case "mixPlayInteractions":
+    case "chatMessages":
+        changePacket.value = parseInt(changePacket.value);
+        break;
+    default:
     }
     return changePacket;
 }
@@ -750,6 +903,15 @@ function incrementDbField(userId, fieldName) {
     });
 }
 
+function getFollowedUserFromDb() {
+    return new Promise(resolve => {
+        db.find({isFollowed: true}, (err, docs) => {
+            if (!err) {
+                return resolve(docs);
+            }
+        });
+    });
+}
 //////////////////
 // Event Listeners
 
@@ -777,7 +939,10 @@ frontendCommunicator.onAsync("getAllViewers", () => {
 frontendCommunicator.onAsync("getViewerTwitchbotData", (userId) => {
     return getUserById(userId);
 });
-
+frontendCommunicator.onAsync("getFollowedUsers", async() => {
+    let followData = await getFollowedUserFromDb() || [];
+    return followData || [];
+});
 frontendCommunicator.onAsync("createViewerTwitchbotData", data => {
     //return createNewUser(data.id, data.username, data.roles);
 });
@@ -874,3 +1039,9 @@ exports.getOnlineUsers = getOnlineUsers;
 exports.updateUserMetadata = updateUserMetadata;
 exports.getUserMetadata = getUserMetadata;
 exports.getAllUsernames = getAllUsernames;
+exports.setChatUserBot = setChatUserBot;
+exports.setChatUserOldViewer = setChatUserOldViewer;
+exports.setAllUsersOldViewer = setAllUsersOldViewer;
+exports.setChatUserFollowed = setChatUserFollowed;
+exports.calOldViewer = calOldViewer;
+exports.calNewViewer = calNewViewer;

@@ -7,7 +7,7 @@
 
     angular
         .module("twitcherbotApp")
-        .factory("settingsService", function(utilityService, logger, profileManager, dataAccess, backendCommunicator) {
+        .factory("settingsService", function($rootScope, $route, utilityService, logger, profileManager, dataAccess, backendCommunicator) {
             let service = {};
 
             let settingsCache = {};
@@ -914,6 +914,29 @@
 
             service.setWhileLoopEnabled = function(enabled) {
                 pushDataToFile('/settings/whileLoopEnabled', enabled === true);
+            };
+
+            service.getStartAtLogin = function() {
+                let enabled = getDataFromFile('/settings/startAtLogin');
+                return enabled !== undefined ? enabled : false;
+            };
+
+            service.setStartAtLogin = function(enabled) {
+                pushDataToFile('/settings/startAtLogin', enabled === true);
+            };
+
+            service.getLang = function() {
+                let langKey = getDataFromFile('/settings/lang');
+                return langKey !== undefined ? langKey : 'en';
+            };
+
+            service.setLang = function(langKey) {
+                if (langKey !== service.getLang()) {
+                    $route.reload();
+                    $rootScope.$broadcast("langChanged", langKey);
+                }
+                pushDataToFile('/settings/lang', langKey);
+                backendCommunicator.send("changeLanguage");
             };
 
             return service;

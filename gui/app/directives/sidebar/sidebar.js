@@ -17,7 +17,8 @@
 
                         <nav-link page="Chat Feed" name="{{'SIDEBAR.CHAT.CHAT_FEED' | translate }}" icon="fa-tachometer"></nav-link>
                         <nav-category page="Data" name="{{'SIDEBAR.DATA.DATA' | translate }}" pad-top="true"></nav-category>
-                        <nav-link page="Analysis" name="{{'SIDEBAR.DATA.ANALYSIS' | translate }}" icon="fa-area-chart"></nav-link>
+                        <nav-link page="Achievement" name="{{'SIDEBAR.DATA.ACHIEVEMENT' | translate }}" icon="fa-area-chart"></nav-link>
+                        <nav-link page="Top Chart" name="{{'SIDEBAR.DATA.TOP_CHART' | translate }}" icon="fa-trophy"></nav-link>
 
                         <nav-category name="{{'SIDEBAR.INTERACTIVETOOL.CATEGORY' | translate }}" pad-top="true"></nav-category>
                         <nav-link page="Polls" name="{{'SIDEBAR.INTERACTIVETOOL.POLL' | translate }}" icon="fa-bar-chart"></nav-link>

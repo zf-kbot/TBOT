@@ -2,26 +2,25 @@
     <button type="button" class="close" aria-label="Close" ng-click="$ctrl.dismiss()" style="font-size: 35px; text-shadow: none">
         <span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span>
     </button>
-    <h4 class="modal-title" id="newCooldownGroupLabel">{{$ctrl.isNewTimer ? 'Add New Timer' : 'Edit Timer - ' +
-        $ctrl.kolTimer.name}}</h4>
+    <h4 class="modal-title" id="newCooldownGroupLabel">{{$ctrl.timerTitle + $ctrl.kolTimer.name}}</h4>
 </div>
 <div class="modal-body">
     <div class="general-button-settings">
         <div class="settings-commandGroup-groupName form-group">
             <span style="font-size:16px;">
                 <i class="fa fa-pencil" style="margin-right: 5px;"></i>
-                Name
-                <tooltip style="font-size: 14px;" text = "'This is your timer name. It has no significance but to remind you what this timer does.'"></tooltip>
+                {{ 'TIMERS.MODAL.BODY.NAME' | translate }}
+                <tooltip style="font-size: 14px;" text = "$ctrl.translations['TIMERS.MODAL.BODY.NAME_TOOLTIP']"></tooltip>
             </span>
-            <input type="text" class="form-control" ng-model="$ctrl.kolTimer.name" placeholder="Set the name on Timer(* required)">
+            <input type="text" class="form-control" ng-model="$ctrl.kolTimer.name" placeholder="{{$ctrl.translations['TIMERS.MODAL.BODY.NAME_PLACEHOLDER']}}">
         </div>
         <div class="settings-commandGroup-groupName form-group">
             <span style="font-size:16px;">
                 <i class="fa fa-list-alt" style="margin-right: 5px;"></i>
-                Message
-                <tooltip style="font-size: 14px;" text = "'This is your timer response. You can use command variables to make dynamic responses.'"></tooltip>
+                {{ 'TIMERS.MODAL.BODY.MESSAGE' | translate }}
+                <tooltip style="font-size: 14px;" text = "$ctrl.translations['TIMERS.MODAL.BODY.MESSAGE_TOOLTIP']"></tooltip>
             </span>
-            <textarea type="text" row="3" class="form-control" ng-model="$ctrl.kolTimer.message" placeholder="Set the content"></textarea>
+            <textarea type="text" row="3" class="form-control" ng-model="$ctrl.kolTimer.message" placeholder="{{ $ctrl.translations['TIMERS.MODAL.BODY.MESSAGE_PLACEHOLDER'] }}"></textarea>
         </div>
 
         <!-- 屏蔽start to end -->
@@ -44,8 +43,8 @@
         <div class="settings-title">
             <span style="font-size:16px;">
                 <i class="fa fa-clock-o" style="margin-right: 5px;"></i>
-                Cooldowns
-                <tooltip style="font-size: 14px;" text = "'This is interval at which the timer repeats. Times are exact per hour (for example: 15 minutes is at 2:00,2:15,2:30,2:45, etc).'"></tooltip>
+                {{ 'TIMERS.MODAL.BODY.COOLDOWNS' | translate }}
+                <tooltip style="font-size: 14px;" text = "$ctrl.translations['TIMERS.MODAL.BODY.COOLDOWNS_TOOLTIP']"></tooltip>
             </span>
         </div>
         <!-- <div class="input-group settings-commandGroup-timer">
@@ -70,8 +69,8 @@
         <div class="settings-title" style="padding-top: 15px;">
             <span style="font-size:16px;">
                 <i class="fa fa-list-alt" style="margin-right: 5px;"></i>
-                Required Chat Lines
-                <tooltip style="font-size: 14px;" text = "'This is minimum amount of chat lines (measured in lines per  minutes) required to active the timer. If your chat is moving slow, this is useful to pervent Nightbot from spamming your empty channel.'"></tooltip>
+                {{ 'TIMERS.MODAL.BODY.REQUIRED_CHAT_LINES' | translate }}
+                <tooltip style="font-size: 14px;" text = "$ctrl.translations['TIMERS.MODAL.BODY.REQUIRED_CHAT_LINES_TOOLTIP']"></tooltip>
             </span>
         </div>
         <!-- <div class="input-group settings-commandGroup-timer">
@@ -119,6 +118,6 @@
 <div class="modal-footer">
     <!-- <button ng-hide="$ctrl.isNewTimer" type="button" class="btn btn-danger pull-left"
         ng-click="$ctrl.delete()">Delete</button> -->
-    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+    <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">{{ 'CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{ 'SAVE' | translate}}</button>
 </div>

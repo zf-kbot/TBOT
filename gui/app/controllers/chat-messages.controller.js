@@ -15,11 +15,15 @@
             gaService,
             logger,
             $rootScope,
+            $translate
         ) {
             gaService.sendEvent('dashboard', 'open');
             $scope.settings = settingsService;
 
             $scope.afs = activityFeedService;
+            $scope.MARK_ALL_AS = $translate.instant("DASHBOARD.ACTIVITY_FEED.SETTING.MARK_ALL_AS");
+            $scope.UNACKNOWLEDGED_EVENTS = $translate.instant("DASHBOARD.ACTIVITY_FEED.HOVER.UNACKNOWLEDGED_EVENTS");
+            $scope.ACKNOWLEDGED_OR_UNACKNOWLEDGED = $scope.afs.allAcknowledged() ? $translate.instant("DASHBOARD.ACTIVITY_FEED.SETTING.UNACKNOWLEDGED") : $translate.instant("DASHBOARD.ACTIVITY_FEED.SETTING.ACKNOWLEDGED");
 
             $scope.chatMessage = "";
             $scope.chatSender = "Streamer";
@@ -167,7 +171,7 @@
             $scope.oldConnectionStatus = connectionService.connections['chat'];
             $scope.chatFeedIsEnabled = function() {
                 if (connectionService.connections['chat'] !== 'connected') {
-                    $scope.disabledMessage = "The chat feed will accessable when Twitchbot is start.";
+                    $scope.disabledMessage = "DASHBOARD.CHATFEED.DISABLEDMESSAGE";
                 }
                 let isEnabled = connectionService.connections['chat'] === 'connected';
                 if (connectionService.connections['chat'] !== $scope.oldConnectionStatus) {

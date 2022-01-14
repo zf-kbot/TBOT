@@ -24,6 +24,7 @@ exports.windowsAllClosed = async () => {
     // Set all users to offline
     const userDatabase = require("../../../database/userDatabase");
     await userDatabase.setAllUsersOffline();
+    await userDatabase.setAllUsersOldViewer();
 
     // Remove eventsub subscriptions
     const eventsubClient = require('../../../twitch-api/eventsub/eventsub-client');

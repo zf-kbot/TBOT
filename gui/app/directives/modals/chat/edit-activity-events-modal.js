@@ -6,7 +6,7 @@
             template: `
             <div class="modal-header" style="text-align: center; margin-bottom: 15px;">
                 <button type="button" class="close" ng-click="$ctrl.dismiss()"><span><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
-                <h4 class="modal-title">Filters</h4>
+                <h4 class="modal-title">{{ "DASHBOARD.ACTIVITY_FEED.SETTING.FILTERS" | translate}}</h4>
             </div>
             <div class="modal-body" style="padding: 0 35px">
               <!-- <p style="font-size: 18px; margin: 5px 0 5px 0;">Filter the events you want to see in the activity feed</p> -->
@@ -38,7 +38,7 @@
                 -->
                 <div ng-repeat="filter in $ctrl.filters | orderBy:'name'">
                   <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom:5px;">
-                      <span><span style="font-weight: 900;">{{filter.name}}</span></span>
+                      <span><span style="font-weight: 900;">{{$ctrl.translations[$ctrl.toTranslationsKey(filter.name)]}}</span></span>
                       <span>
                           <input class="tgl tgl-light" id="filter: {{filter.id}}" type="checkbox" 
                             ng-checked="$ctrl.filterIsChecked(filter)" 
@@ -50,8 +50,8 @@
               </div>
             </div>
             <div class="modal-footer sticky-footer edit-activity-events-footer">
-                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">Save</button>
+                <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">{{ "CANCEL" | translate}}</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.save()">{{ "SAVE" | translate}}</button>
             </div>
             <scroll-sentinel element-class="edit-activity-events-footer"></scroll-sentinel>
             `,
@@ -60,7 +60,7 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function($q, backendCommunicator, settingsService, logger, gaService, kolHistoryService) {
+            controller: function($q, backendCommunicator, settingsService, logger, gaService, kolHistoryService, $translate) {
                 let $ctrl = this;
 
                 $ctrl.changedItem = [];
@@ -125,7 +125,21 @@
                         }
                     ]
                 };
-
+                //西班牙语替换
+                $ctrl.translations = {
+                    "DASHBOARD.ACTIVITY_FEED.SETTING.FOLLOW": "",
+                    "DASHBOARD.ACTIVITY_FEED.SETTING.HOST": "",
+                    "DASHBOARD.ACTIVITY_FEED.SETTING.RAID": "",
+                    "DASHBOARD.ACTIVITY_FEED.SETTING.SUB": "",
+                    "DASHBOARD.ACTIVITY_FEED.SETTING.VIEWER": ""
+                };
+                $ctrl.toTranslationsKey = name => ("DASHBOARD.ACTIVITY_FEED.SETTING." + name).replace(/ /g, '_').toUpperCase();
+                const translationsRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in translationsRes) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationsRes[key];
+                    }
+                }
                 $ctrl.allowedEvents = settingsService.getAllowedActivityEvents();
                 $ctrl.allowedFilters = settingsService.getAllowedActivityEventFilters();
 

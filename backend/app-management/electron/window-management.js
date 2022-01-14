@@ -8,6 +8,7 @@ const windowStateKeeper = require("electron-window-state");
 const fileOpenHelpers = require("../file-open-helpers");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const { Tray, app} = require('electron');
+const logger = require("../../logwrapper");
 let tray = null;//用来存放系统托盘
 
 /**
@@ -29,6 +30,14 @@ function getQuitSetting() {
         return profileManager.getJsonDbInProfile("/settings").getData("/quitsetting");
     } catch {
         return {};
+    }
+}
+function getLanguageSetting() {
+    try {
+        const profileManager = require("../../common/profile-manager");
+        return profileManager.getJsonDbInProfile("/settings").getData("/settings/lang");
+    } catch {
+        return "en";//"默认返回英语"
     }
 }
 
@@ -58,9 +67,10 @@ function createMainWindow() {
         }
     });
     tray = new Tray(path.join(__dirname, '../../../gui/images/logo_transparent_2.png'));
+    let languageSetting = getLanguageSetting();
     let minMenu = [
         {
-            label: 'show window',
+            label: languageSetting === "en" ? 'show window' : "mostrar ventana",
             id: 'show-window',
             isMinimized: !mainWindow.show,
             click() {
@@ -68,7 +78,7 @@ function createMainWindow() {
             }
         },
         {
-            label: 'setting',
+            label: languageSetting === "en" ? 'setting' : "ajuste",
             click: () => {
                 mainWindow.show();
                 let isFromQuitSetting = true;
@@ -77,7 +87,7 @@ function createMainWindow() {
             }
         },
         {
-            label: 'quit twitcherbot',
+            label: languageSetting === "en" ? 'quit twitcherbot' : "Dejar Twitchbot",
             click() {
                 minMenu.getMenuItemById('show-window').isMinimized = true;
                 mainWindow.close();
@@ -100,6 +110,38 @@ function createMainWindow() {
     });
     frontendCommunicator.on("minimize-twitchbot", () => {
         mainWindow.hide();
+    });
+    frontendCommunicator.on("changeLanguage", () => {
+        let languageSetting = getLanguageSetting();
+        let minMenu = [
+            {
+                label: languageSetting === "en" ? 'show window' : "mostrar ventana",
+                id: 'show-window',
+                isMinimized: !mainWindow.show,
+                click() {
+                    mainWindow.show();
+                }
+            },
+            {
+                label: languageSetting === "en" ? 'setting' : "ajuste",
+                click: () => {
+                    mainWindow.show();
+                    let isFromQuitSetting = true;
+                    const frontendCommunicator = require("../../common/frontend-communicator");
+                    frontendCommunicator.send("open-setting-modal", isFromQuitSetting);
+                }
+            },
+            {
+                label: languageSetting === "en" ? 'quit twitcherbot' : "Dejar Twitchbot",
+                click() {
+                    minMenu.getMenuItemById('show-window').isMinimized = true;
+                    mainWindow.close();
+                }
+            }
+        ];
+        // 构建菜单
+        minMenu = Menu.buildFromTemplate(minMenu);
+        tray.setContextMenu(minMenu);
     });
     mainWindow.on('close', ev => {
         let quitSetting = getQuitSetting();

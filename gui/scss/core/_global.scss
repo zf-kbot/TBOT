@@ -475,7 +475,6 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
     width: 160px;
     min-width: 160px;
     height: 62px;
-    background: $light-background-color + 20%;
     border-left: 2px solid $light-background-border;
     display: flex;
     align-items: center;
@@ -1057,7 +1056,6 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 45px;
 }
 .welcome-wrapper h3 {
   width: 100%;

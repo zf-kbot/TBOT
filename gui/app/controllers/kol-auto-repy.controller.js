@@ -14,6 +14,7 @@
             sortTagsService,
             gaService,
             kolHistoryService,
+            $translate
         ) {
             gaService.sendEvent('auto_reply', 'open');
             // Cache commands on app load.
@@ -23,7 +24,18 @@
 
             $scope.commandsServiceAutoReply = commandsServiceAutoReply;
             $scope.sts = sortTagsService;
-
+            $scope.translations = {
+                "AUTOREPLY.CONFIRMMODAL.TITLE": "",
+                "AUTOREPLY.CONFIRMMODAL.QUESTION": "",
+                "AUTOREPLY.CONFIRMMODAL.CONFIRMlABEL_DELETE": "",
+                "AUTOREPLY.CONFIRMMODAL.CONFIRMlABEL_CANCEL": ""
+            };
+            const translationsRes = $translate.instant(Object.keys($scope.translations));
+            for (let key in translationsRes) {
+                if ({}.hasOwnProperty.call($scope.translations, key)) {
+                    $scope.translations[key] = translationsRes[key];
+                }
+            }
             function filterCommands() {
                 return triggerSearchFilter(sortTagSearchFilter(commandsServiceAutoReply.getCustomCommands(), sortTagsService.getSelectedSortTag("commands")), commandsServiceAutoReply.customCommandSearch);
             }
@@ -105,9 +117,10 @@
 
             $scope.deleteCustomCommand = command => {
                 utilityService.showConfirmationModal({
-                    title: "Delete Command",
-                    question: `Are you sure you want to delete the command '${command.trigger}'?`,
-                    confirmLabel: "Delete",
+                    title: $scope.translations['AUTOREPLY.CONFIRMMODAL.TITLE'],
+                    question: $scope.translations['AUTOREPLY.CONFIRMMODAL.QUESTION'] + command.trigger + ' ?',
+                    confirmLabel: $scope.translations['AUTOREPLY.CONFIRMMODAL.CONFIRMlABEL_DELETE'],
+                    cancelLabel: $scope.translations['AUTOREPLY.CONFIRMMODAL.CONFIRMlABEL_CANCEL'],
                     confirmBtnType: "btn-danger"
                 }).then(confirmed => {
                     if (confirmed) {

@@ -13,7 +13,8 @@
   <!--Webfont version of font awesome 5, use these from now on-->
 
   <!-- <script src="https://kit.fontawesome.com/1bc4e8dcfe.js" crossorigin="anonymous"></script> -->
-  <script src="https://use.fontawesome.com/04b572d8fd.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://use.fontawesome.com/04b572d8fd.js" crossorigin="anonymous"></script> -->
+  <script src="https://kit.fontawesome.com/69b1e28c88.js" crossorigin="anonymous"></script>
 
   <link ng-href="{{customFontCssPath}}" rel="stylesheet" type="text/css" />
 
@@ -69,7 +70,7 @@
   <script type="text/javascript" src="./controllers/events.controller.js"></script>
   <script type="text/javascript" src="./controllers/games.controller.js"></script>
   <script type="text/javascript" src="./controllers/hotkeys.controller.js"></script>
-  <script type="text/javascript" src="./controllers/kol-analysis.controller.js"></script>
+  <script type="text/javascript" src="./controllers/kol-achievement.controller.js"></script>
   <script type="text/javascript" src="./controllers/kol-auto-repy.controller.js"></script>
   <script type="text/javascript" src="./controllers/kol-blacklisted-words.controller.js"></script>
   <script type="text/javascript" src="./controllers/kol-chat-notifications-controller.js"></script>
@@ -77,6 +78,7 @@
   <script type="text/javascript" src="./controllers/kol-polls.controller.js"></script>
   <script type="text/javascript" src="./controllers/kol-pop-chat-box.controller.js"></script>
   <script type="text/javascript" src="./controllers/kol-timers.controller.js"></script>
+  <script type="text/javascript" src="./controllers/kol-top-chart.controller.js"></script>
   <script type="text/javascript" src="./controllers/moderation.controller.js"></script>
   <script type="text/javascript" src="./controllers/quotes.controller.js"></script>
   <script type="text/javascript" src="./controllers/settings.controller.js"></script>
@@ -117,7 +119,9 @@
   <script type="text/javascript" src="./services/kol-history.service.js"></script>
   <script type="text/javascript" src="./services/kol-message-filter.service.js"></script>
   <script type="text/javascript" src="./services/kol-poll.service.js"></script>
+  <script type="text/javascript" src="./services/kol-share-variable.service.js"></script>
   <script type="text/javascript" src="./services/kol-timer.service.js"></script>
+  <script type="text/javascript" src="./services/kol-top-chart.service.js"></script>
   <script type="text/javascript" src="./services/listener.service.js"></script>
   <script type="text/javascript" src="./services/logger.service.js"></script>
   <script type="text/javascript" src="./services/notification.service.js"></script>
@@ -152,6 +156,7 @@
   <script type="text/javascript" src="./directives/commands/simple-command-options.js"></script>
   <script type="text/javascript" src="./directives/conditional-effect/conditionDisplay.js"></script>
   <script type="text/javascript" src="./directives/conditional-effect/conditionList.js"></script>
+  <script type="text/javascript" src="./directives/contact.js"></script>
   <script type="text/javascript" src="./directives/controls/chatter-select.js"></script>
   <script type="text/javascript" src="./directives/controls/color-picker-input.js"></script>
   <script type="text/javascript" src="./directives/controls/currency-select.js"></script>
@@ -303,6 +308,8 @@
   <div class="appwrapper">
     <sidebar class="noselect"></sidebar>
 
+    <contact></contact>
+
     <div class="fb-tab-content" style="background: #24262A;">
       <div class="tab-header">
         <span class="noselect" style="font-size: 28px;">{{sbm.currentTabName}}</span>
@@ -317,7 +324,7 @@
           <!--左边链接状态栏图标信息-->
           <div class="connection-status-wrapper logins-wrapper noselect" style="margin-left: auto;width: auto;min-width: auto;" ng-if="cs.accounts.streamer.loggedIn == true">
             <div class='interactive-status-wrapper' style="padding-top:3px;margin-top:inherit;">
-              <div class="interative-status-icon" style="margin-top: 16px;margin-left: auto;margin-right: 10px;"
+              <div class="interative-status-icon" style="margin-top: 16px;margin-left: auto;margin-right: 4px;"
                 ng-class="{'contracted': !sbm.navExpanded, 'connected': cs.sidebarServicesOverallStatus === 'connected', 'partial-connected': cs.sidebarServicesOverallStatus === 'partial'}"
                 uib-tooltip-template="'connectTooltipTemplate.html'"
                 tooltip-placement="bottom" tooltip-append-to-body="true"
@@ -373,13 +380,35 @@
               <!-- <div class="fb-arrow down login-arrow"></div> -->
               <ul class="dropdown-menu accounts-dropdown" uib-dropdown-menu>
                 <li>
-                    <a href ng-click="showFeedbackModal()">
-                      <span>
-                        <i class="fa fa-pencil"></i>
-                      </span>
-                      Feedback
+                  <a href>
+                    <span>
+                      <i ng-class="startAtLoginIconClass()" ng-click="toggleStartAtLogin()" role="button"></i>
+                    </span>
+                    {{ 'MAIN.START_AT_LOGIN' | translate }}
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href ng-click="showFeedbackModal()">
+                    <span>
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                    {{ 'MAIN.FEEDBACK' | translate }}
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href ng-mouseover="profileLangIsOpen = true" ng-mouseleave="profileLangIsOpen = false">
+                        <span>
+                            <i class="fa fa-language"></i>
+                        </span>
+                        {{ 'MAIN.LANGUAGE' | translate}}
+                        <ul ng-if="profileLangIsOpen" class="submenu">
+                            <li ng-click="changeLanguage('en')"><i ng-style="{'opacity': ss.getLang() === 'en' ? 1 : 0}" class="fas fa-check"></i><span>English</span></li>
+                            <li ng-click="changeLanguage('es')"><i ng-style="{'opacity': ss.getLang() === 'es' ? 1 : 0}" class="fas fa-check"></i><span>Español</span></li>
+                        </ul>
                     </a>
-                  </li>
+                </li>
                 <li class="divider"></li>
                 <li>
                   <!-- <a href ng-click="showManageLoginsModal()" aria-label="Manage Logins"> -->
@@ -387,7 +416,9 @@
                     <span>
                       <i class="fa fa-sign-in"></i>
                     </span>
-                    {{cs.accounts.streamer.loggedIn == true ? "Log Out" : "Login"}}
+                    <span ng-if="cs.accounts.streamer.loggedIn">
+                        {{ 'MAIN.LOG_OUT' | translate }}
+                    </span>
                   </a>
                 </li>
                 <!-- 屏蔽个人登陆下拉信息 -->

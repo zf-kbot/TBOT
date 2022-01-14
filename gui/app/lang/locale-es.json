@@ -1,0 +1,537 @@
+{
+    "MAIN": {
+        "MANAGE_LOGINS": "Gestión Logins",
+        "LOADING": "Carga...",
+        "START_AT_LOGIN": "Ejecutar en el inicio del sistema",
+        "FEEDBACK": "Feedback",
+        "LOGIN": "Iniciar Sesión",
+        "LOG_OUT": "Cerrar Sesión",
+        "LANGUAGE": "Idioma"
+    },
+    "SETUP_WIZARD": {
+        "CONNECT_WITH_TWITCH": "Conexión con Twitch",
+        "WELCOME_TO": "Bienvenido a",
+        "DESC": "Un robot de chat, libera tus manos, deja que tu flujo sea simple",
+        "SELECT_LANG": "Elija su idioma"
+    },
+    "SIDEBAR": {
+        "INTERACTIVE": {
+            "INTERACTIVE": "MixPlay",
+            "BUTTONS": "Controls"
+        },
+        "DATA": {
+            "DATA": "Datos",
+            "ACHIEVEMENT": "LOGRO",
+            "TOP_CHART": "Leaderboard"
+        },
+        "INTERACTIVETOOL": {
+            "CATEGORY": "Herramienta Interactiva",
+            "POLL": "Votación",
+            "CHAT_NOTIFICATIONS": "Notificaciones De Chat"
+        },
+        "COMMAND": {
+            "TITLE": "Comando",
+            "TIMERS": "Temporizadores",
+            "AUTOREPLY": "Respuesta Automática"
+        },
+        "GUARD": {
+            "GUARD": "Guardia",
+            "MESSAGEFILTER": "Filtro De Mensajes",
+            "BLACKLISTEDWORDS": "Palabras En Lista Negra"
+        },
+        "CHAT": {
+            "CHAT": "Charla",
+            "COMMANDS": "Comando",
+            "CHAT_FEED": "Panel De Control"
+        },
+        "OTHER": {
+            "OTHER": "Otro",
+            "BUILTIN": "Incorporado",
+            "EVENTS": "Sucesos",
+            "TIMERS": "Temporizadores",
+            "HOTKEYS": "Hotkeys",
+            "CHANNELREWARDS": "Recompensas Del Canal"
+        },
+        "MANAGEMENT": {
+            "MANAGEMENT": "Manejo",
+            "VIEWER_GROUPS": "Grupos De Espectador",
+            "VIEWER_ROLES": "Viewer Roles",
+            "MODERATION": "Moderación",
+            "VIEWERS": "Espectadores",
+            "SETTINGS": "Ajuste",
+            "UPDATES": "Actualización",
+            "CURRENCY": "Moneda",
+            "QUOTES": "Citas"
+        },
+        "CONNECTIONS": {
+            "CONNECTIONS": "Conexión",
+            "MIXER_TOGGLE": "Twitchbot está en pausa, haga clic para comenzar",
+            "OPEN_CONNECTION_PANNEL": "Abrir panel de conexión"
+        },
+        "ABOUT": "Sobre"
+    },
+    "BUTTONS": {
+        "BUTTONS": "Botónes",
+        "CHANGE_BOARD": {
+            "CHANGE_BOARD": "Change Board",
+            "ADD_NEW_BOARD": "Add New Board",
+            "DELETE_BOARD": "Delete Board",
+            "RESYNC_BOARD": "Resync Board"
+        },
+        "MIXER_STUDIO": "Mixer Studio",
+        "SCENES": "Scenes",
+        "EDIT": "Edit",
+        "SEARCH_CONTROLS": "Search controls",
+        "LOADING_BOARDS": "Loading boards...",
+        "ADD_FIRST_BOARD": "Add First Board",
+        "COULD_NOT_AUTOSELECT": "We couldn't auto select a board but don't worry, you have boards saved! Click the dropdown above and select a board.",
+        "ID": "ID",
+        "NAME": "Name",
+        "COST": "Cost"
+    },
+    "LIVE_EVENTS": {
+        "EVENTS": "Events",
+        "EVENT_GROUPS": "Event Groups",
+        "CHANGE_GROUP": "Change Group",
+        "CHANGE_EVENT_GROUP": {
+            "CHANGE_BOARD": "Change Event Group",
+            "ADD_NEW_EVENT_GROUP": "Add New Event Group",
+            "EDIT_EVENT_GROUP": "Edit Event Group",
+            "DELETE_EVENT_GROUP": "Delete Event Group"
+        },
+        "EDIT": "Edit",
+        "SEARCH_EVENTS": "Search events",
+        "ADD_NEW_EVENT": "Add New Event",
+        "ADD_FIRST_EVENT_GROUP": "Add First Event Group",
+        "COULD_NOT_AUTOSELECT": "We could not auto select a live event group. Click the dropdown and select one!",
+        "ID": "ID",
+        "NAME": "Name",
+        "TYPE": "Type"
+    },
+    "NEW": "Nuevo",
+    "CONNECTED": "Connected",
+    "DISCONNECTED": "Disconnected",
+    "NONE": "Ninguno",
+    "ADD": "Añadir",
+    "CANCEL":"Cancelar",
+    "SAVE":"Salvar",
+    "DELETE":"Borrar",
+    "CLOSE":"Cierra",
+    "EDIT": "Editar",
+    "RUNNING_NOT_CONNECTED": "Ready, but nothing is connected at this time.",
+    "DASHBOARD": {
+        "CHATFEED": {
+            "DISABLEDMESSAGE": "Cuando se inicia twitchbot, se puede acceder al feed de chat.",
+            "MESSAGETHESTREAM": "Flujo de mensajes"
+        },
+        "CHATUSERS": {
+            "CHATUSERS": "USUSRIOS DE CHAT",
+            "Moderators": "Moderadores",
+            "Bots": "Bots",
+            "Viewers": "Espectadores",
+            "Broadcaster": "Locutor",
+            "MENU": {
+                "Details": "Detalles",
+                "Delete": "Borrar",
+                "Mention": "Mención",
+                "Whisper": "Susurrar",
+                "QUOTE_THIS_MESSAGE": "Cita este mensaje",
+                "HIGHLIGHT_THIS_MESSAGE": "Resaltar este mensaje",
+                "Shoutout": "Shoutout",
+                "Mod": "Mod",
+                "Unmod": "Unmod",
+                "Timeout": "Timeout",
+                "Ban": "Ban"
+            },
+            "DETAILS": {
+                "TWITCHBOT_DATA": "Twitchbot Datos",
+                "JOIN_DATE": "Unirse a fecha",
+                "LAST_SEEN": "Última vista",
+                "VIEW_TIME": "Tiempo de visualización",
+                "CHAT_MESSAGES": "Mensajes de chat",
+                "DISABLE_AUTO_STAT_ACCRUAL": {
+                    "TEXT": "No se permite el uso en la lista de usuarios activos",
+                    "TOOLTIP": "Evita que los usuarios se muestren en la lista de usuarios activos, como la variable $Random activeviewer."
+                },
+                "DISABLE_ACTIVE_USER_LIST": {
+                    "TEXT": "Desactivar el devengo estadístico automático",
+                    "TOOLTIP": "Impide a este usuario obtener gastos monetarios, ver horas de trabajo y otras estadísticas que aumentan automáticamente. Todavía puede editar manualmente estos valores."
+                }
+            }
+        },
+        "STREAMINFO": {
+            "NAME": "INFORMACIÓN DE TRANSMITIR",
+            "SETTING": {
+                "REFRESH_STREAM_INFO": "REFRESCAR INFORMACIÓN DE TRANSMITIR"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_FOR_CATEGORY": "Categoría de búsqueda...",
+                "SEARCH_FOR_TAG": "Etiqueta de búsqueda..."
+            }
+        },
+        "HISTORY": {
+            "NAME": "HISTORIA",
+            "MESSAGE": {
+                "Changed_chat_setting": "Cambiar la configuración del chat",
+                "Began_a_auto_reply": "Iniciar respuesta automática",
+                "Ended_a_auto_reply": "Respuesta automática final",
+                "Deleted_a_auto_reply": "Respuesta automática eliminada",
+                "Duplicated_a_auto_reply": "Respuesta automática copiada",
+                "Added_a_auto_reply": "A ñadir una respuesta automática",
+                "Changed_a_auto_reply": "Cambio de respuesta automática",
+                "Deleted_a_blacklisted_words": "Eliminar una palabra de la lista negra",
+                "Added_a_blacklisted_words": "A ñadir una palabra a la lista negra",
+                "Updated_a_blacklisted_words": "Actualización de una palabra en la lista negra",
+                "Began_a_blacklisted_words": "Comenzar a ser incluido en la lista negra",
+                "Ended_a_blacklisted_words": "Ha concluido un párrafo que figura en la lista negra",
+                "Changed_message_filter,_type": "Filtro de mensajes cambiado, tipo",
+                "Began_a_poll": "Inicio de la votación",
+                "Ended_a_poll": "Fin de la votación",
+                "Added_a_new_poll": "A ñadir una nueva encuesta",
+                "Updated_a_poll": "Actualizar las encuestas",
+                "Deleted_poll": "Votación suprimida",
+                "Began_a_new_timer": "Iniciar un nuevo temporizador",
+                "Ended_a_new_timer": "Termina un nuevo temporizador",
+                "Added_a_new_timer": "A ñadir un nuevo temporizador",
+                "Updated_a_new_timer": "Se ha actualizado un nuevo temporizador",
+                "Deleted_a_new_timer": "Borrar un nuevo temporizador",
+                "Changed_activity_feed": "Cambiar el resumen de la actividad",
+                "Changed_channel_info": "Cambiar la información del canal",
+                "Changed_channel_tags": "Cambiar la etiqueta del canal"
+            }
+        },
+        "ACTIVITY_FEED": {
+            "NAME": "ACTIVIDAD",
+            "SETTING": {
+                "MARK_ALL_AS": "Marcar todos como ",
+                "ACKNOWLEDGED": "confirmado",
+                "UNACKNOWLEDGED": "no confirmado",
+                "FILTERS": "Filtros",
+                "FOLLOW": "Seguimiento",
+                "HOST": "Alojar",
+                "RAID": "Raid",
+                "SUB": "Sub",
+                "VIEWER": "Espectador"
+            },
+            "MESSAGE": {
+                "host": "alojados en espectador(es)",
+                "raid": "raid en espectador(es)",
+                "follow": "seguido",
+                "sub": "para mes(es)**",
+                "subs-gifted": "otorgado una",
+                "community-subs-gifted": "otorgado nivel para a comunidade",
+                "viewer-arrived": "llegar",
+                "banned": "fue prohibido",
+                "timeout": "fue expulsado para segundo(s)**",
+                "whisper": "Se le ha enviado la siguiente información:"
+            },
+            "HOVER": {
+                "UNACKNOWLEDGED_EVENTS": "No Confirmado Sucesos"
+            }
+        },
+        "SETTING":{
+            "CHAT_SETTINGS": "Ajuste Chat",
+            "UI_SETTINGS": "Ajuste UI",
+            "CHAT_USER_LIST": "lista de usuarios de chat",
+            "STREAM_INFO": "información de transmisión",
+            "HISTORY": "Historia",
+            "ACTIVITY_FEED": "Actividad",
+            "DISPLAY_DETAILS_SETTINGS": "Configuración De Detalles De Pantalla",
+            "TAG_NOTIFICATION_SOUND": "Sonido De Notificación De Etiqueta",
+            "DISPLAY_STYLE": "Estilo De Visualización",
+            "MODERN": "Modern",
+            "COMPACT": "Conciso",
+            "ALTERNATE_BACKGROUNDS": "Fondos Alternativos",
+            "HIDE_DELETED_MESSAGES": "Ocultar Mensajes Eliminados",
+            "HIDE_DELETED_MESSAGES_DESC": "Activar esto cubrirá los mensajes eliminados con una caja negra. Pasar el cursor sobre el mensaje lo revelará. Genial para dejar que tus modificaciones oculten spoilers!",
+            "SHOW_AVATARS": "Mostrar Avatares",
+            "SHOW_TIMESTAMPS": "Mostrar Marcas De Tiempo",
+            "BTTV_FFZ_EMOTES": "BTTV/FFZ Expresión Facial",
+            "SHOW_PRONOUNS": "Mostrar Pronombres",
+            "CUSTOM_FONT_SIZE": "Tamaño De Fuente Personalizado"
+        }
+    },
+    "ACHIEVEMENT": {
+        "DESC1": "Usted puede ver los datos de logros de streaming en las últimas ocho semanas para una transmisión diaria en vivo.",
+        "DESC2": "Nota: si no está transmitiendo o abriendo twitchbot un día, los datos del día no se registrarán.",
+        "TABS": {
+            "MAX_VIEWERS": "Espectadores máximos",
+            "TOTAL_FOLLOWERS": "Total Seguidores",
+            "NEW_FOLLOWERS": "Nuevo Seguidores", 
+            "SUBSCRIPTIONS": "Suscripciónes",
+            "BITS": "Bits"
+        },
+        "HOVER": {
+            "OLDVIEWERS": "El público que ha estado en la Sala de transmisión.",
+            "NEWVIEWERS": "Una espectadores que nunca ha estado en la Sala de transmisión.",
+            "UNIT": {
+                "MONTH": "Unidad: mes"
+            }
+        }
+    },
+    "TOP_CHART": {
+        "DESC": "El gráfico superior muestra a los usuarios más activos, as í como los mensajes y expresiones más frecuentes.",
+        "TABS": {
+            "VIEW_TIME": "Tiempo de visualización",
+            "CHATTERS": "Parloteo",
+            "EMOTES": "Expresión facial",
+            "LAST_SECTION": "Sección final",
+            "LAST_SECTION_HOVER": "Último período de transmisión en vivo",
+            "LAST_WEEK": "La semana pasada",
+            "LAST_MONTH": "El mes pasado"
+        },
+        "TABLE": {
+            "HEADER": {
+                "RANK": "Grado",
+                "USERNAME": "Nombre de usuario",
+                "VIEW_TIME": "Tiempo de visualización",
+                "CHAT_MESSAGES": "Mensajes de chat",
+                "EMOTES": "Expresión facial",
+                "UNIQUE_USERS": "Único usuarios",
+                "TIMES": {
+                    "NAME": "Veces",
+                    "HOVER": "Ignorar expresiones duplicadas en el mismo mensaje"
+                }
+            }
+        }
+    },
+    "POLL": {
+        "DESC": "Puede ejecutar encuestas desde twitchbot para aumentar la participación en la Sala de chat, y puede ejecutar más de una vez, cada uno con su propia configuración única.",
+        "TABLE": {
+            "HEADER": {
+                "NAME": "Nombre",
+                "DURATION": "Duración",
+                "OPTIONS": "Opciónes",
+                "VIEW": "Vista",
+                "ACTION": "Acción",
+                "EDIT": "Editar",
+                "DELETE": "Borrar"
+            },
+            "BODY": {
+                "SEC": "segundos"
+            }
+        },
+        "MODAL": {
+            "TITLE": {
+                "ADD_NEW_POLL": "Agregar Nuevos Votación",
+                "EDIT_POLL": "Editar Votación"
+            },
+            "BODY": {
+                "NAME": "Nombre",
+                "NAME_PLACEHOLDER": "Establecer nombre en poll. (* requerido)",
+                "NAME_TOOLTIP": "Preguntas para la votación. (Máximo: 60 carácteres)",
+                "DURATION": "Duración",
+                "DURATION_PLACEHOLDER": "Segundos",
+                "DURATION_TOOLTIP": "Duración total de la votación (En segundos). (Mínima: 15. Máximo: 1800)",
+                "OPTIONS": "Opciónes",
+                "OPTIONS_PLACEHOLDER_PREFIX": "Selección",
+                "OPTIONS_PLACEHOLDER_SUFFIX": "(* requerido)",
+                "OPTIONS_TOOLTIP": "Mínima: 2 selecciónes. Máximo: 5 selecciónes."
+            },
+            "NG_TOAST": {
+                "POLL_TITLE_NAME_TOAST": "Proporcione un nombre para la encuesta.",
+                "POLL_TITLE_NAME_LENGTH_TOAST": "La longitud máxima de caracteres del título no puede exceder de 60.",
+                "POLL_CHOICES_OPTION_LENGTH_TOAST": "La encuesta debe tener más de una opción.",
+                "POLL_CHOICES_VALUE_NOT_NULL_TOAST": "La opción debe tener un valor.",
+                "POLL_CHOICES_VALUE_LENGTH_TOAST": "La longitud máxima de caracteres de la opción no puede exceder los 25.",
+                "POLL_DURATION_TIME_TOAST": "La duración de la votación debe estar entre 15 segundos y 1800 segundos.",
+                "POLL_RESULT_403_TOAST": "No eres un afiliado o socio de Twitch y no estás disponible para iniciar una encuesta",
+                "POLL_RESULT_401_TOAST": "no tienes permiso para iniciar una encuesta",
+                "POLL_RESULT_404_TOAST": "no se encontró la encuesta",
+                "POLL_RESULT_NOT_START": "Esta encuesta no se inicia después de haber editado o creado, por lo que no puede ver el resultado."
+            }
+        },
+        "CONFIRMMODAL": {
+            "TITLE":"Borrar Votación",
+            "QUESTION":"¿Desea eliminar este Votación?",
+            "CONFIRMlABEL_DELETE": "Borrar",
+            "CONFIRMlABEL_CANCEL": "Cancelar"
+        },
+        "RESULTMODAL": {
+            "STATUS": "Estado",
+            "END": "El fin"
+        }
+    },
+    "CHAT_NOTIFICATIONS": {
+        "DESC": "Envíe una charla de notificación cada vez que se produzca una actividad importante.",
+        "TABS": {
+            "FOLLOWERS": "Seguidor",
+            "SUBSCRIBER": "Suscripción",
+            "GIFT_SUBSCRIPTION": "Volver Suscripción",
+            "CHEER": "Cheer",
+            "HOST": "Alojar",
+            "RAID": "Raid",
+            "ANNOUCEMENT": "Proclamación"
+        },
+        "ACTIVE_DESC": {
+            "FOLLOWERS": "Se enviará un mensaje de agradecimiento aleatorio a sus nuevos seguidores",
+            "SUBSCRIBER": "Cada vez que alguien se suscribe al Canal, publica un mensaje al azar en la Sala de chat",
+            "GIFT_SUBSCRIPTION": "Cada vez que alguien se suscribe a un regalo, publique un mensaje en la Sala de chat",
+            "CHEER": "Cada vez que alguien grita, publica un mensaje en la charla",
+            "HOST": "Publicar un mensaje en una charla cuando alguien esté alojando su canal",
+            "RAID": "Cuando alguien irrumpe en este canal, publique un mensaje en la charla",
+            "ANNOUCEMENT": "Cuando comience a transmitir en vivo, publique un anuncio en el Canal"
+        },
+        "MESSAGE": "Información",
+        "COOLDOWN_SECS": "Segundos de enfriamiento",
+        "AVAILABLE_ARGUEMENT": "Argumentos disponibles",
+        "MESSAGE_CANT_BE_EMPTY": "el mensaje no puede estar vacío"
+    },
+    "TIMERS": {
+        "DESC": "Puede utilizar el temporizador para enviar mensajes automáticamente a la Sala de chat. El temporizador sólo está activo cuando su charla está activa y saltará cualquier temporizador no disponible.",
+        "TABLE": {
+            "HEADER": {
+                "NAME": "Nombre",
+                "COOLDOWNS": "Calmarse",
+                "STATUS": "Estado",
+                "EDIT": "Editar",
+                "DELETE": "Borrar"
+            },
+            "BODY": {
+                "SEC": "segundos"
+            }
+        },
+        "MODAL": {
+            "TITLE": {
+                "ADD_NEW_TIMER": "Agregar Nuevos Temporizadores",
+                "EDIT_TIMER": "Editar Temporizadores"
+            },
+            "BODY": {
+                "NAME": "Nombre",
+                "NAME_PLACEHOLDER": "Establecer nombre en el temporizador (* requerido)",
+                "NAME_TOOLTIP": "Este es el nombre de su temporizador. No tiene sentido, sólo te recuerda el papel de este temporizador.",
+                "MESSAGE": "Información",
+                "MESSAGE_PLACEHOLDER": "Establecer contenido",
+                "MESSAGE_TOOLTIP": "Esta es la respuesta de su temporizador. Puede utilizar variables de comando para una respuesta dinámica.",
+                "COOLDOWNS": "Calmarse",
+                "COOLDOWNS_TOOLTIP": "Este es el intervalo de tiempo entre las repeticiones del temporizador. El tiempo es preciso por hora (por ejemplo, 15 minutos a las 2: 00, 2: 15, 2: 30, 2: 45, etc.).",
+                "REQUIRED_CHAT_LINES": "Línea de chat requerida",
+                "REQUIRED_CHAT_LINES_TOOLTIP": "Este es el número mínimo de líneas de chat (en líneas por minuto) necesarias para activar el temporizador. Si su charla es lenta, esto es útil para evitar que nightbot envíe spam a sus canales vacíos."
+            }
+        },
+        "CONFIRMMODAL": {
+            "TITLE":"Borrar Temporizador",
+            "QUESTION":"¿Desea eliminar este temporizador?",
+            "CONFIRMlABEL_DELETE": "Borrar",
+            "CONFIRMlABEL_CANCEL": "Cancelar"
+        }
+    },
+    "AUTOREPLY": {
+        "DESC": "Usted puede configurar algunas palabras clave y respuestas relacionadas, y cuando el público activa las palabras clave que han establecido anteriormente en la Sala de chat, el público recibe respuestas específicas.",
+        "TABLE": {
+            "HEADER": {
+                "NAME": "Nombre",
+                "COOLDOWNS": "Calmarse",
+                "STATUS": "Estado",
+                "EDIT": "Editar",
+                "DELETE": "Borrar"
+            },
+            "BODY": {
+                "SEC": "segundos"
+            }
+        },
+        "MODAL": {
+            "TITLE": {
+                "ADD_NEW_AUTOREPLY": "Agregar Nuevos Respuesta Automática",
+                "EDIT_AUTOREPLY": "Editar Respuesta Automática"
+            },
+            "BODY": {
+                "TRIGGER": "Desencadenar",
+                "TRIGGER_PLACEHOLDER": "Texto(* requerido)",
+                "TRIGGER_TOOLTIP": "El mensaje de chat debe comenzar con el texto que activa este comando. ¡Normalmente comienza con un carácter especial, por ejemplo!",
+                "COOLDOWNS": "Calmarse",
+                "COOLDOWNS_PLACEHOLDER": "Segundos",
+                "COOLDOWNS_TOOLTIP": "Calmarse evite que sus órdenes sean enviadas por correo basura. Puede aplicar el tiempo de enfriamiento en todo el mundo o incluso en cada usuario.",
+                "RESPONSE_TEXT": "Texto de la respuesta",
+                "RESPONSE_TEXT_PLACEHOLDER": "Mensaje de entrada(* requerido)",
+                "RESPONSE_TEXT_TOOLTIP": "Cuando se activa este comando, Twitchbot debe responder de esta manera."
+            }
+        },
+        "CONFIRMMODAL": {
+            "TITLE":"Borrar Mandato",
+            "QUESTION":"¿Está seguro de que desea eliminar el comando",
+            "CONFIRMlABEL_DELETE": "Borrar",
+            "CONFIRMlABEL_CANCEL": "Cancelar"
+        }
+    },
+    "MESSAGEFILTER": {
+        "DESC": "Twitchbot elimina automáticamente el spam y los comentarios no deseados de la charla. Cuando su twitchbot pone al usuario en un Estado de tiempo fuera, sólo elimina temporalmente al usuario.",
+        "REPETITIONS": {
+            "REPETITIONS":"Repeticiones",
+            "TOOLTIP": "Eliminar mensajes que contengan letras repetidas, frases o palabras,u otro comportamiento disruptivo.",
+            "INPUT_TITLE": "Máximo Por Mensaje",
+            "PLACEHOLDER_TEXT": "Entró Número"
+        },
+        "EMOTES": {
+            "EMOTES":"Expresión Facial",
+            "TOOLTIP": "Eliminar mensaje que contiene una cantidad excesiva de emoticonos.",
+            "INPUT_TITLE": "Máximo Por Mensaje",
+            "PLACEHOLDER_TEXT": "Entró Número"
+        },
+        "EXCESS_CAPS": {
+            "EXCESS_CAPS":"Exceso Mayúsculas",
+            "TOOLTIP": "Este filtro le permite agotar el tiempo de espera de los usuarios quién usan letras mayúsculas excesivas en los mensajes.",
+            "INPUT_TITLE": "Máximo Por Mensaje",
+            "PLACEHOLDER_TEXT": "Entró Número"
+        },
+        "SYMBOLS": {
+            "SYMBOLS":"Símbolos",
+            "TOOLTIP": "Eliminar mensajes que contengan un uso perturbador o excesivo de símbolos.",
+            "INPUT_TITLE": "Máximo Por Mensaje",
+            "PLACEHOLDER_TEXT": "Entró Número"
+        }
+    },
+    "BLACKLISTEDWORDS": {
+        "DESC": "Al incluir ciertas palabras y frases en la lista negra, puede eliminar ciertos comportamientos no deseados de la charla.",
+        "TABLE": {
+            "HEADER": {
+                "PHRASE": "frase",
+                "TIME_OUT": "Expulsado",
+                "STATUS": "Situación",
+                "EDIT": "Editar",
+                "DELETE": "Borrar"
+            },
+            "BODY": {
+                "SEC": "segundos"
+            }
+        },
+        "PHRASE_TOOLTIP":"El texto debe tener entre 1 y 500 caracteres.",
+        "PHRASE_PLACEHOLDER":"Frase de texto(* requerido)",
+        "SETTINGS":"Ajuste",
+        "IGNORE_LETTER_CASE":"Ignorar caso de carta",
+        "IGNORE_WORD_BOUNDRIES":"Ignorar los límites de palabras",
+        "CHECK_USERNAME":"Comprobar nombre de usuario",
+        "TIME_OUT":"Expulsado",
+        "TIME_OUT_TOOLTIP":"Una vez que Twitchbot detecta una frase en la lista negra en el mensaje de chat de un usuario,Quita su mensaje del chat, y luego pone al usuario en un tiempo de espera de chat donde no puede enviar más mensajes a Twitch chat hasta que su tiempo de espera haya expirado.",
+        "SECONDS":"segundos",
+        "CONFIRMMODAL": {
+            "TITLE":"Borrar Mandato",
+            "QUESTION":"¿Está seguro de que desea eliminar el comando",
+            "CONFIRMlABEL_DELETE": "Borrar",
+            "CONFIRMlABEL_CANCEL": "Cancelar"
+        }
+    },
+    "EMOTE": {
+        "REGULAR": "Regular",
+        "GLOBAL": "Global",
+        "DESC_NO_CONNECT":"El Emote será accesible cuando Twitchbot esté conectado.",
+        "DESC_WAIT_LOADING": "Emote se está cargando..."
+    },
+    "TABID": {
+        "CHAT_FEED": "Panel De Control",
+        "ACHIEVEMENT": "LOGRO",
+        "TOP_CHART": "Leaderboard",
+        "POLLS": "Votación",
+        "KOL_CHAT_NOTIFICATIONS": "Notificaciones De Chat",
+        "KOL_TIMERS": "Temporizadores",
+        "AUTO_REPLY": "Respuesta Automática",
+        "MESSAGE_FILTER": "Filtro De Mensajes",
+        "BLACKLISTED_WORDS": "Palabras En Lista Negra"
+    },
+    "QUIT_SETTING_MODAL": {
+        "QUIT_SETTING": "Dejar De Configurar",
+        "MINIMIZE_TO_THE_SYSTEM_TRAY": "Minimizar A La Bandeja Del Sistema",
+        "QUIT_TWITCHBOT": "Dejar Twitchbot",
+        "DONT_ASK_AGAIN_NEXT_TIME": "No Vuelvas A Preguntar La Próxima Vez"
+    }
+}

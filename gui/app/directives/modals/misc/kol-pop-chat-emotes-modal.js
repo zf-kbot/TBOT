@@ -134,8 +134,8 @@
 
                 $ctrl.clickFrequentlyUsed = function () {
                     $ctrl.frequentlyUsed = $ctrl.getEmoteMsgs("/emote");
-                    if ($ctrl.frequentlyUsed.length > 24) {
-                        $ctrl.frequentlyUsed = $ctrl.frequentlyUsed.slice(0, 24);
+                    if ($ctrl.frequentlyUsed.length > 25) {
+                        $ctrl.frequentlyUsed = $ctrl.frequentlyUsed.slice(0, 25);
                     }
                     $ctrl.chatMessageAllemotes = $ctrl.frequentlyUsed;
                     $ctrl.clickName = "Regular";

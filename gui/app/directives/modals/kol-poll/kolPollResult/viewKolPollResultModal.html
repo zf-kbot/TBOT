@@ -3,7 +3,8 @@
             ng-click="$ctrl.dismiss()"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span></button>
     <h3 class="settings-title" ><span>{{$ctrl.resolve.kolPoll.title}}</span></h3>
 </div>
-<h3 class="settings-title" style="margin-top: 0px;" ng-show="$ctrl.loading " ><span style="margin-left: 20px;"><i class="fa fa-clock-o"></i> status:{{$ctrl.kolPollService.viewKolPollResult.leftTime > 0 ? $ctrl.kolPollService.viewKolPollResult.leftTime : "End"}}</span></h3>
+<h3 class="settings-title" style="margin-top: 0px;" ng-show="$ctrl.loading " ng-if="$ctrl.kolPollService.viewKolPollResult.leftTime > 0 "><span style="margin-left: 20px;"><i class="fa fa-clock-o"></i> {{$ctrl.translations['POLL.RESULTMODAL.STATUS']}}: {{$ctrl.kolPollService.viewKolPollResult.leftTime}} </span></h3>
+<h3 class="settings-title" style="margin-top: 0px;" ng-show="$ctrl.loading " ng-if="!($ctrl.kolPollService.viewKolPollResult.leftTime > 0)"><span style="margin-left: 20px;"><i class="fa fa-clock-o"></i> {{$ctrl.translations['POLL.RESULTMODAL.STATUS']}}: {{$ctrl.translations['POLL.RESULTMODAL.END']}}</span></h3>
 
 <div class="modal-body">
     <div ng-repeat="choice in $ctrl.kolPollService.viewKolPollResult.choices track by $index">

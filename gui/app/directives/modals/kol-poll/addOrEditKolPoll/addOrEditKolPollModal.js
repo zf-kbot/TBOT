@@ -11,7 +11,7 @@
             dismiss: "&",
             modalInstance: "<"
         },
-        controller: function ($scope, utilityService, ngToast) {
+        controller: function ($scope, $translate, logger, utilityService, ngToast) {
             let $ctrl = this;
 
             $ctrl.kolPoll = {
@@ -48,6 +48,28 @@
                     $ctrl.kolPoll = JSON.parse(JSON.stringify($ctrl.resolve.kolPoll));
                 }
 
+                $ctrl.translations = {
+                    "POLL.MODAL.BODY.NAME_PLACEHOLDER": "",
+                    "POLL.MODAL.BODY.NAME_TOOLTIP": "",
+                    "POLL.MODAL.BODY.DURATION_PLACEHOLDER": "",
+                    "POLL.MODAL.BODY.DURATION_TOOLTIP": "",
+                    "POLL.MODAL.BODY.OPTIONS_PLACEHOLDER_PREFIX": "",
+                    "POLL.MODAL.BODY.OPTIONS_PLACEHOLDER_SUFFIX": "",
+                    "POLL.MODAL.BODY.OPTIONS_TOOLTIP": "",
+                    "POLL.MODAL.NG_TOAST.POLL_TITLE_NAME_TOAST": "",
+                    "POLL.MODAL.NG_TOAST.POLL_TITLE_NAME_LENGTH_TOAST": "",
+                    "POLL.MODAL.NG_TOAST.POLL_CHOICES_OPTION_LENGTH_TOAST": "",
+                    "POLL.MODAL.NG_TOAST.POLL_CHOICES_VALUE_NOT_NULL_TOAST": "",
+                    "POLL.MODAL.NG_TOAST.POLL_CHOICES_VALUE_LENGTH_TOAST": "",
+                    "POLL.MODAL.NG_TOAST.POLL_DURATION_TIME_TOAST": ""
+                };
+                const translationRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in $ctrl.translations) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationRes[key];
+                    }
+                }
+
                 let modalId = $ctrl.resolve.modalId;
                 $ctrl.modalId = modalId;
                 utilityService.addSlidingModal(
@@ -69,27 +91,27 @@
 
             function validateKolPoll() {
                 if ($ctrl.kolPoll.title === "") {
-                    ngToast.create("Please provide a name for the Poll.");
+                    ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_TITLE_NAME_TOAST']);
                     return false;
                 } else if ($ctrl.kolPoll.title.length > 60) {
-                    ngToast.create("The maximum character length of the title cannot exceed 60");
+                    ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_TITLE_NAME_LENGTH_TOAST']);
                     return false;
-                };
-                if ($ctrl.kolPoll.choices.length == 0) {
-                    ngToast.create("Poll must have more then one option.");
+                }
+                if ($ctrl.kolPoll.choices.length === 0) {
+                    ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_CHOICES_OPTION_LENGTH_TOAST']);
                     return false;
                 } else if ($ctrl.kolPoll.choices.length > 0) {
                     if ($ctrl.kolPoll.choices.filter(item => !item.title).length > 0) {
-                        ngToast.create("Option must have a value");
+                        ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_CHOICES_VALUE_NOT_NULL_TOAST']);
                         return false;
                     }
                     if ($ctrl.kolPoll.choices.filter(item => item.title.length > 25).length > 0) {
-                        ngToast.create("The maximum character length of the option cannot exceed 25");
+                        ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_CHOICES_VALUE_LENGTH_TOAST']);
                         return false;
                     }
                 }
                 if ($ctrl.kolPoll.duration < 15 || $ctrl.kolPoll.duration > 1800) {
-                    ngToast.create("The voting duration must be between 15 seconds and 1800 seconds");
+                    ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_DURATION_TIME_TOAST']);
                     return false;
                 }
                 return true;

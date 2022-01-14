@@ -564,7 +564,7 @@
     height: 33.3%; 
     background: #2F3136;
 
-    overflow-y: scroll;
+    overflow-y: overlay;
 
     &::-webkit-scrollbar {
         width: 7px;
@@ -763,4 +763,27 @@
         color: lightgray;
         width:150px;
     }
+}
+
+.dropdown-menu ul.submenu {
+    list-style: none;
+    right: 101%;
+    position: absolute;
+    top: 90px;
+    background: #43454A;
+    padding-left: 0;
+}
+
+.dropdown-menu ul.submenu li {
+    line-height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dropdown-menu ul.submenu li:hover {
+    background-color: #34363B;
+}
+
+.dropdown-menu a:hover {
+    opacity: 1;
 }

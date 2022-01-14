@@ -6,7 +6,7 @@
             template: `
                 <div style="background:#101111;">
                     <form name="streamInfo" style="boder-radius:10px;">
-                        <div style="background:#24262A;padding:5px;">
+                        <div style="background:#24262A;padding:5px;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px">
                             <div style="display:flex;flex:1;margin-bottom:3px;height:25%;"class="form-group"  ng-class="{'has-error': $ctrl.formFieldHasError('title')}">
                                 <input 
                                     style="color:white;background:#101111;"
@@ -24,7 +24,7 @@
 
                             <div class="form-group" style="margin-bottom:4px;">
                                 <ui-select ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)" ng-disabled="!$ctrl.dataLoaded">
-                                    <ui-select-match placeholder="Search for category...">
+                                    <ui-select-match placeholder="{{ $ctrl.translations['DASHBOARD.STREAMINFO.PLACEHOLDER.SEARCH_FOR_CATEGORY'] }}">
                                         <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
                                             <img style="height: 21px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
                                             <div style="font-weight: 100;font-size: 17px;background:#101111;">{{$select.selected.name}}</div>
@@ -41,7 +41,7 @@
 
                             <div class="form-group" style="margin-bottom:4px;">
                                 <ui-select ng-model="$ctrl.selectedTags" required input-id="tag" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.tagSelected($item)" ng-disabled="!$ctrl.dataLoaded">
-                                    <ui-select-match placeholder="Search for tag...">
+                                    <ui-select-match placeholder="{{ $ctrl.translations['DASHBOARD.STREAMINFO.PLACEHOLDER.SEARCH_FOR_TAG'] }}">
                                         <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
                                             <div style="font-weight: 100;font-size: 17px;background:#101111;">{{$select.selected.name}}</div>
                                         </div>
@@ -53,8 +53,8 @@
                                     </ui-select-choices>
                                 </ui-select>
                                 <div >
-                                    <span class="kol-message-tip" style="line-height:25px;">
-                                        <span ng-repeat="tag in $ctrl.tags " ng-click="$ctrl.delete({ name: tag })" class="ng-binding ng-scope" role="button" style="background-color:black;color:#CAC8C8;padding-top:1px;padding-left:0px;margin-left:0px;">
+                                    <span class="kol-message-tip" style="line-height:25px;margin-top: 3px;display: inline-block;">
+                                        <span ng-repeat="tag in $ctrl.tags " ng-click="$ctrl.delete({ name: tag })" class="ng-binding ng-scope" role="button" style="background-color:black;color:#CAC8C8;padding-top:1px;padding-left:3px;margin-left:0px;">
                                             {{tag.name}}<i class="fa fa-times-circle purple" aria-hidden="true"></i>
                                         </span>
                                     </span>
@@ -90,10 +90,20 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function ($scope, $rootScope, ngToast, backendCommunicator, kolHistoryService, logger, profileManager) {
+            controller: function ($scope, $rootScope, $translate, ngToast, backendCommunicator, kolHistoryService, logger, profileManager, gaService, kolShareVariableService) {
                 const $ctrl = this;
 
                 $ctrl.dataLoaded = false;
+                $ctrl.translations = {
+                    "DASHBOARD.STREAMINFO.PLACEHOLDER.SEARCH_FOR_CATEGORY": "",
+                    "DASHBOARD.STREAMINFO.PLACEHOLDER.SEARCH_FOR_TAG": ""
+                };
+                const translationRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in translationRes) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationRes[key];
+                    }
+                }
 
                 $ctrl.games = [];
                 $ctrl.tags = [];
@@ -119,12 +129,14 @@
                         .then((streamInfo) => {
                             if (streamInfo) {
                                 $ctrl.streamInfo = streamInfo;
+                                kolShareVariableService.shareVariables.streamInfo.streamInfo = $ctrl.streamInfo;
                                 $ctrl.dataLoaded = true;
                                 backendCommunicator.fireEventAsync("get-twitch-game", $ctrl.streamInfo.gameId)
                                     .then(game => {
                                         if (game != null) {
                                             $ctrl.selectedGame = game;
                                         }
+                                        kolShareVariableService.shareVariables.streamInfo.selectedGame = $ctrl.selectedGame;
                                     });
                                 $ctrl.localTags = profileManager.getJsonDbInProfile("/streamtags").getData("/stream");
                                 //set tags=[] before update or refresh infomation
@@ -134,13 +146,22 @@
                                         value.map(c => {
                                             $ctrl.tags.push(c);
                                         });
+                                        kolShareVariableService.shareVariables.streamInfo.tags = $ctrl.tags;
                                     });
                             }
                         });
                 };
 
                 $ctrl.$onInit = () => {
-                    init();
+                    if (!kolShareVariableService.shareVariables.streamInfo.isOnInitDidBefore) {
+                        init();
+                        kolShareVariableService.shareVariables.streamInfo.isOnInitDidBefore = true;
+                    } else {
+                        $ctrl.streamInfo = kolShareVariableService.shareVariables.streamInfo.streamInfo;
+                        $ctrl.selectedGame = kolShareVariableService.shareVariables.streamInfo.selectedGame;
+                        $ctrl.tags = kolShareVariableService.shareVariables.streamInfo.tags;
+                        $ctrl.dataLoaded = true;
+                    }
                 };
 
                 backendCommunicator.on("auth-success", init);
@@ -189,6 +210,7 @@
                                     return;
                                 }
                             }
+                            gaService.sendEvent('stream tag', 'new', tag.name);
                             $ctrl.tags.push(tag);
                             $ctrl.saveTags();
                             $ctrl.selectedTags = null;
@@ -224,6 +246,7 @@
                 $ctrl.delete = (tag) => {
                     for (let i = 0; i < $ctrl.tags.length; i++) {
                         if ($ctrl.tags[i].id === tag.name.id) {
+                            gaService.sendEvent('stream tag', 'delete', tag.name.name);
                             $ctrl.tags.splice(i, 1);
                             i--;
                             $ctrl.saveTags();

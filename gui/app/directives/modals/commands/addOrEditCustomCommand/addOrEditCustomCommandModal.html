@@ -3,8 +3,8 @@
     <span aria-hidden="true"><i style="color: #9145ff;font-size: 30px" class="fa fa-times-circle"></i></span>
   </button>
   <h4 class="modal-title">
-    <span ng-if="!$ctrl.isNewCommand">Edit Command - </span>
-    {{$ctrl.isNewCommand ? 'Add New Auto Reply' : $ctrl.command.trigger }}
+    <span ng-if="!$ctrl.isNewCommand">{{ 'AUTOREPLY.MODAL.TITLE.EDIT_AUTOREPLY' | translate }} - {{ $ctrl.command.trigger }}</span>
+    <span ng-if="$ctrl.isNewCommand">{{ 'AUTOREPLY.MODAL.TITLE.ADD_NEW_AUTOREPLY' | translate }}</span>
   </h4>
 </div>
 <div class="modal-body">
@@ -218,10 +218,10 @@
     <i class="fas fa-arrow-right hvr-icon"></i>
   </button> -->
   <button type="button" class="btn btn-link" ng-click="$ctrl.dismiss()">
-    Cancel
+    {{'CANCEL' | translate}}
   </button>
   <button type="button" class="btn btn-primary add-new-board-save" ng-click="$ctrl.save()">
-    Save
+    {{ 'SAVE' | translate}}
   </button>
 </div>
 

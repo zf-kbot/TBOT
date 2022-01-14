@@ -25,7 +25,12 @@
                         style="width: 200px;height: 200px;border-radius: 200px;position: absolute;left: -50px;top: -50px;"/>
                     <div style="padding-left: 150px;min-height: 125px;">
                         <div style="display:flex;align-items: center;">
-                            <div style="font-size:40px;font-weight: 200;">{{$ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData ? $ctrl.viewerDetails.twitchData.displayName : $ctrl.viewerDetails.twitcherbotData.username }}</div>
+                            <div
+                              style="font-size:40px;font-weight: 200;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: keep-all;width: 340px;"
+                              tooltip-append-to-body="true"
+                              uib-tooltip="{{$ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData ? $ctrl.viewerDetails.twitchData.displayName : $ctrl.viewerDetails.twitcherbotData.username }}">
+                                {{$ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData ? $ctrl.viewerDetails.twitchData.displayName : $ctrl.viewerDetails.twitcherbotData.username }}
+                            </div>
                             <a 
                                 ng-if="$ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData" 
                                 ng-click="$ctrl.openLink('https://twitch.tv/' + $ctrl.viewerDetails.twitchData.displayName)" 
@@ -51,7 +56,7 @@
                     </div>
                     <div style="margin-top: 45px;margin-left: 10px;">
                         <div style="display:flex;margin-bottom:5px;">
-                            <div style="font-size:13px;font-weight: bold;opacity:0.9;">Twitchbot Data</div>
+                            <div style="font-size:13px;font-weight: bold;opacity:0.9;">{{ $ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.TWITCHBOT_DATA'] }}</div>
                             <span ng-show="$ctrl.hasTwitchbotData" ng-click="$ctrl.removeViewer()" style="color:#f96f6f;margin-left: 10px;font-size:12px;" class="clickable" uib-tooltip="Remove this viewer's Twitchbot data" aria-label="Remove viewer's twitchbotdata"><i class="fa fa-trash"></i></span>
                         </div>
                         
@@ -65,14 +70,14 @@
                         </div>
 
                         <div ng-show="$ctrl.hasTwitchbotData" style="margin-top:20px; margin-bottom: 30px;">
-                            <label class="control-fb control--checkbox"> Disable Automatic Stat Accrual <tooltip text="'Prevent this user from getting currency payouts, view time hours, and other stats automatically incremented. You will still be able to manually edit these values.'"></tooltip>
+                            <label class="control-fb control--checkbox">{{ $ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.DISABLE_AUTO_STAT_ACCRUAL.TEXT'] }}<tooltip text="$ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.DISABLE_AUTO_STAT_ACCRUAL.TOOLTIP']"></tooltip>
                                 <input type="checkbox" ng-model="$ctrl.viewerDetails.twitcherbotData.disableAutoStatAccrual" ng-change="$ctrl.disableAutoStatAccuralChange()">
                                 <div class="control__indicator"></div>
                             </label>
                         </div>
 
                         <div ng-show="$ctrl.hasTwitchbotData" style="margin-top:20px; margin-bottom: 30px;">
-                            <label class="control-fb control--checkbox"> Don't allow on active user lists <tooltip text="'Prevent the user from showing up in active user lists, such as the $randomActiveViewer variable.'"></tooltip>
+                            <label class="control-fb control--checkbox">{{ $ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.DISABLE_ACTIVE_USER_LIST.TEXT'] }}<tooltip text="$ctrl.getTranslations['DASHBOARD.CHATUSERS.DETAILS.DISABLE_ACTIVE_USER_LIST.TOOLTIP']"></tooltip>
                                 <input type="checkbox" ng-model="$ctrl.viewerDetails.twitcherbotData.disableActiveUserList" ng-change="$ctrl.disableActiveUserListChange()">
                                 <div class="control__indicator"></div>
                             </label>
@@ -104,8 +109,27 @@
                 close: "&",
                 dismiss: "&"
             },
-            controller: function ($rootScope, $q, backendCommunicator, viewersService, currencyService, utilityService, viewerRolesService, connectionService) {
+            controller: function ($rootScope, $q, $translate, backendCommunicator, viewersService, currencyService, utilityService, viewerRolesService, connectionService) {
                 let $ctrl = this;
+
+                $ctrl.translations = {
+                    'DASHBOARD.CHATUSERS.DETAILS.DISABLE_ACTIVE_USER_LIST.TEXT': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.DISABLE_ACTIVE_USER_LIST.TOOLTIP': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.DISABLE_AUTO_STAT_ACCRUAL.TEXT': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.DISABLE_AUTO_STAT_ACCRUAL.TOOLTIP': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.TWITCHBOT_DATA': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.JOIN_DATE': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.LAST_SEEN': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.VIEW_TIME': '',
+                    'DASHBOARD.CHATUSERS.DETAILS.CHAT_MESSAGES': ''
+                };
+
+                const translationRes = $translate.instant(Object.keys($ctrl.translations));
+                for (let key in $ctrl.translations) {
+                    if ({}.hasOwnProperty.call($ctrl.translations, key)) {
+                        $ctrl.translations[key] = translationRes[key];
+                    }
+                }
 
                 $ctrl.loading = true;
 
@@ -429,7 +453,7 @@
 
                     let joinDate = $ctrl.viewerDetails.twitcherbotData.joinDate;
                     dataPoints.push(new ViewerDataPoint(
-                        "Join Date",
+                        $ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.JOIN_DATE'],
                         "fa-sign-in",
                         joinDate,
                         value => {
@@ -447,7 +471,7 @@
 
                     let lastSeen = $ctrl.viewerDetails.twitcherbotData.lastSeen;
                     dataPoints.push(new ViewerDataPoint(
-                        "Last Seen",
+                        $ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.LAST_SEEN'],
                         "fa-eye",
                         lastSeen,
                         value => {
@@ -465,7 +489,7 @@
 
                     let minsInChannel = $ctrl.viewerDetails.twitcherbotData.minutesInChannel || 0;
                     dataPoints.push(new ViewerDataPoint(
-                        "View Time",
+                        $ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.VIEW_TIME'],
                         "fa-tv",
                         minsInChannel,
                         value => {
@@ -485,7 +509,7 @@
 
                     let chatMessages = $ctrl.viewerDetails.twitcherbotData.chatMessages || 0;
                     dataPoints.push(new ViewerDataPoint(
-                        "Chat Messages",
+                        $ctrl.translations['DASHBOARD.CHATUSERS.DETAILS.CHAT_MESSAGES'],
                         "fa-comments",
                         chatMessages,
                         value => value,

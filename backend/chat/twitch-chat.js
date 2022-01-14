@@ -54,6 +54,7 @@ class TwitchChat extends EventEmitter {
 
         const userDatabase = require("../database/userDatabase");
         await userDatabase.setAllUsersOffline();
+        await userDatabase.setAllUsersOldViewer();
     }
 
     /**

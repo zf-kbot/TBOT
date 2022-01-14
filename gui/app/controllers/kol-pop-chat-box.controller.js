@@ -18,7 +18,7 @@
             $scope.settings = settingsService;
             $scope.chatMessage = "";
             $scope.chatSender = "Streamer";
-            $scope.disabledMessage = "The chat feed will accessable when Twitchbot is start.";
+            $scope.disabledMessage = "DASHBOARD.CHATFEED.DISABLEDMESSAGE";
             $scope.cms = chatMessagesService;
             $scope.khs = kolHistoryService;
 

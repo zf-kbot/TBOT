@@ -310,7 +310,7 @@
 
     <contact></contact>
 
-    <div class="fb-tab-content" style="background: #24262A;">
+    <div class="fb-tab-content">
       <div class="tab-header">
         <span class="noselect" style="font-size: 28px;">{{sbm.currentTabName}}</span>
         <div style="flex: 1">
@@ -323,8 +323,8 @@
             ">
           <!--左边链接状态栏图标信息-->
           <div class="connection-status-wrapper logins-wrapper noselect" style="margin-left: auto;width: auto;min-width: auto;" ng-if="cs.accounts.streamer.loggedIn == true">
-            <div class='interactive-status-wrapper' style="padding-top:3px;margin-top:inherit;">
-              <div class="interative-status-icon" style="margin-top: 16px;margin-left: auto;margin-right: 4px;"
+            <div class='interactive-status-wrapper' style="">
+              <div class="interative-status-icon" style=""
                 ng-class="{'contracted': !sbm.navExpanded, 'connected': cs.sidebarServicesOverallStatus === 'connected', 'partial-connected': cs.sidebarServicesOverallStatus === 'partial'}"
                 uib-tooltip-template="'connectTooltipTemplate.html'"
                 tooltip-placement="bottom" tooltip-append-to-body="true"
@@ -380,15 +380,6 @@
               <!-- <div class="fb-arrow down login-arrow"></div> -->
               <ul class="dropdown-menu accounts-dropdown" uib-dropdown-menu>
                 <li>
-                  <a href>
-                    <span>
-                      <i ng-class="startAtLoginIconClass()" ng-click="toggleStartAtLogin()" role="button"></i>
-                    </span>
-                    {{ 'MAIN.START_AT_LOGIN' | translate }}
-                  </a>
-                </li>
-                <li class="divider"></li>
-                <li>
                   <a href ng-click="showFeedbackModal()">
                     <span>
                       <i class="fa fa-pencil"></i>
@@ -398,6 +389,14 @@
                 </li>
                 <li class="divider"></li>
                 <li>
+                  <a href>
+                    <span>
+                      <i ng-class="startAtLoginIconClass()" ng-click="toggleStartAtLogin()" role="button"></i>
+                    </span>
+                    {{ 'MAIN.START_AT_LOGIN' | translate }}
+                  </a>
+                </li>
+                <li>
                     <a href ng-mouseover="profileLangIsOpen = true" ng-mouseleave="profileLangIsOpen = false">
                         <span>
                             <i class="fa fa-language"></i>
@@ -406,6 +405,19 @@
                         <ul ng-if="profileLangIsOpen" class="submenu">
                             <li ng-click="changeLanguage('en')"><i ng-style="{'opacity': ss.getLang() === 'en' ? 1 : 0}" class="fas fa-check"></i><span>English</span></li>
                             <li ng-click="changeLanguage('es')"><i ng-style="{'opacity': ss.getLang() === 'es' ? 1 : 0}" class="fas fa-check"></i><span>Español</span></li>
+                        </ul>
+                    </a>
+                </li>
+                <li>
+                    <a href ng-mouseover="themeMenuIsOpen = true" ng-mouseleave="themeMenuIsOpen = false">
+                        <span>
+                            <i class="fa fa-moon"></i>
+                        </span>
+                        {{ 'MAIN.THEME' | translate }}
+                        <ul ng-if="themeMenuIsOpen" class="submenu">
+                            <li ng-click="ss.setTheme('Light')"><i ng-style="{'opacity': ss.getTheme() === 'Light' ? 1 : 0}" class="fas fa-check"></i><span>Light</span></li>
+                            <li ng-click="ss.setTheme('Midnight')"><i ng-style="{'opacity': ss.getTheme() === 'Midnight' ? 1 : 0}" class="fas fa-check"></i><span>Midnight</span></li>
+                            <li ng-click="ss.setTheme('Obsidian')"><i ng-style="{'opacity': ss.getTheme() === 'Obsidian' ? 1 : 0}" class="fas fa-check"></i><span>Obsidian</span></li>
                         </ul>
                     </a>
                 </li>

@@ -6721,7 +6721,6 @@ button.close {
 .rzslider .rz-bubble {
   bottom: 16px;
   padding: 1px 3px;
-  color: white;
   cursor: default;
   font-size: 18px; }
 
@@ -7285,7 +7284,7 @@ body {
 .tab-header {
   width: 100%;
   height: 65px;
-  background: #33363B;
+  background: white;
   border-bottom: 2px solid #EAECEC;
   display: flex;
   flex-flow: row;
@@ -7311,10 +7310,10 @@ body {
   display: flex; }
 
 .content-block {
-  background: #24262a;
+  background: white;
   border-radius: 3px;
   border: 0.01em solid #EAECEC;
-  box-shadow: 2px 2px 7px #24262a; }
+  box-shadow: 2px 2px 7px #dcdcdc; }
 
 .content-block-header {
   display: flex;
@@ -7344,7 +7343,7 @@ body {
   flex-direction: column;
   transition: 0.5s;
   white-space: nowrap;
-  background: linear-gradient(135deg, #25292a 0%, #383d3f 98%);
+  background: linear-gradient(135deg, #F3F5F5 0%, #EAECEC 98%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
 
 .fb-nav.contracted {
@@ -7353,8 +7352,6 @@ body {
 .nav-header {
   width: 100%;
   height: 65px;
-  background: #25292a;
-  border-bottom: 2px solid #383d3f;
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -7411,14 +7408,15 @@ body {
 .fullpage-tab {
   height: 100%;
   padding: 0;
-  position: relative; }
+  position: relative;
+  background: #F3F5F5; }
 
 .no-scroll {
   overflow-y: hidden;
-  background: #101111; }
+  background: #eee; }
 
 .fb-nav-link {
-  color: #dadada;
+  color: black;
   display: block;
   height: 42px;
   text-transform: uppercase;
@@ -7426,12 +7424,12 @@ body {
   position: relative; }
 
 .fb-nav-link:hover {
-  background: #383d3f;
+  background: #e6e6e6;
   text-decoration: none; }
 
 .fb-nav-link.selected, .fb-nav-link.selected:hover {
-  color: white;
-  background: #383d3f; }
+  color: black;
+  background: #e6e6e6; }
 
 .nav-link-bar {
   height: 100%;
@@ -7556,8 +7554,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 11px;
-  margin-right: 3px; }
+  padding: 11px; }
   .logins-wrapper:hover {
     background: #F3F3F3 -30%; }
   .logins-wrapper .accounts-dropdown {
@@ -7619,8 +7616,7 @@ body {
 
 .connection-status-wrapper {
   position: relative;
-  padding: 20px 0;
-  border-top: 2px solid #383d3f;
+  padding: 10px 0;
   width: 100%; }
 
 .connection-panel-btn {
@@ -7639,7 +7635,7 @@ body {
 .interactive-status-wrapper {
   align-self: left;
   margin-top: auto;
-  padding: 0em 0em 0em 16px;
+  padding: 0em 7px 0em 18px;
   text-align: left;
   margin-bottom: .70em;
   display: flex;
@@ -9529,7 +9525,7 @@ table.fb-table-alt {
   padding: 20px;
   background: #25292a;
   user-select: none;
-  color: white; }
+  color: black; }
   .info-box .info-title {
     font-size: 50px;
     font-weight: 100;
@@ -9596,7 +9592,7 @@ table.fb-table-alt {
   position: relative; }
 
 .chat-item.alternate:nth-child(even) {
-  background: #42464a; }
+  background: #e6e6e6; }
 
 .reward-redemption {
   padding: 6px;
@@ -9661,7 +9657,7 @@ table.fb-table-alt {
   .chat-message.isHighlighted {
     background-color: #43517B; }
   .chat-message.isWhisper {
-    background-color: #eaeaea; }
+    background-color: #d7d7d7; }
     .chat-message.isWhisper .chatContent {
       color: #c235ef; }
   .chat-message.isTagged .chatContent {
@@ -10010,8 +10006,7 @@ table.fb-table-alt {
   align-items: flex-start;
   top: 0;
   z-index: 9999;
-  position: sticky;
-  background: #F3F5F5; }
+  position: sticky; }
 
 .stream-info-setting {
   width: 100%; }
@@ -10020,7 +10015,7 @@ table.fb-table-alt {
   min-height: 200px;
   flex-shrink: 0;
   height: 33.3%;
-  background: #2F3136;
+  background: white;
   overflow-y: overlay; }
   .activity-feed-column::-webkit-scrollbar {
     width: 7px; }
@@ -10038,10 +10033,10 @@ table.fb-table-alt {
   width: 50%;
   min-width: 250px;
   height: 100%;
-  padding-bottom: 0;
-  background: white; }
+  padding-bottom: 0; }
 
 .viewer-list-column {
+  background: white;
   margin: 5px 5px 0px 5px;
   padding: 5px;
   width: 20%;
@@ -10069,8 +10064,7 @@ table.fb-table-alt {
   align-items: flex-start;
   position: sticky;
   top: 0;
-  z-index: 9999;
-  background: #F3F5F5; }
+  z-index: 9999; }
 
 .pronoun {
   font-weight: 400;
@@ -10179,7 +10173,7 @@ table.fb-table-alt {
   right: 101%;
   position: absolute;
   top: 90px;
-  background: #43454A;
+  background: white;
   padding-left: 0; }
 
 .dropdown-menu ul.submenu li {
@@ -10188,7 +10182,8 @@ table.fb-table-alt {
   padding-right: 15px; }
 
 .dropdown-menu ul.submenu li:hover {
-  background-color: #34363B; }
+  color: #333;
+  background-color: #f0f0f0; }
 
 .dropdown-menu a:hover {
   opacity: 1; }
@@ -10452,10 +10447,10 @@ table.kol-fb-table td {
 
 table.kol-fb-table tbody tr {
   box-shadow: none;
-  background: #43454A; }
+  background: white; }
 
 table.kol-fb-table tbody tr:hover {
-  background: #2f3033; }
+  background: #9145ff; }
 
 table.kol-fb-table tbody .topchart-avatar {
   width: 25px;
@@ -11050,12 +11045,12 @@ column slide animation
   .effect-category-wrapper .category-text {
     padding: 7px 0; }
   .effect-category-wrapper:hover {
-    background: #383d3f;
+    background: #e6e6e6;
     text-decoration: none; }
   .effect-category-wrapper.selected {
     color: white;
     font-weight: 400;
-    background: #383d3f; }
+    background: #e6e6e6; }
     .effect-category-wrapper.selected.dark {
       background: #222326; }
     .effect-category-wrapper.selected .category-bar {
@@ -11354,12 +11349,17 @@ textarea.form-control {
 
 .nav-tabs > li > a:hover {
   opacity: 1 !important;
-  color: white !important;
+  color: #9145ff;
   border-color: transparent;
   border-bottom: 1px solid "#333"; }
 
 .nav-tabs .nav-link:hover {
-  color: "#333"; }
+  color: #9145ff; }
+
+button.btn.btn-default.time-filter {
+  color: #5d5e5f; }
+  button.btn.btn-default.time-filter:hover {
+    color: #9145ff; }
 
 .btn.btn-lg {
   height: 42px;
@@ -11423,7 +11423,7 @@ textarea.form-control {
   .btn-default:hover {
     background-color: white;
     border-color: #9145ff;
-    color: white; }
+    color: black; }
 
 .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover {
   color: white;
@@ -11530,11 +11530,8 @@ textarea.form-control {
   border: 2px solid transparent;
   border-radius: 5px;
   box-shadow: none;
-  background-color: #24262a;
+  background-color: white;
   color: inherit; }
-
-.input-group-bgcolor {
-  background-color: black !important; }
 
 .form-control {
   border: 2px solid lightgray;
@@ -11548,7 +11545,11 @@ textarea.form-control {
     background-color: whitesmoke; }
   .form-control.input-lg {
     height: 42px;
-    font-size: 16px; }
+    font-size: 16px;
+    background-color: white; }
+
+span.form-control {
+  background-color: white; }
 
 .input-group .form-control {
   z-index: 0;
@@ -11762,9 +11763,6 @@ a {
   font-size: 25px;
   font-weight: bold; }
 
-.bgfontcolor {
-  color: #CAC8C8; }
-
 .ui-select-bootstrap .ui-select-choices-row.active > span {
   background-color: #9145ff; }
 
@@ -11779,14 +11777,8 @@ a {
   transform: translateY(-50%);
   color: #87878A; }
 
-.ui-select-bootstrap > .ui-select-match > .btn {
-  background: #101111; }
-
 .kol-analysis-nav ul.nav {
   padding-left: 20px; }
-
-.kol-chat-notifications .form-control {
-  background-color: #181819; }
 
 .kol-chat-notifications .kol-input-append-tag {
   left: -15%;
@@ -11809,12 +11801,11 @@ a {
   color: #9145FF; }
 
 .kol-message-tip {
-  color: #CAC8C8;
   line-height: 15px;
   height: 15px; }
 
 .kol-message-tip > span {
-  background-color: white;
+  background-color: #d2d2d2;
   color: black;
   padding: 2px 3px;
   border-radius: 3px;
@@ -11824,9 +11815,6 @@ a {
   background-color: white;
   padding: 2px 3px;
   border-radius: 3px; }
-
-.kol-cooldown-time span {
-  color: #CAC8C8; }
 
 .kol-cooldown-time .fb-select {
   width: 60px;
@@ -11855,3 +11843,6 @@ a {
 
 .titlebar.windows .menubar {
   margin-right: auto; }
+
+.titlebar-drag-region {
+  background-color: #9145ff; }

@@ -147,6 +147,14 @@ exports.whenReady = async () => {
     const quotesdb = require("../../../quotes/quotes-manager");
     quotesdb.loadQuoteDatabase();
 
+    logger.info("Creating or connecting userPoints database");
+    const userpointsdb = require("../../../database/userPointsDatabase");
+    userpointsdb.loadUserPointsDatabase();
+
+    logger.info("Creating or connecting gaLivePoints database");
+    const galivepointsdb = require("../../../database/gaLivePointsDatabase");
+    galivepointsdb.loadGaLivePointsDatabase();
+
     logger.info("Creating or connecting chatMessage database");
     const chatmessagedb = require("../../../database/chatMessageDatabase");
     chatmessagedb.loadChatMessageDatabase();

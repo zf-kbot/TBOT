@@ -9,7 +9,7 @@
         <div style="padding:10px;">
             <div class="form-group">
                 <label for="trigger" class="form-label"><i class="fa fa-exclamation"></i> {{ $ctrl.translations['AUTOREPLY.MODAL.BODY.TRIGGER'] }} <tooltip styles="opacity:0.7;font-size:11px;" text="$ctrl.translations['AUTOREPLY.MODAL.BODY.TRIGGER_TOOLTIP']"/></label>
-                <input type="text" class="form-control input-lg" id="trigger" placeholder="{{ $ctrl.translations['AUTOREPLY.MODAL.BODY.TRIGGER_PLACEHOLDER'] }}" ng-model="$ctrl.command.trigger" />
+                <input type="text" class="form-control" id="trigger" placeholder="{{ $ctrl.translations['AUTOREPLY.MODAL.BODY.TRIGGER_PLACEHOLDER'] }}" ng-model="$ctrl.command.trigger" />
             </div>
 
             <div class="form-group">
@@ -17,7 +17,7 @@
                 <!-- <div class="input-group"> -->
                 <div>
                     <!-- <span class="input-group-addon" style="min-width: 100px;width:100px">Global</span> -->
-                    <input style="display:flex; flex:1;" class="form-control input-lg" type="number" min="0" placeholder="{{ $ctrl.translations['AUTOREPLY.MODAL.BODY.COOLDOWNS_PLACEHOLDER'] }}"
+                    <input style="display:flex; flex:1;" class="form-control" type="number" min="0" placeholder="{{ $ctrl.translations['AUTOREPLY.MODAL.BODY.COOLDOWNS_PLACEHOLDER'] }}"
                             ng-model="$ctrl.command.cooldown.global" />
                     <!-- <span class="input-group-addon" style="min-width: 100px;width:100px">User</span>
                     <input class="form-control input-lg" type="number" min="0" placeholder="secs"

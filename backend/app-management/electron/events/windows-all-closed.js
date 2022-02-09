@@ -1,6 +1,7 @@
 "use strict";
 
 const { app } = require("electron");
+const { appQuit } = require("../../../common/ga-manager");
 
 exports.windowsAllClosed = async () => {
 
@@ -29,11 +30,24 @@ exports.windowsAllClosed = async () => {
     // Remove eventsub subscriptions
     const eventsubClient = require('../../../twitch-api/eventsub/eventsub-client');
     await eventsubClient.deleteListeners();
-
-    if (settings.backupOnExit()) {
-        // Make a backup
-        startBackup(false, app.quit);
-    } else {
-        app.quit();
-    }
+    //关闭客户端时，检测是否需要发送用户直播积分发放数据
+    const gaPointsHelper = require("../../../../backend/common/ga-points-helpers");
+    gaPointsHelper.gaSendStreamerGiveAwayPoints();
+    appQuit.on("app-quit", () => {
+        if (settings.backupOnExit()) {
+            // Make a backup
+            startBackup(false, app.quit);
+        } else {
+            app.quit();
+        }
+    });
+    //无论ga是否发送成功，3秒后退出程序
+    setTimeout(() => {
+        if (settings.backupOnExit()) {
+            // Make a backup
+            startBackup(false, app.quit);
+        } else {
+            app.quit();
+        }
+    }, 3000);
 };

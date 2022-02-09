@@ -29,7 +29,7 @@
 .chat-item {
     &.alternate:nth-child(even) {
         // background: $chat-message-alternate-bg;
-        background:#42464a;
+        background: $chat-message-alternate-bg;
     }
 }
 .reward-redemption {
@@ -550,7 +550,6 @@
     top: 0;
     z-index: 9999;
     position: sticky;
-    background: $light-background-color;
 }
 
 .stream-info-setting{
@@ -562,7 +561,7 @@
     // width: 275px; 
     flex-shrink: 0;
     height: 33.3%; 
-    background: #2F3136;
+    background: $form-control-bg;
 
     overflow-y: overlay;
 
@@ -593,11 +592,11 @@
     min-width: 250px;
     height: 100%;
     padding-bottom: 0;
-    background: $light-background-color + 15%;
 }
 
 // Chat Screen
 .viewer-list-column {
+    background: $form-control-bg;
     margin: 5px 5px 0px 5px;
     padding: 5px;
     width: 20%;
@@ -637,7 +636,6 @@
     position: sticky;
     top: 0;
     z-index: 9999;
-    background: $light-background-color;
 }
 
 .pronoun {
@@ -661,7 +659,7 @@
     width: 100%; 
     height: 100%;
     padding-bottom: 10px;
-    background: $light-background-color + 15%;
+    background: $form-control-bg;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -770,7 +768,7 @@
     right: 101%;
     position: absolute;
     top: 90px;
-    background: #43454A;
+    background: $dropdown-menu-bg;
     padding-left: 0;
 }
 
@@ -781,7 +779,8 @@
 }
 
 .dropdown-menu ul.submenu li:hover {
-    background-color: #34363B;
+    color: $dropdown-menu-text;
+    background-color: $dropdown-menu-bg - 15%;
 }
 
 .dropdown-menu a:hover {

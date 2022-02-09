@@ -6,8 +6,9 @@ $dark-background-color: #25292a;
 $dark-background-border: #383d3f;
 $dark-background-box-shadow: #383d3f;
 
+$titlebar-bg: #9145ff;
 $content-text-color: #25292a;
-
+$tab-body-bg: #eee;
 $light-text-color: #808080;
 
 $bad-color:red;
@@ -20,11 +21,12 @@ $scrollbar-background-color: $medium-background-color;
 $scrollbar-bar-color: $dark-background-border + 50%;
 
 // Navigation
-$left-nav-link-text-color: white;
-$left-nav-link-text-hover-color:#383d3f;
+$left-nav-link-text-color: black;
+$left-nav-link-text-hover-color:#e6e6e6;
 $left-nav-link-text-selected-color: #383d3f;
-$nav-link-bg: #383d3f;
-$sidebar-bg: linear-gradient(135deg, #25292a 0%, #383d3f 98%);
+$nav-link-bg: #e6e6e6;
+$sidebar-bg: linear-gradient(135deg, $light-background-color 0%, $light-background-border 98%);
+$tab-header-bg: white;
 
 // editor column
 $editor-column-bg: linear-gradient(to right, #f1f1f1 0%, #ffffff 100%);
@@ -82,10 +84,12 @@ $chatWhisperColor: #c235ef;
 $chatDeletedColor: gray;
 $chatTextColor: black;
 $chatBorder: #cecece;
-$chat-message-alternate-bg: #f9f9f9;
+$chat-message-alternate-bg: #e6e6e6;
 $sticker-bg-color:lightslategrey;
 $chat-input-bg-color: #f1f1f1;
 $activity-bg-color: #e6e6e6;
+$message-tip-bg-color: #e6e6e6;
+$message-tip-color: black;
 
 // Connection panel
 $connection-tile-bg: white;
@@ -109,6 +113,7 @@ $default-btn-hover-bg: lightgray;
 $default-btn-hover-border: lightgray;
 
 $form-control-bg: white;
+$form-control-input-lg-bg: white;
 $form-control-border: lightgray;
 $form-control-text: #1a1a1a;
 $add-on-group-bg: lightgrey;
@@ -157,6 +162,7 @@ $fb-table-shadow: 1px 1px 5px #dedede;
 $sys-cmd-expanded-shadow: 3px 3px 5px -2px #dedede;
 
 $integration-row-bg: #f3f5f5;
+$tabHoverColor: #9145ff;
 
 // Import Core Styles
 @import './core/$importer';

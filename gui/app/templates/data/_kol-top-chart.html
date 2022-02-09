@@ -24,9 +24,9 @@
     <div class=row>
         <div class="pull-right" style="margin-right: 15px;">
             <div class="btn-group" role="group" aria-label="...">
-                <button uib-tooltip="{{ 'TOP_CHART.TABS.LAST_SECTION_HOVER' | translate }}" tooltip-append-to-body="true" type="button" class="btn {{activeLayout == 'Session'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('Session');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_SECTION" | translate }}</button>
-                <button type="button" class="btn {{activeLayout == 'Week'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('Week');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_WEEK" | translate }}</button>
-                <button type="button" class="btn {{activeLayout == 'Month'? 'btn-changecolor' : 'btn-default'}}" ng-click="changeActiveLayout('Month');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_MONTH" | translate }}</button>
+                <button uib-tooltip="{{ 'TOP_CHART.TABS.LAST_SECTION_HOVER' | translate }}" tooltip-append-to-body="true" type="button" class="btn {{activeLayout == 'Session'? 'btn-changecolor' : 'btn-default'}} time-filter" ng-click="changeActiveLayout('Session');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_SECTION" | translate }}</button>
+                <button type="button" class="btn {{activeLayout == 'Week'? 'btn-changecolor' : 'btn-default'}} time-filter" ng-click="changeActiveLayout('Week');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_WEEK" | translate }}</button>
+                <button type="button" class="btn {{activeLayout == 'Month'? 'btn-changecolor' : 'btn-default'}} time-filter" ng-click="changeActiveLayout('Month');" style="border: 1px solid transparent">{{ "TOP_CHART.TABS.LAST_MONTH" | translate }}</button>
             </div>
         </div>
 
@@ -106,7 +106,7 @@
                 <p style="font-size: 28px;">{{ 'NONE' | translate}}</p>
             </div>
         </div>
-        <div ng-if="!connectedStatus || (active == 0 &&!ktcs.kolViewTimes.length) || (active == 1 &&!ktcs.kolChatters.length) || (active == 2 &&!ktcs.kolEmotes.length)" class="kol-none-box" style="height: 272px; width: 600px ;margin: 15px 15px; position: relative; top: -30px">
+        <div ng-if="!connectedStatus" class="kol-none-box" style="height: 272px; width: 600px ;margin: 15px 15px; position: relative; top: -30px">
             <p style="font-size: 28px;">{{ 'NONE' | translate}}</p>
         </div>
     </div>

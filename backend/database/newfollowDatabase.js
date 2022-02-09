@@ -2,7 +2,7 @@
 
 const Datastore = require('nedb');
 const profileManager = require("../common/profile-manager");
-// const frontendCommunicator = require("../common/frontend-communicator");
+const frontendCommunicator = require("../common/frontend-communicator");
 const logger = require("../logwrapper");
 
 /**
@@ -40,36 +40,25 @@ function addNewFollow(followMsg) {
 }
 
 
-// function groupBy(list, keyGetter) {
-//     const map = new Map();
-//     list.forEach((item) => {
-//         const key = keyGetter(item);
-//         const collection = map.get(key);
-//         if (!collection) {
-//             map.set(key, [item]);
-//         } else {
-//             collection.push(item);
-//         }
-//     });
-//     return map;
-// }
+function queryNewFollower(queryTime) {
+    return new Promise (resolve => {
+        db.find({$and: [{followedDate: {$gt: queryTime.startTime } }, { followedDate: {$lt: queryTime.endTime } }] }, function (err, docs) {
+            //找到queryTime时间段内的记录
+            if (err) {
+                return resolve([]);
+            }
+            return resolve(docs);
+        });
+    });
+}
 
-// function queryTopChart(querymessage) {
-//     return new Promise (resolve => {
-//         db.find({$and: [{timestamp: {$gt: 1638359485000 } }, { timestamp: {$lt: 1648964285000 } }] }, function (err, docs) {
-//             //找到本周相关用户
-//             if (err) {
-//                 return resolve([]);
-//             }
-//             return resolve(docs);
-//         });
-//     });
-// }
+frontendCommunicator.onAsync("getNewFollower", async(queryTime) => {
+    let queryResult = await queryNewFollower(queryTime) || [];
+    return queryResult || [];
+});
 
-// frontendCommunicator.onAsync("addEmoteMessageData", async(emoteData) => {
-//     return addEmoteMessageData(emoteData) || [];
-// });
 
 exports.loadNewFollowDatabase = loadNewFollowDatabase;
 exports.getNewFollowDb = getNewFollowDb;
 exports.addNewFollow = addNewFollow;
+exports.queryNewFollower = queryNewFollower;

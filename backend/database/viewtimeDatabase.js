@@ -48,4 +48,5 @@ frontendCommunicator.onAsync("getTopViewTimes", async(queryTime) => {
 });
 exports.loadViewTimeDatabase = loadViewTimeDatabase;
 exports.getViewTimeDb = getViewTimeDb;
+exports.queryTopViewTimes = queryTopViewTimes;
 // exports.addViewTimeData = addViewTimeData;

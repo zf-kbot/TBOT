@@ -60,11 +60,15 @@
                 if (!kolPoll.is_active) {
                     kolPollService.beginKolPoll(kolPoll).then((data) => {
                         if (data.type === 'success') {
-                            setTimeout(() => {
-                                kolPoll.is_active = false;
-                                kolPollService.saveKolPoll(kolPoll);
-                            }, kolPoll.duration * 1000, kolPoll);
+                            //投票开启成功，投票信息已写入，延迟对应时间，修改投票开关状态，并保存。
+                            setTimeout(
+                                () => {
+                                    let kolPollCurrent = profileManager.getJsonDbInProfile("kolPolls").getData("/" + kolPoll.id);
+                                    kolPollCurrent.is_active = false;
+                                    kolPollService.saveKolPoll(kolPollCurrent);
+                                }, kolPoll.duration * 1000, kolPoll);
                             kolHistoryService.pushHistoryMsg(`Began a poll: ${kolPoll.title}`);
+                            return;
                         } else if (data.type === 'error') {
                             kolPoll.is_active = false;
                             if (data.data && data.data._body) {

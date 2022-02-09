@@ -101,13 +101,17 @@ async function getKolPollById(id) {
 /**
  * 创建指定的投票
  */
-async function createKolPoll(title, duration, choices = []) {
+async function createKolPoll(title, duration, choices = [], bits_voting_enabled = false, bits_per_vote = 0, channel_points_voting_enabled = false, channel_points_per_vote = 0) {
     const client = twitchApi.getClient();
     let postBody = {
         broadcaster_id: accountAccess.getAccounts().streamer.userId,
         title: title,
         duration: duration,
-        choices: choices
+        choices: choices,
+        bits_voting_enabled: bits_voting_enabled,
+        bits_per_vote: bits_per_vote,
+        channel_points_voting_enabled: channel_points_voting_enabled,
+        channel_points_per_vote: channel_points_per_vote
     };
     let response = await client.callAPI({
         type: TwitchAPICallType.Helix,

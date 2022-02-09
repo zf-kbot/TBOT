@@ -6,7 +6,8 @@
         "FEEDBACK": "Feedback",
         "LOGIN": "Login",
         "LOG_OUT": "Log Out",
-        "LANGUAGE": "Language"
+        "LANGUAGE": "Language",
+        "THEME": "Theme"
     },
     "SETUP_WIZARD": {
         "CONNECT_WITH_TWITCH": "Connect with Twitch",
@@ -212,7 +213,8 @@
             "BTTV_FFZ_EMOTES": "BTTV/FFZ Emotes",
             "SHOW_PRONOUNS": "Show Pronouns",
             "CUSTOM_FONT_SIZE": "Custom Font Size"
-        }
+        },
+        "POPOUT": "Popout"
     },
     "ACHIEVEMENT": {
         "DESC1": "You can view the streaming achievement data of the past eight weeks to get the daily live effect.",
@@ -289,7 +291,16 @@
                 "OPTIONS": "Options",
                 "OPTIONS_PLACEHOLDER_PREFIX": "choice",
                 "OPTIONS_PLACEHOLDER_SUFFIX": "(* required)",
-                "OPTIONS_TOOLTIP": "Minimum: 2 choices. Maximum: 5 choices."
+                "OPTIONS_TOOLTIP": "Minimum: 2 choices. Maximum: 5 choices.",
+                "SETTINGS": "Settings",
+                "ALLOW_ADDITIONAL_VOTES": "Allow Additional Votes",
+                "BITS_PER_VOTE": "Bits per Vote",
+                "BITS_PER_VOTE_TOOLTIP": "Number of Bits required to vote once with Bits.Minimum: 0. Maximum: 10000.",
+                "BITS_PER_VOTE_PLACEHOLDER": "Minimum: 0. Maximum: 10000.",
+                "CHANNEL_POINTS_PER_VOTE": "Channel Points per Vote",
+                "CHANNEL_POINTS_PER_VOTE_TOOLTIP": "Number of Channel Points required to vote once with Channel Points.Minimum: 0. Maximum: 1000000.",
+                "CHANNEL_POINTS_PER_VOTE_PLACEHOLDER": "Minimum: 0. Maximum: 1000000."
+
             },
             "NG_TOAST": {
                 "POLL_TITLE_NAME_TOAST": "Please provide a name for the Poll.",
@@ -297,6 +308,8 @@
                 "POLL_CHOICES_OPTION_LENGTH_TOAST": "Poll must have more then one option.",
                 "POLL_CHOICES_VALUE_NOT_NULL_TOAST": "Option must have a value.",
                 "POLL_CHOICES_VALUE_LENGTH_TOAST": "The maximum character length of the option cannot exceed 25.",
+                "POLL_BITS_PER_VOTE_TOAST": "The number of bits must be between 0 and 10000.",
+                "POLL_CHANNEL_POINTS_PER_VOTE_TOAST": "The number of channel points must be between 0 and 1000000.",
                 "POLL_DURATION_TIME_TOAST": "The voting duration must be between 15 seconds and 1800 seconds.",
                 "POLL_RESULT_403_TOAST": "You are not an affiliate or Twitch partner and not available to start a poll",
                 "POLL_RESULT_401_TOAST": "you dont have the permission to start a poll",
@@ -316,7 +329,7 @@
         }
     },
     "CHAT_NOTIFICATIONS": {
-        "DESC": "Send a notifiaction chat whenever some inportant activities happen.",
+        "DESC": "Send a notifiaction chat whenever some important activities happen.",
         "TABS": {
             "FOLLOWERS": "Followers",
             "SUBSCRIBER": "Subscriber",
@@ -327,7 +340,7 @@
             "ANNOUCEMENT": "Annoucement"
         },
         "ACTIVE_DESC": {
-            "FOLLOWERS": "A randomly thank message will be send for your new followers",
+            "FOLLOWERS": "A random thank you message will be sent to your new followers",
             "SUBSCRIBER": "Post an randomly message in chat whenever someone subscribes to the channel",
             "GIFT_SUBSCRIPTION": "Post an message in chat whenever someone gift subscription",
             "CHEER": "Post a message in chat whenever someone cheers",

@@ -38,10 +38,10 @@
 
 
   <div class="chat-window-column" style="margin:10px 10px 10px 10px;height:98%;">
-    <div class="chat-window-wrapper" style="background: #24262A;">
-      <i uib-tooltip="Popout" tooltip-append-to-body="true" ng-hide="!chatFeedIsEnabled()" class="fa fa-external-link" ng-hide="chatBoxIsPopped" ng-click="popChatBox()" aria-hidden="true" style="/* text-align: right; */display: flex;position: absolute;right: 10px;top: 10px;cursor: pointer;z-index: 1050;"></i>
-      <div ng-hide="chatFeedIsEnabled()" class="chatfeed-disabled-overlay" style="background: #24262A;">
-        <span style="color: white; font-size: 1.2em; text-align: center">{{disabledMessage | translate}}</span>
+    <div class="chat-window-wrapper" style="background: inherit;">
+      <i uib-tooltip="{{'DASHBOARD.POPOUT' | translate}}" tooltip-append-to-body="true" ng-hide="!chatFeedIsEnabled()" class="fa fa-external-link" ng-hide="chatBoxIsPopped" ng-click="popChatBox()" aria-hidden="true" style="/* text-align: right; */display: flex;position: absolute;right: 20px;top: 20px;cursor: pointer;z-index: 1050;animation: 0.8s jump 5"></i>
+      <div ng-hide="chatFeedIsEnabled()" class="chatfeed-disabled-overlay" style="background: inherit;">
+        <span style="font-size: 1.2em; text-align: center">{{disabledMessage | translate}}</span>
       </div>
       <button ng-hide="scrollGlued" ng-click="scrollGlued = true" class="btn-sm clickable" style="
           position: absolute;
@@ -104,8 +104,8 @@
       </div>
     </div>
   </div>
-  <div class="viewer-list-column" ng-show="getChatViewerListSetting()" style="margin:10px 10px 10px 10px;height:98%;background:#24262A;border: 0;">
-    <div class="viewer-list-header" style="background: #24262A;">
+  <div class="viewer-list-column" ng-show="getChatViewerListSetting()" style="margin:10px 10px 10px 10px;height:98%;border: 0;">
+    <div class="viewer-list-header">
       <span>{{ 'DASHBOARD.CHATUSERS.CHATUSERS' | translate }}</span>
     </div>
     <div class="chat-users" style="margin-top: 5px">
@@ -116,14 +116,14 @@
       <chat-user-category category="Broadcaster" role-key="broadcaster" />
     </div>
   </div>
-  <div ng-show="getStreamInfoSetting() || getHistorySetting() || getActivityFeedSetting()" class="view-content" style="margin:10px 10px 10px 10px;height:98%;background:#101111;">
-    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="background: #24262A; height:unset; min-height:unset; display: flex;flex-direction: column;border-top-left-radius: 10px;border-top-right-radius: 10px;overflow-y:visible; z-index: 10000;">
-      <div class="activity-feed-header" style=" padding: 5px;background: #24262A;border-top-left-radius: 10px;border-top-right-radius: 10px;">
+  <div ng-show="getStreamInfoSetting() || getHistorySetting() || getActivityFeedSetting()" class="view-content" style="margin:10px 10px 10px 10px;height:98%;">
+    <div ng-show="getStreamInfoSetting()" class="activity-feed-column" style="height:unset; min-height:unset; display: flex;flex-direction: column;border-top-left-radius: 10px;border-top-right-radius: 10px;overflow-y:visible; z-index: 10000;">
+      <div class="activity-feed-header" style=" padding: 5px;border-top-left-radius: 10px;border-top-right-radius: 10px;">
         <div style="display: flex; align-items: center">
             <span style="padding-left: 7px;padding-top:2px;">{{ 'DASHBOARD.STREAMINFO.NAME' | translate }}</span>
         </div>
         <div uib-dropdown>
-            <a href uib-dropdown-toggle class="clickable" style="color: white; font-size: 20px; line-height: 1"
+            <a href uib-dropdown-toggle class="clickable" style="font-size: 20px; line-height: 1"
               aria-label="Activity feed options">
               <i class="fa fa-ellipsis-v"></i>
             </a>
@@ -139,9 +139,9 @@
         <kol-edit-stream-info-modal class="stream-info-setting" style="border-radius: 30%;"></kol-edit-stream-info-modal>
       </div>
     </div>
-    <div ng-show="getHistorySetting()" style="background: #101111;height: 40%;display: flex;flex-direction: column-reverse;">
-      <div class="activity-feed-column" style="background: #24262A;border-radius: 10px;height:90%">
-        <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
+    <div ng-show="getHistorySetting()" style="height: 40%;display: flex;flex-direction: column-reverse;">
+      <div class="activity-feed-column" style="border-radius: 10px;height:90%">
+        <div class="activity-feed-header" style=" padding: 5px;">
           <div style="display: flex; align-items: center">
             <span style="padding-left: 7px;padding-top:2px;">{{ 'DASHBOARD.HISTORY.NAME' | translate }}</span>
             <span ng-show="khs.historyQueue.length > 0" uib-tooltip=""
@@ -160,7 +160,7 @@
           </div>
         </div>
         <div class="activity-list">
-          <div style="background: #101111;" class="activity alternate-bg" ng-class="activity.acknowledged"
+          <div class="activity alternate-bg" ng-class="activity.acknowledged"
           ng-repeat="activity in khs.historyQueue">
             <div style="
                 display: flex;
@@ -179,9 +179,9 @@
         </div>
       </div>
     </div>
-    <div ng-show="getActivityFeedSetting()" style="background: #101111;height:40%;display: flex;flex-direction: column-reverse;">
-      <div class="activity-feed-column" style="background: #24262A; border-radius: 10px;height: 90%;">
-        <div class="activity-feed-header" style=" padding: 5px;background: #24262A;">
+    <div ng-show="getActivityFeedSetting()" style="height:40%;display: flex;flex-direction: column-reverse;">
+      <div class="activity-feed-column" style="border-radius: 10px;height: 90%;">
+        <div class="activity-feed-header" style=" padding: 5px;">
           <div style="display: flex; align-items: center">
             <span style="padding-left: 7px;padding-top:2px;">{{ 'DASHBOARD.ACTIVITY_FEED.NAME' | translate }}</span>
             <span ng-show="afs.unacknowledgedCount() > 0" uib-tooltip="{{UNACKNOWLEDGED_EVENTS}}"
@@ -189,7 +189,6 @@
                 background: rgb(119, 121, 121);
                 border-radius: 30%;
                 padding: 1px 5px;
-                color: white;
                 font-size: 12px;
                 margin-left: 5px;
                 display: inline;
@@ -199,7 +198,7 @@
               ">{{afs.unacknowledgedCount()}}</span>
           </div>
           <div uib-dropdown>
-            <a href uib-dropdown-toggle class="clickable" style="color: white; font-size: 20px; line-height: 1"
+            <a href uib-dropdown-toggle class="clickable" style="font-size: 20px; line-height: 1"
               aria-label="Activity feed options">
               <i class="fa fa-ellipsis-v"></i>
             </a>
@@ -219,7 +218,7 @@
           </div>
         </div>
         <div class="activity-list">
-          <div style="background: #101111;" class="activity alternate-bg" ng-class="activity.acknowledged ? 'muted' : ''"
+          <div class="activity alternate-bg" ng-class="activity.acknowledged ? 'muted' : ''"
             ng-repeat="activity in afs.activities track by activity.id">
             <div style="
                 display: flex;
@@ -252,7 +251,7 @@
             </div>
           </div>
         </div>
-        <div ng-if="afs.activities.length === 0" class="kol-none-box" style="height: 89%;background: #24262A;margin:0 8px;">
+        <div ng-if="afs.activities.length === 0" class="kol-none-box" style="height: 89%;margin:0 8px;">
           <p style="font-size: 20px;">NONE</p>
         </div>
       </div>

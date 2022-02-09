@@ -4,12 +4,11 @@
     angular.module("twitcherbotApp")
         .component("kolEditStreamInfoModal", {
             template: `
-                <div style="background:#101111;">
+                <div>
                     <form name="streamInfo" style="boder-radius:10px;">
-                        <div style="background:#24262A;padding:5px;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px">
+                        <div style="padding:5px;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px">
                             <div style="display:flex;flex:1;margin-bottom:3px;height:25%;"class="form-group"  ng-class="{'has-error': $ctrl.formFieldHasError('title')}">
                                 <input 
-                                    style="color:white;background:#101111;"
                                     type="text" 
                                     id="title" 
                                     name="title"
@@ -25,9 +24,9 @@
                             <div class="form-group" style="margin-bottom:4px;">
                                 <ui-select ng-model="$ctrl.selectedGame" required input-id="game" theme="bootstrap" spinner-enabled="true" on-select="$ctrl.gameSelected($item)" ng-disabled="!$ctrl.dataLoaded">
                                     <ui-select-match placeholder="{{ $ctrl.translations['DASHBOARD.STREAMINFO.PLACEHOLDER.SEARCH_FOR_CATEGORY'] }}">
-                                        <div style="height: 25px; display:flex; flex-direction: row; align-items: center;">
+                                        <div class="" style="height: 25px; display:flex; flex-direction: row; align-items: center;">
                                             <img style="height: 21px; width: 21px; border-radius: 5px; margin-right:5px;" ng-src="{{$select.selected.boxArtUrl}}">
-                                            <div style="font-weight: 100;font-size: 17px;background:#101111;">{{$select.selected.name}}</div>
+                                            <div style="font-weight: 100;font-size: 17px;">{{$select.selected.name}}</div>
                                         </div>
                                     </ui-select-match>
                                     <ui-select-choices minimum-input-length="1" repeat="game in $ctrl.games | filter: $select.search" refresh="$ctrl.searchGames($select.search)" refresh-delay="200" style="position:relative;">
@@ -54,7 +53,7 @@
                                 </ui-select>
                                 <div >
                                     <span class="kol-message-tip" style="line-height:25px;margin-top: 3px;display: inline-block;">
-                                        <span ng-repeat="tag in $ctrl.tags " ng-click="$ctrl.delete({ name: tag })" class="ng-binding ng-scope" role="button" style="background-color:black;color:#CAC8C8;padding-top:1px;padding-left:3px;margin-left:0px;">
+                                        <span ng-repeat="tag in $ctrl.tags " ng-click="$ctrl.delete({ name: tag })" class="ng-binding ng-scope" role="button" style="padding-top:1px;padding-left:3px;margin-left:0px;">
                                             {{tag.name}}<i class="fa fa-times-circle purple" aria-hidden="true"></i>
                                         </span>
                                     </span>

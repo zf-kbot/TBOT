@@ -224,15 +224,20 @@ textarea.form-control {
 
 .nav-tabs>li>a:hover {
     opacity: 1 !important;
-    color: white !important;
+    color: #9145ff;
     border-color: transparent;
     border-bottom: 1px solid $nav-border-hover;
 }
 
 .nav-tabs .nav-link:hover {
-    color: $nav-border-hover;
+    color: $tabHoverColor;
 }
-
+button.btn.btn-default.time-filter {
+    color: $unselected-tab-text-color;
+    &:hover {
+        color: $tabHoverColor;
+    }
+}
 // Buttons
 
 .btn {
@@ -308,7 +313,7 @@ textarea.form-control {
     &:hover {
         background-color: $default-btn-bg-color;
         border-color: $highlight-color;
-        color: white;
+        color: $chatTextColor;
     }
 }
 
@@ -453,12 +458,12 @@ textarea.form-control {
     border-radius: 5px;
     box-shadow: none;
     // background-color: $add-on-group-bg;
-    background-color: rgb(36,38,42);
+    background-color: $light-background-color + 20%;
     color: $add-on-group-text;
 }
-.input-group-bgcolor{
-    background-color: black!important;
-}
+// .input-group-bgcolor{
+//     background-color: black!important;
+// }
 .form-control {
     border: 2px solid $form-control-border;
     border-radius: 5px;
@@ -474,7 +479,12 @@ textarea.form-control {
     &.input-lg {
         height: 42px;
         font-size: 16px;
+        background-color: $form-control-input-lg-bg;
     }
+}
+
+span.form-control {
+    background-color: $form-control-input-lg-bg;
 }
 
 .input-group .form-control {
@@ -747,10 +757,6 @@ a {
     font-weight: bold;
 }
 
-.bgfontcolor{
-    color:#CAC8C8 ;
-}
-
 .ui-select-bootstrap .ui-select-choices-row.active > span {
     background-color: #9145ff;
 }
@@ -768,17 +774,13 @@ a {
     color: #87878A;
 }
 
-.ui-select-bootstrap > .ui-select-match >.btn {
-    background: #101111;
-}
-
 .kol-analysis-nav ul.nav{
     padding-left: 20px;
 }
 
-.kol-chat-notifications .form-control {
-    background-color: #181819;
-}
+// .kol-chat-notifications .form-control {
+//     background-color: #181819;
+// }
 
 .kol-chat-notifications .kol-input-append-tag {
     left: -15%;
@@ -806,14 +808,14 @@ a {
 }
 
 .kol-message-tip {
-    color: #CAC8C8;
+    // color: #CAC8C8;
     line-height: 15px;
     height: 15px;
 }
 
 .kol-message-tip > span {
-    background-color: white;
-    color: black;
+    background-color: $message-tip-bg-color - 20%;
+    color: $message-tip-color;
     padding: 2px 3px;
     border-radius: 3px;
     margin: 3px
@@ -825,9 +827,9 @@ a {
     border-radius: 3px;
 }
 
-.kol-cooldown-time span {
-    color: #CAC8C8;
-}
+// .kol-cooldown-time span {
+//     color: #CAC8C8;
+// }
 
 .kol-cooldown-time .fb-select {
     width: 60px;

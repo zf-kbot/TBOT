@@ -5,8 +5,18 @@ const uuid = require("uuid/v4");
 const ua = require('universal-analytics');
 const logger = require('../logwrapper');
 const electron = require("electron");
+const EventEmitter = require("events");
+const appQuit = new EventEmitter();
 const app = electron.app || electron.remote.app;
 
+function getGaErrorFile() {
+    return profileManager.getJsonDbInProfile('/gaError');
+}
+function pushGaErrorDataToFile(path, data) {
+    try {
+        getGaErrorFile().push(path, data, true);
+    } catch (err) { }//eslint-disable-line no-empty
+}
 function getGoogleAnalyticsCidFile() {
     return profileManager.getJsonDbInProfile('/gaInfo');
 }
@@ -54,6 +64,17 @@ function checkEnv(func) {
     }
     return () => {};
 }
-
+function sendEventAndReturnStatus(category, action, label = '', value = 1) {
+    visitor.event(category, action, label, value).send((error) => {
+        //写入错误信息
+        if (error) {
+            pushGaErrorDataToFile('/' + new Date().getTime(), error);
+        }
+        //ga发送成功，发出退出程序事件
+        appQuit.emit("app-quit");
+    });
+}
 exports.sendPageview = checkEnv(sendPageview);
 exports.sendEvent = checkEnv(sendEvent);
+exports.sendEventAndReturnStatus = checkEnv(sendEventAndReturnStatus);
+exports.appQuit = appQuit;

@@ -29,6 +29,15 @@
             };
             service.getStreamerFollowers();
 
+            //积分计算公式,每x条数据，奖励bonus积分
+            service.calculatorPoints = (queryDataResult, x = 1, bonus = 1) => {
+                //排除0不能作除数,且x非负
+                if (x <= 0) {
+                    x = 1;
+                }
+                return Math.floor(queryDataResult / x) * bonus;
+            };
+
             /**
              * Login Stuff
              */

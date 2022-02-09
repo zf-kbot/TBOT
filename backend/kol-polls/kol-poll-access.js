@@ -138,8 +138,15 @@ frontendCommunicator.onAsync("beginKolPoll", async (KolPoll) => {
     let kolPoll = JSON.parse(JSON.stringify(KolPoll));
     let tempChoices = [];
     kolPoll.choices.map(item => tempChoices.push({ title: item.title }));
-    try {
-        let response = await twitchApi.kolPolls.createKolPoll(kolPoll.title, kolPoll.duration, tempChoices);
+    try { //添加创建投票的信息
+        let response = await twitchApi.kolPolls.createKolPoll(
+            kolPoll.title,
+            kolPoll.duration,
+            tempChoices,
+            kolPoll.bits_voting_enabled,
+            kolPoll.bits_voting_enabled ? kolPoll.bits_per_vote : 0,
+            kolPoll.channel_points_voting_enabled,
+            kolPoll.channel_points_voting_enabled ? kolPoll.channel_points_per_vote : 0);
         logger.debug(`the response of the quest` + response);
         //更新从twitch获取到的投票信息到数据库
         kolPollAccess.appendTwitchPollToLocal(kolPoll, response);

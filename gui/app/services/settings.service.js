@@ -7,7 +7,7 @@
 
     angular
         .module("twitcherbotApp")
-        .factory("settingsService", function($rootScope, $route, utilityService, logger, profileManager, dataAccess, backendCommunicator) {
+        .factory("settingsService", function($rootScope, $route, utilityService, logger, profileManager, dataAccess, backendCommunicator, gaService) {
             let service = {};
 
             let settingsCache = {};
@@ -515,6 +515,7 @@
 
             service.setTheme = function(theme) {
                 pushDataToFile("/settings/theme", theme);
+                gaService.sendEvent("theme", "change", theme);
             };
 
             service.soundsEnabled = function() {

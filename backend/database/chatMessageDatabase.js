@@ -163,3 +163,4 @@ exports.loadChatMessageDatabase = loadChatMessageDatabase;
 exports.createChatMessage = createChatMessage;
 exports.updateChatMessage = updateChatMessage;
 exports.getChatMessageByUserId = getChatMessageByUserId;
+exports.queryTopChart = queryTopChart;

@@ -498,6 +498,7 @@ const e = require('cors');
                     //写入chatMessage到数据库
                     backendCommunicator.fireEventAsync("addChatMessage", messageItem);
 
+                    backendCommunicator.fireEventAsync("insertOrUpdateUserChatMessagePoints", messageItem.data.userId);
                     //select message by username 后面可能会需要点击查看排行榜上的用户信息
                     // service.userChatMessage = [];
                     // let userId = messageItem.data.userId;

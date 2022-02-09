@@ -7,17 +7,17 @@
             <!-- <kol-emotebar class="noselect"></kol-emotebar> -->
             <div>
                 <div style="display:flex ;flex-direction:row" >
-                    <div style= "display:flex;flex-direction:column;background:#101111;">
+                    <div style= "display:flex;flex-direction:column;background:transparent;">
                         <div class="modalsidebar">
                             <div class="nav-link-bar" ng-if="$ctrl.clickName == 'Regular'" ></div>
-                            <div class="nav-link-bar" style="background-color:#101111;" ng-if="$ctrl.clickName != 'Regular'" ></div>
+                            <div class="nav-link-bar" style="background-color:transparent;" ng-if="$ctrl.clickName != 'Regular'" ></div>
                             <button class="settings-btn" ng-click="$ctrl.clickFrequentlyUsed()" aria-label="Chat Settings" style="height:35px;">
                                 <i class="fa fa-clock-o" title = "Regular"></i>
                             </button>
                         </div>
                         <div class="modalsidebar">
                             <div class="nav-link-bar" ng-if="$ctrl.clickName == 'Global'"></div>
-                            <div class="nav-link-bar" style="background-color:#101111;" ng-if="$ctrl.clickName != 'Global'" ></div>
+                            <div class="nav-link-bar" style="background-color:transparent;" ng-if="$ctrl.clickName != 'Global'" ></div>
                             <button class="settings-btn" ng-click="$ctrl.clickGlobal()" aria-label="Chat Settings" style="height:35px;">
                                 <i class="fa fa-globe" title = "Global"></i>
                             </button>

@@ -23,7 +23,11 @@
                     title: "",
                 }, {
                     title: "",
-                }]
+                }],
+                bits_voting_enabled: false,
+                bits_per_vote: null,
+                channel_points_voting_enabled: false,
+                channel_points_per_vote: null
             };
 
             //新增一个投票选项
@@ -39,7 +43,7 @@
                 if ($ctrl.kolPoll.choices.length > 2) {
                     $ctrl.kolPoll.choices.splice(index, 1);
                 }
-            }
+            };
 
             $ctrl.$onInit = function () {
                 if ($ctrl.resolve.kolPoll == null) {
@@ -56,11 +60,17 @@
                     "POLL.MODAL.BODY.OPTIONS_PLACEHOLDER_PREFIX": "",
                     "POLL.MODAL.BODY.OPTIONS_PLACEHOLDER_SUFFIX": "",
                     "POLL.MODAL.BODY.OPTIONS_TOOLTIP": "",
+                    "POLL.MODAL.BODY.BITS_PER_VOTE_TOOLTIP": "",
+                    "POLL.MODAL.BODY.BITS_PER_VOTE_PLACEHOLDER": "",
+                    "POLL.MODAL.BODY.CHANNEL_POINTS_PER_VOTE_TOOLTIP": "",
+                    "POLL.MODAL.BODY.CHANNEL_POINTS_PER_VOTE_PLACEHOLDER": "",
                     "POLL.MODAL.NG_TOAST.POLL_TITLE_NAME_TOAST": "",
                     "POLL.MODAL.NG_TOAST.POLL_TITLE_NAME_LENGTH_TOAST": "",
                     "POLL.MODAL.NG_TOAST.POLL_CHOICES_OPTION_LENGTH_TOAST": "",
                     "POLL.MODAL.NG_TOAST.POLL_CHOICES_VALUE_NOT_NULL_TOAST": "",
                     "POLL.MODAL.NG_TOAST.POLL_CHOICES_VALUE_LENGTH_TOAST": "",
+                    "POLL.MODAL.NG_TOAST.POLL_BITS_PER_VOTE_TOAST": "",
+                    "POLL.MODAL.NG_TOAST.POLL_CHANNEL_POINTS_PER_VOTE_TOAST": "",
                     "POLL.MODAL.NG_TOAST.POLL_DURATION_TIME_TOAST": ""
                 };
                 const translationRes = $translate.instant(Object.keys($ctrl.translations));
@@ -112,6 +122,14 @@
                 }
                 if ($ctrl.kolPoll.duration < 15 || $ctrl.kolPoll.duration > 1800) {
                     ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_DURATION_TIME_TOAST']);
+                    return false;
+                }
+                if ($ctrl.kolPoll.bits_voting_enabled && ($ctrl.kolPoll.bits_per_vote < 1 || $ctrl.kolPoll.bits_per_vote > 9999)) {
+                    ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_BITS_PER_VOTE_TOAST']);
+                    return false;
+                }
+                if ($ctrl.kolPoll.channel_points_voting_enabled && ($ctrl.kolPoll.channel_points_per_vote < 1 || $ctrl.kolPoll.channel_points_per_vote > 999999)) {
+                    ngToast.create($ctrl.translations['POLL.MODAL.NG_TOAST.POLL_CHANNEL_POINTS_PER_VOTE_TOAST']);
                     return false;
                 }
                 return true;

@@ -171,9 +171,9 @@ table.kol-fb-table td {
     height: 45px; }
 table.kol-fb-table tbody tr {
     box-shadow: none;
-    background: #43454A; }
+    background: $default-btn-bg-color; }
 table.kol-fb-table tbody tr:hover {
-    background: #2f3033;
+    background: #9145ff;
 }
 
 table.kol-fb-table tbody .topchart-avatar {

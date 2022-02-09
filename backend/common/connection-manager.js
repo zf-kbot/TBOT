@@ -34,13 +34,16 @@ function updateOnlineStatus(online) {
             topChartDb.push('/last_section/ended_at', now);
         }
         if (isOnline) {
-            if (!dataIsEmpty && data.latest && data.latest.started_at) {
+            if (!dataIsEmpty && data.latest && data.latest.started_at && data.latest.ended_at) {
+                //如果目前已经开播了，上一次的时间存在，直接把latest的数据赋值给last_section;因为在查询top榜单时，不给last_section.ended_at赋值会存在 last_section.started_at >last_section.ended_at
                 topChartDb.push('/last_section/started_at', topChartDb.getData("/latest/started_at"));
+                topChartDb.push('/last_section/ended_at', topChartDb.getData("/latest/ended_at"));
+                topChartDb.push('/isBroadCasted', true);//开了直播，点击断开连接时，会将值设为false
             } else {
                 topChartDb.push('/last_section/started_at', now);
             }
             topChartDb.push('/latest/started_at', now);
-        } else {
+        } else { //当前streamer Offline,主播已下播，更新latest数据的ended_at值
             if (!dataIsEmpty && data.latest && data.latest.ended_at) {
                 topChartDb.push('/last_section/ended_at', topChartDb.getData("/latest/ended_at"));
             } else {

@@ -160,7 +160,7 @@
                             }
                         },
                         textStyle: {
-                            color: '#fff'
+                            color: '#9145ff'
                         },
                         bottom: 1
                     },

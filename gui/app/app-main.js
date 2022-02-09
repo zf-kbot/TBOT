@@ -506,6 +506,7 @@
         });
 
         $scope.profileLangIsOpen = false;
+        $scope.themeMenuIsOpen = false;
         $scope.ss = settingsService;
 
         //show puzzle

@@ -6,7 +6,8 @@
         "FEEDBACK": "Feedback",
         "LOGIN": "Iniciar Sesión",
         "LOG_OUT": "Cerrar Sesión",
-        "LANGUAGE": "Idioma"
+        "LANGUAGE": "Idioma",
+        "THEME": "Tema"
     },
     "SETUP_WIZARD": {
         "CONNECT_WITH_TWITCH": "Conexión con Twitch",
@@ -249,7 +250,8 @@
             "BTTV_FFZ_EMOTES": "BTTV/FFZ Expresión Facial",
             "SHOW_PRONOUNS": "Mostrar Pronombres",
             "CUSTOM_FONT_SIZE": "Tamaño De Fuente Personalizado"
-        }
+        },
+        "POPOUT": "Ventana Emergente"
     },
     "ACHIEVEMENT": {
         "DESC1": "Usted puede ver los datos de logros de streaming en las últimas ocho semanas para una transmisión diaria en vivo.",
@@ -326,7 +328,15 @@
                 "OPTIONS": "Opciónes",
                 "OPTIONS_PLACEHOLDER_PREFIX": "Selección",
                 "OPTIONS_PLACEHOLDER_SUFFIX": "(* requerido)",
-                "OPTIONS_TOOLTIP": "Mínima: 2 selecciónes. Máximo: 5 selecciónes."
+                "OPTIONS_TOOLTIP": "Mínima: 2 selecciónes. Máximo: 5 selecciónes.",
+                "SETTINGS": "Ajuste",
+                "ALLOW_ADDITIONAL_VOTES": "Permitir Votos Adicionales",
+                "BITS_PER_VOTE": "Bits por Voto",
+                "BITS_PER_VOTE_TOOLTIP": "Número de Bits necesarios para votar una vez con Bits. Mínimo: 0. Máximo: 10000.",
+                "BITS_PER_VOTE_PLACEHOLDER": "Mínimo: 0. Máximo: 10000.",
+                "CHANNEL_POINTS_PER_VOTE": "Puntos de canal por Voto",
+                "CHANNEL_POINTS_PER_VOTE_TOOLTIP": "Número de Channel Points necesarios para votar una vez con Channel Points. Mínimo: 0. Máximo: 1000000.",
+                "CHANNEL_POINTS_PER_VOTE_PLACEHOLDER": "Mínimo: 0. Máximo: 1000000."
             },
             "NG_TOAST": {
                 "POLL_TITLE_NAME_TOAST": "Proporcione un nombre para la encuesta.",
@@ -334,6 +344,8 @@
                 "POLL_CHOICES_OPTION_LENGTH_TOAST": "La encuesta debe tener más de una opción.",
                 "POLL_CHOICES_VALUE_NOT_NULL_TOAST": "La opción debe tener un valor.",
                 "POLL_CHOICES_VALUE_LENGTH_TOAST": "La longitud máxima de caracteres de la opción no puede exceder los 25.",
+                "POLL_BITS_PER_VOTE_TOAST": "The number of bits must be between 0 and 10000.",
+                "POLL_CHANNEL_POINTS_PER_VOTE_TOAST": "The number of channel points must be between 0 and 1000000.",
                 "POLL_DURATION_TIME_TOAST": "La duración de la votación debe estar entre 15 segundos y 1800 segundos.",
                 "POLL_RESULT_403_TOAST": "No eres un afiliado o socio de Twitch y no estás disponible para iniciar una encuesta",
                 "POLL_RESULT_401_TOAST": "no tienes permiso para iniciar una encuesta",

@@ -158,7 +158,7 @@ body {
 .tab-header {
   width: 100%;
   height: 65px;
-  background:#33363B ;
+  background: $tab-header-bg;
   border-bottom: 2px solid $light-background-border;
   display: flex;
   flex-flow: row;
@@ -185,12 +185,12 @@ body {
  display: flex;
 }
 .content-block {
-//  background: $light-background-color + 20%;
-background: rgb(36, 38, 42);
+ background: $light-background-color + 20%;
+// background: rgb(36, 38, 42);
  border-radius: 3px;
  border: 0.01em solid $light-background-border;
-//  box-shadow: 2px 2px 7px $light-background-box-shadow;
-box-shadow: 2px 2px 7px rgb(36, 38, 42);
+ box-shadow: 2px 2px 7px $light-background-box-shadow;
+// box-shadow: 2px 2px 7px rgb(36, 38, 42);
 }
 
 .content-block-header {
@@ -233,8 +233,6 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
 .nav-header {
   width: 100%;
   height: 65px;
-  background: $dark-background-color;
-  border-bottom: 2px solid $dark-background-border;
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -310,15 +308,16 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
   height: 100%;
   padding: 0;
   position: relative;
+  background: $light-background-color;
 }
 
 .no-scroll {
   overflow-y: hidden;
-  background: #101111;
+  background: $tab-body-bg;
 }
 
 .fb-nav-link {
- color:#dadada;
+ color: $left-nav-link-text-color;
  display: block;
  height: 42px;
  text-transform: uppercase;
@@ -331,7 +330,7 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
 }
 
 .fb-nav-link.selected, .fb-nav-link.selected:hover {
- color: white;
+ color: $chatTextColor;
  background: $nav-link-bg;
 }
 .nav-link-bar {
@@ -480,7 +479,6 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
     align-items: center;
     justify-content: flex-start;
     padding: 11px;
-    margin-right: 3px;
     &:hover{
       background: $text-dropdown-hover-color;
     }
@@ -558,8 +556,7 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
 
 .connection-status-wrapper{
   position: relative;
-  padding: 20px 0;
-  border-top: 2px solid #383d3f;
+  padding: 10px 0;
   width:100%;
 }
 
@@ -581,7 +578,7 @@ box-shadow: 2px 2px 7px rgb(36, 38, 42);
 .interactive-status-wrapper {
   align-self: left;
   margin-top: auto;
-  padding:0em 0em 0em 16px;
+  padding: 0em 7px 0em 18px;
   text-align:left;
   margin-bottom: .70em;
   display: flex;

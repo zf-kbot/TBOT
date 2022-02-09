@@ -15,6 +15,7 @@ const util = require("../utility");
 
 const jsonDataHelpers = require("../common/json-data-helpers");
 const viewtimeDb = require("../database/viewtimeDatabase");
+const userpointsDb = require("../database/userPointsDatabase");
 
 /**
  * @typedef TwitchbotUser
@@ -72,6 +73,30 @@ function insertOrUpdateAllUserViewTime() {
         });
     }
 }
+//更新在线用户的在线时长积分 和 关注积分
+function insertOrUpdateAllUserViewTimeAndFollowPoints() {
+    const connectionManager = require("../common/connection-manager");
+    if (connectionManager.streamerIsOnline()) {
+        db.find({ online: true }, (err, docs) => {
+            if (!err) {
+                docs.forEach((user) => {
+                    userpointsDb.updateUserViewTimeAndFollowPoints(user);
+                });
+            }
+        });
+    }
+}
+
+//更新用户聊天消息积分
+function insertOrUpdateChatMessagePoints(userId) {
+    db.find({ _id: userId }, (err, docs) => {
+        if (!err) {
+            docs.forEach((user) => {
+                userpointsDb.updateUserChatMessagePoints(user);
+            });
+        }
+    });
+}
 
 
 function getUserDb() {
@@ -98,6 +123,8 @@ function setLastSeenDateTime() {
         }
     });
     insertOrUpdateAllUserViewTime();
+    //更新用户观看时长积分 与 关注积分
+    insertOrUpdateAllUserViewTimeAndFollowPoints();
 }
 
 /**
@@ -977,6 +1004,10 @@ frontendCommunicator.on("updateViewerDataField", (data) => {
             logger.error("Error updating user.", err);
         }
     });
+});
+
+frontendCommunicator.onAsync("insertOrUpdateUserChatMessagePoints", userId => {
+    insertOrUpdateChatMessagePoints(userId);
 });
 
 // Return db rows for the ui to use.

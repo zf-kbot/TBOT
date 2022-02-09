@@ -44,6 +44,22 @@
         'exceptionOverwrite'
     ]);
 
+    app.config([
+        "$translateProvider",
+        function ($translateProvider) {
+            $translateProvider
+                .useStaticFilesLoader({
+                    prefix: "lang/locale-",
+                    suffix: ".json"
+                })
+                .preferredLanguage("en");
+        }
+    ]);
+
+    app.run(function initializeApplication($translate, settingsService) {
+        $translate.use(settingsService.getLang());
+    });
+
     app.controller("StandAloneChatBoxController", function ($scope, $rootScope, connectionService, settingsService, logger) {
         $rootScope.showSpinner = true;
 

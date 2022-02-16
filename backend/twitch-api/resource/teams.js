@@ -1,17 +1,22 @@
 "use strict";
 
 const accountAccess = require("../../common/account-access");
+const logger = require("../../logwrapper");
 const twitchApi = require("../client");
 
 async function getTeams(broadcasterId) {
     const client = twitchApi.getClient();
-    const teams = await client.kraken.channels.getChannelTeams(broadcasterId);
+    try {
+        const teams = await client.helix.teams.getTeamsForBroadcaster(broadcasterId);
 
-    if (teams == null) {
-        return null;
+        if (teams != null) {
+            return teams;
+        }
+        return [];
+    } catch (error) {
+        logger.error("Failed to get teams for broadcaster", error);
+        return [];
     }
-
-    return teams;
 }
 
 async function getMatchingTeams(userId) {

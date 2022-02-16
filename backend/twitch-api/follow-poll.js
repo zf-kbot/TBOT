@@ -152,7 +152,8 @@ exports.startFollowPoll = () => {
                         from_id: follow._data.from_id,
                         from_name: follow._data.from_name,
                         to_id: follow._data.to_id,
-                        to_name: follow._data.to_name
+                        to_name: follow._data.to_name,
+                        createdAt: new Date(follow._data.followed_at).getTime()
                     };
                     //插入数据
                     const newFollowDatabase = require("../database/newfollowDatabase");

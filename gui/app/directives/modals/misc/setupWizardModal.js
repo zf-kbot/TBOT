@@ -27,9 +27,9 @@
                             <br>
                             <label for="langSelect" style="margin-top: 2%">{{ $ctrl.translations['SETUP_WIZARD.SELECT_LANG'] }}</label>
                             <br>
-                            <select size="2" name="langSelect" style="overflow: overlay;width: 25%;color: black;">
-                              <option ng-click="$ctrl.changeLanguage('en')">English</option>
-                              <option ng-click="$ctrl.changeLanguage('es')">Español</option>
+                            <select name="langSelect" id="langSelect" ng-model="$ctrl.selectedLang" ng-change="$ctrl.changeLanguage($ctrl.selectedLang)">
+                                <option value='en'>English</option>
+                                <option value='es'>Español</option>
                             </select>
                         </div>
                     </div>
@@ -285,6 +285,7 @@
         controller: function ($rootScope, $translate, settingsService, connectionService, connectionManager,
             overlayUrlHelper, ngToast, backendCommunicator, backupService, gaService) {
             let $ctrl = this;
+            $ctrl.selectedLang = 'en';
 
             $ctrl.step = 0;
 

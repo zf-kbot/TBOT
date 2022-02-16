@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div ng-if="!$ctrl.loading">
-                    <img ng-src="{{ $ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData ? $ctrl.viewerDetails.twitchData.iconUrl : '../images/placeholders/mixer-icon.png'}}" 
+                    <img ng-src="{{ $ctrl.viewerDetails.twitcherbotData.twitch && $ctrl.viewerDetails.twitchData ? $ctrl.viewerDetails.twitcherbotData.profilePicUrl : '../images/placeholders/default-profile-pic.png'}}"
                         style="width: 200px;height: 200px;border-radius: 200px;position: absolute;left: -50px;top: -50px;"/>
                     <div style="padding-left: 150px;min-height: 125px;">
                         <div style="display:flex;align-items: center;">

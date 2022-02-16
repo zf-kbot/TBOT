@@ -19,11 +19,10 @@ exports.refreshStreamerChannelData = async () => {
     if (client == null) {
         return;
     }
-
-    let channel = await client.kraken.channels.getMyChannel();
+    //这里是twitch和微软mixer频道切换，目前mixer已弃用，但还是先将kraken替换为对应的helix
+    const streamer = accountAccess.getAccounts().streamer;
+    let channel = await client.helix.channels.getChannelInfo(streamer.userId);
     let channelData = channel._data;
-    let streamData = await channel.getStream();
-    channelData.stream = streamData;
 
     streamerChannelData = channelData;
 };

@@ -8097,6 +8097,12 @@ body {
 .slide-frame > div {
   width: 100%; }
 
+#langSelect {
+  width: 25%;
+  color: white;
+  border-radius: 5px;
+  background-color: #2A2F42; }
+
 .effect-select-wrapper {
   display: flex;
   justify-content: space-between;

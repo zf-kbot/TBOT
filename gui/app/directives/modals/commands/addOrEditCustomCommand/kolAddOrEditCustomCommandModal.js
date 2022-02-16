@@ -12,9 +12,7 @@
             resolve: "<",
             close: "&",
             dismiss: "&",
-            modalInstance: "<",
-            // //添加
-            // command:"="
+            modalInstance: "<"
         },
         controller: function ($scope, utilityService, commandsService, ngToast, settingsService, $translate,
             $timeout
@@ -57,7 +55,7 @@
                 ignoreLetterCase: true,
                 ignoreWordBoundry: true,
                 timeExpires: 160,
-                checkUserName: true,
+                checkUserName: true
                 //新增
                 // definition: {
                 //     id: "twitcherbot:modTimeout",
@@ -188,7 +186,7 @@
                         id: uuid(),
                         type: "twitcherbot:modTimeout",
                         username: "$username",
-                        time: "2",
+                        time: 2
                     };
                 }
                 $ctrl.command.effects.list = [$ctrl.chatEffect];

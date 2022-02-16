@@ -7,6 +7,7 @@ const activeUserHandler = require("./active-user-handler");
 const accountAccess = require("../../common/account-access");
 const chatModerationManager = require("../moderation/chat-moderation-manager");
 const twitchEventsHandler = require("../../events/twitch-events");
+const users = require("../../twitch-api/resource/users");
 const logger = require("../../logwrapper");
 
 const events = require("events");
@@ -120,5 +121,13 @@ exports.setupChatListeners = (streamerChatClient) => {
 
     streamerChatClient.onTimeout((_, username, duration) => {
         twitchEventsHandler.viewerTimeout.triggerTimeout(username, duration);
+    });
+
+    streamerChatClient._onVipResult((_, username) => {
+        users.addVipToVipList(username);
+    });
+
+    streamerChatClient._onUnvipResult((_, username) => {
+        users.removeVipFromVipList(username);
     });
 };

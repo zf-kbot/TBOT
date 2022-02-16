@@ -1,7 +1,6 @@
 "use strict";
 
 const { app } = require("electron");
-const { appQuit } = require("../../../common/ga-manager");
 
 exports.windowsAllClosed = async () => {
 
@@ -33,6 +32,7 @@ exports.windowsAllClosed = async () => {
     //关闭客户端时，检测是否需要发送用户直播积分发放数据
     const gaPointsHelper = require("../../../../backend/common/ga-points-helpers");
     gaPointsHelper.gaSendStreamerGiveAwayPoints();
+    const { appQuit } = require("../../../common/ga-manager");
     appQuit.on("app-quit", () => {
         if (settings.backupOnExit()) {
             // Make a backup

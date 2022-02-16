@@ -10,15 +10,39 @@ const NodeCache = require("node-cache");
 const userRoleCache = new NodeCache({ stdTTL: 30, checkperiod: 5 });
 
 const profileManager = require("../../../backend/common/profile-manager");
+const logger = require("../../logwrapper");
+//kraken api替换为helix，对应的chat role需进行相应的调整
+/** @type {string[]} */
+let vips = [];
+/**
+ * @param {string[]} usersInVipRole
+ * @return {void}
+ */
+const loadUsersInVipRole = (usersInVipRole) => {
+    vips = usersInVipRole;
+};
+
+/**
+ * @param {string} username
+ * @return {void}
+ */
+const addVipToVipList = (username) => {
+    vips.push(username);
+};
+
+/**
+ * @param {string} username
+ * @return {void}
+ */
+const removeVipFromVipList = (username) => {
+    vips = vips.filter(vip => vip !== username);
+};
+
 async function getUserChatInfo(userId) {
     const client = twitchApi.getClient();
 
-    const streamer = accountAccess.getAccounts().streamer;
 
-    const chatUser = await client.callAPI({
-        type: TwitchAPICallType.Kraken,
-        url: `users/${userId}/chat/channels/${streamer.userId}`
-    });
+    const chatUser = await client.helix.users.getUserById(userId);
 
     return chatUser;
 }
@@ -54,9 +78,12 @@ async function getUserSubInfoByName(username) {
 
 async function getUserSubscriberRole(userIdOrName) {
     const isName = isNaN(userIdOrName);
-    const subInfo = isName ?
-        (await getUserSubInfoByName(userIdOrName)) :
-        (await getUserSubInfo(userIdOrName));
+
+    const client = twitchApi.getClient();
+    const userId = isName ? (await client.helix.users.getUserByName(userIdOrName)).id : userIdOrName;
+
+    const streamer = accountAccess.getAccounts().streamer;
+    const subInfo = await client.helix.subscriptions.getSubscriptionForUser(streamer.userId, userId);
 
     if (subInfo == null || subInfo.tier == null) {
         return null;
@@ -112,40 +139,50 @@ async function getUsersChatRoles(userIdOrName = "") {
         (await getUserChatInfoByName(userIdOrName)) :
         (await getUserChatInfo(userIdOrName));
 
-    const subscriberRole = await getUserSubscriberRole(userIdOrName);
-
-    if (userChatInfo == null && subscriberRole == null) {
-        return [];
-    }
-
     const roles = [];
-    if (userChatInfo.badges) {
-        for (let badge of userChatInfo.badges) {
-            if (badge.id === "broadcaster") {
-                roles.push("broadcaster");
-            } else if (badge.id === "subscriber" || badge.id === "founder") {
+    try {
+        const client = twitchApi.getClient();
+        const username = isName ? userIdOrName : (await client.helix.users.getUserById(userIdOrName)).name;
+
+        //添加broadcast类别
+        const streamer = accountAccess.getAccounts().streamer;
+        if (!userIdOrName || userIdOrName === streamer.userId || userIdOrName === streamer.username) {
+            roles.push("broadcaster");
+        }
+
+        //添加sub类别
+        if (streamer.broadcasterType !== "") {
+            const subscriberRole = await getUserSubscriberRole(userIdOrName);
+            if (subscriberRole != null) {
                 roles.push("sub");
-            } else if (badge.id === "vip") {
-                roles.push("vip");
-            } else if (badge.id === "moderator") {
-                roles.push("mod");
+                roles.push(subscriberRole);
             }
         }
-    }
 
-    if (subscriberRole != null) {
-        roles.push(subscriberRole);
-    }
-    //添加bot栏目
-    if (isBot(userChatInfo._id)) {
-        const userDatabase = require("../../database/userDatabase");
-        await userDatabase.setChatUserBot(userChatInfo._id);
-        roles.push("bot");
-    }
-    userRoleCache.set(userChatInfo._id, roles);
-    userRoleCache.set(userChatInfo.login, roles);
+        //添加vip
+        if (vips.some(v => v === username)) {
+            roles.push("vip");
+        }
 
-    return roles;
+        //添加mod
+        const moderators = (await client.helix.moderation.getModerators(streamer.userId)).data;
+        if (moderators.some(m => m.userName === username)) {
+            roles.push("mod");
+        }
+
+        //添加bot
+        if (isBot(userChatInfo._data.id)) {
+            const userDatabase = require("../../database/userDatabase");
+            await userDatabase.setChatUserBot(userChatInfo._data.id);
+            roles.push("bot");
+        }
+        userRoleCache.set(userChatInfo._data.id, roles);
+        userRoleCache.set(userChatInfo._data.login, roles);
+        return roles;
+    } catch (err) {
+        logger.error("Failed to get user chat roles", err);
+        return [];
+    }
 }
 
 async function updateUserRole(userId, role, addOrRemove) {
@@ -158,10 +195,9 @@ async function getFollowDateForUser(username) {
     const client = twitchApi.getClient();
     const streamerData = accountAccess.getAccounts().streamer;
 
-    const userId = (await client.kraken.users.getUserByName(username)).id;
-    const channelId = (await client.kraken.users.getUserByName(streamerData.username)).id;
+    const userId = (await client.helix.users.getUserByName(username)).id;
 
-    const followerDate = (await client.kraken.users.getFollowedChannel(userId, channelId)).followDate;
+    const followerDate = (await client.helix.users.getFollowFromUserToBroadcaster(userId, streamerData.userId)).followDate;
 
     if (followerDate == null || followerDate.length < 1) {
         return null;
@@ -179,24 +215,16 @@ async function doesUserFollowChannel(username, channelName) {
         return true;
     }
 
-    const userId = (await client.kraken.users.getUserByName(username)).id;
-    const channelId = (await client.kraken.users.getUserByName(channelName)).id;
+    const userId = (await client.helix.users.getUserByName(username)).id;
+    const channelId = (await client.helix.users.getUserByName(channelName)).id;
 
     if (userId == null || channelId == null) {
         return false;
     }
 
-    const userFollow = await client.kraken.users.getFollowedChannel(userId, channelId);
+    const userFollow = await client.helix.users.userFollowsBroadcaster(userId, channelId);
 
-    if (userFollow == null) {
-        return false;
-    }
-
-    if (userFollow.followDate == null || userFollow.followDate.length < 1) {
-        return false;
-    }
-
-    return true;
+    return userFollow != null;
 }
 
 async function toggleFollowOnChannel(channelIdToFollow, shouldFollow = true) {
@@ -219,3 +247,6 @@ exports.getFollowDateForUser = getFollowDateForUser;
 exports.toggleFollowOnChannel = toggleFollowOnChannel;
 exports.updateUserRole = updateUserRole;
 exports.doesUserFollowChannel = doesUserFollowChannel;
+exports.loadUsersInVipRole = loadUsersInVipRole;
+exports.addVipToVipList = addVipToVipList;
+exports.removeVipFromVipList = removeVipFromVipList;

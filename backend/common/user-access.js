@@ -37,7 +37,7 @@ async function userFollowsChannels(username, channelNames) {
 
 function getUser(userId) {
     const client = twitchClient.getClient();
-    return client.kraken.users.getUser(userId);
+    return client.helix.users.getUserById(userId);
 }
 
 async function getUserDetails(userId) {

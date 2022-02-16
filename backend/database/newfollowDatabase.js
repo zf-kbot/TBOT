@@ -42,7 +42,7 @@ function addNewFollow(followMsg) {
 
 function queryNewFollower(queryTime) {
     return new Promise (resolve => {
-        db.find({$and: [{followedDate: {$gt: queryTime.startTime } }, { followedDate: {$lt: queryTime.endTime } }] }, function (err, docs) {
+        db.find({$and: [{createdAt: {$gt: queryTime.startTime } }, { createdAt: {$lt: queryTime.endTime } }] }, function (err, docs) {
             //找到queryTime时间段内的记录
             if (err) {
                 return resolve([]);

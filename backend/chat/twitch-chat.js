@@ -11,6 +11,7 @@ const followPoll = require("../twitch-api/follow-poll");
 const chatterPoll = require("../twitch-api/chatter-poll");
 const commandHandler = require("./commands/commandHandler");
 const activeUserHandler = require("./chat-listeners/active-user-handler");
+const users = require("../twitch-api/resource/users");
 
 /**@extends NodeJS.EventEmitter */
 class TwitchChat extends EventEmitter {
@@ -113,6 +114,10 @@ class TwitchChat extends EventEmitter {
 
             followPoll.startFollowPoll();
             chatterPoll.startChatterPoll();
+
+            const vips = await this._streamerChatClient.getVips(accountAccess.getAccounts().streamer.username);
+
+            users.loadUsersInVipRole(vips);
         } catch (error) {
             logger.error("Chat connect error", error);
             await this.disconnect();
@@ -291,7 +296,8 @@ class TwitchChat extends EventEmitter {
     timeoutUser(username, duration = 600, reason = "") {
         const streamer = accountAccess.getAccounts().streamer;
         if (this._streamerChatClient == null || !streamer.loggedIn) return;
-        this._streamerChatClient.timeout(streamer.username, username, duration, reason);
+        //duration是int类型，这里加转换是如果有老用户这里强制转一下int,新用户会在设置modal的输入框加number类型限制
+        this._streamerChatClient.timeout(streamer.username, username, parseInt(duration), reason);
     }
 
     getViewerList() {

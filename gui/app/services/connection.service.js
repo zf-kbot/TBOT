@@ -20,14 +20,22 @@
             service.getAccounts();
 
             let defaultPhotoUrl = "../images/placeholders/login.png";
-            service.totalFollowers = 0;
-            service.getStreamerFollowers = () => {
+            service.streamerConnectedInfo = {
+                userName: '',
+                connectedMins: 0,
+                totalFollowers: 0
+            };
+            //ga发送连接时长和关注总人数
+            service.sendConnectedTimeAndTotalFollowers = () => {
                 $q.when(backendCommunicator.fireEventAsync("getStreamerFollowers"))
                     .then(result => {
-                        service.totalFollowers = result;
+                        service.streamerConnectedInfo.totalFollowers = result;
+                        gaService.sendEvent(
+                            'user',
+                            `connected_time/min`,
+                            service.streamerConnectedInfo.userName + ' : ' + Math.floor(service.streamerConnectedInfo.connectedMins) + ',' + ' total followers:' + service.streamerConnectedInfo.totalFollowers);
                     });
             };
-            service.getStreamerFollowers();
 
             //积分计算公式,每x条数据，奖励bonus积分
             service.calculatorPoints = (queryDataResult, x = 1, bonus = 1) => {
@@ -286,6 +294,8 @@
                         let connectedBeginTime = profileManager.getJsonDbInProfile('/gaInfo').getData('/connectedTime', true);
                         let username = profileManager.getJsonDbInProfile('/auth-twitch').getData('/streamer/username', true);
                         let connectedMins = parseInt((new Date().getTime() - connectedBeginTime) / 1000) / 60;
+                        service.streamerConnectedInfo.userName = username;
+                        service.streamerConnectedInfo.connectedMins = connectedMins;
                         let feedbackInfo = profileManager.getJsonDbInProfile('/feedbackInfo').getData('/', true);
                         let threshold = {
                             connectedMins: 5,
@@ -301,7 +311,8 @@
                             });
                         }
                         if (connectedMins > threshold.gaSendMinMins) {
-                            gaService.sendEvent('user', `connected_time/min`, username + ' : ' + Math.floor(connectedMins) + ',' + ' total followers:' + service.totalFollowers);
+                            //断开连接时发送用户名，连接时长和当前关注人数
+                            service.sendConnectedTimeAndTotalFollowers();
                         }
                     }
                 }

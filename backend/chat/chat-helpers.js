@@ -53,7 +53,8 @@ exports.setStreamerData = function (newStreamerData) {
     streamerData = newStreamerData;
 };
 
-/**@type {import('twitch/lib/API/Kraken/Channel/EmoteSetList').EmoteSetList} */
+//替换为helixEmote
+/**@type {import('twitch/lib/API/Helix/Chat/HelixEmote').HelixEmote[]} */
 let streamerEmotes = null;
 
 exports.cacheStreamerEmotes = async () => {
@@ -61,8 +62,21 @@ exports.cacheStreamerEmotes = async () => {
     const streamer = accountAccess.getAccounts().streamer;
 
     if (client == null || !streamer.loggedIn) return;
+    try {
+        const channelEmotes = await client.helix.chat.getChannelEmotes(streamer.userId);
+        const globalEmotes = await client.helix.chat.getGlobalEmotes(streamer.userId);
 
-    streamerEmotes = await client.kraken.users.getUserEmotes(streamer.userId);
+        if (!channelEmotes && !globalEmotes) {
+            return;
+        }
+        streamerEmotes = [
+            ...channelEmotes,
+            ...globalEmotes
+        ];
+    } catch (err) {
+        logger.error("Failed to get Twitch chat emotes", err);
+        return null;
+    }
 };
 
 
@@ -98,12 +112,12 @@ exports.handleChatConnect = async () => {
 
     //加入twitch获取到的所有表情，暂时不加入第三方bttv、ffz的表情
     frontendCommunicator.send("all-emotes", [
-        ...Object.values(streamerEmotes && streamerEmotes._data || {})
+        ...Object.values(streamerEmotes || {})
             .flat()
             .map(e => ({
-                url: `https://static-cdn.jtvnw.net/emoticons/v1/${e.id}/1.0`,
+                url: e.getImageUrl(1),
                 origin: "Twitch",
-                code: e.code
+                code: e.name
             }))
         //屏蔽掉第三方的表情，不加入到所有表情里面
         //     })),
@@ -198,8 +212,9 @@ function parseMessageParts(twitcherbotChatMessage, parts) {
             return subParts;
         }
         if (p.type === "emote") {
-            p.url = `https://static-cdn.jtvnw.net/emoticons/v1/${p.id}/1.0`;
             p.origin = "Twitch";
+            const emote = streamerEmotes.find(e => e.name === p.name);
+            p.url = emote ? emote.getImageUrl(1) : `https://static-cdn.jtvnw.net/emoticons/v2/${p.id}/default/dark/1.0`;
         }
         return p;
     });
@@ -237,12 +252,14 @@ exports.buildTwitchbotChatMessageFromText = async (text = "") => {
         const words = text.split(" ");
         for (const word of words) {
             let emoteId = null;
+            let url = "";
             try {
-                const foundEmote = Object.values(streamerEmotes && streamerEmotes._data || {})
+                const foundEmote = Object.values(streamerEmotes || {})
                     .flat()
-                    .find(e => e.code === word);
+                    .find(e => e.name === word);
                 if (foundEmote) {
                     emoteId = foundEmote.id;
+                    url = foundEmote.getImageUrl(1);
                 }
             } catch (err) {
                 //logger.silly(`Failed to find emote id for ${word}`, err);
@@ -253,7 +270,7 @@ exports.buildTwitchbotChatMessageFromText = async (text = "") => {
             if (emoteId != null) {
                 part = {
                     type: "emote",
-                    url: `https://static-cdn.jtvnw.net/emoticons/v1/${emoteId}/1.0`,
+                    url: url,
                     id: emoteId,
                     name: word
                 };

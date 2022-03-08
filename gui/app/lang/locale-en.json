@@ -40,6 +40,11 @@
             "MESSAGEFILTER": "Message filter",
             "BLACKLISTEDWORDS": "Blacklisted words"
         },
+        "LOYALTYCOMMUNITY": {
+            "LOYALTYCOMMUNITY": "LOYALTY COMMUNITY",
+            "LOYALSETTING": "LOYAL SETTING",
+            "LEADERSHIP": "LEADERSHIP"
+        },
         "CHAT": {
             "CHAT": "Chat",
             "COMMANDS": "Commands",
@@ -119,6 +124,7 @@
     "DELETE":"Delete",
     "CLOSE":"Close",
     "EDIT": "Edit",
+    "RESET":"default settings",
     "RUNNING_NOT_CONNECTED": "Ready, but nothing is connected at this time.",
     "DASHBOARD": {
         "CHATFEED": {
@@ -128,6 +134,7 @@
         "CHATUSERS": {
             "CHATUSERS": "CHAT USERS",
             "Moderators": "Moderators",
+            "VIPs": "Vips",
             "Bots": "Bots",
             "Viewers": "Viewers",
             "Broadcaster": "Broadcaster",
@@ -487,6 +494,47 @@
             "CONFIRMlABEL_CANCEL": "Cancel"
         }
     },
+    "LOYALSETTING": {
+        "DESC": "XP is an indicator to measure the loyalty and activity of your channel audiences. Viewers get XP and upgrade loyalty levels by continuously watching stream , chating, subscribing or cheering.  You can customize your loyalty system with the following settings. Click here to get more info.",
+        "XP_SETTING": {
+            "TEXT": "XP Setting",
+            "5_MINS_VIEW": {
+                "TEXT": "XP Per 5 mins view",
+                "TIP": "Amount of XP a viewer will receive when he/she keeps watching you stream for 5 minutes"
+            },
+            "EACH_CHAT": {
+                "TEXT": "XP for each chat",
+                "TIP": "Amount of XP a viewer will receive when he/she sends a chat"
+            },
+            "NEW_FOLLOWING": {
+                "TEXT": "XP for new following",
+                "TIP": "Amount of XP a new follower will receive when he/she follows your channel"
+            },
+            "NEW_SUB": {
+                "TEXT": "XP for new sub",
+                "TIP": "Amount of XP a subscriber will receive when he/she subscripting"
+            },
+            "EACH_BIT": {
+                "TEXT": "XP for each bit",
+                "TIP": "Amount of XP a viewer will receive when he/she cheers"
+            }
+        },
+        "LEVEL_SETTING": {
+            "TEXT": "Level setting",
+            "UPGRADE_NOTIFICATION": {
+                "TEXT": "Upgrade notification",
+                "TIP": "Whether to send notification in chat room when a viewer upgrades"
+            },
+            "NOTIFICATION_TEXT": {
+                "TEXT": "Notification text"
+            }
+        }
+    },
+    "LEADERSHIP": {
+        "DESC": "Leadership provides the loyalty information of your channel viewers, which is convenient for you to search or filter out your loyal viewers.",
+        "DISPLAY": "DISPLAY",
+        "SEARCH_USER": "Search user"
+    },
     "EMOTE": {
         "REGULAR": "Regular",
         "GLOBAL": "Global",
@@ -502,12 +550,30 @@
         "KOL_TIMERS": "TIMERS",
         "AUTO_REPLY": "AUTO REPLY",
         "MESSAGE_FILTER": "MESSAGE FILTER",
-        "BLACKLISTED_WORDS": "BLACKLISTED WORDS"
+        "BLACKLISTED_WORDS": "BLACKLISTED WORDS",
+        "KOL_LOYAL_SETTING": "LOYAL SETTING",
+        "KOL_LEADERSHIP": "LEADERSHIP"
     },
     "QUIT_SETTING_MODAL": {
         "QUIT_SETTING": "Quit Setting",
         "MINIMIZE_TO_THE_SYSTEM_TRAY": "Minimize to the system tray",
         "QUIT_TWITCHBOT": "Quit Twitchbot",
         "DONT_ASK_AGAIN_NEXT_TIME": "Don't ask again next time"
+    },
+    "LOYAL_SETTING_RESET_CONFIRM_MODAL": {
+        "TITTLE": "Reset setting to default",
+        "CONTENT": "Are you sure  to reset all settings to default value?",
+        "CONFIRM": "Confirm"
+    },
+    "SORTABLE": {
+        "SHOWING": "SHOWING",
+        "TOTAL": "total",
+        "HEADERS": {
+            "USERNAME": "USERNAME",
+            "LV": "LV",
+            "XP": "XP",
+            "ROLES": "ROLES",
+            "LAST SEEN": "LAST SEEN"
+        }
     }
 }

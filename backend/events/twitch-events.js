@@ -13,3 +13,4 @@ exports.viewerBanned = require('./twitch-events/viewer-banned');
 exports.viewerTimeout = require('./twitch-events/viewer-timeout');
 exports.whisper = require('./twitch-events/whisper');
 exports.announcement = require('./twitch-events/announcement');
+exports.levelUp = require('./twitch-events/level-up');

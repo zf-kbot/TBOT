@@ -21,17 +21,20 @@
                         <nav-link page="Top Chart" name="{{'SIDEBAR.DATA.TOP_CHART' | translate }}" icon="fa-trophy"></nav-link>
 
                         <nav-category name="{{'SIDEBAR.INTERACTIVETOOL.CATEGORY' | translate }}" pad-top="true"></nav-category>
-                        <nav-link page="Polls" name="{{'SIDEBAR.INTERACTIVETOOL.POLL' | translate }}" icon="fa-bar-chart"></nav-link>
-                        <nav-link page="Kol Chat Notifications" name="{{'SIDEBAR.INTERACTIVETOOL.CHAT_NOTIFICATIONS' | translate }}" icon="fa-commenting-o"></nav-link>
+                        <nav-link page="Polls" name="{{'SIDEBAR.INTERACTIVETOOL.POLL' | translate }}" icon="fa-chart-bar"></nav-link>
+                        <nav-link page="Kol Chat Notifications" name="{{'SIDEBAR.INTERACTIVETOOL.CHAT_NOTIFICATIONS' | translate }}" icon="fa-commenting"></nav-link>
 
                         <nav-category name="{{'SIDEBAR.COMMAND.TITLE' | translate }}" pad-top="true"></nav-category>
-                        <nav-link page="Kol-Timers" name="{{'SIDEBAR.COMMAND.TIMERS' | translate }}" icon="fa-clock-o"></nav-link>
+                        <nav-link page="Kol-Timers" name="{{'SIDEBAR.COMMAND.TIMERS' | translate }}" icon="fa-clock"></nav-link>
                         <nav-link page="Auto Reply" name="{{'SIDEBAR.COMMAND.AUTOREPLY' | translate }}" icon="fa-reply"></nav-link>
 
                         <nav-category name="{{'SIDEBAR.GUARD.GUARD' | translate }}" pad-top="true"></nav-category>
                         <nav-link page="Message Filter" name="{{'SIDEBAR.GUARD.MESSAGEFILTER' | translate }}" icon="fa-filter"></nav-link>
                         <nav-link page="Blacklisted Words" name="{{'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate }}" icon="fa-minus-circle"></nav-link>
                         
+                        <nav-category name="{{'SIDEBAR.LOYALTYCOMMUNITY.LOYALTYCOMMUNITY' | translate }}" pad-top="true"></nav-category>
+                        <nav-link page="Kol Loyal Setting" name="{{'SIDEBAR.LOYALTYCOMMUNITY.LOYALSETTING' | translate }}" icon="fa-gear"></nav-link>
+                        <nav-link page="Kol LEADERSHIP" name="{{'SIDEBAR.LOYALTYCOMMUNITY.LEADERSHIP' | translate }}" icon="fa-user"></nav-link>
                         
                     </div>
                 </div>

@@ -16,6 +16,7 @@ const util = require("../utility");
 const jsonDataHelpers = require("../common/json-data-helpers");
 const viewtimeDb = require("../database/viewtimeDatabase");
 const userpointsDb = require("../database/userPointsDatabase");
+const { resolve } = require("bluebird");
 
 /**
  * @typedef TwitchbotUser
@@ -43,9 +44,10 @@ const userpointsDb = require("../database/userPointsDatabase");
 let db;
 let updateTimeIntervalId;
 let updateLastSeenIntervalId;
+let updateUserXPIntervalId;
 let dbCompactionInterval = 30000;
 let viewtimedb;
-function UpdateUserViewTime(user) {
+function updateUserViewTime(user) {
     //正式查询插入
     let stamp1 = new Date().setHours(0, 0, 0, 0);
     let stamp2 = moment(stamp1).add(1, "d") - 1;
@@ -67,7 +69,7 @@ function insertOrUpdateAllUserViewTime() {
             if (!err) {
                 viewtimedb = viewtimeDb.getViewTimeDb();
                 docs.forEach((user) => {
-                    UpdateUserViewTime(user);
+                    updateUserViewTime(user);
                 });
             }
         });
@@ -376,7 +378,7 @@ function calcUserOnlineMinutes(user) {
 
     // Calculate the minutes to add to the user's total
     // Since this method is on a 15 min interval, we don't want to add anymore than 15 new minutes.
-    const additionalMinutes = Math.min(Math.round((lastSeen - user.onlineAt) / 60000), 15);
+    const additionalMinutes = Math.min(Math.round((lastSeen - user.onlineAt) / 60000), 1);//因为修改了1分钟的轮询
 
     // No new minutes to add; return early to avoid hit to DB
     if (additionalMinutes < 1) {
@@ -409,6 +411,31 @@ function calcAllUsersOnlineMinutes() {
         db.find({ online: true }, (err, docs) => {
             if (!err) {
                 docs.forEach(user => calcUserOnlineMinutes(user));
+            }
+        });
+    }
+}
+//viewTime 和chatMessage XP的轮询
+function calcAllUsersXPPool() {
+    //处理viewTimeXP,因为每
+    const connectionManager = require("../common/connection-manager");
+    if (connectionManager.streamerIsOnline()) {
+        db.find({ online: true }, (err, docs) => {
+            if (!err) {
+                let userxpdb = require("./userXPDatabase");
+                docs.forEach(user => {
+                    //读取loyalsetting.json文件中数据
+                    const jsonDataHelpers = require("../common/json-data-helpers");
+                    let viewTimeBonus = 5;
+                    let chatBonus = 1;
+                    let bonusSetting = jsonDataHelpers.getObjectDataMsgs('/loyalty-community/loyalsetting', '/bonusSetting');
+                    if (bonusSetting.hasOwnProperty('viewTimeBonus') && bonusSetting.hasOwnProperty('chatBonus')) {
+                        viewTimeBonus = bonusSetting.viewTimeBonus;
+                        chatBonus = bonusSetting.chatBonus;
+                    }
+                    //观看时长与聊天数量 的定时轮询任务加经验值
+                    userxpdb.updateUserViewTimeAndChatMessageXP(user, false, viewTimeBonus, chatBonus);
+                });
             }
         });
     }
@@ -723,6 +750,124 @@ function setChatUserOldViewer(id) {
         }); // End find
     });
 }
+//清除用户的角色
+async function resetAllUserCurrentRoles() {
+    return new Promise(resolve => {
+        if (!isViewerDBOn() || db == null) {
+            return resolve();
+        }
+        //1.重置当前数据库中Roles的角色为空
+        db.update({$or: [{twitchRoles: {$size: 1}}, {twitchRoles: {$size: 2}}]}, {$set: {twitchRoles: []}}, {multi: true}, function (err, numReplaced) {
+            if (numReplaced > 0) {
+                logger.debug('ViewerDB: Set ' + numReplaced + ' users to oldViewer.');
+            } else {
+                logger.debug('ViewerDB: No users were set to oldViewer.');
+            }
+            resolve();
+        });
+    });
+}
+async function getIdsToResetRoles() {
+    return new Promise(resolve => {
+        if (!isViewerDBOn() || db == null) {
+            return resolve();
+        }
+        //1.重置当前数据库中Roles的角色为空
+        db.find({$or: [{twitchRoles: {$size: 1}}, {twitchRoles: {$size: 2}}]}, function (err, users) {
+            resolve(Object.values(users));
+        });
+    });
+}
+//通过用户id更新userdb中用户的角色
+async function updateUserRoles(userRoleInfo) {
+    return new Promise(resolve => {
+        if (!isViewerDBOn() || db == null) {
+            return resolve();
+        }
+        // 更新用户的角色信息
+        db.find({ _id: userRoleInfo.id }, (err, user) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            if (user == null || user.length < 1) {
+                return;
+            }
+            db.update({ _id: user[0]._id }, { $set: { twitchRoles: userRoleInfo.roles } }, {}, function (err) {
+                if (err) {
+                    logger.error("ViewerDB: Error setting user to vip,mod or subscriber.", err);
+                } else {
+                    logger.debug("ViewerDB: Set " + user[0].username + "(" + user[0]._id + ") to " + userRoleInfo.roles);
+                }
+                return resolve();
+            });
+        }); // End find
+    });
+}
+//通过userId在userdb中添加用户的某个角色信息
+async function addUserRoleInfo(userId, addedRole) {
+    return new Promise(resolve => {
+        if (!isViewerDBOn() || db == null) {
+            return resolve();
+        }
+        // 更新用户的角色信息
+        db.find({ _id: userId }, (err, user) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            if (user == null || user.length < 1) {
+                return;
+            }
+            let userRoles = user[0].twitchRoles;
+            //是用户自己设置权限，可能会重复给某个角色添加
+            if (userRoles.includes(addedRole)) {
+                return;
+            }
+            userRoles.push(addedRole);
+            db.update({ _id: userId }, { $set: { twitchRoles: userRoles } }, {}, function (err) {
+                if (err) {
+                    logger.error("ViewerDB: Error setting user to vip,mod or subscriber.", err);
+                } else {
+                    logger.debug("ViewerDB: Add " + user[0].username + "(" + user[0]._id + ") with " + addedRole);
+                }
+                return resolve();
+            });
+        }); // End find
+    });
+}
+//通过userId在userdb中移除用户的某个角色信息
+async function removeUserRoleInfo(userId, removedRole) {
+    return new Promise(resolve => {
+        if (!isViewerDBOn() || db == null) {
+            return resolve();
+        }
+        // 更新用户的角色信息
+        db.find({ _id: userId }, (err, user) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            if (user == null || user.length < 1) {
+                return;
+            }
+            let userRoles = user[0].twitchRoles;
+            //是用户自己设置权限，移除的角色可能不包含该角色
+            if (!userRoles.includes(removedRole)) {
+                return;
+            }
+            userRoles = userRoles.filter(item => item !== removedRole);
+            db.update({ _id: userId }, { $set: { twitchRoles: userRoles } }, {}, function (err) {
+                if (err) {
+                    logger.error("ViewerDB: Error setting user to vip,mod or subscriber.", err);
+                } else {
+                    logger.debug("ViewerDB: Remove " + user[0].username + "(" + user[0]._id + ") with " + removedRole);
+                }
+                return resolve();
+            });
+        }); // End find
+    });
+}
 //set all user to oldviewer
 function setAllUsersOldViewer() {
     return new Promise(resolve => {
@@ -827,8 +972,11 @@ function connectUserDatabase() {
     // update online users lastSeen prop every minute
     updateLastSeenIntervalId = setInterval(setLastSeenDateTime, 60000);
 
-    // Update online user minutes every 15 minutes.
-    updateTimeIntervalId = setInterval(calcAllUsersOnlineMinutes, 900000);
+    // Update online user minutes every 1 minutes.
+    updateTimeIntervalId = setInterval(calcAllUsersOnlineMinutes, 60000);
+
+    //定时任务加经验
+    updateUserXPIntervalId = setInterval(calcAllUsersXPPool, 60000);
 }
 
 
@@ -970,6 +1118,24 @@ frontendCommunicator.onAsync("getFollowedUsers", async() => {
     let followData = await getFollowedUserFromDb() || [];
     return followData || [];
 });
+
+//获取用户id,username,profilePicUrl和twitchRoles服务于 LeaderShip
+frontendCommunicator.onAsync("getSimplifyAllViewers", async() => {
+    let simplifyAllViewers = await getAllUsers();
+    //简化数据字段
+    let simplifyAllViewersPreResult = simplifyAllViewers.map(({_id, username, profilePicUrl, twitchRoles, twitch, lastSeen}) => {
+        return {_id, username, profilePicUrl, twitchRoles, twitch, lastSeen};
+    });
+    //对数据中的twitchRoles进行修改,如果什么都没有，就认为是regular角色
+    let simplifyAllViewersResult = simplifyAllViewersPreResult.map(item => {
+        if (item.twitchRoles.length === 0) {
+            item.twitchRoles.push("regular");
+        }
+        return item;
+    });
+    return simplifyAllViewersResult || [];
+});
+
 frontendCommunicator.onAsync("createViewerTwitchbotData", data => {
     //return createNewUser(data.id, data.username, data.roles);
 });
@@ -1046,6 +1212,7 @@ ipcMain.on("viewerDbDisconnect", (event, data) => {
     // Clear the online time calc interval.
     clearInterval(updateTimeIntervalId);
     clearInterval(updateLastSeenIntervalId);
+    clearInterval(updateUserXPIntervalId);
 
     logger.debug("Disconnecting from user database.");
 });
@@ -1076,3 +1243,9 @@ exports.setAllUsersOldViewer = setAllUsersOldViewer;
 exports.setChatUserFollowed = setChatUserFollowed;
 exports.calOldViewer = calOldViewer;
 exports.calNewViewer = calNewViewer;
+exports.resetAllUserCurrentRoles = resetAllUserCurrentRoles;
+exports.updateUserRoles = updateUserRoles;
+exports.addUserRoleInfo = addUserRoleInfo;
+exports.removeUserRoleInfo = removeUserRoleInfo;
+exports.getIdsToResetRoles = getIdsToResetRoles;
+exports.getAllUsers = getAllUsers;

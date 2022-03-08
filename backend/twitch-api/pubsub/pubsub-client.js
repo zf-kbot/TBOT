@@ -150,6 +150,19 @@ async function createClient() {
                 });
             }
             twitchEventsHandler.cheer.triggerCheer(event.userName, event.isAnonymous, event.bits, event.totalBits, event.message);
+            //触发bitsXP加经验
+            let userxpdb = require("../../database/userXPDatabase");
+            let jsonDataHelpers = require("../../../backend/common/json-data-helpers");
+            let user = {
+                _id: event.userId,
+                username: event.userName,
+                minutesInChannel: 0, //在followXP中触发初始化时使用
+                chatMessages: 0, //在UserSubscriptionXP中触发初始化时使用
+                isFollowed: false
+            };
+            //因为bitBonus默认值为0，不管是否存在，直接使用bitsBonus
+            let bitsBonus = jsonDataHelpers.getNumberDataMsgs('/loyalty-community/loyalsetting', '/bonusSetting/bitBonus');
+            userxpdb.updateUserbitXP(user, event.bits, false, bitsBonus);
         });
         listeners.push(bitsListener);
 
@@ -207,6 +220,25 @@ async function createClient() {
                 }
                 twitchEventsHandler.giftSub.triggerSubGift(subInfo);
             }
+            //监听到有订阅，将添加订阅者的角色
+            //1.通过用户id更新用户twitchRole状态
+            if (subInfo.userId) {
+                const userDatabase = require("../../database/userDatabase");
+                userDatabase.addUserRoleInfo(subInfo.userId, 'subscriber');
+            }
+            //触发subscriber加经验
+            let userxpdb = require("../../database/userXPDatabase");
+            let jsonDataHelpers = require("../../../backend/common/json-data-helpers");
+            let user = {
+                _id: subInfo.userId,
+                username: subInfo.userName,
+                minutesInChannel: 0, //在UserSubscriptionXP中触发初始化时使用
+                chatMessages: 0, //在UserSubscriptionXP中触发初始化时使用
+                isFollowed: false
+            };
+            //因为subscriptionBonus默认值为0，不管是否存在，就直接使用其值
+            let subscriptionBonus = jsonDataHelpers.getNumberDataMsgs('/loyalty-community/loyalsetting', '/bonusSetting/subscriptionBonus');
+            userxpdb.updateUserSubscriptionXP(user, false, subscriptionBonus);
         });
         listeners.push(subsListener);
     } catch (err) {

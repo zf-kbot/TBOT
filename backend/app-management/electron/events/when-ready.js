@@ -132,42 +132,51 @@ exports.whenReady = async () => {
     kolPollAccess.loadKolPolls();
 
     // Connect to DBs.
-    logger.info("Creating or connecting user database");
+    logger.debug("Creating or connecting user database");
     const userdb = require("../../../database/userDatabase");
     userdb.connectUserDatabase();
     // Set users in user db to offline if for some reason they are still set to online. (app crash or something)
     userdb.setAllUsersOffline();
     userdb.setAllUsersOldViewer();
 
-    logger.info("Creating or connecting stats database");
+    logger.debug("Creating or connecting stats database");
     const statsdb = require("../../../database/statsDatabase");
     statsdb.connectStatsDatabase();
 
-    logger.info("Creating or connecting quotes database");
+    logger.debug("Creating or connecting quotes database");
     const quotesdb = require("../../../quotes/quotes-manager");
     quotesdb.loadQuoteDatabase();
 
-    logger.info("Creating or connecting userPoints database");
+    logger.debug("Creating or connecting xpHistory Database");
+    const xphistorydb = require("../../../database/xpHistoryDatabase");
+    xphistorydb.loadXPHistoryDatabase();
+
+    logger.debug("Creating or connecting userxp database");
+    const userxpdb = require("../../../database/userXPDatabase");
+    userxpdb.loadUserXPDatabase();
+    userxpdb.initAllUserXP();
+
+    logger.debug("Creating or connecting userPoints database");
     const userpointsdb = require("../../../database/userPointsDatabase");
     userpointsdb.loadUserPointsDatabase();
 
-    logger.info("Creating or connecting gaLivePoints database");
+    logger.debug("Creating or connecting gaLivePoints database");
     const galivepointsdb = require("../../../database/gaLivePointsDatabase");
     galivepointsdb.loadGaLivePointsDatabase();
 
-    logger.info("Creating or connecting chatMessage database");
+    logger.debug("Creating or connecting chatMessage database");
     const chatmessagedb = require("../../../database/chatMessageDatabase");
     chatmessagedb.loadChatMessageDatabase();
 
-    logger.info("Creating or connecting emote database");
+    logger.debug("Creating or connecting emote database");
     const emotedb = require("../../../database/emoteDatabase");
     emotedb.loadEmoteDatabase();
 
-    logger.info("Creating or connecting viewTime database");
+    logger.debug("Creating or connecting viewTime database");
     const viewtimedb = require("../../../database/viewtimeDatabase");
     viewtimedb.loadViewTimeDatabase();
 
-    logger.info("Creating or connecting newFollow database");
+    logger.debug("Creating or connecting newFollow database");
     const newfollowdb = require("../../../database/newfollowDatabase");
     newfollowdb.loadNewFollowDatabase();
 

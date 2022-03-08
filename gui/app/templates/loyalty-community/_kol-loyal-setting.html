@@ -1,0 +1,77 @@
+<div style="min-width: 500px;">
+    <div style="padding: 15px;display: flex;flex-wrap: wrap;">
+        <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+            <div class="content-block-body">
+                <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+                    <div class="col-md-1">
+                        <span class="hvr-bob"><i class="fa-gear fa" style="font-size: 8em;"></i></span>
+                    </div>
+                    <div class="toggle-button-container" style="width: 80%;text-align:left;">
+                        <p style="font-size: 2em;" class="bgweight">
+                            {{ 'SIDEBAR.LOYALTYCOMMUNITY.LOYALSETTING' | translate}}
+                        </p>
+                        <span class="bgfontcolor">
+                            {{ 'LOYALSETTING.DESC' | translate}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 15px;">
+        <h4>{{ 'LOYALSETTING.XP_SETTING.TEXT' | translate}}</h4>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div style="width: 50%; display: flex;" ng-repeat="xpsetting in xpSettingsTranslation">
+                <div class="setting-text" style="width: 30%; padding-top: 1%;">
+                    <span style="margin-right: 5%">{{ xpsetting.text }}</span>
+                    <tooltip text="xpsetting.tip"></tooltip>
+                </div>
+                <div style="width: 50%;">
+                    <twitcherbot-input
+                            input-type="number"
+                            disable-variables="true"
+                            on-input-update="onInputUpdate()"
+                            model="inputModels[xpsetting.id]"/>
+                    <span style="color: red; cursor: default;" ng-style="{'opacity': xpSettingsOpacity[xpsetting.id]}">range of {{xpsetting.min}}-{{xpsetting.max}}!</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr" style="margin-right: 10%;border-top: 1px solid #F4F4F4; opacity: .1;">
+
+        <h4>{{ 'LOYALSETTING.LEVEL_SETTING.TEXT' | translate}}</h4>
+        <div style="display: flex; align-items: center;">
+            <div class="setting-text" style="width: 15%;">
+                <span style="margin-right: 5%">{{ 'LOYALSETTING.LEVEL_SETTING.UPGRADE_NOTIFICATION.TEXT' | translate }}</span>
+                <tooltip text="upgradeNotificationTip"></tooltip>
+            </div>
+            <div>
+                <input class="tgl tgl-light" id="upgrade-notification" type="checkbox"
+                    ng-model="inputModels.levelUpNotification"
+                    ng-click="toggleLevelUpNotification()"/>
+                <label class="tgl-btn" for="upgrade-notification"></label>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; margin-top: 1%">
+            <div class="setting-text" style="width: 15%;">
+                <span style="margin-right: 5%">{{ 'LOYALSETTING.LEVEL_SETTING.NOTIFICATION_TEXT.TEXT' | translate }}</span>
+            </div>
+            <div style="width: 75%;">
+                <twitcherbot-input
+                        placeholder-text="{{ translations['MESSAGEFILTER.REPETITIONS.PLACEHOLDER_TEXT'] }}"
+                        input-type="string" disable-variables="true"
+                        model="inputModels.levelUpNotificationMessage"
+                        on-input-update="saveInputChatModerationSettings('repetitions')" />
+            </div>
+        </div>
+
+        <hr class="hr" style="margin-right: 10%;border-top: 1px solid #F4F4F4; opacity: .1;">
+
+        <div style="text-align: right; padding-right: 10%; margin-top: 1%;">
+            <button ng-click="resetInputSetting()" class="btn btn-primary">{{ 'RESET' | translate }}</button>
+            <button ng-click="save()" class="btn btn-primary">{{ 'SAVE' | translate }}</button>
+            <i ng-show="saveStatus" style="color: #04BD0C" class="fa fa-check"></i>
+        </div>
+    </div>
+</div>

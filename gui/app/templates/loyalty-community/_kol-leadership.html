@@ -1,0 +1,29 @@
+<div class="noselect " style="padding-left: 15px">
+    <div style="padding: 15px;display: flex;flex-wrap: wrap;">
+        <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+            <div class="content-block-body">
+                <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+                    <div class="col-md-1">
+                        <span class="hvr-bob"><i class="fa fa-user" style="font-size: 8em;"></i></span>
+                    </div>
+                    <div class="toggle-button-container" style="width: 80%;text-align: left;">
+                        <!-- <p style="font-size: 25px;font-weight: bold;"> -->
+                        <p class="bgweight">
+                            {{ "SIDEBAR.LOYALTYCOMMUNITY.LEADERSHIP" | translate }} 
+                        </p>
+                        <p>
+                            <span class="bgfontcolor" sty>
+                                {{ 'LEADERSHIP.DESC' | translate }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=row>
+        <div ng-controller="viewersController">
+            <ng-include src="'./templates/viewers/_viewers.html'"></ng-include>
+        </div>
+    </div>
+</div>

@@ -85,6 +85,9 @@
                 gaService.sendEvent('top chart', 'change', layout);
             };
             window.addEventListener('resize', () => {
+                if (typeof $scope.myChart === 'undefined') {
+                    return;
+                }
                 $scope.myChart.resize({width: window.innerWidth - 300 + 'px'});
             });
 

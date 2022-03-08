@@ -9,7 +9,7 @@ const chatModerationManager = require("../moderation/chat-moderation-manager");
 const twitchEventsHandler = require("../../events/twitch-events");
 const users = require("../../twitch-api/resource/users");
 const logger = require("../../logwrapper");
-
+const twitchApi = require("../../twitch-api/client");
 const events = require("events");
 
 exports.events = new events.EventEmitter();
@@ -24,8 +24,36 @@ exports.setupBotChatListeners = (botChatClient) => {
 
 const HIGHLIGHT_MESSAGE_REWARD_ID = "highlight-message";
 
+async function addOrRemoveUserRole(userName, userRole, isAdd) {
+    //1.通过用户名查找用户id
+    let userId;
+    const userDatabase = require("../../database/userDatabase");
+    let allUsersDbInfo = await userDatabase.getAllUsers();
+    try {
+        for (let i = 0; i < allUsersDbInfo.length; i++) {
+            if (userName === allUsersDbInfo[i].displayName) {
+                userId = allUsersDbInfo[i]._id;
+                break;
+            }
+        }
+    } catch {
+        userId = 0;
+        logger.error("Failed to get userId by userName");
+    }
+    //2.通过用户id更新用户twitchRole状态
+    if (userId) {
+        if (isAdd) {
+            userDatabase.addUserRoleInfo(userId, userRole);
+        } else {
+            userDatabase.removeUserRoleInfo(userId, userRole);
+        }
+
+    }
+}
+
 /** @arg {import('twitch-chat-client/lib/ChatClient').ChatClient} streamerChatClient */
 exports.setupChatListeners = (streamerChatClient) => {
+    const client = twitchApi.getClient();
     streamerChatClient.onPrivmsg(async (_channel, user, messageText, msg) => {
         const twitcherbotChatMessage = await chatHelpers.buildTwitchbotChatMessage(msg, messageText);
 
@@ -123,11 +151,19 @@ exports.setupChatListeners = (streamerChatClient) => {
         twitchEventsHandler.viewerTimeout.triggerTimeout(username, duration);
     });
 
-    streamerChatClient._onVipResult((_, username) => {
+    streamerChatClient._onVipResult(async(_, username) => {
         users.addVipToVipList(username);
+        addOrRemoveUserRole(username, 'vip', true);
     });
-
-    streamerChatClient._onUnvipResult((_, username) => {
+    streamerChatClient._onUnvipResult(async(_, username) => {
         users.removeVipFromVipList(username);
+        addOrRemoveUserRole(username, 'vip', false);
+    });
+    //对mod进行监听处理
+    streamerChatClient._onModResult(async(_, username) => {
+        addOrRemoveUserRole(username, 'mod', true);
+    });
+    streamerChatClient._onUnmodResult(async(_, username) => {
+        addOrRemoveUserRole(username, 'mod', false);
     });
 };

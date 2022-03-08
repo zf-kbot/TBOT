@@ -10178,7 +10178,7 @@ table.fb-table-alt {
   list-style: none;
   right: 101%;
   position: absolute;
-  top: 90px;
+  top: 70px;
   background: #3e4356;
   padding-left: 0; }
 
@@ -11852,6 +11852,20 @@ a {
 
 .titlebar-drag-region {
   background-color: #2A2F42; }
+
+.setting-text {
+  color: white; }
+
+.loyal-setting-multi-checkbox {
+  background: #525565;
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #525565; }
+  .loyal-setting-multi-checkbox:hover, .loyal-setting-multi-checkbox:focus {
+    color: white; }
 
 .list-group-item {
   background-color: #3E4356;

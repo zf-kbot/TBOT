@@ -13,9 +13,9 @@
             <a draggable=false class="fb-nav-link" href="{{$ctrl.href}}" ng-class="{'selected': $ctrl.sbm.tabIsSelected($ctrl.page)}" ng-click="$ctrl.sbm.setTab($ctrl.page)"  uib-tooltip="{{!$ctrl.sbm.navExpanded ? $ctrl.name : ''}}" tooltip-placement="right" tooltip-append-to-body="true">
                 <div class="nav-link-bar"></div>
                 <div class="nav-link-icon">
-                  <span class="nav-icon-wrapper">
-                    <i ng-class="$ctrl.getClass()"></i>
-                  </span>
+                    <span class="nav-icon-wrapper">
+                        <i ng-class="$ctrl.getClass()"></i>
+                    </span>
                 </div>
                 <div class="nav-link-title" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">{{$ctrl.name}}</div>
                 <div ng-show="$ctrl.hasBadge" class="nav-update-badge" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">

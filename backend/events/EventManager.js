@@ -20,6 +20,17 @@ function getDataFromFile(path) {
         return {};
     }
 }
+function getLevelUpNotificationsFile() {
+    return profileManager.getJsonDbInProfile("/loyalty-community/loyalsetting");
+}
+
+function getLevelUpDataFromFile(path) {
+    try {
+        return getLevelUpNotificationsFile().getData(path);
+    } catch (err) {
+        return {};
+    }
+}
 /**@extends NodeJS.EventEmitter */
 class EventManager extends EventEmitter {
     constructor() {
@@ -105,6 +116,18 @@ class EventManager extends EventEmitter {
                 dataMsg = dataMsg.replace(/\{game\}/g, meta.gamename);
                 dataMsg = dataMsg.replace(/\{title\}/g, meta.title);
                 twitchChat.sendChatMessage(dataMsg);
+            }
+        }
+        //用户升级通知
+        if (eventId === "level-up") {
+            let dataLoyalSettingMsg = getLevelUpDataFromFile("/");
+            if (dataLoyalSettingMsg.levelUpNotification) {
+                const twitchChat = require("../chat/twitch-chat");
+                //替换dataLoyalSettingMsg.levelUpNotificationMessage中的参数为具体信息
+                let levelUpNotificationMsg = "";
+                levelUpNotificationMsg = dataLoyalSettingMsg.levelUpNotificationMessage.replace(/\{username\}/g, meta.userName);
+                levelUpNotificationMsg = levelUpNotificationMsg.replace(/\{level_num\}/g, meta.userLevel);
+                twitchChat.sendChatMessage(levelUpNotificationMsg);
             }
         }
         let source = this.getEventSourceById(sourceId);

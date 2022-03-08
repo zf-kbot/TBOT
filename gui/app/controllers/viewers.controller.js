@@ -5,8 +5,8 @@
     angular
         .module("twitcherbotApp")
         .controller("viewersController", function($scope, viewersService, currencyService,
-            utilityService, settingsService) {
-
+            utilityService, settingsService, gaService) {
+            gaService.sendEvent('leadership', 'open');
             $scope.viewerTablePageSize = settingsService.getViewerListPageSize();
 
             $scope.showUserDetailsModal = (userId) => {
@@ -69,12 +69,44 @@
                     cellController: () => {}
                 },
                 {
-                    name: "JOIN DATE",
-                    icon: "fa-sign-in",
-                    dataField: "joinDate",
+                    name: "LV",
+                    icon: "fa-eye",
+                    dataField: "userLV",
                     sortable: true,
-                    cellTemplate: `{{data.joinDate | prettyDate}}`,
+                    cellTemplate: `<span style="border: 1px solid #EAA348;background: white;color: #EAA348;font-size: 14px;border-radius: 5px;width: 70px;text-align: left;padding-left: 13px;margin-right: 20px;vertical-align: middle;display: inline-block;">LV {{ data.userLV }}</span>`,
                     cellController: () => {}
+                },
+                {
+                    name: "XP",
+                    icon: "fa-eye",
+                    dataField: "totalXP",
+                    sortable: true,
+                    cellTemplate: `<span style="width: 80px; display: inline-block">{{ data.totalXP }}</span>`,
+                    cellController: () => {}
+                },
+                {
+                    name: "ROLES",
+                    icon: "fa-eye",
+                    dataField: "twitchRoles",
+                    sortable: true,
+                    cellTemplate: `<span ng-repeat="role in data.twitchRoles"
+                        style="display: inline-block;margin-right: 10px;width: 70px;border-radius: 5px;line-height: 22px;text-align: center;"
+                        ng-style="{'background': setRoleBgColor(role)}"
+                    >{{ role }}</span>`,
+                    cellController: ($scope) => {
+                        $scope.setRoleBgColor = (roleName) => {
+                            switch (roleName) {
+                            case "vip":
+                                return "#E3760E";
+                            case "mod":
+                                return "#8849F6";
+                            case "subscriber":
+                                return "#0AA26F";
+                            case "regular":
+                                return "#5A9CF8";
+                            }
+                        };
+                    }
                 },
                 {
                     name: "LAST SEEN",
@@ -82,26 +114,6 @@
                     dataField: "lastSeen",
                     sortable: true,
                     cellTemplate: `{{data.lastSeen | prettyDate}}`,
-                    cellController: () => {}
-                },
-                {
-                    name: "VIEW TIME",
-                    icon: "fa-tv",
-                    dataField: "minutesInChannel",
-                    sortable: true,
-                    cellTemplate: `{{getViewTimeDisplay(data.minutesInChannel)}}`,
-                    cellController: ($scope) => {
-                        $scope.getViewTimeDisplay = (minutesInChannel) => {
-                            return minutesInChannel < 60 ? 'Less than an hour' : Math.round(minutesInChannel / 60);
-                        };
-                    }
-                },
-                {
-                    name: "CHAT MESSAGES",
-                    icon: "fa-comments",
-                    dataField: "chatMessages",
-                    sortable: true,
-                    cellTemplate: `{{data.chatMessages}}`,
                     cellController: () => {}
                 }
             ];
@@ -130,5 +142,44 @@
                 cellTemplate: `<i class="fa fa-chevron-right"></i>`,
                 cellController: () => {}
             });
+
+            $scope.roleSelected = ["All"];
+            $scope.roleIsChecked = (roleName) => {
+                return $scope.roleSelected.includes(roleName);
+            };
+            $scope.roleIsCheckedStyle = (roleName) => {
+                return $scope.roleIsChecked(roleName) ? 'clickable fa fa-check-square' : 'clickable fa fa-square';
+            };
+            $scope.candidateRoles = ["All", "Vip", "Mod", "Subscriber", "Regular"];
+            $scope.clickRolesOption = (roleName) => {
+                if ($scope.roleIsChecked(roleName)) {
+                    let idx = $scope.roleSelected.indexOf(roleName);
+                    $scope.roleSelected.splice(idx, 1);
+                    if ($scope.roleSelected.length <= 0) {
+                        $scope.roleSelected.push("All");
+                        $scope.roleSelected = $scope.roleSelected.slice();
+                    }
+                } else {
+                    $scope.roleSelected.push(roleName);
+                    $scope.roleSelected = $scope.roleSelected.slice();
+                }
+            };
+
+            $scope.minLv = '';
+            $scope.maxLv = '';
+
+            $scope.filterDataFunc = function () {
+                return (user) => {
+                    // 非all角色，且用户没有选择的角色
+                    if ((!$scope.roleSelected.includes("All")
+                            && $scope.roleSelected.filter(x => user.twitchRoles.includes(x.toLowerCase())).length === 0)
+                        // 或是用户等级不符合则过滤
+                        || $scope.minLv.length !== 0 && !isNaN(parseInt($scope.minLv)) && user.userLV < $scope.minLv
+                        || $scope.maxLv.length !== 0 && !isNaN(parseInt($scope.maxLv)) && user.userLV > $scope.maxLv) {
+                        return false;
+                    }
+                    return true;
+                };
+            };
         });
 }());

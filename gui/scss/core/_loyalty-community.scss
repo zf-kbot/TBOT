@@ -1,0 +1,16 @@
+.setting-text {
+    color: $message-tip-color;
+}
+
+.loyal-setting-multi-checkbox {
+    background: $form-control-bg;
+    color: $message-tip-color;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid $form-control-bg;
+    &:hover, &:focus {
+        color: $message-tip-color;
+    }
+}

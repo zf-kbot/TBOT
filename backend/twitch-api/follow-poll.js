@@ -146,6 +146,22 @@ exports.startFollowPoll = () => {
                 }
 
                 if (follow.userId !== lastUserId) {
+                    //有用户关注，更新用户关注经验或初始化
+                    let user = {
+                        _id: follow.userId,
+                        username: follow.userName,
+                        minutesInChannel: 0, //在followXP中触发初始化时使用
+                        chatMessages: 0, //在followXP中触发初始化时使用
+                        isFollowed: true //这是在检测到有关注，肯定为true
+                    };
+                    const userxpdb = require("../database/userXPDatabase");
+                    let jsonDataHelpers = require("../common/json-data-helpers");
+                    let followBonus = 100;//followBonus的默认值
+                    let bonusSetting = jsonDataHelpers.getNumberDataMsgs('/loyalty-community/loyalsetting', '/bonusSetting');
+                    if (bonusSetting.hasOwnProperty("followBonus")) {
+                        followBonus = bonusSetting.followBonus;
+                    }
+                    userxpdb.updateUserFollowXP(user, false, followBonus);
                     //有可能有用户关注后取消，然后再关注，不使用用户id为_id进行存储
                     let followMsg = {
                         followedDate: follow._data.followed_at,

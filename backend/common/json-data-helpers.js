@@ -1,6 +1,7 @@
 "use strict";
 
 const logger = require("../logwrapper");
+const profileManager = require("../common/profile-manager");
 
 exports.readData = (data, propertyPath) => {
     if (data === undefined) {
@@ -80,3 +81,57 @@ exports.parseData = (newData, currentData, propertyPath) => {
     }
     return currentData;
 };
+
+/*以后读写json文件就引入这个文件进行操作，就不用再写一次*/
+//获取json文件对象
+function getDataFile(filepath) {
+    return profileManager.getJsonDbInProfile(filepath);
+}
+
+function pushDataToFile(filepath, path, data) {
+    try {
+        getDataFile(filepath).push(path, data, true);
+    } catch (err) { } //eslint-disable-line no-empty
+}
+//向json文件中写入数据
+function saveDataMsg(filepath, path, datamsg) {
+    pushDataToFile(filepath, path, datamsg);
+}
+//获取文件中数据
+function getArrayDataMsgs(filepath, path) {
+    try {
+        let data = getDataFile(filepath).getData(path);
+        return data ? data : [];
+    } catch (err) {
+        return [];
+    }
+}
+function getStringOrBoolDataMsgs(filepath, path) {
+    try {
+        let data = getDataFile(filepath).getData(path);
+        return data ? data : "";
+    } catch (err) {
+        return "";
+    }
+}
+function getObjectDataMsgs(filepath, path) {
+    try {
+        let data = getDataFile(filepath).getData(path);
+        return data ? data : {};
+    } catch (err) {
+        return {};
+    }
+}
+function getNumberDataMsgs(filepath, path) {
+    try {
+        let data = getDataFile(filepath).getData(path);
+        return data ? data : 0;
+    } catch (err) {
+        return 0;
+    }
+}
+exports.getArrayDataMsgs = getArrayDataMsgs;
+exports.getStringOrBoolDataMsgs = getStringOrBoolDataMsgs;
+exports.getObjectDataMsgs = getObjectDataMsgs;
+exports.getNumberDataMsgs = getNumberDataMsgs;
+exports.saveDataMsg = saveDataMsg;

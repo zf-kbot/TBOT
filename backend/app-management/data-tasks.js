@@ -72,7 +72,10 @@ function ensureRequiredFoldersExist() {
             `/profiles/${profileId}/events`,
             `/profiles/${profileId}/roles`,
             `/profiles/${profileId}/db`,
-            `/profiles/${profileId}/effects`
+            `/profiles/${profileId}/effects`,
+            `/profiles/${profileId}/data`,
+            `/profiles/${profileId}/interactive-tool`,
+            `/profiles/${profileId}/loyalty-community`
         ];
 
         for (const profilePath of requiredProfileDirPaths) {

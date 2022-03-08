@@ -296,20 +296,21 @@
                         let connectedMins = parseInt((new Date().getTime() - connectedBeginTime) / 1000) / 60;
                         service.streamerConnectedInfo.userName = username;
                         service.streamerConnectedInfo.connectedMins = connectedMins;
-                        let feedbackInfo = profileManager.getJsonDbInProfile('/feedbackInfo').getData('/', true);
+                        /*这里目前不需要主动弹出反馈的弹窗了，暂时屏蔽 */
+                        // let feedbackInfo = profileManager.getJsonDbInProfile('/feedbackInfo').getData('/', true);
                         let threshold = {
                             connectedMins: 5,
                             popupIntervalMins: 20,
                             gaSendMinMins: 1
                         };
-                        if (connectedMins >= threshold.connectedMins && data.manual
-                            && (!('isParticipate' in feedbackInfo) || ('isParticipate' in feedbackInfo && !feedbackInfo.isParticipate))
-                            && (!('latestPopupTime' in feedbackInfo) || ('latestPopupTime' in feedbackInfo
-                            && (new Date().getTime() - feedbackInfo.latestPopupTime) / 1000 / 60 >= threshold.popupIntervalMins))) { // 连接超过20min、未填写、1h内未弹出
-                            utilityService.showModal({
-                                component: "showKolFeedbackModal"
-                            });
-                        }
+                        // if (connectedMins >= threshold.connectedMins && data.manual
+                        //     && (!('isParticipate' in feedbackInfo) || ('isParticipate' in feedbackInfo && !feedbackInfo.isParticipate))
+                        //     && (!('latestPopupTime' in feedbackInfo) || ('latestPopupTime' in feedbackInfo
+                        //     && (new Date().getTime() - feedbackInfo.latestPopupTime) / 1000 / 60 >= threshold.popupIntervalMins))) { // 连接超过20min、未填写、1h内未弹出
+                        //     utilityService.showModal({
+                        //         component: "showKolFeedbackModal"
+                        //     });
+                        // }
                         if (connectedMins > threshold.gaSendMinMins) {
                             //断开连接时发送用户名，连接时长和当前关注人数
                             service.sendConnectedTimeAndTotalFollowers();

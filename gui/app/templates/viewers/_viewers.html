@@ -7,22 +7,41 @@
           flex-direction: row;
           justify-content: space-between;
         ">
-        <button ng-click="vs.updateViewers()" class="btn btn-primary">
+        <!-- <button ng-click="vs.updateViewers()" class="btn btn-primary">
           <i class="fa fa-refresh"></i> Refresh
-        </button>
+        </button> -->
+        <div style="display: flex; align-items: center;">
+            <span class="setting-text" style="margin-right: 2%;">{{ 'LEADERSHIP.DISPLAY' | translate }}</span>
+            <div style="width: 27%;" class="btn-group" uib-dropdown is-open="status.isopen">
+                <button class="btn loyal-setting-multi-checkbox" type="button" uib-dropdown-toggle ng-disabled="disabled">
+                    {{ roleSelected[0] }} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" ng-click="$event.stopPropagation()" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <li ng-repeat="role in candidateRoles">
+                        <a href ng-click="clickRolesOption(role)">
+                            <i class="{{ roleIsCheckedStyle(role) }}" style="margin-right: 10px"></i>
+                            {{ role }}</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="setting-text" style="margin-left: 5%; margin-right: 2%;">LV</span>
+            <input type="string" ng-model="$parent.minLv" class="form-control" placeholder="min" style="width: 15%; text-align: center;"/>
+            <span style="height: 36px; display: flex; align-items: center;padding: 0 3px;">-</span>
+            <input type="string" ng-model="$parent.maxLv" class="form-control" placeholder="max" style="width: 15%; text-align: center;"/>
+        </div>
         <div style="
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             margin-right:7px;
           ">
-          <searchbar placeholder-text="Search Twitchbot viewers..." query="viewerSearch" style="flex-basis: 250px">
+          <searchbar placeholder-text="{{ 'LEADERSHIP.SEARCH_USER' | translate}}" query="viewerSearch" style="flex-basis: 250px">
           </searchbar>
           <!--<button ng-click="showViewerSearchModal();" class="btn btn-default" style="margin-left: 15px;"><i class="fa fa-search"></i> Search Mixer</button>-->
         </div>
       </div>
       <sortable-table table-data-set="vs.viewers" headers="headers" query="viewerSearch" clickable="true"
-        on-row-click="viewerRowClicked(data)" track-by-field="_id" starting-sort-field="username"
+        on-row-click="viewerRowClicked(data)" filter-data-func="filterDataFunc()" track-by-field="_id" starting-sort-field="username"
         no-data-message="No viewer data available yet!" page-size="viewerTablePageSize">
       </sortable-table>
     </div>

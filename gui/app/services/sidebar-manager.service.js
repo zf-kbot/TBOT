@@ -24,7 +24,6 @@
 
                 $translate("TABID." + tabId.replace(/ |-/g, "_").toUpperCase()).then((ret) => {
                     service.currentTabName = ret;
-                    logger.info(ret);
                 });
 
                 //hack that somewhat helps with the autoupdate slider styling issues on first load
@@ -51,7 +50,9 @@
                     service.currentTab.toLowerCase() === "auto reply" ||
                     service.currentTab.toLowerCase() === "blacklisted words" ||
                     service.currentTab.toLowerCase() === "chat notifications" ||
-                    service.currentTab.toLowerCase() === "top chart"
+                    service.currentTab.toLowerCase() === "top chart" ||
+                    service.currentTab.toLowerCase() === "loyal setting" ||
+                    service.currentTab.toLowerCase() === "leaderboard"
                 );
             };
 
@@ -117,6 +118,15 @@
                 .when("/kol-timers", {
                     templateUrl: "./templates/commands/_kol-timers.html",
                     controller: "kolTimersController"
+                })
+
+                .when("/kol-loyal-setting", {
+                    templateUrl: "./templates/loyalty-community/_kol-loyal-setting.html",
+                    controller: "kolLoyaltySettingController"
+                })
+
+                .when("/kol-leadership", {
+                    templateUrl: "./templates/loyalty-community/_kol-leadership.html"
                 })
 
                 .when("/message-filter", {

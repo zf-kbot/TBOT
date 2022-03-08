@@ -12,7 +12,83 @@ const chatterPoll = require("../twitch-api/chatter-poll");
 const commandHandler = require("./commands/commandHandler");
 const activeUserHandler = require("./chat-listeners/active-user-handler");
 const users = require("../twitch-api/resource/users");
+//设置目前最新的角色信息
+async function setUserTwitchRole(streamer, vipNames, modNames) {
+    const client = twitchClient.getClient();
+    const userDatabase = require("../database/userDatabase");
+    //重置下所有角色
+    let userIdsToRest = [];
+    let userToResetArray = await userDatabase.getIdsToResetRoles();
+    for (let i = 0; i < userToResetArray.length; i++) {
+        userIdsToRest.push(userToResetArray[i]._id);
+    }
+    //发送请求，获取vips， mods和subscribers
+    let vipIds = [];
+    let modIds = [];
+    //通过vipNames获取vipIds 以及modNames获取modIds
+    let allUsersDbInfo = await userDatabase.getAllUsers();
+    try {
+        for (let i = 0; i < allUsersDbInfo.length; i++) {
+            if (vipNames.includes(allUsersDbInfo[i].displayName)) {
+                vipIds.push(allUsersDbInfo[i]._id);
+            }
+            if (modNames.includes(allUsersDbInfo[i].displayName)) {
+                modIds.push(allUsersDbInfo[i]._id);
+            }
+        }
+    } catch {
+        logger.error("Failed to get vipIds and modIds");
+    }
 
+    //获取subscribers的ids
+    let subscribers = [];//默认为空
+    let subscriberIds = [];
+    try {
+        subscribers = await client.helix.subscriptions.getSubscriptionsPaginated(streamer.channelId).getAll();
+        for (let i = 0; i < subscribers.length; i++) {
+            subscriberIds.push(subscribers[i].userId);
+        }
+    } catch {
+        subscriberIds = [];
+        logger.error("Failed to get subscriberIds by subscribers");
+    }
+
+    //vip,mod和subscriber的Id并集
+    let vipAndModOAndSubscriberIds = vipIds.concat(modIds).concat(subscriberIds.filter(function(v) {
+        return vipIds.concat(modIds).indexOf(v) === -1;
+    }));
+    //需要重置为regular的用户
+    let userIdsToRestToRegular = userIdsToRest.filter(item => !vipAndModOAndSubscriberIds.includes(item));
+    if (userIdsToRestToRegular.length > 0) {
+        for (let i = 0; i < userIdsToRestToRegular.length; i++) {
+            let userRoleInfo = {
+                id: userIdsToRestToRegular[i],
+                roles: []
+            };
+            //更新用户角色
+            userDatabase.updateUserRoles(userRoleInfo);
+        }
+    }
+    //需要设置为vip mod 和subscriber的用户
+    for (let i = 0; i < vipAndModOAndSubscriberIds.length; i++) {
+        let roles = [];
+        if (vipIds.includes(vipAndModOAndSubscriberIds[i])) {
+            roles.push('vip');
+        }
+        if (modIds.includes(vipAndModOAndSubscriberIds[i])) {
+            roles.push('mod');
+        }
+        if (subscriberIds.includes(vipAndModOAndSubscriberIds[i])) {
+            roles.push('subscriber');
+        }
+        let userRoleInfo = {
+            id: vipAndModOAndSubscriberIds[i],
+            roles: roles
+        };
+        //更新用户角色
+        userDatabase.updateUserRoles(userRoleInfo);
+    }
+}
 /**@extends NodeJS.EventEmitter */
 class TwitchChat extends EventEmitter {
 
@@ -115,9 +191,17 @@ class TwitchChat extends EventEmitter {
             followPoll.startFollowPoll();
             chatterPoll.startChatterPoll();
 
-            const vips = await this._streamerChatClient.getVips(accountAccess.getAccounts().streamer.username);
+            const vips = await this._streamerChatClient.getVips(streamer.username);
+            //vipNames的参数有问题，最后一个用户的Name会多一个"."  需要去除掉
+            //处理vipNames的最后一个值的内容，替换其中的“.”
+            if (vips.length > 0) {
+                vips[vips.length - 1] = vips[vips.length - 1].replace(".", "");
+            }
 
             users.loadUsersInVipRole(vips);
+            let modNames = await this._streamerChatClient.getMods(streamer.username);
+            //连接时，更新userdb中最新的vip,mod和subscriber的信息
+            await setUserTwitchRole(streamer, vips, modNames);
         } catch (error) {
             logger.error("Chat connect error", error);
             await this.disconnect();

@@ -18,12 +18,42 @@
                 if (waitingForUpdate) return Promise.resolve();
                 waitingForUpdate = true;
                 return $q(resolve => {
-                    backendCommunicator.fireEventAsync("getAllViewers")
+                    // backendCommunicator.fireEventAsync("getAllViewers")
+                    backendCommunicator.fireEventAsync("getSimplifyAllViewers")
                         .then(viewers => {
                             resolve(viewers);
                         });
                 }).then(viewers => {
                     service.viewers = viewers;
+                    waitingForUpdate = false;
+                    service.updateViewersXp();
+                });
+            };
+
+            function mergeTwoArrayByColumn(obj1, obj2, column) {
+                obj1.forEach((v1) => {
+                    obj2.forEach((v2) => {
+                        if (v1[column] === v2[column]) {
+                            Object.keys(v2).forEach((k) => {
+                                v1[k] = v2[k];
+                            });
+                            return;
+                        }
+                    });
+                });
+            }
+
+            service.updateViewersXp = function () {
+                if (waitingForUpdate) return Promise.resolve();
+                waitingForUpdate = true;
+                return $q(resolve => {
+                    // backendCommunicator.fireEventAsync("getAllViewers")
+                    backendCommunicator.fireEventAsync("getSimplifyAllViewersXp")
+                        .then(viewersXp => {
+                            resolve(viewersXp);
+                        });
+                }).then(viewersXp => {
+                    mergeTwoArrayByColumn(service.viewers, viewersXp, "_id");
                     waitingForUpdate = false;
                 });
             };

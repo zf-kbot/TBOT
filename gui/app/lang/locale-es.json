@@ -40,6 +40,11 @@
             "MESSAGEFILTER": "Filtro De Mensajes",
             "BLACKLISTEDWORDS": "Palabras En Lista Negra"
         },
+        "LOYALTYCOMMUNITY": {
+            "LOYALTYCOMMUNITY": "Comunidad Lealtad",
+            "LOYALSETTING": "Ajuste de lealtad",
+            "LEADERSHIP": "Liderazgo"
+        },
         "CHAT": {
             "CHAT": "Charla",
             "COMMANDS": "Comando",
@@ -119,6 +124,7 @@
     "DELETE":"Borrar",
     "CLOSE":"Cierra",
     "EDIT": "Editar",
+    "RESET":"Configuración predeterminada",
     "RUNNING_NOT_CONNECTED": "Ready, but nothing is connected at this time.",
     "DASHBOARD": {
         "CHATFEED": {
@@ -128,6 +134,7 @@
         "CHATUSERS": {
             "CHATUSERS": "USUSRIOS DE CHAT",
             "Moderators": "Moderadores",
+            "VIPs": "Vips",
             "Bots": "Bots",
             "Viewers": "Espectadores",
             "Broadcaster": "Locutor",
@@ -523,6 +530,47 @@
             "CONFIRMlABEL_CANCEL": "Cancelar"
         }
     },
+    "LOYALSETTING": {
+        "DESC": "XP es una medida de la lealtad y la actividad del público del Canal. Al seguir viendo streaming, chat, suscripciones o vítores, los espectadores pueden ganar XP y aumentar su lealtad. Puede personalizar su sistema de lealtad usando los siguientes ajustes. Haga clic aquí para más información.",
+        "XP_SETTING": {
+            "TEXT": "Configuración XP",
+            "5_MINS_VIEW": {
+                "TEXT": "XP por vista de 5 minutos",
+                "TIP": "La cantidad de XP que el espectador recibirá cuando siga viendo su flujo de vídeo durante 5 minutos"
+            },
+            "EACH_CHAT": {
+                "TEXT": "XP por mensajes de chat",
+                "TIP": "La cantidad de XP que el público recibirá cuando envíe una charla"
+            },
+            "NEW_FOLLOWING": {
+                "TEXT": "XP para nuevos seguidores",
+                "TIP": "El valor de la experiencia que un nuevo seguidor obtendrá cuando siga su canal"
+            },
+            "NEW_SUB": {
+                "TEXT": "XP por suscripción",
+                "TIP": "Cantidad de XP que los suscriptores recibirán al suscribirse"
+            },
+            "EACH_BIT": {
+                "TEXT": "XP por bit",
+                "TIP": "La cantidad de XP que el público recibirá cuando aclare"
+            }
+        },
+        "LEVEL_SETTING": {
+            "TEXT": "Configuración horizontal",
+            "UPGRADE_NOTIFICATION": {
+                "TEXT": "Notificación de actualización",
+                "TIP": "Si enviar notificaciones en la Sala de chat al actualizar el navegador"
+            },
+            "NOTIFICATION_TEXT": {
+                "TEXT": "Texto de la notificación"
+            }
+        }
+    },
+    "LEADERSHIP": {
+        "DESC": "El liderazgo proporciona información sobre la lealtad de los espectadores del canal para que usted pueda buscar o filtrar a los espectadores leales.",
+        "DISPLAY": "Exponer",
+        "SEARCH_USER": "Buscar usuarios"
+    },
     "EMOTE": {
         "REGULAR": "Regular",
         "GLOBAL": "Global",
@@ -538,12 +586,30 @@
         "KOL_TIMERS": "Temporizadores",
         "AUTO_REPLY": "Respuesta Automática",
         "MESSAGE_FILTER": "Filtro De Mensajes",
-        "BLACKLISTED_WORDS": "Palabras En Lista Negra"
+        "BLACKLISTED_WORDS": "Palabras En Lista Negra",
+        "KOL_LOYAL_SETTING": "Ajuste de lealtad",
+        "KOL_LEADERSHIP": "Liderazgo"
     },
     "QUIT_SETTING_MODAL": {
         "QUIT_SETTING": "Dejar De Configurar",
         "MINIMIZE_TO_THE_SYSTEM_TRAY": "Minimizar A La Bandeja Del Sistema",
         "QUIT_TWITCHBOT": "Dejar Twitchbot",
         "DONT_ASK_AGAIN_NEXT_TIME": "No Vuelvas A Preguntar La Próxima Vez"
+    },
+    "LOYAL_SETTING_RESET_CONFIRM_MODAL": {
+        "TITTLE": "Restablecer la configuración predeterminada",
+        "CONTENT": "¿Está seguro de restablecer toda la configuración al valor predeterminado?",
+        "CONFIRM": "Confirmar"
+    },
+    "SORTABLE": {
+        "SHOWING": "Mostrar",
+        "TOTAL": "total",
+        "HEADERS": {
+            "USERNAME": "USUARIO",
+            "LV": "LV",
+            "XP": "XP",
+            "ROLES": "ROLES",
+            "LAST SEEN": "ÚLTIMA VISTA"
+        }
     }
 }

@@ -13,7 +13,8 @@
                 startingSortField: "@",
                 sortInitiallyReversed: "<",
                 noDataMessage: "@",
-                pageSize: "<"
+                pageSize: "<",
+                filterDataFunc: "&"
             },
             template: `
           <div>
@@ -23,7 +24,7 @@
                   <th ng-repeat="header in $ctrl.headers track by $index" ng-click="header.sortable && $ctrl.setOrderField(header.dataField)" ng-class="{'selected': $ctrl.isOrderField(header.dataField)}" ng-style="header.headerStyles">
                     <div style="display:flex;">
                         <!-- <span style="display:inline-block;"><i ng-show="header.icon" class="fas" ng-class="header.icon"></i></span> -->
-                        <span ng-show="header.name" style="margin: 0 5px;display:inline-block;">{{header.name}}</span>
+                        <span ng-show="header.name" style="margin: 0 5px;display:inline-block;">{{ 'SORTABLE.HEADERS.' + header.name | translate}}</span>
                         <!-- <span ng-if="header.sortable" style="display:inline-block; width: 11px;">
                             <i ng-show="$ctrl.isOrderField(header.dataField)" class="fal" ng-class="{'fa-arrow-to-bottom': !$ctrl.order.reverse,'fa-arrow-to-top': $ctrl.order.reverse}"></i>
                         </span> -->
@@ -32,7 +33,7 @@
                 </tr>
               </thead>
               <tbody>
-                  <tr ng-repeat="data in filtered = ($ctrl.tableDataSet | filter:$ctrl.query | orderBy:$ctrl.dynamicOrder:$ctrl.order.reverse) | startFrom:($ctrl.pagination.currentPage-1)*$ctrl.pagination.pageSize | limitTo:$ctrl.pagination.pageSize as visible track by $ctrl.getTrackBy(data, $index)" class="viewer-row" ng-class="{selectable: $ctrl.clickable}" 
+                  <tr ng-repeat="data in filtered = ($ctrl.tableDataSet | filter:$ctrl.query | filter:$ctrl.filterDataFunc() | orderBy:$ctrl.dynamicOrder:$ctrl.order.reverse) | startFrom:($ctrl.pagination.currentPage-1)*$ctrl.pagination.pageSize | limitTo:$ctrl.pagination.pageSize as visible track by $ctrl.getTrackBy(data, $index)" class="viewer-row" ng-class="{selectable: $ctrl.clickable}"
                       ng-click="$ctrl.clickable && $ctrl.onRowClick({ data: data })">
                       <td ng-repeat="header in $ctrl.headers track by $index" ng-style="header.cellStyles">
                         <sortable-table-cell data="data" header="header" cell-index="$index"></sortable-table-cell>
@@ -52,7 +53,7 @@
               </div>
               <div>
                   <div ng-hide="$ctrl.tableDataSet.length < 1" class="muted" style="margin-top: 10px;font-size: 11px;text-align: right;">
-                      <span>Showing <strong>{{$ctrl.getRangeMin()}}</strong> - <strong>{{$ctrl.getRangeMax(filtered.length)}}</strong> of <strong>{{$ctrl.tableDataSet.length}}</strong> total</span>
+                      <span>{{ 'SORTABLE.SHOWING' | translate }} <strong>{{$ctrl.getRangeMin()}}</strong> - <strong>{{$ctrl.getRangeMax(filtered.length)}}</strong> of <strong>{{$ctrl.tableDataSet.length}}</strong> {{ 'SORTABLE.TOTAL' | translate }}</span>
                   </div>
               </div>
             </div>

@@ -95,16 +95,29 @@
       </div>
       <div class="controls-fb-inline" style="margin-top: 10px"></div>
     </div>
-    
-    <div class="form-group settings-title">
+    <span class="setting-text" style="margin-right: 2%;">{{ 'BLACKLISTEDWORDS.PUNISHMENT' | translate }}</span>
+    <div style="width: 27%;" class="btn-group" uib-dropdown is-open="status.isopen">
+        <button class="btn loyal-setting-multi-checkbox" type="button" uib-dropdown-toggle ng-disabled="disabled">
+            {{ punishmentSelected | translate }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li ng-repeat="punishment in candidatePunishment">
+                <a href ng-click="selectPunishmentOption(punishment)">
+                    {{ punishment | translate }}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="form-group settings-title" ng-show = "punishmentSelected === 'BLACKLISTEDWORDS.SETTING.CANDIDATE_PUNISHMENT.TIMEOUT'">
       <i class="fa fa-clock-o" style="margin-right: 5px;"></i>
       {{ 'BLACKLISTEDWORDS.TIME_OUT' | translate}}
       <tooltip style="font-size: 14px;" 
         text = "$ctrl.translations['BLACKLISTEDWORDS.TIME_OUT_TOOLTIP']">
       </tooltip>
     </div>      
-    <div>
+    <div ng-show = "punishmentSelected === 'BLACKLISTEDWORDS.SETTING.CANDIDATE_PUNISHMENT.TIMEOUT'">
       <div style="display: flex;flex-wrap: nowrap;">
+        <div style="line-height: 36px;">{{ 'BLACKLISTEDWORDS.TABLE.HEADER.DURATION' | translate}}</div>
         <input
         style="display: flex;flex:1;"
         type="number"
@@ -112,7 +125,6 @@
         aria-describeby="image-width-setting-type"
         ng-model="$ctrl.command.effects.list[0].time"
         placeholder="{{$ctrl.command.effects.list[0].time}}"/>
-        <div style="line-height: 36px;">{{ 'BLACKLISTEDWORDS.SECONDS' | translate}}</div> 
       </div>
     </div>
 

@@ -125,8 +125,8 @@ function setLastSeenDateTime() {
         }
     });
     insertOrUpdateAllUserViewTime();
-    //更新用户观看时长积分 与 关注积分
-    insertOrUpdateAllUserViewTimeAndFollowPoints();
+    //更新用户观看时长积分 与 关注积分（区别于加经验值）//暂时注释掉，不处理加积分提升性能
+    // insertOrUpdateAllUserViewTimeAndFollowPoints();
 }
 
 /**

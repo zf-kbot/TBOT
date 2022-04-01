@@ -44,7 +44,8 @@ let chatModerationSettings = {
 let bannedWords = {
     words: []
 };
-
+//记录进入Moderation-manager.js的chatMessage
+let currentModerationMessage;
 function getBannedWordsList() {
     if (!bannedWords || !bannedWords.words) return [];
     return bannedWords.words.map(w => w.text);
@@ -71,13 +72,26 @@ function startModerationService() {
     moderationService.on("message", event => {
         if (event == null) return;
         switch (event.type) {
-            case "deleteMessage": {
-                if (event.messageId) {
-                    logger.debug(`Chat message with id '${event.messageId}' contains a banned word. Deleting...`);
-                    chat.deleteMessage(event.messageId);
-                }
-                break;
+        case "deleteMessage": {
+            if (event.messageId) {
+                logger.debug(`Chat message with id '${event.messageId}' contains a banned word. Deleting...`);
+                //触发默认黑名单词汇，写入punishment history中
+                let punishmentHistoryItem = {
+                    _id: currentModerationMessage.id,
+                    phrase: "default blacklist words",
+                    punishment: "delete",
+                    message: currentModerationMessage.rawText,
+                    userId: currentModerationMessage.userId,
+                    username: currentModerationMessage.username,
+                    profilePicUrl: currentModerationMessage.profilePicUrl,
+                    createdAt: new Date().getTime()
+                };
+                const punishmenthistorydb = require('../../database/punishmentHistoryDatabase');
+                punishmenthistorydb.createPunishmentHistory(punishmentHistoryItem);
+                chat.deleteMessage(event.messageId);
             }
+            break;
+        }
         }
     });
 
@@ -202,59 +216,60 @@ async function moderateMessage(chatMessage) {
     ) return;
 
     let moderateMessage = false;
-
+    //判断是否在豁免角色范围内
     const userExempt = rolesManager.userIsInRole(chatMessage.username, chatMessage.roles,
         chatModerationSettings.exemptRoles);
 
     if (!userExempt) {
         moderateMessage = true;
     }
+    const chat = require("../twitch-chat");
+
+    //这里区分消息过滤和黑名单词汇，故从if(moderateMessage)中拿出来，如果要统一设置豁免的角色，直接拿下去
+    if (chatModerationSettings.emoteLimit.enabled && !!chatModerationSettings.emoteLimit.max) {
+        const emoteCount = chatMessage.parts.filter(p => p.type === "emote").length;
+        const emojiCount = chatMessage.parts
+            .filter(p => p.type === "text")
+            .reduce((acc, part) => acc + countEmojis(part.text), 0);
+        if ((emoteCount + emojiCount) > chatModerationSettings.emoteLimit.max) {
+            chat.deleteMessage(chatMessage.id);
+            return;
+        }
+    }
+    //重复单词数字汉字
+    if (chatModerationSettings.repetitions.enabled && !!chatModerationSettings.repetitions.max) {
+        const repetitionsCount = chatMessage.parts
+            .filter(p => p.type === "text")
+            .reduce((acc, part) => acc + countRepetitions(part.text), 0);
+        if (repetitionsCount > chatModerationSettings.repetitions.max) {
+            chat.deleteMessage(chatMessage.id);
+            return;
+        }
+    }
+    //重复大写
+    if (chatModerationSettings.excessCaps.enabled && !!chatModerationSettings.excessCaps.max) {
+        const excessCapsCount = chatMessage.parts
+            .filter(p => p.type === "text")
+            .reduce((acc, part) => acc + countExcessCaps(part.text), 0);
+        if (excessCapsCount > chatModerationSettings.excessCaps.max) {
+            chat.deleteMessage(chatMessage.id);
+            return;
+        }
+    }
+    //重复符号
+    if (chatModerationSettings.symbols.enabled && !!chatModerationSettings.symbols.max) {
+        const symbolsCount = chatMessage.parts
+            .filter(p => p.type === "text")
+            .reduce((acc, part) => acc + countSymbols(part.text), 0);
+        if (symbolsCount > chatModerationSettings.symbols.max) {
+            chat.deleteMessage(chatMessage.id);
+            // chat.timeoutUser(chatMessage.username,20,"");
+            return;
+        }
+    }
 
     if (moderateMessage) {
-        const chat = require("../twitch-chat");
-
-        if (chatModerationSettings.emoteLimit.enabled && !!chatModerationSettings.emoteLimit.max) {
-            const emoteCount = chatMessage.parts.filter(p => p.type === "emote").length;
-            const emojiCount = chatMessage.parts
-                .filter(p => p.type === "text")
-                .reduce((acc, part) => acc + countEmojis(part.text), 0);
-            if ((emoteCount + emojiCount) > chatModerationSettings.emoteLimit.max) {
-                chat.deleteMessage(chatMessage.id);
-                return;
-            }
-        }
-        //重复单词数字汉字
-        if (chatModerationSettings.repetitions.enabled && !!chatModerationSettings.repetitions.max) {
-            const repetitionsCount = chatMessage.parts
-                .filter(p => p.type === "text")
-                .reduce((acc, part) => acc + countRepetitions(part.text), 0);
-            if (repetitionsCount > chatModerationSettings.repetitions.max) {
-                chat.deleteMessage(chatMessage.id);
-                return;
-            }
-        }
-        //重复大写
-        if (chatModerationSettings.excessCaps.enabled && !!chatModerationSettings.excessCaps.max) {
-            const excessCapsCount = chatMessage.parts
-                .filter(p => p.type === "text")
-                .reduce((acc, part) => acc + countExcessCaps(part.text), 0);
-            if (excessCapsCount > chatModerationSettings.excessCaps.max) {
-                chat.deleteMessage(chatMessage.id);
-                return;
-            }
-        }
-        //重复符号
-        if (chatModerationSettings.symbols.enabled && !!chatModerationSettings.symbols.max) {
-            const symbolsCount = chatMessage.parts
-                .filter(p => p.type === "text")
-                .reduce((acc, part) => acc + countSymbols(part.text), 0);
-            if (symbolsCount > chatModerationSettings.symbols.max) {
-                chat.deleteMessage(chatMessage.id);
-                // chat.timeoutUser(chatMessage.username,20,"");
-                return;
-            }
-        }
-
+        //这里是超链接的设定。该功能未放开UI界面。
         if (chatModerationSettings.urlModeration.enabled) {
             if (permitCommand.hasTemporaryPermission(chatMessage.username)) return;
 
@@ -291,7 +306,8 @@ async function moderateMessage(chatMessage) {
                 chat.sendChatMessage(outputMessage);
             }
         }
-
+        //可能需要被删除的消息,
+        currentModerationMessage = chatMessage;
         const message = chatMessage.rawText;
         const messageId = chatMessage.id;
         moderationService.postMessage(
@@ -361,14 +377,25 @@ function load() {
     try {
         let settings = getChatModerationSettingsDb().getData("/");
         if (settings && Object.keys(settings).length > 0) {
-            chatModerationSettings = settings;
+            //这里在when ready检测初始化时非常重要，需要判断值的问题，否则在moderateMessage()方法中会提示undefined,直接报error
             if (settings.exemptRoles == null) {
                 settings.exemptRoles = [];
             }
             if (settings.emoteLimit == null) {
                 settings.emoteLimit = { enabled: false, max: 10 };
             }
-
+            if (settings.bannedWordList == null) {
+                settings.bannedWordList = { enabled: false};
+            }
+            if (settings.repetitions == null) {
+                settings.repetitions = { enabled: false, max: 10};
+            }
+            if (settings.excessCaps == null) {
+                settings.excessCaps = { enabled: false, max: 10};
+            }
+            if (settings.symbols == null) {
+                settings.symbols = { enabled: false, max: 10};
+            }
             if (settings.urlModeration == null) {
                 settings.urlModeration = {
                     enabled: false,
@@ -383,6 +410,7 @@ function load() {
             if (settings.urlModeration.enabled) {
                 permitCommand.registerPermitCommand();
             }
+            chatModerationSettings = settings;
         }
 
         let words = getBannedWordsDb().getData("/");

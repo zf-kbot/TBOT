@@ -17,7 +17,13 @@
                         <i ng-class="$ctrl.getClass()"></i>
                     </span>
                 </div>
-                <div class="nav-link-title" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">{{$ctrl.name}}</div>
+                <div class="nav-link-title" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">{{$ctrl.name}}
+                    <span ng-if="$ctrl.name === 'Punishment History' || $ctrl.name === 'El Castigo Historia'"
+                        style="color: #9145ff; font-style: italic; border: 1px solid; border-radius: 5px; font-size: 7px; position: absolute;"
+                    >
+                        New
+                    </span>
+                </div>
                 <div ng-show="$ctrl.hasBadge" class="nav-update-badge" ng-class="{'contracted': !$ctrl.sbm.navExpanded}">
                     <span class="label label-danger">{{$ctrl.badgeText}}</span>
                 </div>

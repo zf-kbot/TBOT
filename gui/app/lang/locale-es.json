@@ -38,7 +38,8 @@
         "GUARD": {
             "GUARD": "Guardia",
             "MESSAGEFILTER": "Filtro De Mensajes",
-            "BLACKLISTEDWORDS": "Palabras En Lista Negra"
+            "BLACKLISTEDWORDS": "Palabras En Lista Negra",
+            "PUNISHMENTHISTORY": "El Castigo Historia"
         },
         "LOYALTYCOMMUNITY": {
             "LOYALTYCOMMUNITY": "Comunidad Lealtad",
@@ -504,7 +505,9 @@
         "DESC": "Al incluir ciertas palabras y frases en la lista negra, puede eliminar ciertos comportamientos no deseados de la charla.",
         "TABLE": {
             "HEADER": {
-                "PHRASE": "frase",
+                "PHRASE": "Frase",
+                "PUNISHMENT": "El Castigo",
+                "DURATION": "Duración(Segundos)",
                 "TIME_OUT": "Expulsado",
                 "STATUS": "Situación",
                 "EDIT": "Editar",
@@ -520,6 +523,7 @@
         "IGNORE_LETTER_CASE":"Ignorar caso de carta",
         "IGNORE_WORD_BOUNDRIES":"Ignorar los límites de palabras",
         "CHECK_USERNAME":"Comprobar nombre de usuario",
+        "PUNISHMENT": "El Castigo",
         "TIME_OUT":"Expulsado",
         "TIME_OUT_TOOLTIP":"Una vez que Twitchbot detecta una frase en la lista negra en el mensaje de chat de un usuario,Quita su mensaje del chat, y luego pone al usuario en un tiempo de espera de chat donde no puede enviar más mensajes a Twitch chat hasta que su tiempo de espera haya expirado.",
         "SECONDS":"segundos",
@@ -528,7 +532,27 @@
             "QUESTION":"¿Está seguro de que desea eliminar el comando",
             "CONFIRMlABEL_DELETE": "Borrar",
             "CONFIRMlABEL_CANCEL": "Cancelar"
+        },
+        "SETTING": {
+            "USE_DEFAULT_BLACKLIST": "Usar Predeterminada Lista Negra",
+            "USE_DEFAULT_BLACKLIST_TOOLTIP": "Tener esto habilitado nos permitirá eliminar palabras ofensivas comunes del chat, como el racismo, insultar a las mujeres, palabras ofensivas, etc.",
+            "EXEMPT_USER_GROUP": "Grupo De Usuarios Exentos",
+            "EXEMPT_USER_GROUP_TOOLTIP": "Este es el nivel de rol de usuario mínimo requerido para estar exento de este filtro. El nivel de rol de usuario se muestra del más alto al más bajo.",
+            "EXEMPT_USER_GROUP_ROLE": {
+                "OWNER": "Propietario",
+                "MOD": "Mod",
+                "VIP": "Vip",
+                "SUBSCRIBER": "Suscripción"
+            },
+            "CANDIDATE_PUNISHMENT": {
+                "TIMEOUT": "Timeout",
+                "BAN": "Prohibir",
+                "PURGE": "Purga"
+            }
         }
+    },
+    "PUNISHMENTHISTORY": {
+        "DESC": "El historial de castigos proporciona registros detallados de las personas que activaron las palabras en la lista negra."
     },
     "LOYALSETTING": {
         "DESC": "XP es una medida de la lealtad y la actividad del público del Canal. Al seguir viendo streaming, chat, suscripciones o vítores, los espectadores pueden ganar XP y aumentar su lealtad. Puede personalizar su sistema de lealtad usando los siguientes ajustes. Haga clic aquí para más información.",
@@ -587,6 +611,7 @@
         "AUTO_REPLY": "Respuesta Automática",
         "MESSAGE_FILTER": "Filtro De Mensajes",
         "BLACKLISTED_WORDS": "Palabras En Lista Negra",
+        "PUNISHMENT_HISTORY": "El Castigo Historia",
         "KOL_LOYAL_SETTING": "Ajuste de lealtad",
         "KOL_LEADERSHIP": "Liderazgo"
     },
@@ -609,7 +634,11 @@
             "LV": "LV",
             "XP": "XP",
             "ROLES": "ROLES",
-            "LAST SEEN": "ÚLTIMA VISTA"
+            "LAST SEEN": "ÚLTIMA VISTA",
+            "MESSAGE": "Mensajes",
+            "PHRASE": "Frase",
+            "PUNISHMENT": "El Castigo",
+            "DATE": "Fecha"
         }
     }
 }

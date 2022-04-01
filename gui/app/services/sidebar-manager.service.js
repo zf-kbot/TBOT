@@ -139,6 +139,11 @@
                     controller: "kolBlacklistedWordsController"
                 })
 
+                .when("/punishment-history", {
+                    templateUrl: "./templates/guard/_kol-punishment-history.html",
+                    controller: "kolPunishmentHistoryController"
+                })
+
                 .when("/auto-reply", {
                     templateUrl: "./templates/commands/_kol-auto-reply.html",
                     controller: "kolAutoReplyController"

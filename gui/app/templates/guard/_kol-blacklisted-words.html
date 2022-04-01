@@ -37,27 +37,57 @@
         >
         <i class="fa fa-plus-circle hvr-icon" style="margin-right: 5px"></i>
         {{'NEW' | translate}} {{'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate}}
-      </button>
-    </div>
+        </button>
+      </div>
       <div style="padding: 15px">
         <!-- <div style="display: flex;flex-wrap: wrap;"> -->
-          <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
-            <div class="content-block-body">
-              <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
-                <div class="col-md-1">
-                  <span class="hvr-bob"><i class="fa fa-minus-circle" style="font-size: 8em;"></i></span>
-                </div>
-                <div class="toggle-button-container"  style="width: 80%;text-align: left;">
-                  <p style="font-size: 2em;" class = "bgweight">
-                    {{'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate }}
-                  </p>
-                  <span class="bgfontcolor">
-                    {{'BLACKLISTEDWORDS.DESC' | translate}}
-                  </span>
-                </div>
-              </div>         
-            </div>
+        <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+          <div class="content-block-body">
+            <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+              <div class="col-md-1">
+                <span class="hvr-bob"><i class="fa fa-minus-circle" style="font-size: 8em;"></i></span>
+              </div>
+              <div class="toggle-button-container"  style="width: 80%;text-align: left;">
+                <p style="font-size: 2em;" class = "bgweight">
+                  {{'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate }}
+                </p>
+                <span class="bgfontcolor">
+                  {{'BLACKLISTEDWORDS.DESC' | translate}}
+                </span>
+              </div>
+            </div>         
           </div>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <div class="setting-text" style="width: 15%;">
+              <span style="margin-right: 5%">{{ 'BLACKLISTEDWORDS.SETTING.USE_DEFAULT_BLACKLIST' | translate }}</span>
+              <tooltip text="useDefaultBlacklistTip"></tooltip>
+          </div>
+          <div style="width: 27%;">
+              <input class="tgl tgl-light" id="upgrade-notification" type="checkbox"
+                  ng-model="cms.chatModerationData.settings.bannedWordList.enabled"
+                  ng-click="changeDefaultBlacklistedWordsStatus()"/>
+              <label class="tgl-btn" for="upgrade-notification"></label>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <div class="setting-text" style="width: 15%;">
+            <span class="setting-text" style="margin-right: 2%;">{{ 'BLACKLISTEDWORDS.SETTING.EXEMPT_USER_GROUP' | translate }}</span>
+            <tooltip text="exemptUserGroup"></tooltip>
+          </div>
+          <div style="width: 27%;" class="btn-group" uib-dropdown is-open="status.isopen">
+              <button style="width: 121px;" class="btn loyal-setting-multi-checkbox" type="button" uib-dropdown-toggle ng-disabled="disabled">
+                  {{ roleSelected }} <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                  <li ng-repeat="role in translationCandidateExemptRoles">
+                      <a href ng-click="selectExemptRolesOption(role)">
+                          {{ role }}
+                      </a>
+                  </li>
+              </ul>
+          </div>
+        </div>
         <!-- </div> -->
 
         <table
@@ -70,7 +100,8 @@
           <thead>
             <tr style="font-size: 11px; color: white;">
               <th style="text-align: left;padding-left: 15px;">{{ 'BLACKLISTEDWORDS.TABLE.HEADER.PHRASE' | translate }}</th>
-              <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.TIME_OUT' | translate }}</th>
+              <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.PUNISHMENT' | translate }}</th>
+              <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.DURATION' | translate }}</th>
               <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.STATUS' | translate }}</th>
               <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.EDIT' | translate }}</th>
               <th>{{ 'BLACKLISTEDWORDS.TABLE.HEADER.DELETE' | translate}}</th>
@@ -91,6 +122,29 @@
                   {{command.trigger}}
                 </span>
               </td>
+              <!-- Punishment -->
+              <td class="command-trigger-cell">
+                <span
+                  class="trigger"
+                  uib-tooltip="{{command.trigger}}"
+                  tooltip-popup-delay="500"
+                  tooltip-append-to-body="true"
+                  >{{command.effects.list[0].type === "twitcherbot:modTimeout" ? "Timeout" : (command.effects.list[0].type === "twitcherbot:modban" ? "Ban" : "Purge")}} </span
+                >
+                <tooltip
+                  ng-if="command.triggerIsRegex"
+                  text="'Description: ' + command.regexDescription"
+                ></tooltip>
+                <span
+                  class="muted"
+                  style="margin-left: 5px; font-size: 11px"
+                  ng-show="command.hidden"
+                  uib-tooltip="Hidden from !commands list"
+                  tooltip-append-to-body="true"
+                >
+                  <i class="fa fa-eye-slash"></i>
+                </span>
+              </td>
               <!-- intervel -->
               <td class="command-trigger-cell">
                 <span
@@ -98,8 +152,8 @@
                   uib-tooltip="{{command.trigger}}"
                   tooltip-popup-delay="500"
                   tooltip-append-to-body="true"
-                  >{{command.effects.list[0].time}} {{ 'BLACKLISTEDWORDS.TABLE.BODY.SEC' | translate}}</span
-                >
+                  >{{command.effects.list[0].time}} 
+                </span>
                 <tooltip
                   ng-if="command.triggerIsRegex"
                   text="'Description: ' + command.regexDescription"

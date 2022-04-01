@@ -1,0 +1,39 @@
+<div
+  style="
+    min-width: 500px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  "
+>
+  <div>
+      <div style="padding: 15px">
+        <div class="moderation-feature-block" style="margin-top: 15px;width: 80%;">
+          <div class="content-block-body">
+            <div class="title-toggle-button-container" style="flex-wrap: nowrap;">
+              <div class="col-md-1">
+                <span class="hvr-bob"><i class="fa fa-list-alt" style="font-size: 8em;"></i></span>
+              </div>
+              <div class="toggle-button-container"  style="width: 80%;text-align: left;">
+                <p style="font-size: 2em;" class = "bgweight">
+                  {{'SIDEBAR.GUARD.PUNISHMENTHISTORY' | translate }}
+                </p>
+                <span class="bgfontcolor">
+                  {{'PUNISHMENTHISTORY.DESC' | translate}}
+                </span>
+              </div>
+            </div>         
+          </div>
+        </div>
+
+        <sortable-table table-data-set="ps.viewers" headers="headers" query="viewerSearch" clickable="true"
+        on-row-click="viewerRowClicked(data)" filter-data-func="filterDataFunc()" track-by-field="_id" starting-sort-field="createdAt"
+        sort-initially-reversed= true
+        no-data-message="No viewer data available yet!" page-size="viewerTablePageSize">
+        </sortable-table>
+
+      </div>
+    </div>
+  </div>
+</div>

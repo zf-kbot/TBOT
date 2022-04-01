@@ -94,6 +94,10 @@ exports.whenReady = async () => {
     const startupScriptsManager = require("../../../common/handlers/custom-scripts/startup-scripts-manager");
     startupScriptsManager.loadStartupConfig();
 
+    //检测默认黑名单词汇是否存在
+    const kolSource = require("../../../common/kol-source");
+    kolSource.loadDefaultBlacklistedWords();
+
     const chatModerationManager = require("../../../chat/moderation/chat-moderation-manager");
     chatModerationManager.load();
 
@@ -168,6 +172,10 @@ exports.whenReady = async () => {
     const chatmessagedb = require("../../../database/chatMessageDatabase");
     chatmessagedb.loadChatMessageDatabase();
 
+    logger.debug("Creating or connecting punishmentHistory database");
+    const punishmenthistorydb = require("../../../database/punishmentHistoryDatabase");
+    punishmenthistorydb.loadPunishmentHistoryDatabase();
+
     logger.debug("Creating or connecting emote database");
     const emotedb = require("../../../database/emoteDatabase");
     emotedb.loadEmoteDatabase();
@@ -208,6 +216,7 @@ exports.whenReady = async () => {
 
     const streamInfoPoll = require("../../../twitch-api/stream-info-poll");
     streamInfoPoll.startStreamInfoPoll();
+
 
     const streamTags = require("../../../twitch-api/stream-tags");
     const streamTagsSource = require("../../../app-management/electron/startup-resource/streamtags.json");

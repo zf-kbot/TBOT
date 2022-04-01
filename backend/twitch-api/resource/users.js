@@ -160,7 +160,7 @@ async function getUsersChatRoles(userIdOrName = "") {
         }
 
         //添加vip
-        if (vips.some(v => v === username)) {
+        if (vips.some(v => v.toLowerCase() === username)) {
             roles.push("vip");
         }
 

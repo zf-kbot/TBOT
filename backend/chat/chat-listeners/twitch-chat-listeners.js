@@ -56,9 +56,11 @@ exports.setupChatListeners = (streamerChatClient) => {
     const client = twitchApi.getClient();
     streamerChatClient.onPrivmsg(async (_channel, user, messageText, msg) => {
         const twitcherbotChatMessage = await chatHelpers.buildTwitchbotChatMessage(msg, messageText);
-
-        await chatModerationManager.moderateMessage(twitcherbotChatMessage);
-
+        try {
+            await chatModerationManager.moderateMessage(twitcherbotChatMessage);
+        } catch (error) {
+            logger.error("chatModerationManager moderateMessage error", error);
+        }
         // send to the frontend
         if (twitcherbotChatMessage.isHighlighted) {
             twitcherbotChatMessage.customRewardId = HIGHLIGHT_MESSAGE_REWARD_ID;

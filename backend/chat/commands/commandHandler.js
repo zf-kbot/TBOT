@@ -16,6 +16,8 @@ const commandManager = require("./CommandManager");
 const customCommandExecutor = require("./customCommandExecutor");
 
 const cooldownCache = new NodeCache({ stdTTL: 1, checkperiod: 1 });
+const rolesManager = require("../../roles/custom-roles-manager");
+const jsonDataHelpers = require("../../common/json-data-helpers");
 
 let handledMessageIds = [];
 
@@ -165,10 +167,10 @@ function flushCooldownCache() {
 
 function getRemainingCooldown(command, triggeredSubcmd, username) {
     let globalCacheKey = `${command.id}${triggeredSubcmd ? `:${triggeredSubcmd.id || triggeredSubcmd.arg}` : ""
-        }`;
+    }`;
 
     let userCacheKey = `${command.id}${triggeredSubcmd ? `:${triggeredSubcmd.id || triggeredSubcmd.arg}` : ""
-        }:${username}`;
+    }:${username}`;
 
     let remainingGlobal = 0,
         remainingUser = 0;
@@ -417,6 +419,13 @@ async function handleChatMessage(twitcherbotChatMessage) {
         logger.debug("Message came from streamer and this command is set to ignore it");
         return false;
     }
+    //判断是否在豁免角色范围内
+    let exemptRoles = jsonDataHelpers.getArrayDataMsgs("/chat/moderation/chat-moderation-settings", "/exemptRoles");
+    const userExempt = rolesManager.userIsInRole(twitcherbotChatMessage.username, twitcherbotChatMessage.roles, exemptRoles);
+    if (userExempt) {
+        logger.debug("Message came from userExempt and this command is set to ignore it");
+        return false;
+    }
 
     // build usercommand object
     let userCmd = buildUserCommand(command, rawMessage, commandSender, twitcherbotChatMessage.roles);
@@ -536,6 +545,26 @@ async function handleChatMessage(twitcherbotChatMessage) {
     if (command.type === "custom") {
         logger.debug("Updating command count.");
         updateCommandCount(command);
+
+        //写入punishment history 日志
+        let punishment = "timeout";//默认为timeout
+        if (command.effects.list[0].type === "twitcherbot:modban") {
+            punishment = "ban";
+        } else if (command.effects.list[0].type === "twitcherbot:modpurge") {
+            punishment = "purge";
+        }
+        let punishmentHistoryItem = {
+            _id: twitcherbotChatMessage.id,
+            phrase: command.trigger,
+            punishment: punishment,
+            message: twitcherbotChatMessage.rawText,
+            userId: twitcherbotChatMessage.userId,
+            username: twitcherbotChatMessage.username,
+            profilePicUrl: twitcherbotChatMessage.profilePicUrl,
+            createdAt: new Date().getTime()
+        };
+        const punishmenthistorydb = require('../../database/punishmentHistoryDatabase');
+        punishmenthistorydb.createPunishmentHistory(punishmentHistoryItem);
     }
 
     fireCommand(command, userCmd, twitcherbotChatMessage, commandSender, false, false);

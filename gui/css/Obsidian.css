@@ -10012,7 +10012,8 @@ table.fb-table-alt {
   align-items: flex-start;
   top: 0;
   z-index: 9999;
-  position: sticky; }
+  position: sticky;
+  background: #525565; }
 
 .stream-info-setting {
   width: 100%; }

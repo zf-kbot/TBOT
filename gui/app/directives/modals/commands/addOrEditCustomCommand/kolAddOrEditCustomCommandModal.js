@@ -18,9 +18,39 @@
             $timeout
         ) {
             let $ctrl = this;
+            $scope.candidatePunishment = [
+                "BLACKLISTEDWORDS.SETTING.CANDIDATE_PUNISHMENT.TIMEOUT",
+                "BLACKLISTEDWORDS.SETTING.CANDIDATE_PUNISHMENT.BAN",
+                "BLACKLISTEDWORDS.SETTING.CANDIDATE_PUNISHMENT.PURGE"
+            ];
             $ctrl.translations = {
                 'BLACKLISTEDWORDS.PHRASE_TOOLTIP': "",
                 'BLACKLISTEDWORDS.TIME_OUT_TOOLTIP': ""
+            };
+            //设置黑名单词惩罚方式
+            $scope.selectPunishmentOption = (punishment) => {
+                $scope.punishmentSelected = punishment;
+                //选取元素在selectPunishmentOption中的下标
+                switch ($scope.candidatePunishment.indexOf(punishment)) {
+                case 0: $ctrl.chatEffect = {
+                    id: uuid(),
+                    type: "twitcherbot:modTimeout",
+                    username: "$username",
+                    time: 1
+                }; break;
+                case 1: $ctrl.chatEffect = {
+                    id: uuid(),
+                    type: "twitcherbot:modban",
+                    action: "Ban",
+                    username: "$username"
+                }; break;
+                case 2: $ctrl.chatEffect = {
+                    id: uuid(),
+                    type: "twitcherbot:modpurge",
+                    username: "$username"
+                }; break;
+                }
+                $ctrl.command.effects.list = [$ctrl.chatEffect];
             };
             const translationRes = $translate.instant(Object.keys($ctrl.translations));
             for (let key in $ctrl.translations) {
@@ -206,6 +236,9 @@
                 if ($ctrl.command.ignoreBot === undefined) {
                     $ctrl.command.ignoreBot = true;
                 }
+                if ($ctrl.command.ignoreStreamer === undefined) {
+                    $ctrl.command.ignoreStreamer = true;
+                }
 
                 if ($ctrl.command.sendCooldownMessage == null) {
                     $ctrl.command.sendCooldownMessage = true;
@@ -223,6 +256,15 @@
                 //         };
                 //     })
                 // );
+
+                //初始化下拉框的状态
+                if ($ctrl.command.effects.list[0].type === "twitcherbot:modTimeout") {
+                    $scope.punishmentSelected = $scope.candidatePunishment[0];
+                } else if ($ctrl.command.effects.list[0].type === "twitcherbot:modban") {
+                    $scope.punishmentSelected = $scope.candidatePunishment[1];
+                } else {
+                    $scope.punishmentSelected = $scope.candidatePunishment[2];
+                }
 
                 $scope.$on("modal.closing", function () {
                     utilityService.removeSlidingModal();

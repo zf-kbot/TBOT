@@ -15,13 +15,46 @@
             gaService,
             kolHistoryService,
             logger,
-            $translate
+            $translate,
+            chatModerationService
         ) {
             gaService.sendEvent('blacklisted_words', 'open');
             // Cache commands on app load.
             commandsService.refreshCommands();
 
             $scope.activeCmdTab = 0;
+            $scope.cms = chatModerationService;
+            $scope.candidateExemptRoles = [
+                "BLACKLISTEDWORDS.SETTING.EXEMPT_USER_GROUP_ROLE.OWNER",
+                "BLACKLISTEDWORDS.SETTING.EXEMPT_USER_GROUP_ROLE.MOD",
+                "BLACKLISTEDWORDS.SETTING.EXEMPT_USER_GROUP_ROLE.VIP",
+                "BLACKLISTEDWORDS.SETTING.EXEMPT_USER_GROUP_ROLE.SUBSCRIBER"
+            ];
+            //转义豁免角色的下拉框列表
+            $scope.translationCandidateExemptRoles = [];
+            for (let i = 0; i < $scope.candidateExemptRoles.length; i++) {
+                $translate($scope.candidateExemptRoles[i]).then((res) => {
+                    $scope.translationCandidateExemptRoles[i] = res;
+                });
+            }
+            $scope.useDefaultBlacklistTip = "";
+            $translate(`BLACKLISTEDWORDS.SETTING.USE_DEFAULT_BLACKLIST_TOOLTIP`).then((ret) => {
+                $scope.useDefaultBlacklistTip = ret;
+            });
+            $scope.exemptUserGroup = "";
+            $translate(`BLACKLISTEDWORDS.SETTING.EXEMPT_USER_GROUP_TOOLTIP`).then((ret) => {
+                $scope.exemptUserGroup = ret;
+            });
+            //获取配置中的豁免角色
+            if ($scope.cms.chatModerationData.settings.exemptRoles.length <= 1) {
+                $scope.roleSelected = $translate($scope.candidateExemptRoles[0]).then((res) => {
+                    $scope.roleSelected = res;
+                });
+            } else {
+                $scope.roleSelected = $translate($scope.candidateExemptRoles[$scope.cms.chatModerationData.settings.exemptRoles.length - 1]).then((res) => {
+                    $scope.roleSelected = res;
+                });
+            }
 
             $scope.commandsService = commandsService;
             $scope.sts = sortTagsService;
@@ -37,12 +70,32 @@
                     $scope.translations[key] = translationRes[key];
                 }
             }
+            //待整理
             function filterCommands() {
                 return triggerSearchFilter(sortTagSearchFilter(commandsService.getCustomCommands(), sortTagsService.getSelectedSortTag("commands")), commandsService.customCommandSearch);
             }
-
+            //改变default 黑名单词汇状态并存储
+            $scope.changeDefaultBlacklistedWordsStatus = () => {
+                //点击按钮后，更改按钮对应属性值
+                $scope.cms.chatModerationData.settings.bannedWordList.enabled = !$scope.cms.chatModerationData.settings.bannedWordList.enabled;
+                $scope.cms.saveChatModerationSettings();
+                gaService.sendEvent('blacklisted_words', 'active', 'use_default_blacklist');
+            };
+            //设置黑名单词汇豁免角色
+            $scope.selectExemptRolesOption = (exemptRole) => {
+                $scope.roleSelected = exemptRole;
+                //取选中元素在translationCandidateExemptRoles 中的下标
+                switch ($scope.translationCandidateExemptRoles.indexOf(exemptRole)) {
+                case 0: $scope.cms.chatModerationData.settings.exemptRoles = ["broadcaster"]; break;
+                case 1: $scope.cms.chatModerationData.settings.exemptRoles = ["broadcaster", "mod"]; break;
+                case 2: $scope.cms.chatModerationData.settings.exemptRoles = ["broadcaster", "mod", "vip"]; break;
+                case 3: $scope.cms.chatModerationData.settings.exemptRoles = ["broadcaster", "mod", "vip", "sub"];
+                }
+                $scope.cms.saveChatModerationSettings();
+                gaService.sendEvent('blacklisted_words', 'click', 'exempt_user_group');
+            };
             $scope.filteredCommands = filterCommands();
-
+            //待整理
             $scope.getPermissionType = command => {
 
                 let permissions = command.restrictionData && command.restrictionData.restrictions &&
@@ -58,7 +111,7 @@
                     return "None";
                 }
             };
-
+            //待整理
             $scope.getPermissionTooltip = command => {
 
                 let permissions = command.restrictionData && command.restrictionData.restrictions &&
@@ -82,14 +135,14 @@
                     return "This command is available to everyone";
                 }
             };
-
+            //待整理
             $scope.manuallyTriggerCommand = id => {
                 listenerService.fireEvent(
                     listenerService.EventType.COMMAND_MANUAL_TRIGGER,
                     id
                 );
             };
-
+            //修改自定义的黑名单词汇状态
             $scope.toggleCustomCommandActiveState = command => {
                 if (command == null) return;
                 command.active = !command.active;
@@ -126,7 +179,7 @@
                     }
                 });
             };
-
+            //复制自定义的黑名单词汇(未使用)
             $scope.duplicateCustomCommand = command => {
                 let copiedCommand = objectCopyHelper.copyObject("command", command);
 
@@ -137,7 +190,7 @@
                 commandsService.saveCustomCommand(copiedCommand);
                 commandsService.refreshCommands();
             };
-
+            //新建或编辑自定义的黑名单词汇命令
             $scope.openAddOrEditCustomCommandModal = function(command) {
 
                 utilityService.showModal({
@@ -189,10 +242,12 @@
             //     }
             // };
             //上面也是添加计时器
+            //待整理
             $scope.innerChangeCommandActive = function(command) {
                 commandsService.saveCustomCommand(command);
                 commandsService.refreshCommands();
             };
+            //用户自定义的黑名单词汇状态开关切换
             $scope.changeCommandActive = function(command) {
                 command.active = !command.active;
                 if (command.active) {
@@ -202,7 +257,7 @@
                 }
                 $scope.innerChangeCommandActive(command);
             };
-
+            //待整理
             $scope.sortableOptions = {
                 handle: ".dragHandle",
                 'ui-preserve-size': true,
@@ -214,7 +269,7 @@
                     commandsService.saveAllCustomCommands(commandsService.commandsCache.customCommands);
                 }
             };
-
+            //待整理
             $scope.commandMenuOptions = (command) => {
                 const options = [
                     {

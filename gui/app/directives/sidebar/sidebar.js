@@ -31,6 +31,7 @@
                         <nav-category name="{{'SIDEBAR.GUARD.GUARD' | translate }}" pad-top="true"></nav-category>
                         <nav-link page="Message Filter" name="{{'SIDEBAR.GUARD.MESSAGEFILTER' | translate }}" icon="fa-filter"></nav-link>
                         <nav-link page="Blacklisted Words" name="{{'SIDEBAR.GUARD.BLACKLISTEDWORDS' | translate }}" icon="fa-minus-circle"></nav-link>
+                        <nav-link page="Punishment History" name="{{'SIDEBAR.GUARD.PUNISHMENTHISTORY' | translate }}" icon="fa-list-alt"></nav-link>
                         
                         <nav-category name="{{'SIDEBAR.LOYALTYCOMMUNITY.LOYALTYCOMMUNITY' | translate }}" pad-top="true"></nav-category>
                         <nav-link page="Kol Loyal Setting" name="{{'SIDEBAR.LOYALTYCOMMUNITY.LOYALSETTING' | translate }}" icon="fa-gear"></nav-link>

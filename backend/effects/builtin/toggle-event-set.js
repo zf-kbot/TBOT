@@ -13,7 +13,7 @@ const chat = {
         id: "twitcherbot:toggle-event-set",
         name: "Toggle Event Set",
         description: "Toggle an event sets active status",
-        icon: "fad fa-toggle-off",
+        icon: "fa fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(

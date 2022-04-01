@@ -56,7 +56,7 @@
             service.getSystemCommands = () => service.commandsCache.systemCommands;
 
             service.getCustomCommands = () => service.commandsCache.customCommands;
-
+            //保存用户自定义的黑名单词汇
             service.saveCustomCommand = function(command, user = null) {
                 logger.debug("saving command: " + command.trigger);
                 if (command.id == null || command.id === "") {
@@ -78,7 +78,7 @@
                 if (command.count == null) {
                     command.count = 0;
                 }
-                
+
                 let commandDb = getCommandsDb();
 
                 // Note(ebiggz): Angular sometimes adds properties to objects for the purposes of two way bindings
@@ -149,7 +149,7 @@
                     logger.warn("error when deleting command", err);
                 } //eslint-disable-line no-empty
             };
-
+            //待整理
             listenerService.registerListener(
                 {
                     type: listenerService.ListenerType.SYS_CMDS_UPDATED
@@ -168,7 +168,7 @@
                     service.saveCustomCommand(command);
                 }
             });
-
+            //待整理
             listenerService.registerListener(
                 {
                     type: listenerService.ListenerType.SAVE_CUSTOM_COMMAND
@@ -188,7 +188,7 @@
                     ipcRenderer.send("refreshCommandCache");
                 }
             );
-
+            //待整理
             listenerService.registerListener(
                 {
                     type: listenerService.ListenerType.REMOVE_CUSTOM_COMMAND

@@ -14,7 +14,7 @@ const chat = {
         id: "twitcherbot:toggle-command",
         name: "Toggle Command",
         description: "Toggle a command's active status",
-        icon: "fad fa-toggle-off",
+        icon: "fa fa-toggle-off",
         categories: [EffectCategory.COMMON],
         dependencies: [],
         triggers: effectModels.buildEffectTriggersObject(

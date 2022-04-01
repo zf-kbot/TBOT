@@ -488,8 +488,8 @@ const e = require('cors');
 
                     //add messageItem to chatmessageDb
                     let inputChatMessage = {
-                        chatMessageId : messageItem.data.id,
-                        userId : messageItem.data.userId,
+                        chatMessageId: messageItem.data.id,
+                        userId: messageItem.data.userId,
                         username: messageItem.data.username,
                         timestamp: messageItem.data.timestamp._d,
                         sourceMessage: messageItem.data.rawText,
@@ -498,7 +498,7 @@ const e = require('cors');
                     //写入chatMessage到数据库
                     backendCommunicator.fireEventAsync("addChatMessage", messageItem);
 
-                    backendCommunicator.fireEventAsync("insertOrUpdateUserChatMessagePoints", messageItem.data.userId);
+                    // backendCommunicator.fireEventAsync("insertOrUpdateUserChatMessagePoints", messageItem.data.userId);//该行暂时屏蔽用户聊天加积分(不同于加经验值)
                     //select message by username 后面可能会需要点击查看排行榜上的用户信息
                     // service.userChatMessage = [];
                     // let userId = messageItem.data.userId;

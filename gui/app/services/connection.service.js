@@ -354,11 +354,11 @@
                 delete service.connections[serviceId];
             });
 
-            backendCommunicator.on("show-feedback", () => {
-                utilityService.showModal({
-                    component: "showKolFeedbackModal"
-                });
-            });
+            // backendCommunicator.on("show-feedback", () => {
+            //     utilityService.showModal({
+            //         component: "showKolFeedbackModal"
+            //     });
+            // });
 
             /*
              * OLD CONNECTION STUFF. TODO: Delete

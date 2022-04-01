@@ -38,7 +38,8 @@
         "GUARD": {
             "GUARD": "Guard",
             "MESSAGEFILTER": "Message filter",
-            "BLACKLISTEDWORDS": "Blacklisted words"
+            "BLACKLISTEDWORDS": "Blacklisted words",
+            "PUNISHMENTHISTORY": "Punishment History"
         },
         "LOYALTYCOMMUNITY": {
             "LOYALTYCOMMUNITY": "LOYALTY COMMUNITY",
@@ -469,6 +470,8 @@
         "TABLE": {
             "HEADER": {
                 "PHRASE": "Phrase",
+                "PUNISHMENT": "Punishment",
+                "DURATION": "Duration(Seconds)",
                 "TIME_OUT": "Time Out",
                 "STATUS": "Status",
                 "EDIT": "Edit",
@@ -484,6 +487,7 @@
         "IGNORE_LETTER_CASE":"Ignore letter case",
         "IGNORE_WORD_BOUNDRIES":"Ignore word boundries",
         "CHECK_USERNAME":"Check username",
+        "PUNISHMENT": "Punishment",
         "TIME_OUT":"TIME OUT",
         "TIME_OUT_TOOLTIP":"Once Twitchbot detects a blacklisted phrase in a user's chat message,it removes their message from chat, and then puts the user in a chat timeout where they cannot send any more messages to Twitch chat until their timeout has expired.",
         "SECONDS":"seconds",
@@ -492,7 +496,27 @@
             "QUESTION":"Are you sure you want to delete the command",
             "CONFIRMlABEL_DELETE": "Delete",
             "CONFIRMlABEL_CANCEL": "Cancel"
+        },
+        "SETTING": {
+            "USE_DEFAULT_BLACKLIST": "Use Default Blacklist",
+            "USE_DEFAULT_BLACKLIST_TOOLTIP": "Having this enabled will have us remove common offensive words from chat, such as racism, insulting women, offensive word, etc.",
+            "EXEMPT_USER_GROUP": "Exempt user group",
+            "EXEMPT_USER_GROUP_TOOLTIP": "This is minimum required user role level to be exempt from this filter. User role level are listed from highest to lowest.",
+            "EXEMPT_USER_GROUP_ROLE": {
+                "OWNER": "Owner",
+                "MOD": "Mod",
+                "VIP": "Vip",
+                "SUBSCRIBER": "Subscriber"
+            },
+            "CANDIDATE_PUNISHMENT": {
+                "TIMEOUT": "Timeout",
+                "BAN": "Ban",
+                "PURGE": "Purge"
+            }
         }
+    },
+    "PUNISHMENTHISTORY": {
+        "DESC": "Punishment history provides detailed logs of people who triggered the blacklisted words."
     },
     "LOYALSETTING": {
         "DESC": "XP is an indicator to measure the loyalty and activity of your channel audiences. Viewers get XP and upgrade loyalty levels by continuously watching stream , chating, subscribing or cheering.  You can customize your loyalty system with the following settings. Click here to get more info.",
@@ -551,6 +575,7 @@
         "AUTO_REPLY": "AUTO REPLY",
         "MESSAGE_FILTER": "MESSAGE FILTER",
         "BLACKLISTED_WORDS": "BLACKLISTED WORDS",
+        "PUNISHMENT_HISTORY": "PUNISHMENT HISTORY",
         "KOL_LOYAL_SETTING": "LOYAL SETTING",
         "KOL_LEADERSHIP": "LEADERSHIP"
     },
@@ -573,7 +598,11 @@
             "LV": "LV",
             "XP": "XP",
             "ROLES": "ROLES",
-            "LAST SEEN": "LAST SEEN"
+            "LAST SEEN": "LAST SEEN",
+            "MESSAGE": "Message",
+            "PHRASE": "Phrase",
+            "PUNISHMENT": "Punishment",
+            "DATE": "Date"
         }
     }
 }

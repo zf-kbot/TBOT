@@ -510,7 +510,7 @@
 
             service.getTheme = function() {
                 let theme = getDataFromFile("/settings/theme");
-                return theme != null ? theme : "Obsidian";//默认背景颜色为Midnight风格
+                return theme != null ? theme : "Midnight";//默认背景颜色为Midnight风格
             };
 
             service.setTheme = function(theme) {
